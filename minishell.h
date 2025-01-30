@@ -13,7 +13,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "libft/libft.h"
+# include "libft/sources/libft.h"
 # include <string.h>
 # include <stdarg.h>
 # include <limits.h>

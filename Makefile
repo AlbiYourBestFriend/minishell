@@ -1,29 +1,30 @@
 NAME = minishell
 
-SOURCES = src/minishell.c
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
 
-OBJECTS = ${SOURCES:.c=.o}
+SOURCES = minishell.c
+
+SOURCES_DIR	= sources
+MY_SOURCES	= $(addprefix $(SOURCES_DIR)/,$(SOURCES))
+MY_OBJECTS	= $(MY_SOURCES:.c=.o)
 
 LIFT_DIR = libft
 LIBFT_A = ${LIFT_DIR}/libft.a
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror
-
 all: ${NAME}
 
-${NAME}: ${OBJECTS}
-	${MAKE} -C ${LIFT_DIR} bonus
-	${CC} ${CFLAGS} ${OBJECTS} -o ${NAME}
+${NAME}: ${MY_OBJECTS}
+	${MAKE} -C ${LIFT_DIR}
+	${CC} ${CFLAGS} -o ${NAME} ${MY_OBJECTS} ${LIBFT_A}
 
 clean:
-	${MAKE} -C ${LIFT_DIR} clean
-	rm -f src/*.o
-	rm -f *.o
-
+	@rm -f $(MY_OBJECTS)
+	@$(MAKE) --no-print-directory -C $(LIBFT_DIR) clean
+	
 fclean: clean
-	${MAKE} -C ${LIFT_DIR} fclean
-	rm -f ${NAME}
+	@rm -f $(NAME)
+	@$(MAKE) --no-print-directory -C $(LIBFT_DIR) fclean
 
 re: fclean all
 
