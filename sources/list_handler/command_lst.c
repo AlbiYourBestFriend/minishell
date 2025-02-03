@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_lst.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:21:36 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/03 16:52:00 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/03 19:28:39 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 t_command	*cmdnew(void *content, char **arg)
 {
 	t_command	*list;
-	int	index;
+	int			index;
 
+	content = NULL;
 	if (!arg)
 		return (NULL);
 	list = malloc(sizeof(t_command));
@@ -26,11 +27,10 @@ t_command	*cmdnew(void *content, char **arg)
 	if (!list->args)
 		return (free(list), NULL);
 	index = 1;
-	while ()
-	{
-		/* code */
-	}
-	
+	// while ()
+	// {
+	// 	/* code */
+	// }
 	list->name = NULL;
 	list->args = NULL;
 	list->next = NULL;
@@ -41,7 +41,8 @@ void	cmdadd_back(t_command **lst, t_command *new)
 {
 	t_command	*last;
 
-	last = ft_lstlast(*lst);
+	last = NULL;
+	// last = ft_lstlast(*lst);
 	if (last)
 		last->next = new;
 	else

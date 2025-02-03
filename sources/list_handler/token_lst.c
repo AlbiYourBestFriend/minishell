@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_lst.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:26:56 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/03 15:27:50 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/03 19:28:39 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ t_token	*tokennew(void *content)
 {
 	t_token	*list;
 
+	content = NULL;
 	list = malloc(sizeof(t_token));
 	if (!list)
 		return (NULL);
@@ -27,7 +28,8 @@ void	tokenadd_back(t_token **lst, t_token *new)
 {
 	t_token	*last;
 
-	last = ft_lstlast(*lst);
+	last = NULL;
+	// last = ft_lstlast(*lst);
 	if (last)
 		last->next = new;
 	else
