@@ -24,7 +24,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-// # include <pthread.h>
+# define PROMPT "Minishell : "
+# define EXIT "exit"
 
 typedef struct	s_data
 {
