@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   array_len.c                                        :+:      :+:    :+:   */
+/*   ft_free_tab.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 16:02:16 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/03 19:28:47 by tprovost         ###   ########.fr       */
+/*   Created: 2025/02/03 18:31:34 by tprovost          #+#    #+#             */
+/*   Updated: 2025/02/03 18:33:20 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	array_len(char **array)
+void	ft_free_tab(char **tab)
 {
-	int	index;
+	int	len;
+	int	i;
 
-	index = 0;
-	while (array[index])
-		index++;
-	return (index);
+	len = array_len(tab);
+	i = 0;
+	while (i < len)
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
 }

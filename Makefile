@@ -10,6 +10,7 @@ SOURCES = main.c \
 	list_handler/token_lst.c \
 	utils/array_len.c \
 	utils/ft_copy_tab.c \
+	utils/ft_free_tab.c \
 
 SOURCES_DIR	= sources
 MY_SOURCES	= $(addprefix $(SOURCES_DIR)/,$(SOURCES))

@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:21:36 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/03 17:59:25 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/03 19:28:39 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_command	*cmdnew(void *content, char **arg)
 {
 	t_command	*list;
-	int	index;
+	int			index;
 
 	content = NULL;
 	if (!arg)
@@ -31,7 +31,6 @@ t_command	*cmdnew(void *content, char **arg)
 	// {
 	// 	/* code */
 	// }
-	
 	list->name = NULL;
 	list->args = NULL;
 	list->next = NULL;
