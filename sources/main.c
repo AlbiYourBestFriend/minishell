@@ -15,14 +15,25 @@
 int	main(int argc, char **argv, char **env)
 {
 	// t_data	data;
+	char	*cmd_line;
 	(void)argc;
 	argv = NULL;
 	env = NULL;
-	ft_printf("test");
-
-	while (1)
+	cmd_line = readline(PROMPT);
+	while (ft_strncmp(ft_strtrim(cmd_line, " \t\v\n\f\r"), EXIT, ft_strlen(ft_strtrim(cmd_line, " \t\v\n\f\r"))) != 0)
 	{
-		continue ;
+		ft_printf("%s\n", cmd_line);
+		// if (parsing() != 0)
+		// {
+		// 	// erreur
+		// }
+		// else
+		// {
+		// 	// execute
+		// }
+		free(cmd_line);
+		cmd_line = readline(PROMPT);
 	}
-	
+	free(cmd_line);
+	return (0);
 }
