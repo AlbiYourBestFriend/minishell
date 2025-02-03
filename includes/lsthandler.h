@@ -3,12 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   lsthandler.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:24:55 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/03 16:49:56 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/03 17:21:56 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef LSTHANDLER_H
+# define LSTHANDLER_H
 
 // Token type
 # define INPUT 1
@@ -39,3 +42,4 @@ t_token		*tokennew(void *content);
 void		tokenadd_back(t_token **lst, t_token *new);
 t_token		*tokenlast(t_token *lst);
 
+#endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/03 16:48:48 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/03 17:22:30 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include "../libft/sources/libft.h"
+# include "lsthandler.h"
 # include <string.h>
 # include <stdarg.h>
 # include <limits.h>
@@ -23,7 +24,6 @@
 # include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include "lsthandler.h"
 
 # define PROMPT "Minishell : "
 # define EXIT "exit"
@@ -38,5 +38,7 @@ typedef struct	s_data
 int	parsing(char *input);
 
 // utils
-int	array_len(char **array);
+char	**ft_copy_tab(char **tab);
+int		array_len(char **array);
+
 #endif
