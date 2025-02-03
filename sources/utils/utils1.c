@@ -1,38 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 14:36:48 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/03 16:48:24 by mleproux         ###   ########.fr       */
+/*   Created: 2025/02/03 16:02:16 by mleproux          #+#    #+#             */
+/*   Updated: 2025/02/03 16:03:01 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-
-static int	command_len(char *input)
+int	array_len(char **array)
 {
 	int	index;
-	
+
 	index = 0;
-	while (input[index] != "\0" && input[index] != PIPE)
+	while (array[index])
 		index++;
-	return (index);
-}
-
-int	parsing(char *input)
-{
-	char	*cur_input;
-	char	**splitted_input;
-	t_command	*commands;
-	int	index;
-
-	index = 0;
-	while (input[index] != "\0")
-	{
-		cur_input = ft_strndup(input, command_len(input));
-		splitted_input = ft_split(cur_input, " ");
-	}	
+	return (index);	
 }
