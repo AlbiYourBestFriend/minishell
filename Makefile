@@ -4,7 +4,8 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 OTHER_FLAGS = -lreadline -lncurses
 
-SOURCES = main.c
+SOURCES = main.c parsing.c \
+		list_handler/command_lst.c list_handler/token_lst.c 
 
 SOURCES_DIR	= sources
 MY_SOURCES	= $(addprefix $(SOURCES_DIR)/,$(SOURCES))

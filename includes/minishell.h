@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/01/30 15:18:26 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/03 16:48:48 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include "lsthandler.h"
 
 # define PROMPT "Minishell : "
 # define EXIT "exit"
@@ -30,7 +31,12 @@
 typedef struct	s_data
 {
 	char	**env;
-	
+	struct s_command	commands;
 }			t_data;
 
+// main functions
+int	parsing(char *input);
+
+// utils
+int	array_len(char **array);
 #endif
