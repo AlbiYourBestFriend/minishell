@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/01/30 15:18:26 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/03 14:34:34 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-// # include <pthread.h>
+# define PROMPT "Minishell : "
+# define EXIT "exit"
 
 typedef struct	s_data
 {
