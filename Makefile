@@ -2,6 +2,7 @@ NAME = minishell
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
+OTHER_FLAGS = -lreadline -lncurses
 
 SOURCES = main.c
 
@@ -18,7 +19,7 @@ all: ${NAME}
 
 ${NAME}: ${MY_OBJECTS}
 	@${MAKE} --no-print-directory -C ${LIBFT_DIR}
-	${CC} ${CFLAGS} -o ${NAME} ${MY_OBJECTS} ${LIBFT_A}
+	${CC} ${CFLAGS} ${OTHER_FLAGS} -o ${NAME} ${MY_OBJECTS} ${LIBFT_A}
 
 $(OBJECTS_DIR)/%.o: $(SOURCES_DIR)/%.c
 	${CC} ${CFLAGS} -c $< -o $@
