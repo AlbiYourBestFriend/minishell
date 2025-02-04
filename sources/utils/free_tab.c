@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_copy_tab.c                                      :+:      :+:    :+:   */
+/*   free_tab.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 17:12:57 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/03 17:35:31 by tprovost         ###   ########.fr       */
+/*   Created: 2025/02/03 18:31:34 by tprovost          #+#    #+#             */
+/*   Updated: 2025/02/04 12:58:25 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	**ft_copy_tab(char **tab)
+void	free_tab(char **tab)
 {
-	char	**copy;
-	int		len;
-	int		i;
+	int	i;
 
-	len = array_len(tab);
-	copy = malloc((len + 1) * sizeof(char *));
 	i = 0;
-	while (i < len)
+	while (tab[i])
 	{
-		copy[i] = ft_strdup(tab[i]);
+		free(tab[i]);
 		i++;
 	}
-	copy[i] = NULL;
-	return (copy);
+	free(tab);
 }

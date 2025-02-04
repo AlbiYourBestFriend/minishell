@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   array_len.c                                        :+:      :+:    :+:   */
+/*   copy_tab.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 16:02:16 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/03 19:28:47 by tprovost         ###   ########.fr       */
+/*   Created: 2025/02/03 17:12:57 by tprovost          #+#    #+#             */
+/*   Updated: 2025/02/04 12:57:29 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	array_len(char **array)
+char	**copy_tab(char **tab)
 {
-	int	index;
+	char	**copy;
+	int		len;
+	int		i;
 
-	index = 0;
-	while (array[index])
-		index++;
-	return (index);
+	len = tab_len(tab);
+	copy = malloc((len + 1) * sizeof(char *));
+	i = 0;
+	while (i < len)
+	{
+		copy[i] = ft_strdup(tab[i]);
+		i++;
+	}
+	copy[i] = NULL;
+	return (copy);
 }

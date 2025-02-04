@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/03 19:25:58 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/04 12:54:44 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ typedef struct s_data
 int		parsing(char *input);
 
 // utils
-char	**ft_copy_tab(char **tab);
-int		array_len(char **array);
-void	ft_free_tab(char **tab);
+char	**copy_tab(char **tab);
+int		tab_len(char **tab);
+void	free_tab(char **tab);
 
 #endif
