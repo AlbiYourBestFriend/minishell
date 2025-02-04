@@ -3,12 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   lsthandler.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:24:55 by mleproux          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/02/04 11:21:24 by mleproux         ###   ########.fr       */
+=======
+/*   Updated: 2025/02/03 19:25:40 by tprovost         ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef LSTHANDLER_H
+# define LSTHANDLER_H
 
 // Token type
 # define INPUT 1
@@ -18,11 +25,11 @@
 # define PIPE '|'
 
 // structures
-typedef	struct s_token
+typedef struct s_token
 {
-	int	type;
+	int				type;
 	struct s_token	*next;
-}	t_token;
+}			t_token;
 
 typedef struct s_command
 {
@@ -39,3 +46,4 @@ t_token		*tokennew(void);
 void		tokenadd_back(t_token **lst, t_token *newlst);
 t_token		*tokenlast(t_token *lst);
 
+#endif

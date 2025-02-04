@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   command_lst.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:21:36 by mleproux          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/02/04 11:20:38 by mleproux         ###   ########.fr       */
+=======
+/*   Updated: 2025/02/03 19:28:39 by tprovost         ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +19,14 @@
 t_command	*cmdnew(char **args)
 {
 	t_command	*list;
-	int	index;
+	int			index;
 
+<<<<<<< HEAD
 	if (!args)
+=======
+	content = NULL;
+	if (!arg)
+>>>>>>> main
 		return (NULL);
 	list = malloc(sizeof(t_command));
 	if (!list)
@@ -26,12 +35,21 @@ t_command	*cmdnew(char **args)
 	if (!list->args)
 		return (free(list), NULL);
 	index = 1;
+<<<<<<< HEAD
 	while (args[index])
 	{
 		list->args[index - 1] = args[index];
 		index++;
 	}	
 	list->name = args[0];
+=======
+	// while ()
+	// {
+	// 	/* code */
+	// }
+	list->name = NULL;
+	list->args = NULL;
+>>>>>>> main
 	list->next = NULL;
 	return (list);
 }
@@ -40,7 +58,12 @@ void	cmdadd_back(t_command **lst, t_command *newlst)
 {
 	t_command	*last;
 
+<<<<<<< HEAD
 	last = cmdlast(*lst);
+=======
+	last = NULL;
+	// last = ft_lstlast(*lst);
+>>>>>>> main
 	if (last)
 		last->next = newlst;
 	else
