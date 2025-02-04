@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/04 15:55:54 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/04 18:16:05 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ int	main(int argc, char **argv, char **env)
 	data = init_data(env);
 	cmd_line = readline(PROMPT);
 	str = ft_clean_cmd(cmd_line);
-	// if (str[0] != '\0')
-	// 	add_history(cmd_line);
 	while (ft_strncmp(str, EXIT, ft_strlen(str)) != 0
 		|| ft_strlen(str) != ft_strlen(EXIT))
 	{

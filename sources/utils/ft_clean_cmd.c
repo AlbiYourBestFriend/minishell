@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 12:56:42 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/04 15:58:25 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/04 19:20:39 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	is_in_str(char *cmd, int i)
 	j = 0;
 	c1 = 0;
 	c2 = 0;
-	while (j < i)
+	while (j <= i)
 	{
 		if (cmd[j] == '\"' && cmd[j - 1] != '\\' && c1 == 0)
 			c1 = 1;
@@ -75,18 +75,19 @@ char	*ft_clean_cmd(char *cmd)
 	int	c;
 
 	str = malloc((count_char(cmd) + 1) * sizeof(char));
+	i = 0;
 	if (!str)
 		return (NULL);
-	i = -1;
 	n = 0;
 	c = 0;
-	while (cmd[++i] != '\0')
+	while (cmd[i] != '\0')
 	{
 		c = is_in_str(cmd, i);
 		if (c == 1 || is_space(cmd[i]) == 0)
 			str[n++] = cmd[i];
 		else if (is_space(cmd[i + 1]) == 0 && cmd[i + 1] != '\0' && n != 0)
 			str[n++] = ' ';
+		i++;
 	}
 	str[n] = '\0';
 	return (str);

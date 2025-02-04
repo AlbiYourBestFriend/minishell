@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tab_len.c                                          :+:      :+:    :+:   */
+/*   split_cmd_line.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 16:02:16 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/04 15:38:08 by tprovost         ###   ########.fr       */
+/*   Created: 2025/02/04 19:03:18 by tprovost          #+#    #+#             */
+/*   Updated: 2025/02/04 19:20:39 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	tab_len(char **tab)
+char	**split_cmd_line(char *cmd)
 {
 	int	i;
+	int	n;
+	int	c;
 
 	i = 0;
-	while (tab[i] != NULL)
+	n = 0;
+	while (cmd[i] != '\0')
+	{
+		c = is_in_str(cmd, i);
+		if (c == 0 && is_space(cmd[i]) == 0 && (is_space(cmd[i + 1]) == 1 || cmd[i + 1] == '\0'))
+		{
+			n++;
+		}
 		i++;
-	return (i);
+	}
 }
