@@ -6,46 +6,45 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:21:36 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/03 16:52:00 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/04 11:20:38 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_command	*cmdnew(void *content, char **arg)
+t_command	*cmdnew(char **args)
 {
 	t_command	*list;
 	int	index;
 
-	if (!arg)
+	if (!args)
 		return (NULL);
 	list = malloc(sizeof(t_command));
 	if (!list)
 		return (NULL);
-	list->args = malloc(sizeof(char *) * array_len(arg));
+	list->args = ft_calloc(sizeof(char *), array_len(args));
 	if (!list->args)
 		return (free(list), NULL);
 	index = 1;
-	while ()
+	while (args[index])
 	{
-		/* code */
-	}
-	
-	list->name = NULL;
-	list->args = NULL;
+		list->args[index - 1] = args[index];
+		index++;
+	}	
+	list->name = args[0];
 	list->next = NULL;
 	return (list);
 }
 
-void	cmdadd_back(t_command **lst, t_command *new)
+void	cmdadd_back(t_command **lst, t_command *newlst)
 {
 	t_command	*last;
 
-	last = ft_lstlast(*lst);
+	last = cmdlast(*lst);
 	if (last)
-		last->next = new;
+		last->next = newlst;
 	else
-		*lst = new;
+		*lst = newlst;
 }
 
 t_command	*cmdlast(t_command *lst)

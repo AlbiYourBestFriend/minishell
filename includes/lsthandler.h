@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:24:55 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/03 16:49:56 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/04 11:21:24 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ typedef struct s_command
 }			t_command;
 
 // functions
-t_command	*cmdnew(void *content, char **args);
-void		cmdadd_back(t_command **lst, t_command *new);
+t_command	*cmdnew(char **args);
+void		cmdadd_back(t_command **lst, t_command *newlst);
 t_command	*cmdlast(t_command *lst);
-t_token		*tokennew(void *content);
-void		tokenadd_back(t_token **lst, t_token *new);
+t_token		*tokennew(void);
+void		tokenadd_back(t_token **lst, t_token *newlst);
 t_token		*tokenlast(t_token *lst);
 
