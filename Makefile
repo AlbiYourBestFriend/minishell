@@ -4,6 +4,10 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 OTHER_FLAGS = -lreadline -lncurses
 
+
+SOURCES_DIR	= sources
+MY_SOURCES	= $(addprefix $(SOURCES_DIR)/,$(SOURCES))
+
 VPATH = sources:sources/list_handler:sources/utils:sources/parsing
 
 SOURCES	=	main.c \
@@ -13,6 +17,7 @@ SOURCES	=	main.c \
 			copy_tab.c \
 			free_tab.c \
 			tab_len.c \
+      ft_clean_cmd.c \
 			init_data.c \
 			print_error.c \
 
