@@ -13,6 +13,8 @@ SOURCES	=	main.c \
 			copy_tab.c \
 			free_tab.c \
 			tab_len.c \
+			init_data.c \
+			print_error.c \
 
 OBJECTS_DIR	= objects
 OBJECTS		= $(addprefix $(OBJECTS_DIR)/,$(SOURCES:.c=.o))

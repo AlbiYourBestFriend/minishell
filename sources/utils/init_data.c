@@ -1,35 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   copy_tab.c                                         :+:      :+:    :+:   */
+/*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 17:12:57 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/04 13:20:54 by mleproux         ###   ########.fr       */
+/*   Created: 2025/02/04 13:13:48 by mleproux          #+#    #+#             */
+/*   Updated: 2025/02/04 13:34:14 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	**copy_tab(char **tab)
+t_data	init_data(char **env)
 {
-	char	**copy;
-	int		len;
-	int		index;
+	t_data	data;
 
-	len = tab_len(tab);
-	copy = malloc((len + 1) * sizeof(char *));
-	if (!copy)
-		return (NULL);
-	index = 0;
-	while (tab[index])
-	{
-		copy[index] = ft_strdup(tab[index]);
-		if (!copy[index])
-			return (free_tab(tab), NULL);
-		index++;
-	}
-	copy[index] = NULL;
-	return (copy);
+	data.commands = NULL;
+	data.env = copy_tab(env);
+	if (!data.env)
+		print_error("Malloc Error");
+	return (data);
 }
