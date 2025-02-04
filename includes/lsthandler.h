@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lsthandler.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:24:55 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/03 19:25:40 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/04 12:56:51 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ typedef struct s_command
 }			t_command;
 
 // functions
-t_command	*cmdnew(void *content, char **args);
-void		cmdadd_back(t_command **lst, t_command *new);
+t_command	*cmdnew(char **args);
+void		cmdadd_back(t_command **lst, t_command *newlst);
 t_command	*cmdlast(t_command *lst);
-t_token		*tokennew(void *content);
-void		tokenadd_back(t_token **lst, t_token *new);
+t_token		*tokennew(void);
+void		tokenadd_back(t_token **lst, t_token *newlst);
 t_token		*tokenlast(t_token *lst);
 
 #endif

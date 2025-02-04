@@ -1,28 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_tab.c                                      :+:      :+:    :+:   */
+/*   print_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 18:31:34 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/03 18:33:20 by tprovost         ###   ########.fr       */
+/*   Created: 2025/02/04 13:22:47 by mleproux          #+#    #+#             */
+/*   Updated: 2025/02/04 13:30:50 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_free_tab(char **tab)
+void	print_error(char *msg)
 {
-	int	len;
-	int	i;
-
-	len = array_len(tab);
-	i = 0;
-	while (i < len)
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
+	printf("%s%s%s\n", RED, msg, RESET);
 }

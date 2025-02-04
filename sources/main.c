@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
 /*   Updated: 2025/02/04 13:03:03 by tprovost         ###   ########.fr       */
@@ -20,10 +20,9 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argc;
 	argv = NULL;
-	data.env = ft_copy_tab(env);
-	env = NULL;
+	data = init_data(env);
 	cmd_line = readline(PROMPT);
-	str = ft_strtrim(cmd_line, " \t\v\n\f\r");
+	str = ft_clean_cmd(cmd_line);
 	// if (str[0] != '\0')
 	// 	add_history(cmd_line);
 	while (ft_strncmp(str, EXIT, ft_strlen(str)) != 0
@@ -32,6 +31,7 @@ int	main(int argc, char **argv, char **env)
 		ft_printf("%s\n", cmd_line);
 		if (str[0] != '\0')
 			add_history(cmd_line);
+		parsing(data, cmd_line);
 		// if (parsing(cmd_line) != 0)
 		// {
 		// 	// erreur
@@ -43,11 +43,11 @@ int	main(int argc, char **argv, char **env)
 		free(str);
 		free(cmd_line);
 		cmd_line = readline(PROMPT);
-		str = ft_strtrim(cmd_line, " \t\v\n\f\r");
+		str = ft_clean_cmd(cmd_line);
 	}
 	clear_history();
 	free(str);
 	free(cmd_line);
-	ft_free_tab(data.env);
+	free_tab(data.env);
 	return (0);
 }

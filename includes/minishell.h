@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
 /*   Updated: 2025/02/04 14:57:56 by tprovost         ###   ########.fr       */
@@ -13,8 +13,12 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+// Libraries
 # include "../libft/sources/libft.h"
 # include "lsthandler.h"
+# include "colors.h"
+
+// Standard Libraries
 # include <string.h>
 # include <stdarg.h>
 # include <limits.h>
@@ -44,16 +48,19 @@
 typedef struct s_data
 {
 	char				**env;
-	struct s_command	commands;
+	struct s_command	*commands;
 }			t_data;
 
-// main functions
-int		parsing(char *input);
+// Main functions
+int		parsing(t_data data, char *input);
 
-// utils
-char	**ft_copy_tab(char **tab);
-int		array_len(char **array);
+
+// Utils
+char	**copy_tab(char **tab);
+int		tab_len(char **tab);
 char	*ft_clean_cmd(char *cmd);
-void	ft_free_tab(char **tab);
+void	free_tab(char **tab);
+t_data	init_data(char **env);
+void	print_error(char *msg);
 
 #endif

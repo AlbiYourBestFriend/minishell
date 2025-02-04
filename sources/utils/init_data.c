@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   array_len.c                                        :+:      :+:    :+:   */
+/*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 16:02:16 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/03 19:28:47 by tprovost         ###   ########.fr       */
+/*   Created: 2025/02/04 13:13:48 by mleproux          #+#    #+#             */
+/*   Updated: 2025/02/04 13:34:14 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	array_len(char **array)
+t_data	init_data(char **env)
 {
-	int	index;
+	t_data	data;
 
-	index = 0;
-	while (array[index])
-		index++;
-	return (index);
+	data.commands = NULL;
+	data.env = copy_tab(env);
+	if (!data.env)
+		print_error("Malloc Error");
+	return (data);
 }

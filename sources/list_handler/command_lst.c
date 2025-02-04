@@ -3,50 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   command_lst.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:21:36 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/03 19:28:39 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/04 13:00:28 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_command	*cmdnew(void *content, char **arg)
+t_command	*cmdnew(char **args)
 {
 	t_command	*list;
 	int			index;
 
-	content = NULL;
-	if (!arg)
+	if (!args)
 		return (NULL);
 	list = malloc(sizeof(t_command));
 	if (!list)
 		return (NULL);
-	list->args = malloc(sizeof(char *) * array_len(arg));
+	list->args = ft_calloc(sizeof(char *), tab_len(args) + 1);
 	if (!list->args)
 		return (free(list), NULL);
-	index = 1;
-	// while ()
-	// {
-	// 	/* code */
-	// }
-	list->name = NULL;
-	list->args = NULL;
+	index = 0;
+	while (args[index])
+	{
+		list->args[index] = args[index];
+		index++;
+	}	
+	list->name = args[0];
 	list->next = NULL;
 	return (list);
 }
 
-void	cmdadd_back(t_command **lst, t_command *new)
+void	cmdadd_back(t_command **lst, t_command *newlst)
 {
 	t_command	*last;
 
-	last = NULL;
-	// last = ft_lstlast(*lst);
+	last = cmdlast(*lst);
 	if (last)
-		last->next = new;
+		last->next = newlst;
 	else
-		*lst = new;
+		*lst = newlst;
 }
 
 t_command	*cmdlast(t_command *lst)

@@ -1,47 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_lst.c                                        :+:      :+:    :+:   */
+/*   copy_tab.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 15:26:56 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/04 12:59:34 by mleproux         ###   ########.fr       */
+/*   Created: 2025/02/03 17:12:57 by tprovost          #+#    #+#             */
+/*   Updated: 2025/02/04 13:20:54 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_token	*tokennew(void)
+char	**copy_tab(char **tab)
 {
-	t_token	*list;
+	char	**copy;
+	int		len;
+	int		index;
 
-	list = malloc(sizeof(t_token));
-	if (!list)
+	len = tab_len(tab);
+	copy = malloc((len + 1) * sizeof(char *));
+	if (!copy)
 		return (NULL);
-	list->next = NULL;
-	return (list);
-}
-
-void	tokenadd_back(t_token **lst, t_token *newlst)
-{
-	t_token	*last;
-
-	last = tokenlast(*lst);
-	if (last)
-		last->next = newlst;
-	else
-		*lst = newlst;
-}
-
-t_token	*tokenlast(t_token *lst)
-{
-	t_token	*temp;
-
-	if (!lst)
-		return (NULL);
-	temp = lst;
-	while (temp->next != NULL)
-		temp = temp->next;
-	return (temp);
+	index = 0;
+	while (tab[index])
+	{
+		copy[index] = ft_strdup(tab[index]);
+		if (!copy[index])
+			return (free_tab(tab), NULL);
+		index++;
+	}
+	copy[index] = NULL;
+	return (copy);
 }
