@@ -29,7 +29,7 @@ int	main(int argc, char **argv, char **env)
 		ft_printf("%s\n", str);
 		if (str[0] != '\0')
 			add_history(cmd_line);
-		// parsing(data, cmd_line);
+		parsing(data, str);
 		// if (parsing(cmd_line) != 0)
 		// {
 		// 	// erreur

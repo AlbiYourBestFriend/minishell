@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_clean_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 12:56:42 by tprovost          #+#    #+#             */
 /*   Updated: 2025/02/04 19:20:39 by tprovost         ###   ########.fr       */
@@ -58,10 +58,9 @@ static int	count_char(char *cmd)
 	while (cmd[i] != '\0')
 	{
 		c = is_in_str(cmd, i);
-		if (c == 1
-			|| (c == 0 && (is_space(cmd[i]) == 0
-					|| (is_space(cmd[i]) == 1 && is_space(cmd[i + 1]) == 0
-						&& cmd[i + 1] != '\0'))))
+		if (c == 1	|| (c == 0 && (is_space(cmd[i]) == 0
+			|| (is_space(cmd[i]) == 1 && is_space(cmd[i + 1]) == 0
+			&& cmd[i + 1] != '\0'))))
 			n++;
 		i++;
 	}
@@ -73,10 +72,12 @@ char	*ft_clean_cmd(char *cmd)
 	char	*str;
 	int		i;
 	int		n;
-	int		c;
+	int	c;
 
 	str = malloc((count_char(cmd) + 1) * sizeof(char));
 	i = 0;
+	if (!str)
+		return (NULL);
 	n = 0;
 	c = 0;
 	while (cmd[i] != '\0')

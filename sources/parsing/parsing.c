@@ -45,20 +45,44 @@ static void	print_commands(t_data data)
 	}
 }
 
+static int	clean_cmds(char **cmds)
+{
+	char	*temp;
+	int		index;
+
+	index = 0;
+	while (cmds[index])
+	{
+		temp = cmds[index];
+		cmds[index] = ft_clean_cmd(cmds[index]);
+		if (!cmds[index])
+		{
+			free_tab(cmds);
+			free(temp);
+			return (0);
+		}
+		free(temp);
+		index++;
+	}
+	return (1);
+}
+
 int	parsing(t_data data, char *input)
 {
 	char	**splitted_cmds;
-	char	**splitted_input;
-	t_command	*cur_command;
+	// char	**splitted_input;
+	// t_command	*cur_command;
 	int	index;
-	
 	splitted_cmds = ft_split(input, PIPE);
+	if (!clean_cmds(splitted_cmds))
+		return (0);
 	index = 0;
 	while (splitted_cmds[index])
 	{
-		splitted_input = ft_split(splitted_cmds[index], ' ');
-		cur_command = cmdnew(splitted_input);
-		cmdadd_back(&data.commands, cur_command);
+		printf("cmd: %s\n", splitted_cmds[index]);
+		// splitted_input = ft_split(splitted_cmds[index], ' ');
+		// cur_command = cmdnew(splitted_input);
+		// cmdadd_back(&data.commands, cur_command);
 		index++;
 	}
 	print_commands(data);

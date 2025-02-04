@@ -28,6 +28,7 @@
 # include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <stdbool.h>
 
 # define PROMPT "Minishell : "
 # define EXIT "exit"
