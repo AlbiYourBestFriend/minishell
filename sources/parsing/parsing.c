@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 14:36:48 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/04 15:43:21 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/04 15:59:55 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,6 @@ static int	clean_cmds(char **cmds)
 			return (0);
 		}
 		free(temp);
-		printf("loool:%s\n", cmds[index]);
-		printf("luuul:%s\n", ft_clean_cmd(cmds[index]));
 		index++;
 	}
 	return (1);

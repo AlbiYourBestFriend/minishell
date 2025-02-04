@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 12:56:42 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/04 15:56:40 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/04 15:58:25 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ static int	is_in_str(char *cmd, int i)
 	c2 = 0;
 	while (j < i)
 	{
-		if (cmd[j] == '\"' && cmd[j - 1] != '\\')
+		if (cmd[j] == '\"' && cmd[j - 1] != '\\' && c1 == 0)
 			c1 = 1;
-		else if (cmd[j] == '\'' && cmd[j - 1] != '\\')
+		else if (cmd[j] == '\'' && cmd[j - 1] != '\\' && c2 == 0)
 			c2 = 1;
 		else if (cmd[j] == '\"' && cmd[j - 1] != '\\' && c2 == 0 && c1 == 1)
 			c1 = 0;
