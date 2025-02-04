@@ -9,6 +9,7 @@ SOURCES = main.c \
 	list_handler/command_lst.c \
 	list_handler/token_lst.c \
 	utils/array_len.c \
+	utils/ft_clean_cmd.c \
 	utils/ft_copy_tab.c \
 	utils/ft_free_tab.c \
 
