@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_clean_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 12:56:42 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/04 14:57:56 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/04 15:56:40 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,9 @@ static int	count_char(char *cmd)
 	while (cmd[i] != '\0')
 	{
 		c = is_in_str(cmd, i);
-		if (c == 1
-			|| (c == 0 && (is_space(cmd[i]) == 0
-					|| (is_space(cmd[i]) == 1 && is_space(cmd[i + 1]) == 0
-						&& cmd[i + 1] != '\0'))))
+		if (c == 1	|| (c == 0 && (is_space(cmd[i]) == 0
+			|| (is_space(cmd[i]) == 1 && is_space(cmd[i + 1]) == 0
+			&& cmd[i + 1] != '\0'))))
 			n++;
 		i++;
 	}
@@ -73,9 +72,11 @@ char	*ft_clean_cmd(char *cmd)
 	char	*str;
 	int		i;
 	int		n;
-	int		c;
+	int	c;
 
 	str = malloc((count_char(cmd) + 1) * sizeof(char));
+	if (!str)
+		return (NULL);
 	i = -1;
 	n = 0;
 	c = 0;
@@ -91,7 +92,7 @@ char	*ft_clean_cmd(char *cmd)
 	return (str);
 }
 
-int main()
-{
-	printf("%s", ft_clean_cmd("r\t h gbsrgn 	\" h\tqq rn\' po kpwa\t\'o\"kg  "));
-}
+// int main()
+// {
+// 	printf("%s", ft_clean_cmd("r\t h gbsrgn 	\" h\tqq rn\' po kpwa\t\'o\"kg  "));
+// }
