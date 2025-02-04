@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/04 12:45:38 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/04 13:34:49 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argc;
 	argv = NULL;
-	data.env = ft_copy_tab(env);
-	env = NULL;
+	data = init_data(env);
 	cmd_line = readline(PROMPT);
 	add_history(cmd_line);
 	while (ft_strncmp(ft_strtrim(cmd_line, " \t\v\n\f\r"), EXIT, ft_strlen(ft_strtrim(cmd_line, " \t\v\n\f\r"))) != 0
@@ -29,6 +28,7 @@ int	main(int argc, char **argv, char **env)
 		ft_printf("%s\n", cmd_line);
 		if (cmd_line[0] != '\0')
 			add_history(cmd_line);
+		parsing(data, cmd_line);
 		// if (parsing(cmd_line) != 0)
 		// {
 		// 	// erreur
@@ -46,6 +46,6 @@ int	main(int argc, char **argv, char **env)
 	}
 	clear_history();
 	free(cmd_line);
-	ft_free_tab(data.env);
+	free_tab(data.env);
 	return (0);
 }
