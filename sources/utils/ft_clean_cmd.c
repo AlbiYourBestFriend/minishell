@@ -3,24 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_clean_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 12:56:42 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/04 19:20:39 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/05 14:13:46 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	is_space(char c)
-{
-	if (c == '\t' || c == '\r' || c == '\f' || c == '\v'
-		|| c == ' ' || c == '\n')
-		return (1);
-	return (0);
-}
-
-static int	is_in_str(char *cmd, int i)
+int	is_in_str(char *cmd, int i)
 {
 	int	j;
 	int	c1;
@@ -35,9 +27,9 @@ static int	is_in_str(char *cmd, int i)
 			c1 = 1;
 		else if (cmd[j] == '\'' && cmd[j - 1] != '\\' && c2 == 0)
 			c2 = 1;
-		else if (cmd[j] == '\"' && cmd[j - 1] != '\\' && c2 == 0 && c1 == 1)
+		else if (cmd[j - 1] == '\"' && cmd[j - 2] != '\\' && c2 == 0 && c1 == 1)
 			c1 = 0;
-		else if (cmd[j] == '\'' && cmd[j - 1] != '\\' && c1 == 0 && c2 == 1)
+		else if (cmd[j - 1] == '\'' && cmd[j - 2] != '\\' && c1 == 0 && c2 == 1)
 			c2 = 0;
 		j++;
 	}
@@ -58,8 +50,8 @@ static int	count_char(char *cmd)
 	while (cmd[i] != '\0')
 	{
 		c = is_in_str(cmd, i);
-		if (c == 1	|| (c == 0 && (is_space(cmd[i]) == 0
-			|| (is_space(cmd[i]) == 1 && is_space(cmd[i + 1]) == 0
+		if (c == 1	|| (c == 0 && (ft_isspace(cmd[i]) == 0
+			|| (ft_isspace(cmd[i]) == 1 && ft_isspace(cmd[i + 1]) == 0
 			&& cmd[i + 1] != '\0'))))
 			n++;
 		i++;
@@ -83,9 +75,9 @@ char	*ft_clean_cmd(char *cmd)
 	while (cmd[i] != '\0')
 	{
 		c = is_in_str(cmd, i);
-		if (c == 1 || is_space(cmd[i]) == 0)
+		if (c == 1 || ft_isspace(cmd[i]) == 0)
 			str[n++] = cmd[i];
-		else if (is_space(cmd[i + 1]) == 0 && cmd[i + 1] != '\0' && n != 0)
+		else if (ft_isspace(cmd[i + 1]) == 0 && cmd[i + 1] != '\0' && n != 0)
 			str[n++] = ' ';
 		i++;
 	}
