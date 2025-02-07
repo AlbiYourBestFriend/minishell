@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/06 13:41:31 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/07 16:38:31 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,13 @@ int		parsing(t_data data, char *input);
 
 // Utils
 char	**copy_tab(char **tab);
-int		tab_len(char **tab);
-int	is_in_str(char *cmd, int i);
-// char	*ft_clean_cmd(char *cmd);
-char	**ft_clean_cmd(char *line, char c);
 void	free_tab(char **tab);
+// int		is_in_str(char *cmd, int i);
+// char	*ft_clean_cmd(char *cmd);
 t_data	init_data(char **env);
 void	print_error(char *msg);
+char	**split_pipes_cmd_line(char *line);
+int		ft_check(char **tab, char *line, char c, int k);
+int		tab_len(char **tab);
 
 #endif
