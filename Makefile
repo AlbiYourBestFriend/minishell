@@ -10,10 +10,12 @@ SOURCES	=	main.c \
 			token_lst.c \
 			copy_tab.c \
 			free_tab.c \
-			tab_len.c \
 			ft_clean_cmd.c \
 			init_data.c \
 			print_error.c \
+			split_pipes_cmd_line_utils.c \
+			split_pipes_cmd_line.c \
+			tab_len.c \
 
 VPATH = sources:sources/list_handler:sources/utils:sources/parsing
 
