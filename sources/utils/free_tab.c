@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 18:31:34 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/04 12:58:25 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/07 14:36:46 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 void	free_tab(char **tab)
 {
-	int	i;
+	int	index;
 
-	i = 0;
-	while (tab[i])
+	index = 0;
+	while (tab[index])
 	{
-		free(tab[i]);
-		i++;
+		free(tab[index]);
+		index++;
 	}
 	free(tab);
 }

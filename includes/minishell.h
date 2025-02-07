@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
 /*   Updated: 2025/02/07 18:13:08 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -54,6 +55,17 @@ typedef struct s_data
 
 // Main functions
 int		parsing(t_data data, char *input);
+
+// Builtins
+void	ft_echo(void *arg);
+void	ft_cd(void *arg);
+void	ft_pwd(void *arg);
+void	ft_export(void *arg);
+void	ft_unset(void *arg);
+void	ft_env(void *arg);
+void	ft_exit(void *arg);
+int	execute_builtins(char *command_name);
+int	check_if_builtins(char *command_name);
 
 // Utils
 char	**copy_tab(char **tab);

@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tab_len.c                                          :+:      :+:    :+:   */
+/*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 16:02:16 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/07 14:36:28 by mleproux         ###   ########.fr       */
+/*   Created: 2025/02/07 16:29:38 by mleproux          #+#    #+#             */
+/*   Updated: 2025/02/07 16:30:38 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	tab_len(char **tab)
+void	ft_echo(void *arg)
 {
-	int	index;
-
-	index = 0;
-	while (tab[index] != NULL)
-		index++;
-	return (index);
+	printf("Bonjour je suis la commande echo! (:");
 }

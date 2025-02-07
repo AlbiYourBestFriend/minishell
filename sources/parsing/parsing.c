@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 14:36:48 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/07 16:01:44 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/07 17:41:11 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ static void	print_commands(t_data data)
 		temp = temp->next;
 	}
 }
-
 static int	clean_cmds(char **cmds)
 {
 	char	*temp;
@@ -66,7 +65,6 @@ static int	clean_cmds(char **cmds)
 	}
 	return (1);
 }
-
 int	parsing(t_data data, char *input)
 {
 	char	**splitted_cmds;
