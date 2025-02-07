@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 14:36:48 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/07 14:57:51 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/07 17:41:11 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // static int	command_len(char *input)
 // {
 // 	int	index;
-	
+
 // 	index = 0;
 // 	while (input[index] != '\0' && input[index] != PIPE)
 // 		index++;
@@ -68,9 +68,9 @@ static int	clean_cmds(char **cmds)
 int	parsing(t_data data, char *input)
 {
 	char	**splitted_cmds;
+	int		index;
 	// char	**splitted_input;
 	// t_command	*cur_command;
-	int	index;
 	splitted_cmds = ft_split(input, PIPE);
 	if (!clean_cmds(splitted_cmds))
 		return (0);

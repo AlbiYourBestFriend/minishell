@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_lst.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:21:36 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/04 13:00:28 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/07 16:02:36 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_command	*cmdnew(char **args)
 	{
 		list->args[index] = args[index];
 		index++;
-	}	
+	}
 	list->name = args[0];
 	list->next = NULL;
 	return (list);
