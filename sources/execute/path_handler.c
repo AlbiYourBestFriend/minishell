@@ -1,23 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tab_len.c                                          :+:      :+:    :+:   */
+/*   create_path.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 16:02:16 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/07 14:36:28 by mleproux         ###   ########.fr       */
+/*   Created: 2025/02/07 15:24:27 by mleproux          #+#    #+#             */
+/*   Updated: 2025/02/07 15:41:04 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	tab_len(char **tab)
+static char	**get_paths()
 {
-	int	index;
+	char **splitted_paths;
 
-	index = 0;
-	while (tab[index] != NULL)
-		index++;
-	return (index);
+	splitted_paths = ft_split(getenv("PATH"), ':');
+	return (splitted_paths);
 }
+
+static char	*create_path(char *path, char *cmd)
+{
+	char	*temp;
+	char	*new_path;
+
+	temp = ft_strjoin(path, "/");
+	if (!temp)
+		return (NULL);
+	new_path = ft_strjoin(temp, cmd);
+	free(temp);
+	if (!new_path)
+		return (NULL);
+	return (new_path);
+}
+
+
