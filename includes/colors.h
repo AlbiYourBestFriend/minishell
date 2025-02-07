@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   colors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:24:25 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/04 13:25:00 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/07 15:46:03 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COLOR_H
-# define COLOR_H
+#ifndef COLORS_H
+# define COLORS_H
 
 // colors
 # define RESET   "\033[0m"

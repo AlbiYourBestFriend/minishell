@@ -57,12 +57,13 @@ int		parsing(t_data data, char *input);
 
 // Utils
 char	**copy_tab(char **tab);
-int		tab_len(char **tab);
-char	*ft_clean_cmd(char *cmd);
 void	free_tab(char **tab);
+// int		is_in_str(char *cmd, int i);
+// char	*ft_clean_cmd(char *cmd);
 t_data	init_data(char **env);
 void	print_error(char *msg);
-int	is_in_str(char *cmd, int i);
-char	**pipe_split(char *s, char c);
+char	**split_pipes_cmd_line(char *line);
+int		ft_check(char **tab, char *line, char c, int k);
+int		tab_len(char **tab);
 
 #endif
