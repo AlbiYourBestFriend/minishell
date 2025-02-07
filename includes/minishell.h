@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/04 17:22:51 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/06 13:24:52 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,7 @@ char	*ft_clean_cmd(char *cmd);
 void	free_tab(char **tab);
 t_data	init_data(char **env);
 void	print_error(char *msg);
+int	is_in_str(char *cmd, int i);
+char	**pipe_split(char *s, char c);
 
 #endif

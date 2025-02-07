@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/04 18:16:05 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/06 13:27:08 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,11 @@ int	main(int argc, char **argv, char **env)
 {
 	t_data	data;
 	char	*cmd_line;
+	char **test;
 	char	*str;
+	int	index;
+
+	index = 0;
 
 	(void)argc;
 	argv = NULL;
@@ -29,7 +33,15 @@ int	main(int argc, char **argv, char **env)
 		ft_printf("%s\n", str);
 		if (str[0] != '\0')
 			add_history(cmd_line);
-		parsing(data, str);
+		test = pipe_split(str, '|');
+		index = 0;
+		while (test[index])
+		{
+			printf("%s\n", test[index]);
+			index++;
+		}
+		
+		// parsing(data, str);
 		// if (parsing(cmd_line) != 0)
 		// {
 		// 	// erreur

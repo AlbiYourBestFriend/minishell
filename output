@@ -14,7 +14,6 @@ SOURCES	=	main.c \
 			ft_clean_cmd.c \
 			init_data.c \
 			print_error.c \
-			pipe_split.c \
 
 VPATH = sources:sources/list_handler:sources/utils:sources/parsing
 
