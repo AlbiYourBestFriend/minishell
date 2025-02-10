@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:44:32 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/10 12:08:56 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/10 12:56:13 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	get_here_doc(int fd, char *limiter)
 	}
 	free(buffer);
 	close(fd);
-	return (1)
+	return (1);
 }
 
 int	here_doc(int currentfd, char *limiter)
