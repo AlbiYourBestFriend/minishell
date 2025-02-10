@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/10 18:15:32 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/10 18:36:34 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,6 @@ int	main(int argc, char **argv, char **env)
 	}
 	clear_history();
 	free(cmd_line);
-	free_tab(data.env);
+	free_tab(data.my_env);
 	return (0);
 }
