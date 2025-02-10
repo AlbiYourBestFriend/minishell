@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/10 14:58:15 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/10 17:49:47 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,16 @@
 
 typedef struct s_data
 {
-	char				**env;
-	char				**env_variables; // ou liste chainee
-	struct s_command	*commands;
+	char		**my_env;
+	t_env_var	*env_variables; // ou liste chainee
+	t_command	*commands;
 }			t_data;
 
-// Main functions
+// parsing
+int		check_quotes(char *cmd);
 int		parsing(t_data data, char *input);
+
+// Main functions
 int		here_doc(int currentfd, char *limiter);
 int		open_infile_outfile(char **args);
 

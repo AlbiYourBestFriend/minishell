@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 14:36:48 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/07 17:41:11 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/10 15:23:48 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	clean_cmds(char **cmds)
 	while (cmds[index])
 	{
 		temp = cmds[index];
-		cmds[index] = ft_clean_cmd(cmds[index]);
+		cmds[index] = clean_cmd(cmds[index]);
 		if (!cmds[index])
 		{
 			free_tab(cmds);

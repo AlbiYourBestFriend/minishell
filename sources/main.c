@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/10 15:09:02 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/10 17:46:32 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	main(int argc, char **argv, char **env)
 {
 	t_data	data;
 	char	*cmd_line;
-	char **test;
+	char 	**test;
 	char	*str;
 	int	i;
 
@@ -26,18 +26,18 @@ int	main(int argc, char **argv, char **env)
 	argv = NULL;
 	data = init_data(env);
 	cmd_line = readline(PROMPT);
-	str = ft_clean_cmd(cmd_line);
+	str = clean_cmd(cmd_line);
 	while (ft_strncmp(str, EXIT, ft_strlen(str)) != 0
 		|| ft_strlen(str) != ft_strlen(EXIT))
 	{
 		ft_printf("%s\n", str);
 		if (str[0] != '\0')
 			add_history(cmd_line);
-		test = pipe_split(str, '|');
+		test = split_cmd_line(str, '|');
 		i = 0;
-		while (test[i])
+		while (test[i] != NULL)
 		{
-			printf("%s\n", test[i]);
+			printf("test[%d] = %s\n", i, test[i]);
 			i++;
 		}
 		
@@ -52,8 +52,9 @@ int	main(int argc, char **argv, char **env)
 		// }
 		free(str);
 		free(cmd_line);
+		free_tab(test);
 		cmd_line = readline(PROMPT);
-		str = ft_clean_cmd(cmd_line);
+		str = clean_cmd(cmd_line);
 	}
 	clear_history();
 	free(str);
