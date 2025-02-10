@@ -1,35 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   copy_tab.c                                         :+:      :+:    :+:   */
+/*   handle_env_var.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 17:12:57 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/10 15:24:44 by tprovost         ###   ########.fr       */
+/*   Created: 2025/02/10 18:05:52 by tprovost          #+#    #+#             */
+/*   Updated: 2025/02/10 18:11:06 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../includes/lsthandler.h"
 
-char	**copy_tab(char **tab)
+int	is_env_var(char *cmd)
 {
-	char	**copy;
-	int		len;
-	int		i;
+	int	i;
 
-	len = tab_len(tab);
-	copy = malloc((len + 1) * sizeof(char *));
-	if (copy == NULL)
-		return (NULL);
 	i = 0;
-	while (tab[i] != NULL)
+	if (cmd[i] > 32 && cmd[i] < 127)
 	{
-		copy[i] = ft_strdup(tab[i]);
-		if (copy[i] == NULL)
-			return (free_tab(tab), NULL);
-		i++;
+		
 	}
-	copy[i] = NULL;
-	return (copy);
 }

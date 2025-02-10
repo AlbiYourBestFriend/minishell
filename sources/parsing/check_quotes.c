@@ -1,35 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   copy_tab.c                                         :+:      :+:    :+:   */
+/*   check_quotes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 17:12:57 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/10 15:24:44 by tprovost         ###   ########.fr       */
+/*   Created: 2025/02/10 17:11:58 by tprovost          #+#    #+#             */
+/*   Updated: 2025/02/10 17:17:50 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	**copy_tab(char **tab)
+int	check_quotes(char *cmd)
 {
-	char	**copy;
-	int		len;
 	int		i;
+	char	c;
 
-	len = tab_len(tab);
-	copy = malloc((len + 1) * sizeof(char *));
-	if (copy == NULL)
-		return (NULL);
 	i = 0;
-	while (tab[i] != NULL)
+	while (cmd[i] != '\0')
 	{
-		copy[i] = ft_strdup(tab[i]);
-		if (copy[i] == NULL)
-			return (free_tab(tab), NULL);
-		i++;
+		if (cmd[i] == "\"" || cmd[i] == '\'')
+		{
+			c = cmd[i];
+			i++;
+			while (cmd[i] != c && cmd[i] != '\0')
+				i++;
+			if (cmd[i] == '\0')
+				return (0);
+			else
+				i++;
+		}
+		else
+			i++;
 	}
-	copy[i] = NULL;
-	return (copy);
+	return (1);
 }

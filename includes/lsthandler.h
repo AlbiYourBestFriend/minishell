@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:24:55 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/10 15:13:46 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/10 18:09:09 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,25 @@
 // structures
 typedef struct s_token
 {
-	int				type;
-	struct s_token	*next;
+	int		type;
+	t_token	*next;
 }			t_token;
 
 typedef struct s_command
 {
-	char				*name; // cmd line
-	char				**args;
-	int					input_fd;
-	int					output_fd;
-	struct s_command	*next;
+	char		*name; // cmd line
+	char		**args;
+	int			input_fd;
+	int			output_fd;
+	t_command	*next;
 }			t_command;
+
+typedef struct s_env_var
+{
+	char		*name;
+	char		*value;
+	t_env_var	*next;
+}			t_env_var;
 
 // functions
 t_command	*cmdnew(char **args);
