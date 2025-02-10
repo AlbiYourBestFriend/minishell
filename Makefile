@@ -5,16 +5,16 @@ CFLAGS = -Wall -Wextra -Werror -g
 OTHER_FLAGS = -lreadline -lncurses
 
 SOURCES	=	main.c \
-			parsing.c \
 			command_lst.c \
 			token_lst.c \
+			parsing.c \
 			copy_tab.c \
 			free_tab.c \
 			ft_clean_cmd.c \
 			init_data.c \
 			print_error.c \
-			split_pipes_cmd_line_utils.c \
-			split_pipes_cmd_line.c \
+			split_cmd_line_utils.c \
+			split_cmd_line.c \
 			tab_len.c \
 
 VPATH = sources:sources/list_handler:sources/utils:sources/parsing

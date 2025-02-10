@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 12:56:42 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/06 17:52:01 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/07 19:22:02 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,33 +64,121 @@ static int	count_char(char *cmd)
 	return (n);
 }
 
-// char	*ft_clean_cmd(char *cmd)
-// {
-// 	char	*str;
-// 	int		i;
-// 	int		n;
-// 	int	c;
+char	*ft_clean_cmd(char *cmd)
+{
+	char	*str;
+	int		i;
+	int		n;
+	int	c;
 
-// 	str = malloc((count_char(cmd) + 1) * sizeof(char));
-// 	i = 0;
-// 	if (!str)
-// 		return (NULL);
-// 	n = 0;
-// 	c = 0;
-// 	while (cmd[i] != '\0')
-// 	{
-// 		c = is_in_str(cmd, i);
-// 		if (c == 1 || ft_isspace(cmd[i]) == 0)
-// 			str[n++] = cmd[i];
-// 		else if (ft_isspace(cmd[i + 1]) == 0 && cmd[i + 1] != '\0' && n != 0)
-// 			str[n++] = ' ';
-// 		i++;
-// 	}
-// 	str[n] = '\0';
-// 	return (str);
-// }
+	str = malloc((count_char(cmd) + 1) * sizeof(char));
+	i = 0;
+	if (!str)
+		return (NULL);
+	n = 0;
+	c = 0;
+	while (cmd[i] != '\0')
+	{
+		c = is_in_str(cmd, i);
+		if (c == 1 || ft_isspace(cmd[i]) == 0)
+			str[n++] = cmd[i];
+		else if (ft_isspace(cmd[i + 1]) == 0 && cmd[i + 1] != '\0' && n != 0)
+			str[n++] = ' ';
+		i++;
+	}
+	str[n] = '\0';
+	return (str);
+}
 
 // int main()
 // {
 // 	printf("%s", ft_clean_cmd("r\t h gbsrgn 	\" h\tqq rn\' po kpwa\t\'o\"kg  "));
 // }
+
+
+
+
+
+
+
+
+
+
+
+static int	count_str_char(char *cmd, int i, int n)
+{
+	char	c;
+	int		n;
+
+	c = cmd[i];
+	i++;
+	n++;
+	while (cmd[i] != c && cmd[i] != '\0')
+	{
+		i++;
+		n++;
+	}
+	if (cmd[i] == c)
+		n++;
+	return (n);
+}
+
+static int	count_char(char *cmd)
+{
+	int		i;
+	int		n;
+
+	i = 0;
+	n = 0;
+	while (cmd[i] != '\0')
+	{
+		if (cmd[i] == '\"' || cmd[i] == '\'')
+		{
+			n = n + count_str_char(cmd, i, n);
+			i = i + count_str_char(cmd, i, n);
+		}
+		else
+		{
+			if (ft_is_space(cmd[i]) == 0
+				|| (ft_is_space(cmd[i]) == 1 && ft_is_space(cmd[i + 1]) == 0
+					&& cmd[i + 1] != '\0'))
+				n++;
+			i++;
+		}
+	}
+	return (n);
+}
+
+char	*ft_clean_cmd(char *cmd)
+{
+	char	*str;
+	int		i;
+	int		n;
+	int	c;
+
+	str = malloc((count_char(cmd) + 1) * sizeof(char));
+	i = 0;
+	if (!str)
+		return (NULL);
+	n = 0;
+	c = 0;
+	while (cmd[i] != '\0')
+	{
+		if (cmd[i] == '\"' || cmd[i] == '\'')
+		{
+			c = remp_str(cmd, i, str, n);
+			n = n + c;
+			i = i + c;
+		}
+		else
+		{
+			// if (ft_is_space(cmd[i]) == 0
+			// 	|| (ft_is_space(cmd[i]) == 1 && ft_is_space(cmd[i + 1]) == 0
+			// 		&& cmd[i + 1] != '\0'))
+			// 	n++;
+			// i++;
+		}
+	}
+	str[n] = '\0';
+	return (str);
+}

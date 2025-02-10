@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/02/10 12:52:38 by mleproux         ###   ########.fr       */
+/*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
+/*   Updated: 2025/02/10 13:04:34 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,11 @@ int		check_if_builtins(char *command_name);
 // Utils
 char	**copy_tab(char **tab);
 void	free_tab(char **tab);
-// int		is_in_str(char *cmd, int i);
-// char	*ft_clean_cmd(char *cmd);
+int		is_in_str(char *cmd, int i);
+char	*ft_clean_cmd(char *cmd);
 t_data	init_data(char **env);
 void	print_error(char *msg);
-char	**split_pipes_cmd_line(char *line);
+char	**split_cmd_line(char *line, char c);
 int		ft_check(char **tab, char *line, char c, int k);
 int		tab_len(char **tab);
 
