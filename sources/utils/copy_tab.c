@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   copy_tab.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 17:12:57 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/10 15:24:44 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/10 18:14:56 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ char	**copy_tab(char **tab)
 	while (tab[i] != NULL)
 	{
 		copy[i] = ft_strdup(tab[i]);
+		if (copy[i] == NULL)
 		if (copy[i] == NULL)
 			return (free_tab(tab), NULL);
 		i++;

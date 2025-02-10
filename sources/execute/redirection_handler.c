@@ -3,69 +3,53 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_handler.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:08:49 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/10 13:28:05 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/10 18:10:24 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	open_file(char *filename, int currentfd, int isoutput, int dotrunc)
+int	check_redirection(char *word)
 {
-	int	fd;
-	
-	if (currentfd > 0)
-		close(currentfd);
-	if (isoutput == 1)
-	{
-		if (dotrunc)
-			fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		else
-			fd = open(filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	}
-	else
-		fd = open(filename, O_RDONLY);
-	if (fd == -1)
-		perror(filename);
-	return (fd);
+	int	redirection;
+
+	if (word == NULL)
+		return (-1);
+	redirection = 0;
+	if (ft_strncmp(word, "<", INT_MAX) == 0)
+		redirection = INPUT;
+	else if (ft_strncmp(word, "<<", INT_MAX) == 0)
+		redirection = HEREDOC;
+	else if (ft_strncmp(word, ">", INT_MAX) == 0)
+		redirection = TRUNC;
+	else if (ft_strncmp(word, ">>", INT_MAX) == 0)
+		redirection = APPEND;
+	free(word);
+	return (redirection);
 }
-static void	close_file(int input, int output)
+
+char	*read_redirection(char *cmd)
 {
-	if (input > 0)
-		close(input);
-	if (output > 0)
-		close(output);
-}
-int	open_infile_outfile(char **args)
-{
-	int	index;
-	int	input;
-	int	output;
-	
-	input = 0;
-	output = 0;
+	char	*filename;
+	int		index;
+	int		redirection;
+
 	index = 0;
-	while (args[index])
+	while (cmd[index] != '\0')
 	{
-		// if (il y a une redirection)
-		// 	ft_redirection
-		// else
-		// 	index++;
-		// if (ft_strncmp(args[index], INPUT, INT_MAX) && args[index + 1])
-		// 	input = open_file(args[index + 1], input, 0, 0);
-		// else if (ft_strncmp(args[index], HEREDOC, INT_MAX) && args[index + 1])
-		// 	input = here_doc(input, args[index + 1]);
-		// else if (ft_strncmp(args[index], TRUNC, INT_MAX) && args[index + 1])
-		// 	output = open_file(args[index + 1], output, 1, 1);
-		// else if (ft_strncmp(args[index + 1], APPEND, INT_MAX) && args[index + 1])
-		// 	output = open_file(args[index + 1], output, 1, 0);
-		// if (input == -1 || output == -1)
-		// 	return (close_file(input, output), 0);
-		// index++;
+		redirection = check_redirection(get_next_word(cmd, &index));
+		if (redirection > 0)
+		{
+			filename = get_next_word(cmd, &index);
+			if (filename == NULL)
+				return (NULL);
+			printf("%d -- %s\n", redirection, filename);
+		}
 	}
-	return (1);
+	return (NULL);
 }
 
 

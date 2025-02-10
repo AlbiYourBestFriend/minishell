@@ -5,6 +5,7 @@
 		"history.h": "c",
 		"minishell.h": "c",
 		"sstream": "c",
+		"chrono": "c"
 		"random": "c",
 		"queue": "c",
 		"bitset": "c",
@@ -13,5 +14,6 @@
 		"__bit_reference": "c",
 		"unordered_map": "c",
 		"lsthandler.h": "c"
+		"unordered_map": "c"
 	}
 }
