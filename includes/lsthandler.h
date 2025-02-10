@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lsthandler.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:24:55 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/10 11:30:12 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/10 15:13:46 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@ typedef struct s_token
 
 typedef struct s_command
 {
-	char				*name;
+	char				*name; // cmd line
 	char				**args;
+	int					input_fd;
+	int					output_fd;
 	struct s_command	*next;
 }			t_command;
 

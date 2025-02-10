@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/10 13:04:34 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/10 14:58:15 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@
 typedef struct s_data
 {
 	char				**env;
+	char				**env_variables; // ou liste chainee
 	struct s_command	*commands;
 }			t_data;
 
@@ -77,10 +78,9 @@ int		execute_builtins(char *command_name);
 int		check_if_builtins(char *command_name);
 
 // Utils
+char	*clean_cmd(char *cmd);
 char	**copy_tab(char **tab);
 void	free_tab(char **tab);
-int		is_in_str(char *cmd, int i);
-char	*ft_clean_cmd(char *cmd);
 t_data	init_data(char **env);
 void	print_error(char *msg);
 char	**split_cmd_line(char *line, char c);

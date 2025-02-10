@@ -4,6 +4,13 @@
 		"readline.h": "c",
 		"history.h": "c",
 		"minishell.h": "c",
-		"sstream": "c"
+		"sstream": "c",
+		"random": "c",
+		"queue": "c",
+		"bitset": "c",
+		"chrono": "c",
+		"algorithm": "c",
+		"__bit_reference": "c",
+		"unordered_map": "c"
 	}
 }

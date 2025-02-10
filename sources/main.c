@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/07 16:49:43 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/10 15:09:02 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int	main(int argc, char **argv, char **env)
 	char	*cmd_line;
 	char **test;
 	char	*str;
-	int	index;
+	int	i;
 
-	index = 0;
+	i = 0;
 
 	(void)argc;
 	argv = NULL;
@@ -34,11 +34,11 @@ int	main(int argc, char **argv, char **env)
 		if (str[0] != '\0')
 			add_history(cmd_line);
 		test = pipe_split(str, '|');
-		index = 0;
-		while (test[index])
+		i = 0;
+		while (test[i])
 		{
-			printf("%s\n", test[index]);
-			index++;
+			printf("%s\n", test[i]);
+			i++;
 		}
 		
 		// parsing(data, str);
