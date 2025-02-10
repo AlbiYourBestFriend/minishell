@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_handler.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:08:49 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/10 12:51:36 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/10 13:28:05 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,28 @@ int	open_infile_outfile(char **args)
 	index = 0;
 	while (args[index])
 	{
-		if (ft_strncmp(args[index], INPUT, INT_MAX) && args[index + 1])
-			input = open_file(args[index + 1], input, 0, 0);
-		else if (ft_strncmp(args[index], HEREDOC, INT_MAX) && args[index + 1])
-			input = here_doc(input, args[index + 1]);
-		else if (ft_strncmp(args[index], TRUNC, INT_MAX) && args[index + 1])
-			output = open_file(args[index + 1], output, 1, 1);
-		else if (ft_strncmp(args[index + 1], APPEND, INT_MAX) && args[index + 1])
-			output = open_file(args[index + 1], output, 1, 0);
-		if (input == -1 || output == -1)
-			return (close_file(input, output), 0);
-		index++;
+		// if (il y a une redirection)
+		// 	ft_redirection
+		// else
+		// 	index++;
+		// if (ft_strncmp(args[index], INPUT, INT_MAX) && args[index + 1])
+		// 	input = open_file(args[index + 1], input, 0, 0);
+		// else if (ft_strncmp(args[index], HEREDOC, INT_MAX) && args[index + 1])
+		// 	input = here_doc(input, args[index + 1]);
+		// else if (ft_strncmp(args[index], TRUNC, INT_MAX) && args[index + 1])
+		// 	output = open_file(args[index + 1], output, 1, 1);
+		// else if (ft_strncmp(args[index + 1], APPEND, INT_MAX) && args[index + 1])
+		// 	output = open_file(args[index + 1], output, 1, 0);
+		// if (input == -1 || output == -1)
+		// 	return (close_file(input, output), 0);
+		// index++;
 	}
 	return (1);
 }
+
+
+// ft_redirection()
+// {
+// 	extraire redirection
+// 	return chaine sans redirection
+// }
