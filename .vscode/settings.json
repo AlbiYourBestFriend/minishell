@@ -11,6 +11,7 @@
 		"chrono": "c",
 		"algorithm": "c",
 		"__bit_reference": "c",
-		"unordered_map": "c"
+		"unordered_map": "c",
+		"lsthandler.h": "c"
 	}
 }
