@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 17:12:57 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/10 15:47:49 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/10 18:14:56 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,13 @@ char	**copy_tab(char **tab)
 
 	len = tab_len(tab);
 	copy = malloc((len + 1) * sizeof(char *));
-	if (!copy)
+	if (copy == NULL)
 		return (NULL);
 	i = 0;
-	while (tab[i])
+	while (tab[i] != NULL)
 	{
 		copy[i] = ft_strdup(tab[i]);
+		if (copy[i] == NULL)
 		if (copy[i] == NULL)
 			return (free_tab(tab), NULL);
 		i++;
