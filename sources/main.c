@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/10 15:41:27 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/10 18:12:17 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,18 @@ int	main(int argc, char **argv, char **env)
 	char	*str;
 	int	index;
 
-	index = 0;
+	i = 0;
 
 	(void)argc;
 	argv = NULL;
 	data = init_data(env);
 	cmd_line = readline(PROMPT);
-	str = ft_clean_cmd(cmd_line);
-	while (ft_strncmp(str, EXIT, ft_strlen(str)) != 0
-		|| ft_strlen(str) != ft_strlen(EXIT))
+	cmd_line = clean_cmd(cmd_line);
+	while (ft_strncmp(cmd_line, EXIT, ft_strlen(cmd_line)) != 0
+		|| ft_strlen(cmd_line) != ft_strlen(EXIT))
 	{
-		ft_printf("%s\n", str);
-		if (str[0] != '\0')
+		ft_printf("%s\n", cmd_line);
+		if (cmd_line[0] != '\0')
 			add_history(cmd_line);
 		index = 0;
 		
@@ -52,10 +52,9 @@ int	main(int argc, char **argv, char **env)
 		free(str);
 		free(cmd_line);
 		cmd_line = readline(PROMPT);
-		str = ft_clean_cmd(cmd_line);
+		cmd_line = clean_cmd(cmd_line);
 	}
 	clear_history();
-	free(str);
 	free(cmd_line);
 	free_tab(data.env);
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tab_len.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 16:02:16 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/07 14:36:28 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/10 15:09:02 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int	tab_len(char **tab)
 {
-	int	index;
+	int	i;
 
-	index = 0;
-	while (tab[index] != NULL)
-		index++;
-	return (index);
+	i = 0;
+	while (tab[i] != NULL)
+		i++;
+	return (i);
 }

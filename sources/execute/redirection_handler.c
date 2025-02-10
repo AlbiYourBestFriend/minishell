@@ -5,73 +5,33 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/10 14:58:17 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/10 15:38:10 by mleproux         ###   ########.fr       */
+/*   Created: 2025/02/10 11:08:49 by mleproux          #+#    #+#             */
+/*   Updated: 2025/02/10 18:10:24 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	get_redirection(char *cmd, int index)
+int	check_redirection(char *word)
 {
-	int	current;
-	
-	if (cmd[index] == '<')
-	{
-		current = INPUT;
-		if (cmd[index + 1] == cmd[index])
-		{
-			current = HEREDOC;
-			if (cmd[index + 3] == cmd[index])
-				return (0);	
-		}
-	}
-	else if (cmd[index] == '>')
-	{
-		current = TRUNC;
-		if (cmd[index + 1] == cmd[index])
-		{
-			current = APPEND;
-			if (cmd[index + 3] == cmd[index])
-				return (0);	
-		}
-	}
-	return (current);
-}
+	int	redirection;
 
-int	word_len(char *cmd, int index)
-{
-	int	len;
-	
-	len = 0;
-	while (cmd[index + len] && cmd[index + len] != '\0' \
-		&& ft_isspace(cmd[index + len] == 0))
-	{
-		len++;
-	}
-	return (len);
-}
-	
-char	*get_next_word(char *cmd, int index)
-{
-	char	*word;
-	int		len;
-
-	word = malloc(sizeof(char *) * word_len(cmd, index) + 1);
 	if (word == NULL)
-		return (NULL);
-	len = 0;
-	while (cmd[index + len] && cmd[index + len] != '\0' \
-		&& ft_isspace(cmd[index + len] == 0))
-	{
-		word[len] = cmd[index + len];
-		len++; 
-	}
-	word[len] = '\0';
-	return (word);
+		return (-1);
+	redirection = 0;
+	if (ft_strncmp(word, "<", INT_MAX) == 0)
+		redirection = INPUT;
+	else if (ft_strncmp(word, "<<", INT_MAX) == 0)
+		redirection = HEREDOC;
+	else if (ft_strncmp(word, ">", INT_MAX) == 0)
+		redirection = TRUNC;
+	else if (ft_strncmp(word, ">>", INT_MAX) == 0)
+		redirection = APPEND;
+	free(word);
+	return (redirection);
 }
 
-char *read_redirection(char *cmd)
+char	*read_redirection(char *cmd)
 {
 	char	*filename;
 	int		index;
@@ -80,15 +40,21 @@ char *read_redirection(char *cmd)
 	index = 0;
 	while (cmd[index] != '\0')
 	{
-		redirection = get_redirection(cmd, index);
-		if (redirection != 0)
+		redirection = check_redirection(get_next_word(cmd, &index));
+		if (redirection > 0)
 		{
-			if (redirection == INPUT || redirection == TRUNC)
-				index++;
-			else if (redirection == HEREDOC || redirection == APPEND)
-				index += 2;
-			filename = get_next_word(cmd, index);
-			printf("redirection = %d\n filename = %s\n", redirection, filename);
+			filename = get_next_word(cmd, &index);
+			if (filename == NULL)
+				return (NULL);
+			printf("%d -- %s\n", redirection, filename);
 		}
 	}
+	return (NULL);
 }
+
+
+// ft_redirection()
+// {
+// 	extraire redirection
+// 	return chaine sans redirection
+// }

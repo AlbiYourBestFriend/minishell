@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/10 15:39:57 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/10 18:10:55 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,13 @@
 typedef struct s_data
 {
 	char				**env;
+	char				**env_variables; // ou liste chainee
 	struct s_command	*commands;
 }			t_data;
 
 // Main functions
-int		parsing(t_data data, char *input);
 int		here_doc(int currentfd, char *limiter);
-int		open_infile_outfile(char **args);
+// int		open_infile_outfile(char **args);
 
 // Builtins
 void	ft_echo(void *arg);
@@ -78,10 +78,9 @@ int		check_if_builtins(char *command_name);
 char *read_redirection(char *cmd);
 
 // Utils
+char	*clean_cmd(char *cmd);
 char	**copy_tab(char **tab);
 void	free_tab(char **tab);
-int		is_in_str(char *cmd, int i);
-char	*ft_clean_cmd(char *cmd);
 t_data	init_data(char **env);
 void	print_error(char *msg);
 char	**split_pipes_cmd_line(char *line);
