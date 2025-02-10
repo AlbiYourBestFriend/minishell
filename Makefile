@@ -17,8 +17,10 @@ SOURCES	=	command_lst.c \
 			split_cmd_line.c \
 			tab_len.c \
 			main.c \
+			redirection_handler.c \
+			open_files.c
 
-VPATH = sources:sources/list_handler:sources/utils:sources/parsing
+VPATH = sources:sources/list_handler:sources/utils:sources/parsing:sources/execute
 
 SOURCES_DIR	= sources
 MY_SOURCES	= $(addprefix $(SOURCES_DIR)/,$(SOURCES))

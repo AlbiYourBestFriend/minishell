@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_cmd_line.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 19:03:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/10 15:27:10 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/10 18:15:16 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ static char	**remp_split(char **tab, char *line, char c, int nb_word)
 		j++;
 	}
 	tab[nb_word] = NULL;
-	// printf("tab[%d] : %s\n", j, tab[j]);
 	return (tab);
 }
 

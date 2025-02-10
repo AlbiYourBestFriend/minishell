@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/10 17:49:47 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/10 18:14:25 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@
 # define EXECVE_ERR		"error during execve"
 # define PATH_ERR		"path not found"
 
-# define INPUT "<"
-# define HEREDOC "<<"
-# define TRUNC ">"
-# define APPEND ">>"
+# define INPUT 1
+# define HEREDOC 2
+# define TRUNC 3
+# define APPEND 4
 
 # define HEREDOCFILE ".heredoc.tmp"
 
@@ -66,8 +66,9 @@ int		check_quotes(char *cmd);
 int		parsing(t_data data, char *input);
 
 // Main functions
+// Main functions
 int		here_doc(int currentfd, char *limiter);
-int		open_infile_outfile(char **args);
+// int		open_infile_outfile(char **args);
 
 // Builtins
 void	ft_echo(void *arg);
@@ -79,6 +80,7 @@ void	ft_env(void *arg);
 void	ft_exit(void *arg);
 int		execute_builtins(char *command_name);
 int		check_if_builtins(char *command_name);
+char *read_redirection(char *cmd);
 
 // Utils
 char	*clean_cmd(char *cmd);
@@ -86,7 +88,7 @@ char	**copy_tab(char **tab);
 void	free_tab(char **tab);
 t_data	init_data(char **env);
 void	print_error(char *msg);
-char	**split_cmd_line(char *line, char c);
+char	**split_pipes_cmd_line(char *line);
 int		ft_check(char **tab, char *line, char c, int k);
 int		tab_len(char **tab);
 
