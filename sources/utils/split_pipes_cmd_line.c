@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_pipes_cmd_line.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 19:03:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/07 16:38:31 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/07 17:46:50 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ int	main(int argc, char **argv)
 		str = readline("split cmd '|' : ");
 		add_history(str);
 		printf("\nline = ~%s~\n", str);
-		split_cmd_line(str, '|');
+		split_pipes_cmd_line(str);
 		free(str);
 	}
 }

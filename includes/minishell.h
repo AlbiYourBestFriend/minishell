@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/02/07 17:40:44 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/10 12:52:38 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,13 @@
 # define EXECVE_ERR		"error during execve"
 # define PATH_ERR		"path not found"
 
+# define INPUT "<"
+# define HEREDOC "<<"
+# define TRUNC ">"
+# define APPEND ">>"
+
+# define HEREDOCFILE ".heredoc.tmp"
+
 typedef struct s_data
 {
 	char				**env;
@@ -55,6 +62,8 @@ typedef struct s_data
 
 // Main functions
 int		parsing(t_data data, char *input);
+int		here_doc(int currentfd, char *limiter);
+int		open_infile_outfile(char **args);
 
 // Builtins
 void	ft_echo(void *arg);
@@ -64,8 +73,8 @@ void	ft_export(void *arg);
 void	ft_unset(void *arg);
 void	ft_env(void *arg);
 void	ft_exit(void *arg);
-int	execute_builtins(char *command_name);
-int	check_if_builtins(char *command_name);
+int		execute_builtins(char *command_name);
+int		check_if_builtins(char *command_name);
 
 // Utils
 char	**copy_tab(char **tab);
