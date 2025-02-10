@@ -6,18 +6,13 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:24:55 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/04 12:56:51 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/10 11:30:12 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LSTHANDLER_H
 # define LSTHANDLER_H
 
-// Token type
-# define INPUT 1
-# define HERE_DOC 2
-# define APPEND 3
-# define TRUNC 4
 # define PIPE '|'
 
 // structures
