@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/07 16:49:43 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/10 15:41:27 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	main(int argc, char **argv, char **env)
 {
 	t_data	data;
 	char	*cmd_line;
-	char **test;
 	char	*str;
 	int	index;
 
@@ -33,13 +32,13 @@ int	main(int argc, char **argv, char **env)
 		ft_printf("%s\n", str);
 		if (str[0] != '\0')
 			add_history(cmd_line);
-		test = pipe_split(str, '|');
 		index = 0;
-		while (test[index])
-		{
-			printf("%s\n", test[index]);
-			index++;
-		}
+		
+		// while (test[index])
+		// {
+		// 	printf("%s\n", test[index]);
+		// 	index++;
+		// }
 		
 		// parsing(data, str);
 		// if (parsing(cmd_line) != 0)

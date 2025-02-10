@@ -5,61 +5,90 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/10 11:08:49 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/10 12:51:36 by mleproux         ###   ########.fr       */
+/*   Created: 2025/02/10 14:58:17 by mleproux          #+#    #+#             */
+/*   Updated: 2025/02/10 15:38:10 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	open_file(char *filename, int currentfd, int isoutput, int dotrunc)
+int	get_redirection(char *cmd, int index)
 {
-	int	fd;
+	int	current;
 	
-	if (currentfd > 0)
-		close(currentfd);
-	if (isoutput == 1)
+	if (cmd[index] == '<')
 	{
-		if (dotrunc)
-			fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		else
-			fd = open(filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		current = INPUT;
+		if (cmd[index + 1] == cmd[index])
+		{
+			current = HEREDOC;
+			if (cmd[index + 3] == cmd[index])
+				return (0);	
+		}
 	}
-	else
-		fd = open(filename, O_RDONLY);
-	if (fd == -1)
-		perror(filename);
-	return (fd);
+	else if (cmd[index] == '>')
+	{
+		current = TRUNC;
+		if (cmd[index + 1] == cmd[index])
+		{
+			current = APPEND;
+			if (cmd[index + 3] == cmd[index])
+				return (0);	
+		}
+	}
+	return (current);
 }
-static void	close_file(int input, int output)
+
+int	word_len(char *cmd, int index)
 {
-	if (input > 0)
-		close(input);
-	if (output > 0)
-		close(output);
-}
-int	open_infile_outfile(char **args)
-{
-	int	index;
-	int	input;
-	int	output;
+	int	len;
 	
-	input = 0;
-	output = 0;
+	len = 0;
+	while (cmd[index + len] && cmd[index + len] != '\0' \
+		&& ft_isspace(cmd[index + len] == 0))
+	{
+		len++;
+	}
+	return (len);
+}
+	
+char	*get_next_word(char *cmd, int index)
+{
+	char	*word;
+	int		len;
+
+	word = malloc(sizeof(char *) * word_len(cmd, index) + 1);
+	if (word == NULL)
+		return (NULL);
+	len = 0;
+	while (cmd[index + len] && cmd[index + len] != '\0' \
+		&& ft_isspace(cmd[index + len] == 0))
+	{
+		word[len] = cmd[index + len];
+		len++; 
+	}
+	word[len] = '\0';
+	return (word);
+}
+
+char *read_redirection(char *cmd)
+{
+	char	*filename;
+	int		index;
+	int		redirection;
+
 	index = 0;
-	while (args[index])
+	while (cmd[index] != '\0')
 	{
-		if (ft_strncmp(args[index], INPUT, INT_MAX) && args[index + 1])
-			input = open_file(args[index + 1], input, 0, 0);
-		else if (ft_strncmp(args[index], HEREDOC, INT_MAX) && args[index + 1])
-			input = here_doc(input, args[index + 1]);
-		else if (ft_strncmp(args[index], TRUNC, INT_MAX) && args[index + 1])
-			output = open_file(args[index + 1], output, 1, 1);
-		else if (ft_strncmp(args[index + 1], APPEND, INT_MAX) && args[index + 1])
-			output = open_file(args[index + 1], output, 1, 0);
-		if (input == -1 || output == -1)
-			return (close_file(input, output), 0);
-		index++;
+		redirection = get_redirection(cmd, index);
+		if (redirection != 0)
+		{
+			if (redirection == INPUT || redirection == TRUNC)
+				index++;
+			else if (redirection == HEREDOC || redirection == APPEND)
+				index += 2;
+			filename = get_next_word(cmd, index);
+			printf("redirection = %d\n filename = %s\n", redirection, filename);
+		}
 	}
-	return (1);
 }

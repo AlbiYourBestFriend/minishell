@@ -4,6 +4,7 @@
 		"readline.h": "c",
 		"history.h": "c",
 		"minishell.h": "c",
-		"sstream": "c"
+		"sstream": "c",
+		"chrono": "c"
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/10 13:04:34 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/10 15:39:57 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@
 # define EXECVE_ERR		"error during execve"
 # define PATH_ERR		"path not found"
 
-# define INPUT "<"
-# define HEREDOC "<<"
-# define TRUNC ">"
-# define APPEND ">>"
+# define INPUT 1
+# define HEREDOC 2
+# define TRUNC 3
+# define APPEND 4
 
 # define HEREDOCFILE ".heredoc.tmp"
 
@@ -75,6 +75,7 @@ void	ft_env(void *arg);
 void	ft_exit(void *arg);
 int		execute_builtins(char *command_name);
 int		check_if_builtins(char *command_name);
+char *read_redirection(char *cmd);
 
 // Utils
 char	**copy_tab(char **tab);
@@ -83,7 +84,7 @@ int		is_in_str(char *cmd, int i);
 char	*ft_clean_cmd(char *cmd);
 t_data	init_data(char **env);
 void	print_error(char *msg);
-char	**split_cmd_line(char *line, char c);
+char	**split_pipes_cmd_line(char *line);
 int		ft_check(char **tab, char *line, char c, int k);
 int		tab_len(char **tab);
 

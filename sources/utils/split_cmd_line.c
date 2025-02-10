@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 19:03:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/10 13:04:58 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/10 13:43:24 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ static char	**remp_split(char **tab, char *line, char c, int nb_word)
 		j++;
 	}
 	tab[nb_word] = NULL;
-	printf("tab[%d] : %s\n", j, tab[j]);
 	return (tab);
 }
 
@@ -124,18 +123,18 @@ char	**split_pipes_cmd_line(char *line)
 	return (remp_split(tab, line, '|', nb_word));
 }
 
-int	main(int argc, char **argv)
-{
-	char	*str;
+// int	main(int argc, char **argv)
+// {
+// 	char	*str;
 
-	(void)argc;
-	str = argv[1];
-	while (1)
-	{
-		str = readline("split cmd '|' : ");
-		add_history(str);
-		printf("\nline = ~%s~\n", str);
-		split_cmd_line(str, '|');
-		free(str);
-	}
-}
+// 	(void)argc;
+// 	str = argv[1];
+// 	while (1)
+// 	{
+// 		str = readline("split cmd '|' : ");
+// 		add_history(str);
+// 		printf("\nline = ~%s~\n", str);
+// 		split_cmd_line(str, '|');
+// 		free(str);
+// 	}
+// }

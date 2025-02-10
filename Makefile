@@ -16,6 +16,8 @@ SOURCES	=	main.c \
 			split_cmd_line_utils.c \
 			split_cmd_line.c \
 			tab_len.c \
+			redirection_handler.c \
+			open_files.c
 
 VPATH = sources:sources/list_handler:sources/utils:sources/parsing
 
