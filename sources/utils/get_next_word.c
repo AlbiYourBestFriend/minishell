@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 18:09:37 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/11 14:22:35 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/11 17:16:41 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	word_len(char *str, int index)
 {
 	int		len;
 	char	quote;
-	
+
 	quote = '\0';
 	len = 0;
 	if (str[index] == '\"' || str[index] == '\'')
@@ -31,14 +31,14 @@ static int	word_len(char *str, int index)
 	}
 	else
 		while (str[index + len] != '\0' && ft_isspace(str[index + len]) == 0)
-        	len++;
+			len++;
 	return (len);
 }
 
 static char	*fill_word(char *str, char *word, int *index)
 {
-	char quote;
-	int	len;
+	char	quote;
+	int		len;
 
 	len = 0;
 	quote = '\0';
@@ -59,7 +59,7 @@ static char	*fill_word(char *str, char *word, int *index)
 	word[len] = '\0';
 	return (word);
 }
-	
+
 char	*get_next_word(char *str, int *index)
 {
 	char	*word;
