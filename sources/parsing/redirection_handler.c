@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:08:49 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/11 15:31:34 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/11 17:19:56 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	handle_redirection(t_command *cmd, int redirection, int *index)
 {
 	char	*filename;
-	
+
 	filename = get_next_word(cmd->cmd_line, index);
 	if (filename == NULL)
 	{
@@ -57,6 +57,14 @@ static char	*handle_argument(char *new_cmd_line, char *word)
 	return (new_cmd_line);
 }
 
+static int	write_new_cmd_line(char **new_cmd_line, char *word)
+{
+	*new_cmd_line = handle_argument(*new_cmd_line, word);
+	if (*new_cmd_line == NULL)
+		return (0);
+	return (1);
+}
+
 char	*read_redirection(t_command *cmd)
 {
 	char	*new_cmd_line;
@@ -78,21 +86,10 @@ char	*read_redirection(t_command *cmd)
 				return (free(word), NULL);
 		}
 		else
-		{
-			new_cmd_line = handle_argument(new_cmd_line, word);
-			if (new_cmd_line == NULL)
+			if (write_new_cmd_line(&new_cmd_line, word) == 0)
 				return (free(word), NULL);
-		}	
 		free(word);
 	}
-
 	printf("command line: %s\ninput: %d\noutput: %d\n", new_cmd_line, cmd->input_fd, cmd->output_fd);
 	return (new_cmd_line);
 }
-
-
-// ft_redirection()
-// {
-// 	extraire redirection
-// 	return chaine sans redirection
-// }
