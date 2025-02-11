@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/10 18:14:25 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/11 17:27:35 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,15 @@ typedef struct s_data
 }			t_data;
 
 // parsing
-int		check_quotes(char *cmd);
-int		parsing(t_data data, char *input);
+int			check_quotes(char *cmd);
+int			is_env_var(char *cmd);
+int			exist_var(t_data *data, char *name);
+void		add_env_var(t_data *data, char *name, char *value);
+t_env_var	*get_env_var(t_data *data, char *name);
+int			skip_quote(char *cmd, int n, int s);
+char		*get_env_var_name(char *cmd);
+char		*get_env_var_value(char *cmd);
+void		modif_env_var(t_data *data, char *cmd);
 
 // Main functions
 // Main functions
@@ -80,7 +87,7 @@ void	ft_env(void *arg);
 void	ft_exit(void *arg);
 int		execute_builtins(char *command_name);
 int		check_if_builtins(char *command_name);
-char *read_redirection(char *cmd);
+char	*read_redirection(char *cmd);
 
 // Utils
 char	*clean_cmd(char *cmd);

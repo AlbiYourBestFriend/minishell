@@ -7,6 +7,9 @@ OTHER_FLAGS = -lreadline -lncurses
 SOURCES	=	command_lst.c \
 			token_lst.c \
 			check_quotes.c \
+			handle_env_var_utils_2.c \
+			handle_env_var_utils.c \
+			handle_env_var.c \
 			parsing.c \
 			copy_tab.c \
 			free_tab.c \

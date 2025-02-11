@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:24:55 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/10 18:35:42 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/11 13:02:05 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_env_var
 {
 	char				*name;
 	char				*value;
-	int					*status;
+	int					status;
 	struct s_env_var	*next;
 }			t_env_var;
 
