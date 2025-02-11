@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_path.c                                      :+:      :+:    :+:   */
+/*   path_handler.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 15:24:27 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/07 15:41:04 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/11 17:18:49 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static char	**get_paths()
+static char	**get_paths(void)
 {
-	char **splitted_paths;
+	char	**splitted_paths;
 
 	splitted_paths = ft_split(getenv("PATH"), ':');
 	return (splitted_paths);
@@ -34,5 +34,3 @@ static char	*create_path(char *path, char *cmd)
 		return (NULL);
 	return (new_path);
 }
-
-

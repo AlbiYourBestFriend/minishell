@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   lsthandler.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:24:55 by mleproux          #+#    #+#             */
 /*   Updated: 2025/02/11 13:02:05 by tprovost         ###   ########.fr       */
@@ -12,8 +12,6 @@
 
 #ifndef LSTHANDLER_H
 # define LSTHANDLER_H
-
-# define PIPE '|'
 
 // structures
 typedef struct s_token
@@ -24,7 +22,7 @@ typedef struct s_token
 
 typedef struct s_command
 {
-	char				*name; // cmd line
+	char				*cmd_line;
 	char				**args;
 	int					input_fd;
 	int					output_fd;

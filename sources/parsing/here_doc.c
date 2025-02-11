@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:44:32 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/10 12:56:13 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/11 17:21:27 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,13 @@ static int	get_here_doc(int fd, char *limiter)
 int	here_doc(int currentfd, char *limiter)
 {
 	int	fd;
+
 	if (currentfd > 0)
 		close(currentfd);
-	fd = open(HEREDOCFILE, O_WRONLY | O_TRUNC, 0644);
+	fd = open(HEREDOCFILE, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd < 0)
 		return (fd);
-	if (get_here_doc(fd, limiter) == 0);
+	if (get_here_doc(fd, limiter) == 0)
 	{
 		unlink(HEREDOCFILE);
 		return (-1);

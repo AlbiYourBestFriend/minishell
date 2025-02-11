@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -51,6 +50,7 @@
 # define HEREDOC 2
 # define TRUNC 3
 # define APPEND 4
+# define PIPE 5
 
 # define HEREDOCFILE ".heredoc.tmp"
 
@@ -74,8 +74,11 @@ void		modif_env_var(t_data *data, char *cmd);
 
 // Main functions
 // Main functions
+int		open_file(char *filename, int currentfd, int isoutput, int dotrunc); // ?
 int		here_doc(int currentfd, char *limiter);
-// int		open_infile_outfile(char **args);
+char	**split_cmd_line(char *line, char c);
+char	*clean_cmd(char *cmd);;
+char	*read_redirection(t_command *cmd);
 
 // Builtins
 void	ft_echo(void *arg);
@@ -87,16 +90,15 @@ void	ft_env(void *arg);
 void	ft_exit(void *arg);
 int		execute_builtins(char *command_name);
 int		check_if_builtins(char *command_name);
-char	*read_redirection(char *cmd);
 
 // Utils
-char	*clean_cmd(char *cmd);
 char	**copy_tab(char **tab);
 void	free_tab(char **tab);
 t_data	init_data(char **env);
 void	print_error(char *msg);
-char	**split_pipes_cmd_line(char *line);
 int		ft_check(char **tab, char *line, char c, int k);
 int		tab_len(char **tab);
+int		check_token(char *str);
+char	*get_next_word(char *str, int *index);
 
 #endif

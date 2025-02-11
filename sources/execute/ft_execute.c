@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:59:12 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/07 16:58:14 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/11 17:17:08 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	fork_handler(t_data data, char **cmd, int input, int output)
 	{
 		if (dup2(input, 0) == -1 || dup2(output, 1) == -1)
 			print_error("Dup failed");
-		command_executor(data.env, cmd);
+		command_executor(data, cmd);
 	}
 	else
 	{
@@ -41,12 +41,12 @@ void	ft_execute(t_data data, char **cmds)
 
 	if (pipe(pipefd) != 0)
 		return ;
-	while(cmds[index])
+	while (cmds[index])
 	{
 		if (check_if_builtins(NULL) == 1)
 			execute_builtins(NULL);
 		else
 			fork_handler(data, NULL, 0, 0);
 		index++;
-	}	
+	}
 }

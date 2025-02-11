@@ -21,7 +21,10 @@ SOURCES	=	command_lst.c \
 			tab_len.c \
 			main.c \
 			redirection_handler.c \
-			open_files.c
+			open_files.c \
+			check_token.c \
+			get_next_word.c \
+			here_doc.c
 
 VPATH = sources:sources/list_handler:sources/utils:sources/parsing:sources/execute
 

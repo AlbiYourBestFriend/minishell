@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:21:31 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/07 16:45:32 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/11 17:18:02 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	check_if_builtins(char *command_name)
 		return (1);
 	return (0);
 }
+
 int	execute_builtins(char *command_name)
 {
 	if (command_name == NULL)
@@ -43,6 +44,6 @@ int	execute_builtins(char *command_name)
 	else if (ft_strncmp(command_name, "env", 50) == 0)
 		ft_env(NULL);
 	else if (ft_strncmp(command_name, "exit", 50) == 0)
-		ft_exit(NULL);;
+		ft_exit(NULL);
 	return (0);
 }
