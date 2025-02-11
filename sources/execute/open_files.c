@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:08:49 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/10 18:08:37 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/11 13:22:11 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ int	open_file(char *filename, int currentfd, int isoutput, int dotrunc)
 		perror(filename);
 	return (fd);
 }
-static void	close_file(int input, int output)
-{
-	if (input > 0)
-		close(input);
-	if (output > 0)
-		close(output);
-}
+// static void	close_file(int input, int output)
+// {
+// 	if (input > 0)
+// 		close(input);
+// 	if (output > 0)
+// 		close(output);
+// }
