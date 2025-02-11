@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/11 17:21:50 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/11 17:27:35 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,19 @@ typedef struct s_data
 }			t_data;
 
 // parsing
-int		check_quotes(char *cmd);
-int		open_file(char *filename, int currentfd, int isoutput, int dotrunc);
+int			check_quotes(char *cmd);
+int			is_env_var(char *cmd);
+int			exist_var(t_data *data, char *name);
+void		add_env_var(t_data *data, char *name, char *value);
+t_env_var	*get_env_var(t_data *data, char *name);
+int			skip_quote(char *cmd, int n, int s);
+char		*get_env_var_name(char *cmd);
+char		*get_env_var_value(char *cmd);
+void		modif_env_var(t_data *data, char *cmd);
+
+// Main functions
+// Main functions
+int		open_file(char *filename, int currentfd, int isoutput, int dotrunc); // ?
 int		here_doc(int currentfd, char *limiter);
 char	**split_cmd_line(char *line, char c);
 char	*clean_cmd(char *cmd);;
