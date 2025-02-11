@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/10 18:36:34 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/11 13:40:33 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,12 @@ int	main(int argc, char **argv, char **env)
 {
 	t_data	data;
 	char	*cmd_line;
-	char	*str;
 	int	index;
+	t_command *cmd;
 
-	i = 0;
-
+	cmd = malloc(sizeof(t_command));
+	cmd->input_fd = 0;
+	cmd->output_fd = 0;
 	(void)argc;
 	argv = NULL;
 	data = init_data(env);
@@ -33,7 +34,8 @@ int	main(int argc, char **argv, char **env)
 		if (cmd_line[0] != '\0')
 			add_history(cmd_line);
 		index = 0;
-		
+		cmd->cmd_line = cmd_line;
+		read_redirection(cmd);
 		// while (test[index])
 		// {
 		// 	printf("%s\n", test[index]);
@@ -49,9 +51,7 @@ int	main(int argc, char **argv, char **env)
 		// {
 		// 	// execute(&data);
 		// }
-		free(str);
 		free(cmd_line);
-		free_tab(test);
 		cmd_line = readline(PROMPT);
 		cmd_line = clean_cmd(cmd_line);
 	}
