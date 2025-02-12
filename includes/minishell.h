@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
 /*   Updated: 2025/02/12 19:27:06 by tprovost         ###   ########.fr       */
@@ -31,6 +31,7 @@
 # include <stdbool.h>
 
 # define PROMPT "Minishell : "
+# define MY_CHAR_MAX 4096
 
 // pipex errors
 # define ENV_ERR		"no environment detected"
@@ -76,8 +77,8 @@ int		here_doc(int currentfd, char *limiter);
 char	*read_redirection(t_command *cmd);
 
 // Builtins
-void	ft_cd(void *arg);
-void	ft_echo(void *arg);
+void  ft_cd(t_command *cmd);
+void	ft_echo(t_command *cmd);
 void	ft_env(t_data *data, t_command *cmd);
 void	ft_exit(void *arg);
 void	ft_export(t_data *data, t_command *cmd);
@@ -115,5 +116,9 @@ void	print_error(char *msg);
 int		ft_check(char **tab, char *line, char c, int k);
 char	**split_cmd_line(char *line, char c);
 int		tab_len(char **tab);
+
+char		*get_next_word(char *str, int *index);
+int			get_word_count(char *str);
+void		print_output(t_command *cmd, int arg_index);
 
 #endif

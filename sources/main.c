@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/11 13:40:33 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/12 17:02:58 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ int	main(int argc, char **argv, char **env)
 	while (ft_strncmp(cmd_line, EXIT, ft_strlen(cmd_line)) != 0
 		|| ft_strlen(cmd_line) != ft_strlen(EXIT))
 	{
-		ft_printf("%s\n", cmd_line);
 		if (cmd_line[0] != '\0')
 			add_history(cmd_line);
 		index = 0;
 		cmd->cmd_line = cmd_line;
 		read_redirection(cmd);
+		// ft_echo(cmd);
 		// while (test[index])
 		// {
 		// 	printf("%s\n", test[index]);

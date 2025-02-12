@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   handle_env_var_utils_2.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 15:43:45 by tprovost          #+#    #+#             */
 /*   Updated: 2025/02/12 17:13:23 by tprovost         ###   ########.fr       */
@@ -66,7 +66,7 @@ char	*get_env_var_name(char *cmd)
 			i = skip_quote(cmd, i, 1);
 	}
 	j = i;
-	n = get_name_utils(cmd, j);
+	n = get_name_utils(cmd, &j);
 	if (ft_isspace(cmd[j]) == 0)
 		j--;
 	name = malloc((i - j - n + 1) * sizeof(char));

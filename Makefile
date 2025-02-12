@@ -4,7 +4,14 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 OTHER_FLAGS = -lreadline -lncurses
 
-SOURCES	=	command_lst.c \
+SOURCES	=	ft_echo.c \
+			ft_cd.c \
+			ft_env.c \
+			ft_exit.c \
+			ft_export.c \
+			ft_pwd.c \
+			ft_unset.c \
+      command_lst.c \
 			token_lst.c \
 			check_quotes.c \
 			handle_env_var_utils_2.c \
@@ -28,8 +35,10 @@ SOURCES	=	command_lst.c \
 			split_cmd_line.c \
 			tab_len.c \
 			main.c \
+			print_output.c \
+			get_word_count.c \
 
-VPATH = sources:sources/list_handler:sources/utils:sources/parsing:sources/execute
+VPATH = sources:sources/list_handler:sources/utils:sources/parsing:sources/execute:sources/builtins
 
 SOURCES_DIR	= sources
 MY_SOURCES	= $(addprefix $(SOURCES_DIR)/,$(SOURCES))
