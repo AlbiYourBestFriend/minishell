@@ -6,60 +6,75 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 18:05:52 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/11 16:07:28 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/12 19:27:06 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	handle_env(t_data *data, char *name, char *value)
+int	is_env_var(char *cmd)
 {
-	int		i;
-	char	*tmp;
+	int	i;
 
 	i = 0;
-	while (ft_strncmp(name, data->my_env[i], ft_strlen(name)) != 0
-		&& data->my_env[i][ft_strlen(name)] != '='
-		&& data->my_env[i] != NULL)
+	if (cmd[i] > 32 && cmd[i] < 127)
 		i++;
-	if (data->my_env[i] != NULL)
-	{
-		free(data->my_env[i]);
-		tmp = ft_strjoin(name, "=");
-		data->my_env[i] = ft_strjoin(tmp, value);
-		free(tmp);
-	}
+	else
+		return (0);
+	while (cmd[i] > 32 && cmd[i] < 127 && cmd[i] != '\0' && cmd[i] != '=')
+		i++;
+	if (cmd[i] != '=')
+		return (0);
+	i++;
+	if (cmd[i] == '\0' || ft_isspace(cmd[i]) == 1)
+		return (-1);
+	return (1);
 }
 
-static void	modif_env_var(t_data *data, char *cmd)
+t_env_var	*modif_env_var(t_data *data, char *name, char *value)
 {
-	char		*name;
-	char		*value;
 	t_env_var	*env_var;
-	int			n;
 
-	name = get_env_var_name(cmd);
-	value = get_env_var_value(cmd);
 	env_var = NULL;
-	n = exist_var(data, name);
-	if (n == 0) // la variable d'environnement n'existe pas encore
-		add_env_var(data, ft_strdup(name), ft_strdup(value));
-	if (n == 1 || n == 3) // existe dans la liste chainee
+	if (exist_var(data, name) == 0) // la variable d'environnement n'existe pas encore
+	{
+		if (value == NULL)
+			env_var = add_env_var(data, ft_strdup(name), NULL);
+		else
+			env_var = add_env_var(data, ft_strdup(name), ft_strdup(value));
+	}
+	else // existe dans la liste chainee
 	{
 		env_var = get_env_var(data, name);
 		if (env_var->value != NULL)
 			free(env_var->value);
-		env_var->value = ft_strdup(value);
+		if (value == NULL)
+			env_var->value = NULL;
+		else
+			env_var->value = ft_strdup(value);
 	}
-	if (n == 2 || n == 3) // existe dans l'environnement
-		handle_env(data, name, value);
 	free(name);
-	free(value);
+	if (value != NULL)
+		free(value);
+	return (env_var);
 }
 
-void	handle_env_var(t_data *data, char *cmd)
+void	handle_env_var(t_data *data, char *cmd, int n)
 {
+	char	*name;
+	char	*value;
 
+	if (n == 1)
+	{
+		name = get_env_var_name(cmd);
+		value = get_env_var_value(cmd);
+	}
+	else if (n == -1)
+	{
+		name = get_env_var_name(cmd);
+		value = NULL;
+	}
+	modif_env_var(data, name, value);
 }
 
 // int main(int argc, char **argv)

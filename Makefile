@@ -10,21 +10,24 @@ SOURCES	=	command_lst.c \
 			handle_env_var_utils_2.c \
 			handle_env_var_utils.c \
 			handle_env_var.c \
-			parsing.c \
-			copy_tab.c \
-			free_tab.c \
+			here_doc.c \
+			open_files.c \
+			redirection_handler.c \
+			check_token.c \
 			clean_cmd.c \
+			copy_tab.c \
+			free_cmd.c \
+			free_data.c \
+			free_env_var.c \
+			free_tab.c \
+			get_next_word.c \
 			init_data.c \
+			lst_to_tab.c \
 			print_error.c \
 			split_cmd_line_utils.c \
 			split_cmd_line.c \
 			tab_len.c \
 			main.c \
-			redirection_handler.c \
-			open_files.c \
-			check_token.c \
-			get_next_word.c \
-			here_doc.c
 
 VPATH = sources:sources/list_handler:sources/utils:sources/parsing:sources/execute
 
