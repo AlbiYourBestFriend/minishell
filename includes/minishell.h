@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/11 17:27:35 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/12 16:53:10 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 
 # define PROMPT "Minishell : "
 # define EXIT "exit"
+# define MY_CHAR_MAX 4096
 
 # define ENV_ERR		"no environment detected"
 # define ARGC_ERR		"wrong number of argument"
@@ -73,32 +74,33 @@ char		*get_env_var_value(char *cmd);
 void		modif_env_var(t_data *data, char *cmd);
 
 // Main functions
-// Main functions
-int		open_file(char *filename, int currentfd, int isoutput, int dotrunc); // ?
-int		here_doc(int currentfd, char *limiter);
-char	**split_cmd_line(char *line, char c);
-char	*clean_cmd(char *cmd);;
-char	*read_redirection(t_command *cmd);
+int			open_file(char *filename, int currentfd, int isoutput, int dotrunc); // ?
+int			here_doc(int currentfd, char *limiter);
+char		**split_cmd_line(char *line, char c);
+char		*clean_cmd(char *cmd);
+int			read_redirection(t_command *cmd);
 
 // Builtins
-void	ft_echo(void *arg);
-void	ft_cd(void *arg);
-void	ft_pwd(void *arg);
-void	ft_export(void *arg);
-void	ft_unset(void *arg);
-void	ft_env(void *arg);
-void	ft_exit(void *arg);
-int		execute_builtins(char *command_name);
-int		check_if_builtins(char *command_name);
+void		ft_echo(t_command *cmd);
+void		ft_cd(t_command *cmd);
+void		ft_pwd(void);
+void		ft_export(void);
+void		ft_unset(void);
+void		ft_env(void);
+void		ft_exit(void);
+int			execute_builtins(char *command_name);
+int			check_if_builtins(char *command_name);
 
 // Utils
-char	**copy_tab(char **tab);
-void	free_tab(char **tab);
-t_data	init_data(char **env);
-void	print_error(char *msg);
-int		ft_check(char **tab, char *line, char c, int k);
-int		tab_len(char **tab);
-int		check_token(char *str);
-char	*get_next_word(char *str, int *index);
+char		**copy_tab(char **tab);
+void		free_tab(char **tab);
+t_data		init_data(char **env);
+void		print_error(char *msg);
+int			ft_check(char **tab, char *line, char c, int k);
+int			tab_len(char **tab);
+int			check_token(char *str);
+char		*get_next_word(char *str, int *index);
+int			get_word_count(char *str);
+void		print_output(t_command *cmd, int arg_index);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_env_var.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 18:05:52 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/11 16:07:28 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/12 11:11:39 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	handle_env(t_data *data, char *name, char *value)
 	}
 }
 
-static void	modif_env_var(t_data *data, char *cmd)
+void	modif_env_var(t_data *data, char *cmd)
 {
 	char		*name;
 	char		*value;
@@ -57,10 +57,10 @@ static void	modif_env_var(t_data *data, char *cmd)
 	free(value);
 }
 
-void	handle_env_var(t_data *data, char *cmd)
-{
+// void	handle_env_var(t_data *data, char *cmd)
+// {
 
-}
+// }
 
 // int main(int argc, char **argv)
 // {
