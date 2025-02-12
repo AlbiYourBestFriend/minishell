@@ -3,17 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:33:34 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/12 13:50:24 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/12 14:07:42 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_env(void)
+void	ft_env(t_data *data, t_command *cmd)
 {
-	
-	printf("Bonjour je suis la commande env! (:");
+	t_env_var	*env_var;
+
+	// printf("Bonjour je suis la commande env! (:");
+	env_var = data->env_variables;
+	while (env_var != NULL)
+	{
+		if (env_var->status == 1)
+		{
+			write(cmd->output_fd, env_var->name, ft_strlen(env_var->name));
+			write(cmd->output_fd, "=", 1);
+			if (env_var->value != NULL)
+				write(cmd->output_fd, env_var->value, ft_strlen(env_var->value));
+			write(cmd->output_fd, "\n", 1);
+		}
+		env_var = env_var->next;
+	}
 }

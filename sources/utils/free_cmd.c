@@ -1,39 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_export.c                                        :+:      :+:    :+:   */
+/*   free_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/10 12:08:23 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/12 19:23:57 by tprovost         ###   ########.fr       */
+/*   Created: 2025/02/12 16:41:43 by tprovost          #+#    #+#             */
+/*   Updated: 2025/02/12 16:43:22 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_export(t_data *data, t_command *cmd)
+void	free_cmd(t_command *cmd)
 {
-	t_env_var	*env_var;
-	int			n;
-
-	if (cmd->args[1] == NULL)
-	{
-		// print env in alphabet order
-	}
-	else
-	{
-		n = is_env_var(cmd->args[1]);
-		if (n != 0)
-		{
-			handle_env_var(data, cmd->args[1], n);
-			env_var = get_env_var(data, get_env_var_name(cmd->args[1]));
-			if (env_var->status == 0)
-				env_var->status = 1;
-		}
-		else
-		{
-			// Error
-		}
-	}
+	free(cmd->cmd_line);
+	free_tab(cmd->args);
+	cmd->next = NULL;
+	free(cmd);
 }
