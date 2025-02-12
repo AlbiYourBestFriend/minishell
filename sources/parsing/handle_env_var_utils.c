@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_env_var_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 12:20:14 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/11 17:21:38 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/12 11:10:48 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	exist_var(t_data *data, char *name)
 	n = 0;
 	env_var = data->env_variables;
 	while (ft_strncmp(env_var->name, name, ft_strlen(name)) != 0
-		&& ft_strlen(name != ft_strlen(env_var->name))
+		&& ft_strlen(name) != ft_strlen(env_var->name)
 		&& env_var != NULL)
 		env_var = env_var->next;
 	if (env_var != NULL)

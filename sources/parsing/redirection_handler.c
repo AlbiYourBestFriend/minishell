@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:08:49 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/11 17:19:56 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/12 16:58:15 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,29 @@ static int	write_new_cmd_line(char **new_cmd_line, char *word)
 		return (0);
 	return (1);
 }
+static int	insert_arguments(t_command *cmd, char *new_cmd_line)
+{
+	char	*word;
+	int		index;
+	int		arg_index;
 
-char	*read_redirection(t_command *cmd)
+	cmd->args = malloc(sizeof(char *) * get_word_count(new_cmd_line) + 1);
+	cmd->cmd_line = new_cmd_line;
+	index = 0;
+	arg_index = 0;
+	while (new_cmd_line[index] != '\0')
+	{
+		word = get_next_word(new_cmd_line, &index);
+		if (word == NULL)
+			return (0);
+		cmd->args[arg_index] = word;
+		arg_index++;
+	}
+	cmd->args[arg_index] = NULL;
+	return (1);
+}
+
+int	read_redirection(t_command *cmd)
 {
 	char	*new_cmd_line;
 	char	*word;
@@ -78,18 +99,18 @@ char	*read_redirection(t_command *cmd)
 	{
 		word = get_next_word(cmd->cmd_line, &index);
 		if (word == NULL)
-			return (NULL);
+			return (0);
 		redirection = check_token(word);
 		if (redirection > 0 && redirection < 5)
 		{
 			if (handle_redirection(cmd, redirection, &index) == 0)
-				return (free(word), NULL);
+				return (free(word), 0);
 		}
-		else
-			if (write_new_cmd_line(&new_cmd_line, word) == 0)
-				return (free(word), NULL);
+		else if (write_new_cmd_line(&new_cmd_line, word) == 0)
+			return (free(word), 0);
 		free(word);
 	}
-	printf("command line: %s\ninput: %d\noutput: %d\n", new_cmd_line, cmd->input_fd, cmd->output_fd);
-	return (new_cmd_line);
+	if (insert_arguments(cmd, new_cmd_line))
+		return (free(new_cmd_line), 0);
+	return (1);
 }

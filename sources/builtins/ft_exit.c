@@ -6,13 +6,13 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:33:53 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/11 17:19:09 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/12 13:50:58 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_exit(void *arg)
+void	ft_exit(void)
 {
 	printf("Bonjour je suis la commande exit! (:");
 }
