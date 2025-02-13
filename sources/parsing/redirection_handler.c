@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:08:49 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/12 16:58:15 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/13 17:05:21 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static int	insert_arguments(t_command *cmd, char *new_cmd_line)
 	int		index;
 	int		arg_index;
 
-	cmd->args = malloc(sizeof(char *) * get_word_count(new_cmd_line) + 1);
+	cmd->args = malloc(sizeof(char *) * (get_word_count(new_cmd_line) + 1));
 	cmd->cmd_line = new_cmd_line;
 	index = 0;
 	arg_index = 0;
@@ -110,7 +110,7 @@ int	read_redirection(t_command *cmd)
 			return (free(word), 0);
 		free(word);
 	}
-	if (insert_arguments(cmd, new_cmd_line))
+	if (!insert_arguments(cmd, new_cmd_line))
 		return (free(new_cmd_line), 0);
 	return (1);
 }

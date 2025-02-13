@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 19:03:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/11 17:15:41 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/13 16:34:36 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,6 @@ char	**split_cmd_line(char *line, char c)
 			i++;
 		}
 	}
-	tab = malloc ((nb_word + 1) * sizeof(char *));
+	tab = malloc((nb_word + 1) * sizeof(char *));
 	return (remp_split(tab, line, c, nb_word));
 }

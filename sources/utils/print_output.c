@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 12:43:35 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/13 16:36:24 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/13 11:41:11 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,7 @@ void	print_output(t_command *cmd, int arg_i)
 			}
 		}
 		arg_i++;
+		if (cmd->args[arg_i])
+			write(1, " ", 1);
 	}
 }

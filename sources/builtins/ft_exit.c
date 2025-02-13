@@ -6,13 +6,15 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:33:53 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/13 15:52:26 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/13 17:24:25 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_exit(void)
+void	ft_exit(t_data *data)
 {
-	printf("Bonjour je suis la commande exit! (:");
+	
+	clear_history();
+	exit(0);
 }

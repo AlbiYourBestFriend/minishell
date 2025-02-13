@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:24:55 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/11 13:02:05 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/13 16:44:24 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,6 @@
 # define LSTHANDLER_H
 
 // structures
-typedef struct s_token
-{
-	int				type;
-	struct s_token	*next;
-}			t_token;
 
 typedef struct s_command
 {
@@ -38,11 +33,8 @@ typedef struct s_env_var
 }			t_env_var;
 
 // functions
-t_command	*cmdnew(char **args);
+t_command	*cmdnew(char *cmd_line);
 void		cmdadd_back(t_command **lst, t_command *newlst);
 t_command	*cmdlast(t_command *lst);
-t_token		*tokennew(void);
-void		tokenadd_back(t_token **lst, t_token *newlst);
-t_token		*tokenlast(t_token *lst);
 
 #endif

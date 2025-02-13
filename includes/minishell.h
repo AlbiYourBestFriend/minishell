@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/13 16:37:45 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/13 17:03:49 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,26 +70,7 @@ typedef struct s_data
 	t_command	*commands;
 }			t_data;
 
-// Main functions
-// Main functions
-int			open_file(char *filename, int currentfd, int isoutput, int dotrunc); // ?
-int			here_doc(int currentfd, char *limiter);
-int			read_redirection(t_command *cmd);
-
-// Builtins
-void		ft_cd(t_command *cmd);
-void		ft_echo(t_command *cmd);
-void		ft_env(t_data *data, t_command *cmd);
-void		ft_exit(void);
-void		ft_export(t_data *data, t_command *cmd);
-void		ft_pwd(void);
-void		ft_unset(t_data *data, t_command *cmd);
-
-// Execute
-int			execute_builtins(t_data *data, t_command *cmd);
-int			check_if_builtins(char *command_name);
-
-// parsing
+// Parsing
 int			check_quotes(char *cmd);
 int			is_env_var(char *cmd);
 int			exist_var(t_data *data, char *name);
@@ -100,6 +81,26 @@ char		*get_env_var_name(char *cmd);
 char		*get_env_var_value(char *cmd);
 t_env_var	*modif_env_var(t_data *data, char *name, char *value, int n);
 t_env_var	*handle_env_var(t_data *data, char *cmd, int n);
+int			read_redirection(t_command *cmd);
+int			open_file(char *filename, int currentfd, int isoutput, int dotrunc); // ?
+int			here_doc(int currentfd, char *limiter);
+char		*clean_cmd(char *cmd);
+
+// Executing
+void		ft_execute(t_data *data);
+char		*create_path(char *path, char *cmd);
+char		**get_paths(void);
+int			execute_builtins(t_command *cmd);
+int			check_if_builtins(t_command *cmd);
+
+// Builtins
+void		ft_cd(t_command *cmd);
+void		ft_echo(t_command *cmd);
+void		ft_env(t_data *data, t_command *cmd);
+void		ft_exit(void);
+void		ft_export(t_data *data, t_command *cmd);
+void		ft_pwd(void);
+void		ft_unset(t_data *data, t_command *cmd);
 
 // Utils
 int			check_token(char *str);
@@ -109,6 +110,7 @@ void		free_cmd(t_command *cmd);
 void		free_data(t_data *data);
 void		free_env_var(t_env_var *env_var);
 void		free_tab(char **tab);
+t_data		*init_data(char **env);
 int			get_word_count(char *str);
 char		*get_next_word(char *str, int *index);
 t_data		init_data(char **env);

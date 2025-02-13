@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 15:11:01 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/13 15:23:33 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/13 11:38:43 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	get_word_count(char *str)
 	count = 0;
 	i = 0;
 	boolean = 0;
-	while (str[i] != '\0')
+	while ((int)ft_strlen(str) > i)
 	{
 		if (str[i] != ' ')
 		{
@@ -48,7 +48,8 @@ int	get_word_count(char *str)
 			boolean = 0;
 		if (str[i] == '\"' || str[i] == '\'')
 			i = get_past_quote(str, i);
-		i++;
+		else
+			i++;
 	}
 	return (count);
 }

@@ -6,13 +6,13 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 15:24:27 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/13 15:23:33 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/13 13:08:50 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static char	**get_paths(void)
+char	**get_paths(void)
 {
 	char	**splitted_paths;
 
@@ -20,7 +20,7 @@ static char	**get_paths(void)
 	return (splitted_paths);
 }
 
-static char	*create_path(char *path, char *cmd)
+char	*create_path(char *path, char *cmd)
 {
 	char	*temp;
 	char	*new_path;

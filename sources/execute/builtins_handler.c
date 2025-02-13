@@ -6,14 +6,17 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:21:31 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/12 15:19:16 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/13 14:04:49 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	check_if_builtins(char *command_name)
+int	check_if_builtins(t_command *cmd)
 {
+	char	*command_name;
+
+	command_name = cmd->args[0];
 	if (command_name == NULL)
 		return (0);
 	if (ft_strncmp(command_name, ECHO, 50) == 0
@@ -26,6 +29,7 @@ int	check_if_builtins(char *command_name)
 		return (1);
 	return (0);
 }
+
 
 int	execute_builtins(t_data *data, t_command *cmd)
 {
