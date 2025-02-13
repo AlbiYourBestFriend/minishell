@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/12 19:27:06 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/13 16:37:45 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,22 +72,22 @@ typedef struct s_data
 
 // Main functions
 // Main functions
-int		open_file(char *filename, int currentfd, int isoutput, int dotrunc); // ?
-int		here_doc(int currentfd, char *limiter);
-char	*read_redirection(t_command *cmd);
+int			open_file(char *filename, int currentfd, int isoutput, int dotrunc); // ?
+int			here_doc(int currentfd, char *limiter);
+int			read_redirection(t_command *cmd);
 
 // Builtins
-void  ft_cd(t_command *cmd);
-void	ft_echo(t_command *cmd);
-void	ft_env(t_data *data, t_command *cmd);
-void	ft_exit(void *arg);
-void	ft_export(t_data *data, t_command *cmd);
-void	ft_pwd(void *arg);
-void	ft_unset(t_data *data, t_command *cmd);
+void		ft_cd(t_command *cmd);
+void		ft_echo(t_command *cmd);
+void		ft_env(t_data *data, t_command *cmd);
+void		ft_exit(void);
+void		ft_export(t_data *data, t_command *cmd);
+void		ft_pwd(void);
+void		ft_unset(t_data *data, t_command *cmd);
 
 // Execute
-int		execute_builtins(t_data *data, t_command cmd);
-int		check_if_builtins(char *command_name);
+int			execute_builtins(t_data *data, t_command *cmd);
+int			check_if_builtins(char *command_name);
 
 // parsing
 int			check_quotes(char *cmd);
@@ -98,27 +98,25 @@ t_env_var	*get_env_var(t_data *data, char *name);
 int			skip_quote(char *cmd, int n, int s);
 char		*get_env_var_name(char *cmd);
 char		*get_env_var_value(char *cmd);
-t_env_var	*modif_env_var(t_data *data, char *name, char *value);
-void		handle_env_var(t_data *data, char *cmd, int n);
+t_env_var	*modif_env_var(t_data *data, char *name, char *value, int n);
+t_env_var	*handle_env_var(t_data *data, char *cmd, int n);
 
 // Utils
-int		check_token(char *str);
-char	*clean_cmd(char *cmd);;
-char	**copy_tab(char **tab);
-void	free_cmd(t_command *cmd);
-void	free_data(t_data *data);
-void	free_env_var(t_env_var *env_var);
-void	free_tab(char **tab);
-char	*get_next_word(char *str, int *index);
-t_data	init_data(char **env);
-char	**lst_to_tab(t_env_var *env_var);
-void	print_error(char *msg);
-int		ft_check(char **tab, char *line, char c, int k);
-char	**split_cmd_line(char *line, char c);
-int		tab_len(char **tab);
-
-char		*get_next_word(char *str, int *index);
+int			check_token(char *str);
+char		*clean_cmd(char *cmd);;
+char		**copy_tab(char **tab);
+void		free_cmd(t_command *cmd);
+void		free_data(t_data *data);
+void		free_env_var(t_env_var *env_var);
+void		free_tab(char **tab);
 int			get_word_count(char *str);
+char		*get_next_word(char *str, int *index);
+t_data		init_data(char **env);
+char		**lst_to_tab(t_env_var *env_var);
+void		print_error(char *msg);
 void		print_output(t_command *cmd, int arg_index);
+int			ft_check(char **tab, char *line, char c, int k);
+char		**split_cmd_line(char *line, char c);
+int			tab_len(char **tab);
 
 #endif

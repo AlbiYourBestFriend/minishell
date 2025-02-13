@@ -4,14 +4,14 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 OTHER_FLAGS = -lreadline -lncurses
 
-SOURCES	=	ft_echo.c \
-			ft_cd.c \
+SOURCES	=	ft_cd.c \
+			ft_echo.c \
 			ft_env.c \
 			ft_exit.c \
 			ft_export.c \
 			ft_pwd.c \
 			ft_unset.c \
-      command_lst.c \
+			command_lst.c \
 			token_lst.c \
 			check_quotes.c \
 			handle_env_var_utils_2.c \
@@ -28,15 +28,15 @@ SOURCES	=	ft_echo.c \
 			free_env_var.c \
 			free_tab.c \
 			get_next_word.c \
+			get_word_count.c \
 			init_data.c \
 			lst_to_tab.c \
 			print_error.c \
+			print_output.c \
 			split_cmd_line_utils.c \
 			split_cmd_line.c \
 			tab_len.c \
 			main.c \
-			print_output.c \
-			get_word_count.c \
 
 VPATH = sources:sources/list_handler:sources/utils:sources/parsing:sources/execute:sources/builtins
 

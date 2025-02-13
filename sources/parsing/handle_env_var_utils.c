@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_env_var_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 12:20:14 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/12 19:27:06 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/13 16:25:21 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,14 @@ t_env_var	*add_env_var(t_data *data, char *name, char *value)
 {
 	t_env_var	*new_env_var;
 	t_env_var	*tmp_env_var;
+	char		*tmp_value;
 
+	tmp_value = NULL;
+	if (value != NULL)
+		tmp_value = ft_strdup(value);
 	new_env_var = malloc(sizeof(t_env_var));
 	new_env_var->name = name;
-	new_env_var->value = value;
+	new_env_var->value = tmp_value;
 	new_env_var->status = 0;
 	new_env_var->next = NULL;
 	tmp_env_var = data->env_variables;

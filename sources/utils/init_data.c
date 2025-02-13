@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:13:48 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/11 19:30:22 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/13 16:36:45 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,6 @@ t_data	init_data(char **env)
 
 	data.commands = NULL;
 	put_env_to_data(&data, env);
-	// data.my_env = copy_tab(env);
-	// if (data.my_env == NULL)
-	// 	print_error("Malloc Error");
 	data.env_variables = NULL;
 	return (data);
 }

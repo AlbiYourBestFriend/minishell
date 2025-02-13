@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_lst.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:21:36 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/11 17:11:52 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/13 15:23:33 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_command	*cmdnew(char **args)
 {
 	t_command	*list;
-	int			index;
+	int			i;
 
 	if (!args)
 		return (NULL);
@@ -25,11 +25,11 @@ t_command	*cmdnew(char **args)
 	list->args = ft_calloc(sizeof(char *), tab_len(args) + 1);
 	if (!list->args)
 		return (free(list), NULL);
-	index = 0;
-	while (args[index])
+	i = 0;
+	while (args[i])
 	{
-		list->args[index] = args[index];
-		index++;
+		list->args[i] = args[i];
+		i++;
 	}
 	// list->name = args[0];
 	list->next = NULL;
