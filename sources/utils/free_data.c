@@ -1,34 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   free_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/07 16:33:34 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/13 16:33:28 by tprovost         ###   ########.fr       */
+/*   Created: 2025/02/12 17:20:59 by tprovost          #+#    #+#             */
+/*   Updated: 2025/02/12 17:29:47 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_env(t_data *data, t_command *cmd)
+void	free_data(t_data *data)
 {
-	t_env_var	*env_var;
-	int			fd_out;
+	t_command	*tmp;
+	t_env_var	*var;
 
-	env_var = data->env_variables;
-	fd_out = cmd->output_fd;
-	while (env_var != NULL)
+	tmp = data->commands;
+	while (data->commands != NULL)
 	{
-		if (env_var->status == 1)
-		{
-			write(fd_out, env_var->name, ft_strlen(env_var->name));
-			write(fd_out, "=", 1);
-			if (env_var->value != NULL)
-				write(fd_out, env_var->value, ft_strlen(env_var->value));
-			write(fd_out, "\n", 1);
-		}
-		env_var = env_var->next;
+		tmp = data->commands->next;
+		free_cmd(data->commands);
+		data->commands = tmp;
+	}
+	var = data->env_variables;
+	while (data->env_variables != NULL)
+	{
+		var = data->env_variables->next;
+		free_env_var(data->env_variables);
+		data->env_variables = var;
 	}
 }

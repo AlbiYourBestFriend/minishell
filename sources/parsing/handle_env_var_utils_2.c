@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 15:43:45 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/12 11:09:34 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/12 17:13:23 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	*get_env_var_name(char *cmd)
 	char	*name;
 
 	i = -1;
-	while (cmd[++i] != '=')
+	while (cmd[++i] != '=' && cmd[i] != '\0')
 	{
 		if (cmd[i] == '\"' || cmd[i] == '\'')
 			i = skip_quote(cmd, i, 1);
@@ -71,7 +71,7 @@ char	*get_env_var_name(char *cmd)
 		j--;
 	name = malloc((i - j - n + 1) * sizeof(char));
 	i = 0;
-	while (cmd[++j] != '=')
+	while (cmd[++j] != '=' && cmd[j] != '\0')
 		copy_str(cmd, &j, name, &i);
 	name[i] = '\0';
 	return (name);

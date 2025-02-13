@@ -79,16 +79,12 @@ static void	put_env_to_data(t_data *data, char **env)
 	}
 }
 
-t_data	*init_data(char **env)
+t_data	init_data(char **env)
 {
-	t_data	*data;
+	t_data	data;
 
-	data = malloc(sizeof(data));
-	data->commands = NULL;
-	put_env_to_data(data, env);
-	// data.my_env = copy_tab(env);
-	// if (data.my_env == NULL)
-	// 	print_error("Malloc Error");
-	data->env_variables = NULL;
+	data.commands = NULL;
+	put_env_to_data(&data, env);
+	data.env_variables = NULL;
 	return (data);
 }

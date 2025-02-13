@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
 /*   Updated: 2025/02/13 17:10:00 by mleproux         ###   ########.fr       */
@@ -54,6 +54,5 @@ int	main(int argc, char **argv, char **env)
 	}
 	clear_history();
 	free(cmd_line);
-	free_tab(data->my_env);
 	return (0);
 }

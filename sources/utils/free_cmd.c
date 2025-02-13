@@ -1,34 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   free_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/07 16:33:34 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/13 16:33:28 by tprovost         ###   ########.fr       */
+/*   Created: 2025/02/12 16:41:43 by tprovost          #+#    #+#             */
+/*   Updated: 2025/02/12 16:43:22 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_env(t_data *data, t_command *cmd)
+void	free_cmd(t_command *cmd)
 {
-	t_env_var	*env_var;
-	int			fd_out;
-
-	env_var = data->env_variables;
-	fd_out = cmd->output_fd;
-	while (env_var != NULL)
-	{
-		if (env_var->status == 1)
-		{
-			write(fd_out, env_var->name, ft_strlen(env_var->name));
-			write(fd_out, "=", 1);
-			if (env_var->value != NULL)
-				write(fd_out, env_var->value, ft_strlen(env_var->value));
-			write(fd_out, "\n", 1);
-		}
-		env_var = env_var->next;
-	}
+	free(cmd->cmd_line);
+	free_tab(cmd->args);
+	cmd->next = NULL;
+	free(cmd);
 }

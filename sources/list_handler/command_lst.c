@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   command_lst.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:21:36 by mleproux          #+#    #+#             */
 /*   Updated: 2025/02/13 16:44:34 by mleproux         ###   ########.fr       */
