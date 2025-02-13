@@ -6,14 +6,17 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:21:31 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/11 17:18:02 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/13 14:04:49 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	check_if_builtins(char *command_name)
+int	check_if_builtins(t_command *cmd)
 {
+	char	*command_name;
+
+	command_name = cmd->args[0];
 	if (command_name == NULL)
 		return (0);
 	if (ft_strncmp(command_name, "echo", 50) == 0
@@ -27,23 +30,24 @@ int	check_if_builtins(char *command_name)
 	return (0);
 }
 
-int	execute_builtins(char *command_name)
+int	execute_builtins(t_command *cmd)
 {
-	if (command_name == NULL)
-		return (0);
+	char	*command_name;
+
+	command_name = cmd->args[0];
 	if (ft_strncmp(command_name, "echo", 50) == 0)
-		ft_echo(NULL);
+		ft_echo(cmd);
 	else if (ft_strncmp(command_name, "cd", 50) == 0)
-		ft_cd(NULL);
+		ft_cd(cmd);
 	else if (ft_strncmp(command_name, "pwd", 50) == 0)
-		ft_pwd(NULL);
+		ft_pwd();
 	else if (ft_strncmp(command_name, "export", 50) == 0)
-		ft_export(NULL);
+		ft_export();
 	else if (ft_strncmp(command_name, "unset", 50) == 0)
-		ft_unset(NULL);
+		ft_unset();
 	else if (ft_strncmp(command_name, "env", 50) == 0)
-		ft_env(NULL);
+		ft_env();
 	else if (ft_strncmp(command_name, "exit", 50) == 0)
-		ft_exit(NULL);
+		ft_exit();
 	return (0);
 }

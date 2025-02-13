@@ -6,32 +6,23 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:21:36 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/11 17:11:52 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/13 16:44:34 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_command	*cmdnew(char **args)
+t_command	*cmdnew(char *cmd_line)
 {
 	t_command	*list;
-	int			index;
 
-	if (!args)
-		return (NULL);
 	list = malloc(sizeof(t_command));
 	if (!list)
 		return (NULL);
-	list->args = ft_calloc(sizeof(char *), tab_len(args) + 1);
-	if (!list->args)
-		return (free(list), NULL);
-	index = 0;
-	while (args[index])
-	{
-		list->args[index] = args[index];
-		index++;
-	}
-	// list->name = args[0];
+	list->cmd_line = cmd_line;
+	list->input_fd = 0;
+	list->output_fd = 1;
+	list->args = NULL;
 	list->next = NULL;
 	return (list);
 }

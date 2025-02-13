@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/12 16:53:10 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/13 17:03:49 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,11 @@
 typedef struct s_data
 {
 	char		**my_env;
-	t_env_var	*env_variables; // ou liste chainee
+	t_env_var	*env_variables;
 	t_command	*commands;
 }			t_data;
 
-// parsing
+// Parsing
 int			check_quotes(char *cmd);
 int			is_env_var(char *cmd);
 int			exist_var(t_data *data, char *name);
@@ -72,13 +72,18 @@ int			skip_quote(char *cmd, int n, int s);
 char		*get_env_var_name(char *cmd);
 char		*get_env_var_value(char *cmd);
 void		modif_env_var(t_data *data, char *cmd);
-
-// Main functions
+int			read_redirection(t_command *cmd);
 int			open_file(char *filename, int currentfd, int isoutput, int dotrunc); // ?
 int			here_doc(int currentfd, char *limiter);
 char		**split_cmd_line(char *line, char c);
 char		*clean_cmd(char *cmd);
-int			read_redirection(t_command *cmd);
+
+// Executing
+void		ft_execute(t_data *data);
+char		*create_path(char *path, char *cmd);
+char		**get_paths(void);
+int			execute_builtins(t_command *cmd);
+int			check_if_builtins(t_command *cmd);
 
 // Builtins
 void		ft_echo(t_command *cmd);
@@ -88,13 +93,11 @@ void		ft_export(void);
 void		ft_unset(void);
 void		ft_env(void);
 void		ft_exit(void);
-int			execute_builtins(char *command_name);
-int			check_if_builtins(char *command_name);
 
 // Utils
 char		**copy_tab(char **tab);
 void		free_tab(char **tab);
-t_data		init_data(char **env);
+t_data		*init_data(char **env);
 void		print_error(char *msg);
 int			ft_check(char **tab, char *line, char c, int k);
 int			tab_len(char **tab);

@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 12:43:35 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/12 17:02:17 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/13 11:41:11 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,7 @@ void	print_output(t_command *cmd, int arg_index)
 			}
 		}
 		arg_index++;
+		if (cmd->args[arg_index])
+			write(1, " ", 1);
 	}
 }

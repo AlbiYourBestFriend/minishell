@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:13:48 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/11 19:30:22 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/13 16:50:41 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,15 +79,16 @@ static void	put_env_to_data(t_data *data, char **env)
 	}
 }
 
-t_data	init_data(char **env)
+t_data	*init_data(char **env)
 {
-	t_data	data;
+	t_data	*data;
 
-	data.commands = NULL;
-	put_env_to_data(&data, env);
+	data = malloc(sizeof(data));
+	data->commands = NULL;
+	put_env_to_data(data, env);
 	// data.my_env = copy_tab(env);
 	// if (data.my_env == NULL)
 	// 	print_error("Malloc Error");
-	data.env_variables = NULL;
+	data->env_variables = NULL;
 	return (data);
 }

@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 18:09:37 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/12 16:48:01 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/13 11:25:17 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static int	word_len(char *str, int index)
 
 	quote = '\0';
 	len = 0;
-	while (str[index + len] != '\0' && ft_isspace(str[index + len]) == 0)
+	while ((int)ft_strlen(str) > (index + len) 
+		&& ft_isspace(str[index + len]) == 0)
 	{
 		if (str[index] == '\"' || str[index] == '\'')
 			quote = str[index];
@@ -69,7 +70,7 @@ char	*get_next_word(char *str, int *index)
 		return (NULL);
 	while (ft_isspace(str[*index]) == 1 && str[*index] != '\0')
 		(*index)++;
-	word = malloc(sizeof(char) * word_len(str, *index) + 1);
+	word = malloc(sizeof(char) * (word_len(str, *index) + 1));
 	if (word == NULL)
 		return (NULL);
 	word = fill_word(str, word, index);

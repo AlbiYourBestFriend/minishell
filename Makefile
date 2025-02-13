@@ -5,7 +5,6 @@ CFLAGS = -Wall -Wextra -Werror -g
 OTHER_FLAGS = -lreadline -lncurses
 
 SOURCES	=	command_lst.c \
-			token_lst.c \
 			check_quotes.c \
 			handle_env_var_utils_2.c \
 			handle_env_var_utils.c \
@@ -33,6 +32,9 @@ SOURCES	=	command_lst.c \
 			ft_unset.c \
 			print_output.c \
 			get_word_count.c \
+			ft_execute.c \
+			path_handler.c \
+			builtins_handler.c
 
 VPATH = sources:sources/list_handler:sources/utils:sources/parsing:sources/execute:sources/builtins
 
