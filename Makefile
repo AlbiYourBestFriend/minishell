@@ -12,7 +12,6 @@ SOURCES	=	ft_cd.c \
 			ft_pwd.c \
 			ft_unset.c \
 			command_lst.c \
-			token_lst.c \
 			check_quotes.c \
 			handle_env_var_utils_2.c \
 			handle_env_var_utils.c \

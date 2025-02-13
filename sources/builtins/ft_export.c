@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:08:23 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/13 17:15:32 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/13 18:02:24 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	print_export(t_data *data)
 	i = 0;
 	while (tab[i] != NULL)
 	{
-		printf("%s\n", tab[i]); // write(output_fd, ... , ... ); ???
+		printf("%s\n", tab[i]);
 		i++;
 	}
 	free_tab(tab);
