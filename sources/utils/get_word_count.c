@@ -3,40 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   get_word_count.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 15:11:01 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/12 16:21:26 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/13 15:23:33 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	get_past_quote(char *str, int index)
+static int	get_past_quote(char *str, int i)
 {
 	char	quote;
 
-	quote = str[index];
-	index++;
-	while (str[index] != quote && str[index] != '\0')
-		index++;
-	if (str[index] == quote)
-		index++;
-	return (index);
+	quote = str[i];
+	i++;
+	while (str[i] != quote && str[i] != '\0')
+		i++;
+	if (str[i] == quote)
+		i++;
+	return (i);
 }
 
 int	get_word_count(char *str)
 {
 	int		count;
-	int		index;
+	int		i;
 	int		boolean;
 
 	count = 0;
-	index = 0;
+	i = 0;
 	boolean = 0;
-	while (str[index] != '\0')
+	while (str[i] != '\0')
 	{
-		if (str[index] != ' ')
+		if (str[i] != ' ')
 		{
 			if (boolean == 0)
 			{
@@ -46,9 +46,9 @@ int	get_word_count(char *str)
 		}
 		else
 			boolean = 0;
-		if (str[index] == '\"' || str[index] == '\'')
-			index = get_past_quote(str, index);
-		index++;
+		if (str[i] == '\"' || str[i] == '\'')
+			i = get_past_quote(str, i);
+		i++;
 	}
 	return (count);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:59:12 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/11 17:17:08 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/13 15:23:33 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ void	ft_execute(t_data data, char **cmds)
 
 	if (pipe(pipefd) != 0)
 		return ;
-	while (cmds[index])
+	while (cmds[index] != NULL)
 	{
 		if (check_if_builtins(NULL) == 1)
-			execute_builtins(NULL);
+			execute_builtins(NULL, NULL);
 		else
 			fork_handler(data, NULL, 0, 0);
 		index++;

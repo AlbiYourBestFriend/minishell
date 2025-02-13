@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/12 17:02:58 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/13 16:07:43 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int	main(int argc, char **argv, char **env)
 {
-	t_data	data;
-	char	*cmd_line;
-	int	index;
-	t_command *cmd;
+	t_data		data;
+	char		*cmd_line;
+	int			i;
+	t_command	*cmd;
 
 	cmd = malloc(sizeof(t_command));
 	cmd->input_fd = 0;
@@ -32,14 +32,14 @@ int	main(int argc, char **argv, char **env)
 	{
 		if (cmd_line[0] != '\0')
 			add_history(cmd_line);
-		index = 0;
+		i = 0;
 		cmd->cmd_line = cmd_line;
 		read_redirection(cmd);
 		// ft_echo(cmd);
-		// while (test[index])
+		// while (test[i])
 		// {
-		// 	printf("%s\n", test[index]);
-		// 	index++;
+		// 	printf("%s\n", test[i]);
+		// 	i++;
 		// }
 		
 		// parsing(data, str);
@@ -57,6 +57,6 @@ int	main(int argc, char **argv, char **env)
 	}
 	clear_history();
 	free(cmd_line);
-	free_tab(data.my_env);
+	// free(&data);
 	return (0);
 }
