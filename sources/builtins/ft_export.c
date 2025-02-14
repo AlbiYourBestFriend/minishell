@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:08:23 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/13 17:15:32 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/13 18:03:49 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,5 @@ void	ft_export(t_data *data, t_command *cmd)
 			perror("invalid argument");
 		}
 	}
+	ft_exit(data, NULL);
 }

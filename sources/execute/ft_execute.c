@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:59:12 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/13 17:11:59 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/13 18:08:50 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void	try_execute(char *path, char **env, char **cmds)
 {
 	if (access(path, F_OK | X_OK) == 0)
 	{
+		
 		execve(path, cmds, env);
 		free(path);
 		printf("erreur");
@@ -37,7 +38,7 @@ static void	command_executor(t_data *data, t_command *cmd)
 		path = create_path(paths[index], cmd->args[0]);
 		if (!path)
 			printf("Erreur");
-		try_execute(path, data->my_env, cmd->args);
+		try_execute(path, data->env_variables, cmd->args);
 		free(path);
 		index++;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/13 17:10:00 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/13 18:05:43 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	build_command(t_data *data, char *cmd_line)
 
 int	main(int argc, char **argv, char **env)
 {
-	t_data	*data;
+	t_data	data;
 	char	*cmd_line;
 
 	(void)argc;
@@ -47,7 +47,7 @@ int	main(int argc, char **argv, char **env)
 	{
 		if (cmd_line[0] != '\0')
 			add_history(cmd_line);
-		build_command(data, cmd_line);
+		build_command(&data, cmd_line);
 		free(cmd_line);
 		cmd_line = readline(PROMPT);
 		cmd_line = clean_cmd(cmd_line);

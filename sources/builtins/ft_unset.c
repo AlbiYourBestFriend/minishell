@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:33:13 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/13 16:50:44 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/13 18:05:03 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,5 @@ void	ft_unset(t_data *data, t_command *cmd)
 		if (env_var->next != NULL)
 			free_elem(env_var->next, tmp);
 	}
+	ft_exit(data, NULL);
 }
