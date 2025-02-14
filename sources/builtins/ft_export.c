@@ -53,7 +53,7 @@ static void	print_export(t_data *data)
 	i = 0;
 	while (tab[i] != NULL)
 	{
-		printf("%s\n", tab[i]); // write(output_fd, ... , ... ); ???
+		printf("%s\n", tab[i]);
 		i++;
 	}
 	free_tab(tab);

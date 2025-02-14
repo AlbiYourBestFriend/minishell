@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_handler.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:08:49 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/13 17:05:21 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/13 18:04:46 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ static int	write_new_cmd_line(char **new_cmd_line, char *word)
 		return (0);
 	return (1);
 }
+
 static int	insert_arguments(t_command *cmd, char *new_cmd_line)
 {
 	char	*word;

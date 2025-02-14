@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/13 18:06:49 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/13 18:09:27 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <stdbool.h>
+# include <signal.h>
 
 # define PROMPT "Minishell : "
 # define MY_CHAR_MAX 4096
@@ -70,6 +71,22 @@ typedef struct s_data
 	t_command	*commands;
 }			t_data;
 
+// Builtins
+void		ft_cd(t_data *data, t_command *cmd);
+void		ft_echo(t_data *data, t_command *cmd);
+void		ft_env(t_data *data, t_command *cmd);
+void		ft_exit(t_data *data, t_command *cmd);
+void		ft_export(t_data *data, t_command *cmd);
+void		ft_pwd(t_data *data);
+void		ft_unset(t_data *data, t_command *cmd);
+
+// Executing
+void		ft_execute(t_data *data);
+char		*create_path(char *path, char *cmd);
+char		**get_paths(void);
+int			execute_builtins(t_data *data, t_command *cmd);
+int			check_if_builtins(t_command *cmd);
+
 // Parsing
 int			check_quotes(char *cmd);
 int			is_env_var(char *cmd);
@@ -81,26 +98,9 @@ char		*get_env_var_name(char *cmd);
 char		*get_env_var_value(char *cmd);
 t_env_var	*modif_env_var(t_data *data, char *name, char *value, int n);
 t_env_var	*handle_env_var(t_data *data, char *cmd, int n);
-int			read_redirection(t_command *cmd);
-int			open_file(char *filename, int currentfd, int isoutput, int dotrunc); // ?
 int			here_doc(int currentfd, char *limiter);
-char		*clean_cmd(char *cmd);
-
-// Executing
-void		ft_execute(t_data *data);
-char		*create_path(char *path, char *cmd);
-char		**get_paths(void);
-int			execute_builtins(t_command *cmd);
-int			check_if_builtins(t_command *cmd);
-
-// Builtins
-void		ft_cd(t_data *data, t_command *cmd);
-void		ft_echo(t_data *data, t_command *cmd);
-void		ft_env(t_data *data, t_command *cmd);
-void		ft_exit(t_data *data, t_command *cmd);
-void		ft_export(t_data *data, t_command *cmd);
-void		ft_pwd(t_data *data);
-void		ft_unset(t_data *data, t_command *cmd);
+int			open_file(char *filename, int currentfd, int isoutput, int dotrunc);
+int			read_redirection(t_command *cmd);
 
 // Utils
 int			check_token(char *str);

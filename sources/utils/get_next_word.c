@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 18:09:37 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/13 11:25:17 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/13 18:02:52 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	word_len(char *str, int i)
 
 	quote = '\0';
 	len = 0;
-	while ((int)ft_strlen(str) > (i + len) 
+	while ((int)ft_strlen(str) > (i + len)
 		&& ft_isspace(str[i + len]) == 0)
 	{
 		if (str[i] == '\"' || str[i] == '\'')

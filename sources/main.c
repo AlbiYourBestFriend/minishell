@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/13 18:05:43 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/13 19:14:22 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void	build_command(t_data *data, char *cmd_line)
 {
-	char **cmds;
-	int	index;
+	char	**cmds;
+	int		index;
 
 	index = 0;
 	cmds = split_cmd_line(cmd_line, '|');
@@ -54,5 +54,6 @@ int	main(int argc, char **argv, char **env)
 	}
 	clear_history();
 	free(cmd_line);
+	free_data(&data);
 	return (0);
 }

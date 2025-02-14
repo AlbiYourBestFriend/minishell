@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:13:48 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/13 16:50:41 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/13 18:33:38 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,13 @@ static void	put_env_to_data(t_data *data, char **env)
 	int			i;
 
 	new_var = new_env_var(env[0]);
+	// printf("%d : %s\n", 0, env[0]);
 	data->env_variables = new_var;
 	last_var = new_var;
 	i = 1;
 	while (env[i] != NULL)
 	{
+		// printf("%d : %s\n", i, env[i]);
 		new_var = new_env_var(env[i]);
 		last_var->next = new_var;
 		last_var = last_var->next;
@@ -82,9 +84,17 @@ static void	put_env_to_data(t_data *data, char **env)
 t_data	init_data(char **env)
 {
 	t_data	data;
+	t_env_var	*env_var;
+	int i = 0;
 
 	data.commands = NULL;
 	put_env_to_data(&data, env);
-	data.env_variables = NULL;
+	env_var = data.env_variables;
+	while (env_var != NULL)
+	{
+		printf("%d : %s=%s\n", i, env_var->name, env_var->value);
+		env_var = env_var->next;
+		i++;
+	}
 	return (data);
 }
