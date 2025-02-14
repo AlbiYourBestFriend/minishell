@@ -22,6 +22,7 @@ SOURCES	=	ft_cd.c \
 			check_token.c \
 			clean_cmd.c \
 			copy_tab.c \
+			count_char.c \
 			free_data.c \
 			free_env_var.c \
 			free_tab.c \

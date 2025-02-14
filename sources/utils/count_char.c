@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   count_char.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/07 16:31:22 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/14 16:53:14 by tprovost         ###   ########.fr       */
+/*   Created: 2025/02/14 16:38:32 by tprovost          #+#    #+#             */
+/*   Updated: 2025/02/14 16:40:33 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_pwd(t_data *data)
+int	count_char(char *str, char c)
 {
-	char	path[MY_CHAR_MAX];
+	int	i;
+	int	n;
 
-	if (getcwd(path, MY_CHAR_MAX))
+	i = 0;
+	n = 0;
+	while (str[i] != '\0')
 	{
-		ft_putstr_fd(path, 1);
-		write(1, "\n", 1);
-		return ;
+		if (str[i] == c)
+			n++;
+		i++;
 	}
-	else
-	{
-		printf("erreur");
-		return ;
-	}
-	// ft_exit(data, NULL);
+	return (n);
 }
