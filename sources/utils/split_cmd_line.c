@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_cmd_line.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 19:03:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/13 16:34:36 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/14 17:28:32 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,3 +119,22 @@ char	**split_cmd_line(char *line, char c)
 	tab = malloc((nb_word + 1) * sizeof(char *));
 	return (remp_split(tab, line, c, nb_word));
 }
+
+// int	main(void)
+// {
+// 	char *str;
+// 	char **tab;
+// 	int i;
+
+// 	str = readline("str : ");
+// 	printf("len str : %zu\n", strlen(str));
+// 	tab = split_cmd_line(str, '|');
+// 	i = 0;
+// 	while (tab[i] != NULL)
+// 	{
+// 		printf("%s\n", tab[i]);
+// 		i++;
+// 	}
+// 	free_tab(tab);
+// 	return (0);
+// }

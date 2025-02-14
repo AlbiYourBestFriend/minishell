@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/13 18:09:27 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/14 16:40:33 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,9 @@ int			read_redirection(t_command *cmd);
 
 // Utils
 int			check_token(char *str);
-char		*clean_cmd(char *cmd);;
+char		*clean_cmd(char *cmd);
 char		**copy_tab(char **tab);
+int			count_char(char *str, char c);
 void		free_cmd(t_command *cmd);
 void		free_data(t_data *data);
 void		free_env_var(t_env_var *env_var);

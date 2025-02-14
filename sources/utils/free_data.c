@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:20:59 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/13 18:41:47 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/14 17:47:48 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	free_data(t_data *data)
 {
 	t_command	*tmp;
 	t_env_var	*var;
-	int i = 0;
 
 	tmp = data->commands;
 	while (data->commands != NULL)
@@ -28,10 +27,8 @@ void	free_data(t_data *data)
 	var = data->env_variables;
 	while (data->env_variables != NULL)
 	{
-		printf("%d : %s=%s\n", i,  data->env_variables->name, data->env_variables->value);
 		var = data->env_variables->next;
 		free_env_var(data->env_variables);
 		data->env_variables = var;
-		i++;
 	}
 }

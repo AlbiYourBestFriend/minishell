@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_pipes_cmd_line_utils.c                       :+:      :+:    :+:   */
+/*   split_cmd_line_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:14:28 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/07 16:16:46 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/14 17:25:53 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	malloc_words(char **tab, char *line, char c, int nb_word)
 		i = 0;
 		while (line[l + i] != '\0' && line[l + i] != c)
 		{
-			i = i + get_len_word(line, i, l);
+			i = get_len_word(line, i, l);
 		}
 		tab[j] = malloc ((i + 1) * sizeof(char));
 		if (tab[j] == NULL)

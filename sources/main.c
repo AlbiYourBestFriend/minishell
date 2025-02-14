@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/13 19:14:22 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/14 12:09:08 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@ static void	build_command(t_data *data, char *cmd_line)
 		write(1, "3", 1);
 		index++;
 		write(1, "f", 1);
+		// if (builtin)
+		// 	exec builtins
+		// if else (env var)
+		// 	handle env var
+		// else
+		// 	fork + execve
 	}
 }
 

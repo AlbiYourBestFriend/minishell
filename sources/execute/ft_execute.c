@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:59:12 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/13 19:09:24 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/14 12:04:22 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ void	ft_execute(t_data *data)
 	int			input;
 	int			pipefd[2];	
 
-	if (pipe(pipefd) != 0) // <-- pipe
-		return ;
+	// if (pipe(pipefd) != 0) // <-- pipe
+	// 	return ;
 	temp = data->commands;
 	input = temp->input_fd;
 	write(1, "4", 1);
