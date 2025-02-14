@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:31:22 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/13 15:52:26 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/13 18:03:31 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_pwd(void)
+void	ft_pwd(t_data *data)
 {
 	char	path[MY_CHAR_MAX];
 
@@ -27,4 +27,5 @@ void	ft_pwd(void)
 		printf("erreur");
 		return ;
 	}
+	ft_exit(data, NULL);
 }

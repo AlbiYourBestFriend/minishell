@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   command_lst.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:21:36 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/13 16:44:34 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/13 18:00:18 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void	free_cmd(t_command *cmd)
+{
+	free(cmd->cmd_line);
+	free_tab(cmd->args);
+	cmd->next = NULL;
+	free(cmd);
+}
 
 t_command	*cmdnew(char *cmd_line)
 {

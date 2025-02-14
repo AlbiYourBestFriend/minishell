@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
 /*   Updated: 2025/02/13 18:09:27 by tprovost         ###   ########.fr       */
@@ -72,12 +72,12 @@ typedef struct s_data
 }			t_data;
 
 // Builtins
-void		ft_cd(t_command *cmd);
-void		ft_echo(t_command *cmd);
+void		ft_cd(t_data *data, t_command *cmd);
+void		ft_echo(t_data *data, t_command *cmd);
 void		ft_env(t_data *data, t_command *cmd);
-void		ft_exit(t_data *data);
+void		ft_exit(t_data *data, t_command *cmd);
 void		ft_export(t_data *data, t_command *cmd);
-void		ft_pwd(void);
+void		ft_pwd(t_data *data);
 void		ft_unset(t_data *data, t_command *cmd);
 
 // Executing
@@ -110,9 +110,9 @@ void		free_cmd(t_command *cmd);
 void		free_data(t_data *data);
 void		free_env_var(t_env_var *env_var);
 void		free_tab(char **tab);
+t_data		init_data(char **env);
 int			get_word_count(char *str);
 char		*get_next_word(char *str, int *index);
-t_data		init_data(char **env);
 char		**lst_to_tab(t_env_var *env_var);
 void		print_error(char *msg);
 void		print_output(t_command *cmd, int arg_index);

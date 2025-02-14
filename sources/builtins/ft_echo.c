@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:29:38 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/13 16:51:14 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/13 18:02:09 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	check_option(t_command *cmd, int *count)
 	return (new_line);
 }
 
-void	ft_echo(t_command *cmd)
+void	ft_echo(t_data *data, t_command *cmd)
 {
 	int	new_line;
 	int	i;
@@ -41,4 +41,5 @@ void	ft_echo(t_command *cmd)
 	print_output(cmd, i);
 	if (new_line)
 		write(1, "\n", 1);
+	ft_exit(data, NULL);
 }
