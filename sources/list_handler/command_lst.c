@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:21:36 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/17 12:53:11 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/17 16:43:30 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,18 @@
 
 void	free_cmds(t_data *data)
 {
+	t_command	*to_free;
 	t_command	*temp;
 
 	temp = data->commands;
-	while (data->commands)
+	while (temp)
 	{
-		free(data->commands->cmd_line);
-		free_tab(data->commands->args);
-		temp = data->commands;
-		data->commands = data->commands->next;
-		temp->next = NULL;
-		free(temp);
+		free(temp->cmd_line);
+		free_tab(temp->args);
+		to_free = temp;
+		temp = temp->next;
+		to_free->next = NULL;
+		free(to_free);
 	}
 	data->commands = NULL;
 }

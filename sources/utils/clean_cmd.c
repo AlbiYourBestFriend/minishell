@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 12:56:42 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/10 15:09:55 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/17 13:49:15 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	count_str_char(char *cmd, int i)
 	return (n);
 }
 
-static int	count_char(char *cmd)
+static int	nb_char(char *cmd)
 {
 	int		i;
 	int		n;
@@ -106,7 +106,7 @@ char	*clean_cmd(char *cmd)
 	int		i;
 	int		n;
 
-	str = malloc((count_char(cmd) + 1) * sizeof(char));
+	str = malloc((nb_char(cmd) + 1) * sizeof(char));
 	if (str == NULL)
 		return (NULL);
 	i = 0;
