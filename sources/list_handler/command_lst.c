@@ -6,18 +6,27 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:21:36 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/13 18:00:18 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/17 12:53:11 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	free_cmd(t_command *cmd)
+void	free_cmds(t_data *data)
 {
-	free(cmd->cmd_line);
-	free_tab(cmd->args);
-	cmd->next = NULL;
-	free(cmd);
+	t_command	*temp;
+
+	temp = data->commands;
+	while (data->commands)
+	{
+		free(data->commands->cmd_line);
+		free_tab(data->commands->args);
+		temp = data->commands;
+		data->commands = data->commands->next;
+		temp->next = NULL;
+		free(temp);
+	}
+	data->commands = NULL;
 }
 
 t_command	*cmdnew(char *cmd_line)
@@ -56,4 +65,19 @@ t_command	*cmdlast(t_command *lst)
 	while (temp->next != NULL)
 		temp = temp->next;
 	return (temp);
+}
+
+int	cmdsize(t_command *lst)
+{
+	t_command	*temp;
+	int			count;
+
+	temp = lst;
+	count = 0;
+	while (temp)
+	{
+		count++;
+		temp = temp->next;
+	}
+	return (count);
 }

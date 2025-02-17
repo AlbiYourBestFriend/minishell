@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:24:55 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/13 16:44:24 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/17 12:49:25 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ typedef struct s_env_var
 t_command	*cmdnew(char *cmd_line);
 void		cmdadd_back(t_command **lst, t_command *newlst);
 t_command	*cmdlast(t_command *lst);
+int			cmdsize(t_command *lst);
 
 #endif

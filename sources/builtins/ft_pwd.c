@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:31:22 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/14 16:53:14 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/17 12:45:08 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	ft_pwd(t_data *data)
 {
 	char	path[MY_CHAR_MAX];
 
+	(void)data;
 	if (getcwd(path, MY_CHAR_MAX))
 	{
 		ft_putstr_fd(path, 1);
@@ -27,5 +28,4 @@ void	ft_pwd(t_data *data)
 		printf("erreur");
 		return ;
 	}
-	// ft_exit(data, NULL);
 }

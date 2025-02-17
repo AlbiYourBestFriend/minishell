@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:20:59 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/14 17:47:48 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/17 12:48:54 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	free_data(t_data *data)
 	while (data->commands != NULL)
 	{
 		tmp = data->commands->next;
-		free_cmd(data->commands);
+		free_cmds(data);
 		data->commands = tmp;
 	}
 	var = data->env_variables;

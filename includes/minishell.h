@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/14 16:40:33 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/17 12:49:56 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ char		*create_path(char *path, char *cmd);
 char		**get_paths(void);
 int			execute_builtins(t_data *data, t_command *cmd);
 int			check_if_builtins(t_command *cmd);
+int			init_builtins(t_data *data, t_command *cmd);
 
 // Parsing
 int			check_quotes(char *cmd);
@@ -106,8 +107,6 @@ int			read_redirection(t_command *cmd);
 int			check_token(char *str);
 char		*clean_cmd(char *cmd);
 char		**copy_tab(char **tab);
-int			count_char(char *str, char c);
-void		free_cmd(t_command *cmd);
 void		free_data(t_data *data);
 void		free_env_var(t_env_var *env_var);
 void		free_tab(char **tab);
@@ -120,5 +119,6 @@ void		print_output(t_command *cmd, int arg_index);
 int			ft_check(char **tab, char *line, char c, int k);
 char		**split_cmd_line(char *line, char c);
 int			tab_len(char **tab);
+void		free_cmds(t_data *data);
 
 #endif
