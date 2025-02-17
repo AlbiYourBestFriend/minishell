@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:59:12 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/14 12:04:22 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/17 12:40:37 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ void	fork_handler(t_data *data, t_command *cmd, int input, int output)
 	{
 		if (dup2(input, 0) == -1 || dup2(output, 1) == -1)
 			print_error("Dup failed");
-		if (check_if_builtins(cmd) == 1) // a mettre en dehors du fork !
-			execute_builtins(data, cmd); // le fork sert uniquement pour le execve
+		if (check_if_builtins(cmd))
+			execute_builtins(data, cmd);
 		else
 			command_executor(data, cmd);
 	}
@@ -78,25 +78,22 @@ void	ft_execute(t_data *data)
 	int			input;
 	int			pipefd[2];	
 
-	// if (pipe(pipefd) != 0) // <-- pipe
-	// 	return ;
 	temp = data->commands;
 	input = temp->input_fd;
-	write(1, "4", 1);
+	if (check_if_builtins(temp) && cmdsize(data->commands) == 1)
+	{
+		init_builtins(data, temp);
+		return ;
+	}
 	while (temp->next)
 	{
-		write(1, "8", 1);
-		if (pipe(pipefd) != 0) // <-- autre pipe ?  =>  2 a la suite ???
+		if (pipe(pipefd) != 0)
 			return ;
-		write(1, "9", 1);
 		fork_handler(data, temp, input, pipefd[1]);
 		close(pipefd[1]);
 		input = pipefd[0];
 		temp = temp->next;
-		write(1, "5", 1);
 	}
-	write(1, "6", 1);
 	fork_handler(data, temp, input, temp->output_fd);
-	write(1, "7", 1);
 	close(input);
 }
