@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:31:02 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/14 18:02:00 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/17 16:27:59 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	cd_rm_last(char *pwd)
 
 	if (ft_strlen(pwd) == 1 && pwd[0] == '/')
 		return ;
-	if (count_char(pwd, '/') == ft_strlen(pwd))
+	if (count_char(pwd, '/') == (int)ft_strlen(pwd))
 		return ;
 	i = 0;
 	while (pwd[i] != '\0')
@@ -94,7 +94,8 @@ void	ft_cd(t_data *data, t_command *cmd)
 		root_return(data);
 	else if (tab_len(cmd->args) == 2)
 	{
-		result = chdir(cmd->args[1]);
+		tmp = ft_strtrim(cmd->args[1], "\"\'");
+		result = chdir(tmp);
 		if (result == -1)
 			perror("directory not found");
 		else
@@ -106,7 +107,8 @@ void	ft_cd(t_data *data, t_command *cmd)
 			if (tmp_env != NULL && tmp_env->value != NULL && tmp_env->value[0] != '\0')
 			{
 				pwd = ft_strdup(tmp_env->value);
-				tab = ft_split(cmd->args[1], '/');
+				tab = ft_split(tmp, '/');
+				free(tmp);
 				i = 0;
 				while (tab[i] != NULL)
 				{
@@ -125,8 +127,8 @@ void	ft_cd(t_data *data, t_command *cmd)
 				}
 				free_tab(tab);
 				tmp_env = data->env_variables;
-				while (tmp_env != NULL && (ft_strlen(tmp_env->value) != 6
-						|| ft_strncmp(tmp_env->value, "OLDPWD", 6) != 0))
+				while (tmp_env != NULL && (ft_strlen(tmp_env->name) != 6
+						|| ft_strncmp(tmp_env->name, "OLDPWD", 6) != 0))
 					tmp_env = tmp_env->next;
 				if (tmp_env != NULL)
 				{

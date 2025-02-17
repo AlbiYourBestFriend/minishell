@@ -11,6 +11,10 @@ SOURCES	=	ft_cd.c \
 			ft_export.c \
 			ft_pwd.c \
 			ft_unset.c \
+			builtins_handler.c \
+			ft_execute.c \
+			path_handler.c \
+			signal_handler.c \
 			command_lst.c \
 			check_quotes.c \
 			handle_env_var_utils_2.c \
@@ -36,9 +40,6 @@ SOURCES	=	ft_cd.c \
 			split_cmd_line.c \
 			tab_len.c \
 			main.c \
-			ft_execute.c \
-			path_handler.c \
-			builtins_handler.c
 
 VPATH = sources:sources/list_handler:sources/utils:sources/parsing:sources/execute:sources/builtins
 

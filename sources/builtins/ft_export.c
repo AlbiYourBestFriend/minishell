@@ -6,27 +6,27 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:08:23 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/14 17:01:51 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/17 17:23:23 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	compare_var(char *str1, char *str2)
+static void	compare_var(char **str1, char **str2)
 {
 	int		i;
 	char	*tmp;
 
 	i = 0;
-	while (str1[i] != '=' && str2[i] != '=' && str1[i] != str2[i])
+	while ((*str1)[i] != '=' && (*str2)[i] != '=' && (*str1)[i] == (*str2)[i])
 		i++;
-	if (str1[i] == '=')
+	if ((*str1)[i] == '=')
 		return ;
-	if (str2[i] == '=' || str1[i] > str2[i])
+	if ((*str2)[i] == '=' || (*str1)[i] > (*str2)[i])
 	{
-		tmp = str1;
-		str1 = str2;
-		str2 = tmp;
+		tmp = (*str1);
+		(*str1) = (*str2);
+		(*str2) = tmp;
 	}
 }
 
@@ -45,16 +45,16 @@ static void	print_export(t_data *data)
 		j = i + 1;
 		while (tab[j] != NULL)
 		{
-			compare_var(tab[i], tab[j]);
+			compare_var(&tab[i], &tab[j]);
 			j++;
 		}
 		i++;
 	}
-	i = 0;
-	while (tab[i] != NULL)
+	i = -1;
+	while (tab[++i] != NULL)
 	{
-		printf("%s\n", tab[i]);
-		i++;
+		if (tab[i][0] != '_' || tab[i][1] != '=')
+			printf("%s\n", tab[i]);
 	}
 	free_tab(tab);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/17 12:49:56 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/17 18:48:25 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ typedef struct s_data
 	t_command	*commands;
 }			t_data;
 
+// extern volatile int g_exit_status;
+
 // Builtins
 void		ft_cd(t_data *data, t_command *cmd);
 void		ft_echo(t_data *data, t_command *cmd);
@@ -87,6 +89,7 @@ char		**get_paths(void);
 int			execute_builtins(t_data *data, t_command *cmd);
 int			check_if_builtins(t_command *cmd);
 int			init_builtins(t_data *data, t_command *cmd);
+void		signal_handler(int	state);
 
 // Parsing
 int			check_quotes(char *cmd);
@@ -107,6 +110,7 @@ int			read_redirection(t_command *cmd);
 int			check_token(char *str);
 char		*clean_cmd(char *cmd);
 char		**copy_tab(char **tab);
+int			count_char(char *str, char c);
 void		free_data(t_data *data);
 void		free_env_var(t_env_var *env_var);
 void		free_tab(char **tab);

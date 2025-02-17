@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/17 12:39:58 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/17 18:45:45 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,21 +39,31 @@ int	main(int argc, char **argv, char **env)
 {
 	t_data	data;
 	char	*cmd_line;
+	char	*str;
 
 	(void)argc;
 	argv = NULL;
 	data = init_data(env);
+	// sig = 0;
+	signal_handler(0);
 	while (1)
 	{
 		cmd_line = readline(PROMPT);
-		cmd_line = clean_cmd(cmd_line);
+		// printf("%s\n", cmd_line);
 		if (cmd_line[0] != '\0')
+		{
 			add_history(cmd_line);
-		build_command(&data, cmd_line);
-		free(cmd_line);
+			str = clean_cmd(cmd_line);
+			if (str[0] != '\0')
+				build_command(&data, str);
+			else
+				free(str);
+		}
+		else
+			free(cmd_line);
 	}
-	clear_history();
-	free(cmd_line);
-	free_data(&data);
+	// rl_clear_history();
+	// free(cmd_line);
+	// free_data(&data);
 	return (0);
 }
