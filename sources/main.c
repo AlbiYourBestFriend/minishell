@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/17 19:11:51 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/17 19:15:22 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,9 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	argv = NULL;
 	data = init_data(env);
-	// sig = 0;
-	signal_handler(0);
 	while (1)
 	{
+		signal_handler(0);
 		cmd_line = readline(PROMPT);
 		if (cmd_line[0] != '\0')
 		{
