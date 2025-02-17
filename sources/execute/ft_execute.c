@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:59:12 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/17 17:39:09 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/17 19:10:11 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	fork_handler(t_data *data, t_command *cmd, int input, int output)
 	pid_t	pid;
 
 	pid = fork();
+	
 	if (pid == -1)
 		print_error("Fork failed");
 	else if (pid == 0)

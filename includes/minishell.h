@@ -6,7 +6,11 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/02/17 18:48:25 by tprovost         ###   ########.fr       */
+=======
+/*   Updated: 2025/02/17 15:45:09 by mleproux         ###   ########.fr       */
+>>>>>>> refs/remotes/origin/main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +71,7 @@
 
 typedef struct s_data
 {
-	t_env_var	*env_variables; // ou liste chainee
+	t_env_var	*env_variables;
 	t_command	*commands;
 }			t_data;
 

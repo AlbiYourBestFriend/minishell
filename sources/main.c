@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/17 18:45:45 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/17 19:11:51 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@ static void	build_command(t_data *data, char *cmd_line)
 
 	index = 0;
 	cmds = split_cmd_line(cmd_line, '|');
+	free(cmd_line);
+	if (!cmds)
+	{
+		printf("Erreur");
+		return ;
+	}
 	while (cmds[index] != NULL)
 	{
 		cmdadd_back(&data->commands, cmdnew(cmds[index]));
@@ -33,6 +39,7 @@ static void	build_command(t_data *data, char *cmd_line)
 	}
 	ft_execute(data);
 	free_cmds(data);
+	free_tab(cmds);
 }
 
 int	main(int argc, char **argv, char **env)
@@ -49,7 +56,6 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		cmd_line = readline(PROMPT);
-		// printf("%s\n", cmd_line);
 		if (cmd_line[0] != '\0')
 		{
 			add_history(cmd_line);
@@ -62,8 +68,7 @@ int	main(int argc, char **argv, char **env)
 		else
 			free(cmd_line);
 	}
-	// rl_clear_history();
-	// free(cmd_line);
-	// free_data(&data);
+	clear_history();
+	free_data(&data);
 	return (0);
 }
