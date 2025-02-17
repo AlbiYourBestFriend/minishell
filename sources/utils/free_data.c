@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:20:59 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/17 12:48:54 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/17 15:14:21 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,9 @@
 
 void	free_data(t_data *data)
 {
-	t_command	*tmp;
 	t_env_var	*var;
 
-	tmp = data->commands;
-	while (data->commands != NULL)
-	{
-		tmp = data->commands->next;
-		free_cmds(data);
-		data->commands = tmp;
-	}
+	free_cmds(data);
 	var = data->env_variables;
 	while (data->env_variables != NULL)
 	{

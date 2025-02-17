@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:59:12 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/17 12:40:37 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/17 14:56:06 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	fork_handler(t_data *data, t_command *cmd, int input, int output)
 	pid_t	pid;
 
 	pid = fork();
+	
 	if (pid == -1)
 		print_error("Fork failed");
 	else if (pid == 0)
@@ -63,6 +64,7 @@ void	fork_handler(t_data *data, t_command *cmd, int input, int output)
 			execute_builtins(data, cmd);
 		else
 			command_executor(data, cmd);
+		ft_exit(data, NULL);
 	}
 	else
 	{
@@ -95,5 +97,6 @@ void	ft_execute(t_data *data)
 		temp = temp->next;
 	}
 	fork_handler(data, temp, input, temp->output_fd);
-	close(input);
+	// if (input > 1)
+	// 	close(input);
 }

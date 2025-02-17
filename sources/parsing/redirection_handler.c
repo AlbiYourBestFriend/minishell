@@ -3,26 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_handler.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:08:49 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/13 18:04:46 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/17 14:47:31 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	handle_redirection(t_command *cmd, int redirection, int *index)
+static int	handle_redirection(t_command *cmd, char **args, int *index)
 {
 	char	*filename;
+	int		redirection;
 
-	filename = get_next_word(cmd->cmd_line, index);
+	redirection = check_token(args[(*index)]);
+	(*index)++;
+	filename = args[(*index)];
 	if (filename == NULL)
 	{
 		printf("c'est valo non");
 		return (0);
 	}
-	printf("filename or limiter:%s\n", filename);
+	(*index)++;
 	if (check_token(filename) > 0)
 		return (free(filename), 0); // syntax error near unexpected token
 	if (redirection == INPUT)
@@ -37,81 +40,73 @@ static int	handle_redirection(t_command *cmd, int redirection, int *index)
 	return (1);
 }
 
-static char	*handle_argument(char *new_cmd_line, char *word)
+static int	count_args(char **args)
 {
-	char	*temp;
+	int	index;
+	int	count;
 
-	if (new_cmd_line == NULL)
-		return (ft_strdup(word));
-	temp = new_cmd_line;
-	new_cmd_line = ft_strjoin(new_cmd_line, " ");
-	if (new_cmd_line == NULL)
-		return (free(temp), NULL);
-	free(temp);
-	temp = new_cmd_line;
-	new_cmd_line = ft_strjoin(new_cmd_line, word);
-	if (temp)
-		free(temp);
-	if (new_cmd_line == NULL)
-		return (NULL);
-	return (new_cmd_line);
-}
-
-static int	write_new_cmd_line(char **new_cmd_line, char *word)
-{
-	*new_cmd_line = handle_argument(*new_cmd_line, word);
-	if (*new_cmd_line == NULL)
-		return (0);
-	return (1);
-}
-
-static int	insert_arguments(t_command *cmd, char *new_cmd_line)
-{
-	char	*word;
-	int		index;
-	int		arg_index;
-
-	cmd->args = malloc(sizeof(char *) * (get_word_count(new_cmd_line) + 1));
-	cmd->cmd_line = new_cmd_line;
 	index = 0;
-	arg_index = 0;
-	while (new_cmd_line[index] != '\0')
+	count = 0;
+	while (args[index])
 	{
-		word = get_next_word(new_cmd_line, &index);
-		if (word == NULL)
-			return (0);
-		cmd->args[arg_index] = word;
-		arg_index++;
+		if (check_token(args[index]) > 0 && check_token(args[index]) < 5)
+			index += 2;
+		else
+		{
+			index++;
+			count++;
+		}
 	}
-	cmd->args[arg_index] = NULL;
+	return (count);
+}
+
+static int	insert_arguments(t_command *cmd, char **args)
+{
+	int	index;
+	int	args_index;
+
+	cmd->args = malloc(sizeof(char *) * (count_args(args) + 1));
+	if (!cmd->args)
+		return (0);
+	index = 0;
+	args_index = 0;
+	while (args[index])
+	{
+		if (check_token(args[index]) > 0 && check_token(args[index]) < 5)
+			index += 2;
+		else
+		{
+			cmd->args[args_index] = ft_strdup(args[index]);
+			if (!cmd->args[args_index])
+				return (0);
+			index++;
+			args_index++;
+		}
+	}
+	cmd->args[index] = NULL;
 	return (1);
 }
 
 int	read_redirection(t_command *cmd)
 {
-	char	*new_cmd_line;
-	char	*word;
+	char	**args;
 	int		index;
-	int		redirection;
 
+	args = split_cmd_line(cmd->cmd_line, ' ');
+	if (!args)
+		return (0);
 	index = 0;
-	new_cmd_line = NULL;
-	while (cmd->cmd_line[index] != '\0')
+	while (args[index])
 	{
-		word = get_next_word(cmd->cmd_line, &index);
-		if (word == NULL)
-			return (0);
-		redirection = check_token(word);
-		if (redirection > 0 && redirection < 5)
+		if (check_token(args[index]) > 0 && check_token(args[index]) < 5)
 		{
-			if (handle_redirection(cmd, redirection, &index) == 0)
-				return (free(word), 0);
+			if (handle_redirection(cmd, args, &index) == 0)
+				return (free_tab(args), 0);
 		}
-		else if (write_new_cmd_line(&new_cmd_line, word) == 0)
-			return (free(word), 0);
-		free(word);
+		index++;
 	}
-	if (!insert_arguments(cmd, new_cmd_line))
-		return (free(new_cmd_line), 0);
+	if (!insert_arguments(cmd, args))
+		return (free_tab(args), 0);
+	free_tab(args);
 	return (1);
 }
