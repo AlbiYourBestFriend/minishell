@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:59:12 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/18 19:10:07 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/18 19:38:15 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static void	try_execute(char *path, t_env_var *env_var, char **cmds)
 	}
 }
 
+// il faut gerer le execution de file : ./a.out ...
 static void	command_executor(t_data *data, t_command *cmd)
 {
 	char	**paths;
