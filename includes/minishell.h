@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/18 16:30:16 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/18 19:07:49 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ typedef struct s_data
 }			t_data;
 
 // pour connaitre le resultat des signaux et des execve
-// extern volatile int g_exit_status;
+extern volatile int	g_exit_status;
 
 // Builtins
 void		root_return(t_data *data);
@@ -99,7 +99,7 @@ char		**get_paths(void);
 int			execute_builtins(t_data *data, t_command *cmd);
 int			check_if_builtins(t_command *cmd);
 int			init_builtins(t_data *data, t_command *cmd);
-void		signal_handler(int	state);
+void		signal_handler(int state);
 
 // Parsing
 int			check_quotes(char *cmd);

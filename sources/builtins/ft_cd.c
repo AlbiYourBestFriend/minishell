@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:31:02 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/18 16:44:32 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/18 19:09:06 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	cd_utils_utils(t_env_var *tmp_env, char *tmp)
 	i = 0;
 	while (tab[i] != NULL)
 	{
-		if (ft_strncmp(tab[i], "..", 2)	== 0 && ft_strlen(tab[i]) == 2)
+		if (ft_strncmp(tab[i], "..", 2) == 0 && ft_strlen(tab[i]) == 2)
 			cd_rm_last(tmp_env->value);
 		else
 		{
@@ -112,7 +112,7 @@ void	ft_cd(t_data *data, t_command *cmd)
 		{
 			tmp_env = data->env_variables;
 			while (tmp_env != NULL && (ft_strncmp(tmp_env->name, "PWD", 3) != 0
-				|| ft_strlen(tmp_env->name) != 3))
+					|| ft_strlen(tmp_env->name) != 3))
 				tmp_env = tmp_env->next;
 			cd_utils(data, tmp_env, tmp);
 		}

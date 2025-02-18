@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 16:28:12 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/18 16:30:16 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/18 19:09:30 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	root_return_utils(t_env_var *tmp, char *pwd)
 {
 	while (tmp != NULL && (ft_strncmp(tmp->name, "OLDPWD", 6) != 0
-		|| ft_strlen(tmp->name) != 6))
+			|| ft_strlen(tmp->name) != 6))
 		tmp = tmp->next;
 	if (tmp != NULL)
 	{

@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/18 14:07:16 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/18 18:49:27 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,11 @@ static void	build_command(t_data *data, char *cmd_line)
 		temp = temp->next;
 	}
 	ft_execute(data);
-	free_cmds(data);
-	free_tab(cmds);
+	// free_cmds(data);
+	// free_tab(cmds);
 }
+
+volatile int	g_exit_status;
 
 int	main(int argc, char **argv, char **env)
 {
@@ -50,6 +52,7 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argc;
 	argv = NULL;
+	g_exit_status = 0;
 	data = init_data(env);
 	while (1)
 	{
@@ -69,5 +72,5 @@ int	main(int argc, char **argv, char **env)
 	}
 	rl_clear_history();
 	free_data(&data);
-	return (0);
+	return (g_exit_status);
 }

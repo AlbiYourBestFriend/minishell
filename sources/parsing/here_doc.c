@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:44:32 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/13 15:23:33 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/18 19:06:43 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@ static int	get_here_doc(int fd, char *limiter)
 	buffer = NULL;
 	while (1)
 	{
+		// signal_handler(1);
 		buffer = readline(">");
-		if (buffer == NULL)
-			return (0);
+		if (buffer == NULL) // si buffer == NULL c'est qu'il y un ctrl+D
+			return (0); // le heredoc doit etre fait quand meme
 		else if ((ft_strncmp(buffer, limiter, INT_MAX) == 0))
 			break ;
 		ft_putstr_fd(buffer, fd);

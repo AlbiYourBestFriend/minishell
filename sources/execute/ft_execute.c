@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:59:12 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/17 19:10:11 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/18 19:10:07 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void	fork_handler(t_data *data, t_command *cmd, int input, int output)
 	pid_t	pid;
 
 	pid = fork();
-	
 	if (pid == -1)
 		print_error("Fork failed");
 	else if (pid == 0)
@@ -84,11 +83,13 @@ void	ft_execute(t_data *data)
 	input = temp->input_fd;
 	if (check_if_builtins(temp) && cmdsize(data->commands) == 1)
 	{
+		// signal_handler(2);
 		init_builtins(data, temp);
 		return ;
 	}
 	while (temp->next)
 	{
+		// signal_handler(2);
 		if (pipe(pipefd) != 0)
 			return ;
 		fork_handler(data, temp, input, pipefd[1]);
