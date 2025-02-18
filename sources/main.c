@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/18 18:49:27 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/18 19:19:09 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,12 @@ int	main(int argc, char **argv, char **env)
 	{
 		signal_handler(0);
 		cmd_line = readline(PROMPT);
+		if (cmd_line == NULL) // ctrl+D
+		{
+			// free everything
+			printf("%s\n", EXIT);
+			return(g_exit_status);
+		}
 		if (cmd_line[0] != '\0')
 		{
 			add_history(cmd_line);
