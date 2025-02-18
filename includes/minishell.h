@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/17 19:15:59 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/18 16:30:16 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,13 @@
 # define PROMPT "Minishell : "
 # define MY_CHAR_MAX 4096
 
+# include <dirent.h>
+# include <sys/ioctl.h>
+# include <termios.h>
+# include <curses.h>
+# include <fcntl.h>
+# include <sys/types.h>
+
 // pipex errors
 # define ENV_ERR		"no environment detected"
 # define ARGC_ERR		"wrong number of argument"
@@ -48,6 +55,7 @@
 # define EXECVE_ERR		"error during execve"
 # define PATH_ERR		"path not found"
 
+// can be deleted ?
 # define INPUT 1
 # define HEREDOC 2
 # define TRUNC 3
@@ -55,7 +63,7 @@
 # define PIPE 5
 
 // builtins
-# define ECHO "echo"
+// # define ECHO "echo"
 # define CD "cd"
 # define PWD "pwd"
 # define EXPORT "export"
@@ -71,9 +79,11 @@ typedef struct s_data
 	t_command	*commands;
 }			t_data;
 
+// pour connaitre le resultat des signaux et des execve
 // extern volatile int g_exit_status;
 
 // Builtins
+void		root_return(t_data *data);
 void		ft_cd(t_data *data, t_command *cmd);
 void		ft_echo(t_data *data, t_command *cmd);
 void		ft_env(t_data *data, t_command *cmd);
