@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 19:03:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/17 15:55:23 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/18 13:59:21 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ char	**split_cmd_line(char *line, char c)
 		else
 		{
 			if (line[i] != c && (line[i + 1] == c || line[i + 1] == '\0')
-				&& line[i - 1] != '\"' && line[i - 1] != '\'')
+				&& (i == 0 || (line[i - 1] != '\"' && line[i - 1] != '\'')))
 				nb_word++;
 			i++;
 		}
@@ -120,15 +120,15 @@ char	**split_cmd_line(char *line, char c)
 	return (remp_split(tab, line, c, nb_word));
 }
 
-// int	main(void)
+// int	main(int argc, char **argv)
 // {
 // 	char *str;
 // 	char **tab;
 // 	int i;
 
-// 	str = readline("str : ");
-// 	printf("len str : %zu\n", strlen(str));
-// 	tab = split_cmd_line(str, '|');
+// 	// str = readline("str : ");
+// 	printf("len str : %zu\n", strlen(argv[1]));
+// 	tab = split_cmd_line(argv[1], '|');
 // 	i = 0;
 // 	while (tab[i] != NULL)
 // 	{
