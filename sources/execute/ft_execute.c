@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:59:12 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/19 11:21:11 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/19 15:16:42 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	try_execute(char *path, t_env_var *env_var, char **cmds)
+void	try_execute(char *path, t_env_var *env_var, char **cmds)
 {
 	char	**tab;
 
@@ -34,6 +34,7 @@ static void	command_executor(t_data *data, t_command *cmd)
 	int		index;
 
 	index = 0;
+	try_execute(cmd->args[0], data->env_variables, cmd->args);
 	paths = get_paths();
 	if (paths == NULL)
 		printf("Erreur");
@@ -60,8 +61,10 @@ void	fork_handler(t_data *data, t_command *cmd, int input, int output)
 	{
 		if (dup2(input, 0) == -1 || dup2(output, 1) == -1)
 			print_error("Dup failed");
-		if (check_if_builtins(cmd))
+		if (check_if_builtins(cmd) == 1)
 			execute_builtins(data, cmd);
+		else if (is_executable(cmd->args[0]) == 1)
+			exec_executable(data->env_variables, cmd);
 		else
 			command_executor(data, cmd);
 		ft_exit(data, cmd);
@@ -74,8 +77,6 @@ void	fork_handler(t_data *data, t_command *cmd, int input, int output)
 	}
 }
 
-void	fd_handler(t_data *data)
-
 void	ft_execute(t_data *data)
 {
 	t_command	*temp;
@@ -86,6 +87,7 @@ void	ft_execute(t_data *data)
 	input = temp->input_fd;
 	if (check_if_builtins(temp) && cmdsize(data->commands) == 1)
 	{
+		printf("handle builtin\n");
 		// signal_handler(2);
 		init_builtins(data, temp);
 		return ;

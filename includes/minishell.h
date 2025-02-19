@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/19 11:09:09 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/19 15:16:42 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,15 @@ void		ft_pwd(t_data *data);
 void		ft_unset(t_data *data, t_command *cmd);
 
 // Executing
-void		ft_execute(t_data *data);
-char		*create_path(char *path, char *cmd);
-char		**get_paths(void);
+int			init_builtins(t_data *data, t_command *cmd);
 int			execute_builtins(t_data *data, t_command *cmd);
 int			check_if_builtins(t_command *cmd);
-int			init_builtins(t_data *data, t_command *cmd);
+void		try_execute(char *path, t_env_var *env_var, char **cmds);
+void		ft_execute(t_data *data);
+int			is_executable(char *cmd);
+void		exec_executable(t_env_var *env_var, t_command *cmd);
+char		*create_path(char *path, char *cmd);
+char		**get_paths(void);
 void		signal_handler(int state);
 
 // Parsing

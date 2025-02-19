@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/19 11:10:02 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/19 15:19:58 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static void	build_command(t_data *data, char *cmd_line)
 	ft_execute(data);
 	free_cmds(data);
 	free_tab(data->splitted_cmds);
+	data->splitted_cmds = NULL;
 }
 
 volatile int	g_exit_status;
@@ -59,8 +60,9 @@ int	main(int argc, char **argv, char **env)
 		cmd_line = readline(PROMPT);
 		if (cmd_line == NULL) // ctrl+D
 		{
-			// free everything
-			printf("%s\n", EXIT);
+			rl_clear_history();
+			free_data(&data);
+			printf("exit\n");
 			return(g_exit_status);
 		}
 		if (cmd_line[0] != '\0')

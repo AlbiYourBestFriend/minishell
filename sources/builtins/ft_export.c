@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:08:23 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/17 17:23:23 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/19 15:29:05 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,23 +63,31 @@ void	ft_export(t_data *data, t_command *cmd)
 {
 	t_env_var	*env_var;
 	int			n;
+	int			i;
 
-	if (cmd->args[1] == NULL)
+	if (tab_len(cmd->args) == 1)
 		print_export(data);
 	else
 	{
-		n = is_env_var(cmd->args[1]);
-		if (n != 0)
+		i = 1;
+		while (cmd->args[i] != NULL)
 		{
-			env_var = handle_env_var(data, cmd->args[1], n);
-			if (n == 1 || n == -1)
+			n = is_env_var(cmd->args[1]);
+			if (n != 0)
 			{
-				if (env_var->status == 0)
-					env_var->status = 1;
+				printf("n = %d\n", n);
+				env_var = handle_env_var(data, cmd->args[i], n);
+				printf("name = %s\nvalue = %s\nstatus = %d\n", env_var->name, env_var->value, env_var->status);
+				if (n == 1 || n == -1)
+				{
+					if (env_var->status == 0)
+						env_var->status = 1;
+				}
 			}
+			else
+				perror("invalid argument");
+			i++;
 		}
-		else
-			perror("invalid argument");
 	}
 	// ft_exit(data, NULL);
 }
