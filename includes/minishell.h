@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/18 14:53:25 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/19 11:09:09 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,13 @@
 # define PROMPT "Minishell : "
 # define MY_CHAR_MAX 4096
 
+# include <dirent.h>
+# include <sys/ioctl.h>
+# include <termios.h>
+# include <curses.h>
+# include <fcntl.h>
+# include <sys/types.h>
+
 // pipex errors
 # define ENV_ERR		"no environment detected"
 # define ARGC_ERR		"wrong number of argument"
@@ -48,12 +55,12 @@
 # define EXECVE_ERR		"error during execve"
 # define PATH_ERR		"path not found"
 
+// can be deleted ?
 # define INPUT 1
 # define HEREDOC 2
 # define TRUNC 3
 # define APPEND 4
 # define PIPE 5
-
 
 # define HEREDOCFILE ".heredoc.tmp"
 
@@ -64,9 +71,11 @@ typedef struct s_data
 	char		**splitted_cmds;
 }			t_data;
 
-// extern volatile int g_exit_status;
+// pour connaitre le resultat des signaux et des execve
+extern volatile int	g_exit_status;
 
 // Builtins
+void		root_return(t_data *data);
 void		ft_cd(t_data *data, t_command *cmd);
 void		ft_echo(t_data *data, t_command *cmd);
 void		ft_env(t_data *data, t_command *cmd);
@@ -82,7 +91,7 @@ char		**get_paths(void);
 int			execute_builtins(t_data *data, t_command *cmd);
 int			check_if_builtins(t_command *cmd);
 int			init_builtins(t_data *data, t_command *cmd);
-void		signal_handler(int	state);
+void		signal_handler(int state);
 
 // Parsing
 int			check_quotes(char *cmd);

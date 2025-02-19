@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:11:46 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/17 18:59:42 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/18 19:11:17 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,40 +20,43 @@ static void	handle_signal_readline(int sig)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
+		g_exit_status = sig + 128;
 	}
 }
 
-static void handle_signal_here_doc(int sig)
+static void	handle_signal_here_doc(int sig)
 {
 	if (sig == SIGINT)
 	{
 		printf("\n");
 		rl_on_new_line();
-		// rl_replace_line("", 0);
-		// rl_redisplay();
+		g_exit_status = sig + 128;
 	}
-	// else if () // ?
-	// {
-		
-	// }
+	if (sig == SIGQUIT)
+	{
+		printf("\b\b  \b\b");
+		g_exit_status = sig + 128;
+	}
 }
 
-static void handle_signal_exec(int sig)
+static void	handle_signal_exec(int sig)
 {
 	if (sig == SIGINT)
 	{
 		printf("\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
-		// rl_redisplay();
+		g_exit_status = sig + 128;
 	}
-	// else if () // ?
-	// {
-	// 	// printf("core dumped\n");
-	// }
+	else if (sig == SIGQUIT)
+	{
+		perror("quit (core dumped)\n");
+		g_exit_status = sig + 128;
+	}
 }
 
-void	signal_handler(int	state) // state indique ce qu'on est en train de faire
+// state indique ce qu'on est en train de faire
+void	signal_handler(int state)
 {
 	struct sigaction	s_sig_init;
 	struct sigaction	s_sig_end;
@@ -69,8 +72,8 @@ void	signal_handler(int	state) // state indique ce qu'on est en train de faire
 	}
 	if (state == 1) // wait end heredoc -> end heredoc + free
 	{
-		s_sig_init.sa_handler = handle_signal_here_doc;
 		s_sig_init.sa_flags = 0;
+		s_sig_init.sa_handler = handle_signal_here_doc;
 		s_sig_end.sa_handler = handle_signal_here_doc;
 	}
 	if (state == 2) // exec program -> stop exec
@@ -78,7 +81,6 @@ void	signal_handler(int	state) // state indique ce qu'on est en train de faire
 		s_sig_init.sa_handler = handle_signal_exec;
 		s_sig_end.sa_handler = handle_signal_exec;
 	}
-	// sigaction
-	sigaction(SIGQUIT, &s_sig_end, NULL);
-	sigaction(SIGINT, &s_sig_init, NULL);
+	sigaction(SIGQUIT, &s_sig_end, NULL); // detecter ctrl+\    //
+	sigaction(SIGINT, &s_sig_init, NULL); // detecter ctrl+C
 }

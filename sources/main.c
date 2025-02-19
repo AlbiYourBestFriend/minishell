@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/18 12:10:31 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/19 11:10:02 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ static void	build_command(t_data *data, char *cmd_line)
 	free_tab(data->splitted_cmds);
 }
 
+volatile int	g_exit_status;
+
 int	main(int argc, char **argv, char **env)
 {
 	t_data	data;
@@ -49,11 +51,18 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argc;
 	argv = NULL;
+	g_exit_status = 0;
 	data = init_data(env);
 	while (1)
 	{
 		signal_handler(0);
 		cmd_line = readline(PROMPT);
+		if (cmd_line == NULL) // ctrl+D
+		{
+			// free everything
+			printf("%s\n", EXIT);
+			return(g_exit_status);
+		}
 		if (cmd_line[0] != '\0')
 		{
 			add_history(cmd_line);
@@ -66,7 +75,7 @@ int	main(int argc, char **argv, char **env)
 		else
 			free(cmd_line);
 	}
-	clear_history();
+	rl_clear_history();
 	free_data(&data);
-	return (0);
+	return (g_exit_status);
 }

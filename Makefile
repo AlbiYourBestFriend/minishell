@@ -4,7 +4,8 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 OTHER_FLAGS = -lreadline -lncurses
 
-SOURCES	=	ft_cd.c \
+SOURCES	=	ft_cd_utils.c \
+			ft_cd.c \
 			ft_echo.c \
 			ft_env.c \
 			ft_exit.c \

@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:59:12 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/19 10:46:42 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/19 11:21:11 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static void	try_execute(char *path, t_env_var *env_var, char **cmds)
 	}
 }
 
+// il faut gerer le execution de file : ./a.out ...
 static void	command_executor(t_data *data, t_command *cmd)
 {
 	char	**paths;
@@ -53,7 +54,6 @@ void	fork_handler(t_data *data, t_command *cmd, int input, int output)
 	pid_t	pid;
 
 	pid = fork();
-	
 	if (pid == -1)
 		print_error("Fork failed");
 	else if (pid == 0)
@@ -86,12 +86,14 @@ void	ft_execute(t_data *data)
 	input = temp->input_fd;
 	if (check_if_builtins(temp) && cmdsize(data->commands) == 1)
 	{
+		// signal_handler(2);
 		init_builtins(data, temp);
 		return ;
 	}
 	printf("%d - %d\n", temp->input_fd, temp->output_fd);
 	while (temp->next)
 	{
+		// signal_handler(2);
 		if (pipe(pipefd) != 0)
 			return ;
 		
