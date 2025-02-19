@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:08:23 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/19 15:29:05 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/19 15:52:18 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,4 @@ void	ft_export(t_data *data, t_command *cmd)
 			i++;
 		}
 	}
-	// ft_exit(data, NULL);
 }

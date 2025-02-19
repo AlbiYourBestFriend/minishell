@@ -6,18 +6,11 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:33:13 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/14 16:53:14 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:08:42 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static void	free_elem(t_env_var *env_var, t_env_var *tmp)
-{
-	tmp = env_var->next;
-	free_env_var(env_var);
-	env_var = tmp;
-}
 
 void	ft_unset(t_data *data, t_command *cmd)
 {
@@ -27,12 +20,19 @@ void	ft_unset(t_data *data, t_command *cmd)
 
 	name = get_env_var_name(cmd->args[1]);
 	tmp = NULL;
-	if (data->env_variables == NULL || exist_var(data, name) == 0)
+	if (data->env_variables == NULL || name == NULL)
 		return ;
+	if (exist_var(data, name) == 0)
+		return (free(name));
 	env_var = data->env_variables;
-	if (ft_strncmp(data->env_variables->name, name, ft_strlen(name)) == 0
-		&& ft_strlen(data->env_variables->name) == ft_strlen(name))
-		free_elem(data->env_variables, env_var);
+	if (ft_strncmp(env_var->name, name, ft_strlen(name)) == 0
+		&& ft_strlen(env_var->name) == ft_strlen(name))
+	{
+		tmp = env_var;
+		env_var = env_var->next;
+		free_env_var(tmp);
+		free(name);
+	}
 	else
 	{
 		while (env_var->next != NULL
@@ -40,7 +40,11 @@ void	ft_unset(t_data *data, t_command *cmd)
 				|| ft_strlen(env_var->next->name) != ft_strlen(name)))
 			env_var = env_var->next;
 		if (env_var->next != NULL)
-			free_elem(env_var->next, tmp);
+		{
+			tmp = env_var->next;
+			env_var->next = env_var->next->next;
+			free_env_var(tmp);
+		}
+		free(name);
 	}
-	// ft_exit(data, NULL);
 }

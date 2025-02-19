@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:59:12 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/19 15:16:42 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/19 17:15:06 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ void	try_execute(char *path, t_env_var *env_var, char **cmds)
 		execve(path, cmds, tab);
 		free(path);
 		free_tab(tab);
-		printf("erreur");
+		perror("erreur");
+		// free data
+		// exit
 	}
 }
 
@@ -48,6 +50,7 @@ static void	command_executor(t_data *data, t_command *cmd)
 		index++;
 	}
 	free_tab(paths);
+	perror("command not found");
 }
 
 void	fork_handler(t_data *data, t_command *cmd, int input, int output)
@@ -56,11 +59,11 @@ void	fork_handler(t_data *data, t_command *cmd, int input, int output)
 
 	pid = fork();
 	if (pid == -1)
-		print_error("Fork failed");
+		perror("Fork failed");
 	else if (pid == 0)
 	{
 		if (dup2(input, 0) == -1 || dup2(output, 1) == -1)
-			print_error("Dup failed");
+			perror("Dup failed");
 		if (check_if_builtins(cmd) == 1)
 			execute_builtins(data, cmd);
 		else if (is_executable(cmd->args[0]) == 1)
@@ -85,17 +88,16 @@ void	ft_execute(t_data *data)
 
 	temp = data->commands;
 	input = temp->input_fd;
+	signal_handler(2);
 	if (check_if_builtins(temp) && cmdsize(data->commands) == 1)
 	{
 		printf("handle builtin\n");
-		// signal_handler(2);
 		init_builtins(data, temp);
 		return ;
 	}
 	printf("%d - %d\n", temp->input_fd, temp->output_fd);
 	while (temp->next)
 	{
-		// signal_handler(2);
 		if (pipe(pipefd) != 0)
 			return ;
 		

@@ -36,7 +36,6 @@ SOURCES	=	ft_cd_utils.c \
 			get_word_count.c \
 			init_data.c \
 			lst_to_tab.c \
-			print_error.c \
 			print_output.c \
 			split_cmd_line_utils.c \
 			split_cmd_line.c \
