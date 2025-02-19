@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:31:22 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/17 12:45:08 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/19 17:12:36 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_pwd(t_data *data)
 	}
 	else
 	{
-		printf("erreur");
+		perror("erreur");
 		return ;
 	}
 }

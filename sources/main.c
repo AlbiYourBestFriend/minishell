@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/19 15:19:58 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/19 17:01:57 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,3 +81,9 @@ int	main(int argc, char **argv, char **env)
 	free_data(&data);
 	return (g_exit_status);
 }
+
+/*
+
+valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp ./minishell
+
+*/

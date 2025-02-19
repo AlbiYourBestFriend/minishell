@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 13:55:23 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/19 15:10:44 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/19 15:52:35 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ void	exec_executable(t_env_var *env_var, t_command *cmd)
 
 	try_execute(&cmd->args[0][1], env_var, cmd->args);
 	tmp = env_var;
-	while (tmp != NULL && ft_strncmp(tmp->name, "PWD", 3) != 0 && ft_strlen(tmp->name) != 3)
+	while (tmp != NULL && (ft_strncmp(tmp->name, "PWD", 3) != 0
+			|| ft_strlen(tmp->name) != 3))
 		tmp = tmp->next;
 	i = 1;
 	if (ft_strlen(tmp->value) - i > 0

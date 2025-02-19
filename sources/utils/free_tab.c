@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_tab.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 18:31:34 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/18 11:08:25 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/19 17:12:36 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 void	free_tab(char **tab)
 {
-	int	index;
+	int	i;
 
-	index = 0;
-	if (!tab)
+	i = 0;
+	if (tab == NULL)
 		return ;
-	while (tab[index])
+	while (tab[i])
 	{
-		free(tab[index]);
-		index++;
+		free(tab[i]);
+		i++;
 	}
 	free(tab);
 }
