@@ -14,6 +14,7 @@ SOURCES	=	ft_cd_utils.c \
 			ft_unset.c \
 			builtins_handler.c \
 			ft_execute.c \
+			handle_executable.c \
 			path_handler.c \
 			signal_handler.c \
 			command_lst.c \

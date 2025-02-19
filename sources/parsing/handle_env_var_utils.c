@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 12:20:14 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/13 16:25:21 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/19 15:33:21 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int	exist_var(t_data *data, char *name)
 
 	env_var = data->env_variables;
 	while (env_var != NULL
-		&& ft_strncmp(env_var->name, name, ft_strlen(name)) != 0
-		&& ft_strlen(env_var->name) != ft_strlen(name))
+		&& (ft_strncmp(env_var->name, name, ft_strlen(name)) != 0
+			|| ft_strlen(env_var->name) != ft_strlen(name)))
 		env_var = env_var->next;
 	if (env_var != NULL)
 		return (1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_env_var_utils_2.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 15:43:45 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/12 17:13:23 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/19 13:03:57 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	copy_str(char *cmd, int *j, char *str, int *i)
 	{
 		c = cmd[(*j)];
 		(*j)++;
-		while (cmd[(*j)] != c)
+		while (cmd[(*j)] != c && cmd[(*j)] != '\0')
 		{
 			str[(*i)] = cmd[(*j)];
 			(*i)++;
@@ -92,7 +92,7 @@ static void	get_value_utils(char *cmd, int *i, int *j, int *n)
 			if (cmd[(*i)] == '\"' || cmd[(*i)] == '\'')
 			{
 				c = cmd[(*i)];
-				while (cmd[++(*i)] != c)
+				while (cmd[++(*i)] != c && cmd[(*i)] != '\0')
 					(*n)++;
 			}
 			else
@@ -109,11 +109,16 @@ char	*get_env_var_value(char *cmd)
 	int		n;
 	char	*value;
 
-	i = -1;
+	i = 0;
+	j = 0;
 	n = -1;
-	while (cmd[++i] != '\0' && n == -1)
+	while (cmd[i] != '\0' && n == -1)
+	{
 		get_value_utils(cmd, &i, &j, &n);
-	value = malloc((n + 1) * sizeof(char));
+		if (cmd[i] != '\0')
+			i++;
+	}
+	value = malloc((n + 2) * sizeof(char));
 	n = 0;
 	while (cmd[++j] != '\0' && ft_isspace(cmd[j]) == 0)
 		copy_str(cmd, &j, value, &n);

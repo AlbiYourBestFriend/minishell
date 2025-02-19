@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:11:46 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/18 19:11:17 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/19 14:59:35 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,11 @@ static void	handle_signal_exec(int sig)
 }
 
 // state indique ce qu'on est en train de faire
+// SIGQUIT -> detecter ctrl+\                   /
+// SIGINT -> detecter ctrl+C
+// state = 0 -> wait prompt readline -> new prompt
+// state = 1 -> wait end heredoc -> end heredoc
+// state = 2 -> exec program -> stop exec
 void	signal_handler(int state)
 {
 	struct sigaction	s_sig_init;
@@ -65,22 +70,22 @@ void	signal_handler(int state)
 	s_sig_end.sa_flags = SA_RESTART;
 	sigemptyset(&(s_sig_init.sa_mask));
 	sigemptyset(&(s_sig_end.sa_mask));
-	if (state == 0) // wait prompt readline -> new prompt
+	if (state == 0)
 	{
 		s_sig_init.sa_handler = handle_signal_readline;
 		s_sig_end.sa_handler = SIG_IGN;
 	}
-	if (state == 1) // wait end heredoc -> end heredoc + free
+	if (state == 1)
 	{
 		s_sig_init.sa_flags = 0;
 		s_sig_init.sa_handler = handle_signal_here_doc;
 		s_sig_end.sa_handler = handle_signal_here_doc;
 	}
-	if (state == 2) // exec program -> stop exec
+	if (state == 2)
 	{
 		s_sig_init.sa_handler = handle_signal_exec;
 		s_sig_end.sa_handler = handle_signal_exec;
 	}
-	sigaction(SIGQUIT, &s_sig_end, NULL); // detecter ctrl+\    //
-	sigaction(SIGINT, &s_sig_init, NULL); // detecter ctrl+C
+	sigaction(SIGQUIT, &s_sig_end, NULL);
+	sigaction(SIGINT, &s_sig_init, NULL);
 }
