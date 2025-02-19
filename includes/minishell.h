@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/17 19:15:59 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/18 14:53:25 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,6 @@
 # define APPEND 4
 # define PIPE 5
 
-// builtins
-# define ECHO "echo"
-# define CD "cd"
-# define PWD "pwd"
-# define EXPORT "export"
-# define UNSET "unset"
-# define ENV "env"
-# define EXIT "exit"
 
 # define HEREDOCFILE ".heredoc.tmp"
 
@@ -69,6 +61,7 @@ typedef struct s_data
 {
 	t_env_var	*env_variables;
 	t_command	*commands;
+	char		**splitted_cmds;
 }			t_data;
 
 // extern volatile int g_exit_status;

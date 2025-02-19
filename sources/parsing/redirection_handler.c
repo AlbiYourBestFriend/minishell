@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:08:49 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/17 14:47:31 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/18 14:15:54 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static int	handle_redirection(t_command *cmd, char **args, int *index)
 		cmd->output_fd = open_file(filename, cmd->output_fd, 1, 1);
 	else if (redirection == APPEND)
 		cmd->output_fd = open_file(filename, cmd->output_fd, 1, 0);
-	free(filename);
 	return (1);
 }
 
@@ -83,7 +82,7 @@ static int	insert_arguments(t_command *cmd, char **args)
 			args_index++;
 		}
 	}
-	cmd->args[index] = NULL;
+	cmd->args[args_index] = NULL;
 	return (1);
 }
 
@@ -103,7 +102,8 @@ int	read_redirection(t_command *cmd)
 			if (handle_redirection(cmd, args, &index) == 0)
 				return (free_tab(args), 0);
 		}
-		index++;
+		else
+			index++;
 	}
 	if (!insert_arguments(cmd, args))
 		return (free_tab(args), 0);

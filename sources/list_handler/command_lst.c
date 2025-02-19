@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:21:36 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/17 16:43:30 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/18 12:16:38 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	free_cmds(t_data *data)
 	temp = data->commands;
 	while (temp)
 	{
-		free(temp->cmd_line);
 		free_tab(temp->args);
 		to_free = temp;
 		temp = temp->next;

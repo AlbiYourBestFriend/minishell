@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/17 19:15:22 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/18 12:10:31 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,20 @@
 
 static void	build_command(t_data *data, char *cmd_line)
 {
-	char		**cmds;
 	t_command	*temp;
 	int			index;
 
 	index = 0;
-	cmds = split_cmd_line(cmd_line, '|');
+	data->splitted_cmds = split_cmd_line(cmd_line, '|');
 	free(cmd_line);
-	if (!cmds)
+	if (!data->splitted_cmds)
 	{
 		printf("Erreur");
 		return ;
 	}
-	while (cmds[index] != NULL)
+	while (data->splitted_cmds[index] != NULL)
 	{
-		cmdadd_back(&data->commands, cmdnew(cmds[index]));
+		cmdadd_back(&data->commands, cmdnew(data->splitted_cmds[index]));
 		index++;
 	}
 	temp = data->commands;
@@ -39,7 +38,7 @@ static void	build_command(t_data *data, char *cmd_line)
 	}
 	ft_execute(data);
 	free_cmds(data);
-	free_tab(cmds);
+	free_tab(data->splitted_cmds);
 }
 
 int	main(int argc, char **argv, char **env)

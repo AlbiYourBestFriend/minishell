@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:59:12 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/17 19:10:11 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/19 10:46:42 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ void	fork_handler(t_data *data, t_command *cmd, int input, int output)
 	}
 }
 
+void	fd_handler(t_data *data)
+
 void	ft_execute(t_data *data)
 {
 	t_command	*temp;
@@ -87,15 +89,19 @@ void	ft_execute(t_data *data)
 		init_builtins(data, temp);
 		return ;
 	}
+	printf("%d - %d\n", temp->input_fd, temp->output_fd);
 	while (temp->next)
 	{
 		if (pipe(pipefd) != 0)
 			return ;
+		
 		fork_handler(data, temp, input, pipefd[1]);
 		close(pipefd[1]);
 		input = pipefd[0];
 		temp = temp->next;
+		
 	}
+	printf("%d -- %d\n", input , temp->output_fd);
 	fork_handler(data, temp, input, temp->output_fd);
 	// close(input);
 }

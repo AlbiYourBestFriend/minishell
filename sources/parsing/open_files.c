@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:08:49 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/11 17:20:43 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/18 17:05:04 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	open_file(char *filename, int currentfd, int isoutput, int dotrunc)
 {
 	int	fd;
 
-	if (currentfd > 0)
+	if (currentfd > 1)
 		close(currentfd);
 	if (isoutput == 1)
 	{

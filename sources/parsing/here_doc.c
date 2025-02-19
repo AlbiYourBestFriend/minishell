@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:44:32 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/13 15:23:33 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/18 14:08:49 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static int	get_here_doc(int fd, char *limiter)
 	char	*buffer;
 
 	buffer = NULL;
+	
 	while (1)
 	{
 		buffer = readline(">");
@@ -25,8 +26,10 @@ static int	get_here_doc(int fd, char *limiter)
 		else if ((ft_strncmp(buffer, limiter, INT_MAX) == 0))
 			break ;
 		ft_putstr_fd(buffer, fd);
+		write(fd, "\n", 1);
 		free(buffer);
 	}
+	
 	free(buffer);
 	close(fd);
 	return (1);
