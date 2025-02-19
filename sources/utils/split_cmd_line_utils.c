@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_cmd_line_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:14:28 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/17 15:55:23 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/18 14:03:00 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	malloc_words(char **tab, char *line, char c, int nb_word)
 		{
 			i = get_len_word(line, i, l);
 		}
-		tab[j] = malloc ((i + 1) * sizeof(char));
+		tab[j] = malloc((i + 1) * sizeof(char));
 		if (tab[j] == NULL)
 			return (j);
 		l = l + i;

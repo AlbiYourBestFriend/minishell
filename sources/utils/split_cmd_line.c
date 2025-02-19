@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   split_cmd_line.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 19:03:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/17 15:55:23 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/18 14:02:46 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
 
 static int	remp_utils(char *tab_j, char *line, int i, int l)
 {
@@ -111,7 +112,7 @@ char	**split_cmd_line(char *line, char c)
 		else
 		{
 			if (line[i] != c && (line[i + 1] == c || line[i + 1] == '\0')
-				&& line[i - 1] != '\"' && line[i - 1] != '\'')
+				&& (i == 0 || (line[i - 1] != '\"' && line[i - 1] != '\'')))
 				nb_word++;
 			i++;
 		}
