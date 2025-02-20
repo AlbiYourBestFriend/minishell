@@ -3,38 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   print_output.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 12:43:35 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/20 13:59:33 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/20 18:13:01 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static char	get_quote_type(char c)
+static int	print_env_var(t_data *data, char *arg, int i)
 {
-	if (c == '\'')
-		return ('\'');
-	else if (c == '\"')
-		return ('\"');
-	else
-		return ('\0');
-}
-
-static void	print_env_var(char *arg, int *i)
-{
-	char	var[MY_CHAR_MAX];
-	int		j;
+	int			j;
+	char		*name;
+	t_env_var	*env_var;
 
 	j = 0;
-	while (arg[(*i) + j] != ' ' && arg[(*i) + j] != '\0')
+	while (arg[i + j] != '\0' && ft_isspace(arg[i + j]) == 0)
 	{
-		var[j] = arg[(*i) + j];
 		j++;
 	}
-	var[j] = '\0';
-	printf("my env var :%s\n", var);
+	name = malloc((j + 1) * sizeof(char));
+	j = 0;
+	while (arg[i + j] != '\0' && ft_isspace(arg[i + j]) == 0)
+	{
+		name[j] = arg[i + j];
+		j++;
+	}
+	name[j] = '\0';
+	env_var = get_env_var(data, name);
+	if (env_var != NULL)
+		ft_putstr_fd(env_var->value, 1);
+	free(name);
+	return (j);
 }
 
 static void	simple_quote_print(char *arg, int *i)
@@ -49,39 +50,40 @@ static void	simple_quote_print(char *arg, int *i)
 		(*i)++;
 }
 
-static void	double_quote_print(char *arg, int *i)
+static void	double_quote_print(t_data *data, char *arg, int *i)
 {
 	(*i)++;
 	while (arg[*i] != '\"' && arg[*i] != '\0')
 	{
 		if (arg[*i] == '$')
-			print_env_var(arg, i);
-		write(1, &arg[*i], 1);
-		(*i)++;
+			(*i) = (*i) + 1 + print_env_var(data, arg, *i + 1);
+		if (arg[(*i)] != '\0')
+		{
+			write(1, &arg[*i], 1);
+			(*i)++;
+		}
 	}
 	if (arg[*i] == '\"')
 		(*i)++;
 }
 
-void	print_output(t_command *cmd, int arg_i)
+void	print_output(t_data *data, t_command *cmd, int arg_i)
 {
 	int		i;
-	char	quote_type;
 
 	while (cmd->args[arg_i] != NULL)
 	{
 		i = 0;
 		while (cmd->args[arg_i][i] != '\0')
 		{
-			quote_type = get_quote_type(cmd->args[arg_i][i]);
-			if (quote_type == '\'')
+			if (cmd->args[arg_i][i] == '\'')
 				simple_quote_print(cmd->args[arg_i], &i);
-			else if (quote_type == '\"')
-				double_quote_print(cmd->args[arg_i], &i);
+			else if (cmd->args[arg_i][i] == '\"')
+				double_quote_print(data, cmd->args[arg_i], &i);
+			else if (cmd->args[arg_i][i] == '$')
+				i = i + 1 + print_env_var(data, cmd->args[arg_i], i + 1);
 			else
 			{
-				if (cmd->args[arg_i][i] == '$')
-					print_env_var(cmd->args[arg_i], &i);
 				write(1, &cmd->args[arg_i][i], 1);
 				i++;
 			}

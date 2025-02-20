@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:08:23 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/20 11:11:01 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/20 18:15:09 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,25 +123,21 @@ void	ft_export(t_data *data, t_command *cmd)
 		print_export(data);
 	else
 	{
-		i = 1;
-		while (cmd->args[i] != NULL)
+		i = 0;
+		while (cmd->args[++i] != NULL)
 		{
 			n = is_env_var(cmd->args[i]);
 			if (n != 0)
 			{
 				env_var = handle_env_var(data, cmd->args[i], n);
-				if (n == 1 || n == -1)
-				{
-					if (env_var->status == 0)
-						env_var->status = 1;
-				}
+				if ((n == 1 || n == -1) && env_var->status == 0)
+					env_var->status = 1;
 			}
 			else
 			{
 				perror("invalid argument");
 				break ;
 			}
-			i++;
 		}
 	}
 }
