@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/19 11:10:02 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/19 15:32:00 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ int	main(int argc, char **argv, char **env)
 		cmd_line = readline(PROMPT);
 		if (cmd_line == NULL) // ctrl+D
 		{
+			printf("exit\n");
 			// free everything
-			printf("%s\n", EXIT);
 			return(g_exit_status);
 		}
 		if (cmd_line[0] != '\0')
