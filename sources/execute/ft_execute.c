@@ -54,7 +54,7 @@ static void	command_executor(t_data *data, t_command *cmd)
 
 void fd_handler(t_command *cmd, int output, int input)
 {
-    if (cmd->output_fd == 1 && output != -2)
+    if (cmd->output_fd == 1 && cmd->output_fd != output)
     {
         cmd->output_fd = output;
         if (cmd->next && cmd->next->input_fd == 0)
@@ -63,14 +63,25 @@ void fd_handler(t_command *cmd, int output, int input)
     else if (cmd->output_fd != 1 && cmd->next == NULL)
         cmd->output_fd = output;
 }
+
+void	wait_for_all(t_data *data)
+{
+	t_command	*temp;
+
+	temp = data->commands;
+	while (temp)
+	{
+		waitpid(temp->pid, NULL, 0);
+		temp = temp->next;
+	}
+}
+
 void	fork_handler(t_data *data, t_command *cmd, int *pipefd)
 {
-	pid_t	pid;
-
-	pid = fork();
-	if (pid == -1)
+	cmd->pid = fork();
+	if (cmd->pid == -1)
 		perror("Fork failed");
-	else if (pid == 0)
+	else if (cmd->pid == 0)
 	{
 		if (cmd->args == NULL)
 			read_redirection(data, cmd);
@@ -128,4 +139,5 @@ void ft_execute(t_data *data)
 		else	
 			temp= temp->next;
     }
+	wait_for_all(data);
 }
