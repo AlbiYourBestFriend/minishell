@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:59:12 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/20 14:26:03 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/20 10:58:48 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	try_execute(char *path, t_env_var *env_var, char **cmds)
 		tab = lst_to_tab(env_var);
 		execve(path, cmds, tab);
 		free_tab(tab);
-		perror("erreur");
+		perror("Execve failed");
 		// free data
 		// exit
 	}
@@ -38,12 +38,12 @@ static void	command_executor(t_data *data, t_command *cmd)
 	try_execute(cmd->args[0], data->env_variables, cmd->args);
 	paths = get_paths();
 	if (paths == NULL)
-		printf("Erreur");
+		perror("Erreur");
 	while (paths[index] != NULL)
 	{
 		path = create_path(paths[index], cmd->args[0]);
 		if (!path)
-			printf("Erreur");
+			perror("Erreur");
 		try_execute(path, data->env_variables, cmd->args);
 		free(path);
 		index++;

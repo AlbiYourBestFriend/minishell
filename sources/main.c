@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/20 12:29:20 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/20 14:21:06 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ int	main(int argc, char **argv, char **env)
 	free_data(&data);
 	return (g_exit_status);
 }
+
+// gerer g_exit_status
 
 /*
 

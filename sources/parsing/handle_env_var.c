@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 18:05:52 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/19 15:30:20 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/20 10:50:44 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ t_env_var	*modif_env_var(t_data *data, char *name, char *value, int n)
 		env_var = add_env_var(data, ft_strdup(name), value);
 	else
 	{
-		printf("already exist\n");
 		env_var = get_env_var(data, name);
 		if (n != -2)
 		{

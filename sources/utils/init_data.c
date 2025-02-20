@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:13:48 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/18 10:53:32 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/20 11:39:27 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,12 @@ static char	*get_env_value(char *str)
 	char	*value;
 
 	i = 0;
+	value = NULL;
 	while (str[i] != '=')
 		i++;
 	i++;
-	value = ft_strdup(&str[i]);
+	if (str[i] != '\0')
+		value = ft_strdup(&str[i]);
 	return (value);
 }
 
