@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_handler.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:08:49 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/18 14:15:54 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/20 14:21:06 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	handle_redirection(t_command *cmd, char **args, int *index)
+static int	handle_redirection(t_data *data, t_command *cmd, char **args, int *index)
 {
 	char	*filename;
 	int		redirection;
@@ -31,7 +31,7 @@ static int	handle_redirection(t_command *cmd, char **args, int *index)
 	if (redirection == INPUT)
 		cmd->input_fd = open_file(filename, cmd->input_fd, 0, 0);
 	else if (redirection == HEREDOC)
-		cmd->input_fd = here_doc(cmd->input_fd, filename);
+		cmd->input_fd = here_doc(data, cmd->input_fd, filename);
 	else if (redirection == TRUNC)
 		cmd->output_fd = open_file(filename, cmd->output_fd, 1, 1);
 	else if (redirection == APPEND)
@@ -86,7 +86,7 @@ static int	insert_arguments(t_command *cmd, char **args)
 	return (1);
 }
 
-int	read_redirection(t_command *cmd)
+int	read_redirection(t_data *data, t_command *cmd)
 {
 	char	**args;
 	int		index;
@@ -99,7 +99,7 @@ int	read_redirection(t_command *cmd)
 	{
 		if (check_token(args[index]) > 0 && check_token(args[index]) < 5)
 		{
-			if (handle_redirection(cmd, args, &index) == 0)
+			if (handle_redirection(data, cmd, args, &index) == 0)
 				return (free_tab(args), 0);
 		}
 		else

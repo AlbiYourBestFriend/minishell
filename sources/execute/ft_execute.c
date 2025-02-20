@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:59:12 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/19 17:15:06 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/20 10:58:48 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	try_execute(char *path, t_env_var *env_var, char **cmds)
 		execve(path, cmds, tab);
 		free(path);
 		free_tab(tab);
-		perror("erreur");
+		perror("Execve failed");
 		// free data
 		// exit
 	}
@@ -39,12 +39,12 @@ static void	command_executor(t_data *data, t_command *cmd)
 	try_execute(cmd->args[0], data->env_variables, cmd->args);
 	paths = get_paths();
 	if (paths == NULL)
-		printf("Erreur");
+		perror("Erreur");
 	while (paths[index] != NULL)
 	{
 		path = create_path(paths[index], cmd->args[0]);
 		if (!path)
-			printf("Erreur");
+			perror("Erreur");
 		try_execute(path, data->env_variables, cmd->args);
 		free(path);
 		index++;
@@ -91,7 +91,6 @@ void	ft_execute(t_data *data)
 	signal_handler(2);
 	if (check_if_builtins(temp) && cmdsize(data->commands) == 1)
 	{
-		printf("handle builtin\n");
 		init_builtins(data, temp);
 		return ;
 	}
