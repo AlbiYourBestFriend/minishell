@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:59:12 by mleproux          #+#    #+#             */
 /*   Updated: 2025/02/20 10:58:48 by tprovost         ###   ########.fr       */
@@ -20,7 +20,6 @@ void	try_execute(char *path, t_env_var *env_var, char **cmds)
 	{
 		tab = lst_to_tab(env_var);
 		execve(path, cmds, tab);
-		free(path);
 		free_tab(tab);
 		perror("Execve failed");
 		// free data
@@ -53,7 +52,18 @@ static void	command_executor(t_data *data, t_command *cmd)
 	perror("command not found");
 }
 
-void	fork_handler(t_data *data, t_command *cmd, int input, int output)
+void fd_handler(t_command *cmd, int output, int input)
+{
+    if (cmd->output_fd == 1 && output != -2)
+    {
+        cmd->output_fd = output;
+        if (cmd->next && cmd->next->input_fd == 0)
+            cmd->next->input_fd = input;
+    }
+    else if (cmd->output_fd != 1 && cmd->next == NULL)
+        cmd->output_fd = output;
+}
+void	fork_handler(t_data *data, t_command *cmd, int *pipefd)
 {
 	pid_t	pid;
 
@@ -62,9 +72,17 @@ void	fork_handler(t_data *data, t_command *cmd, int input, int output)
 		perror("Fork failed");
 	else if (pid == 0)
 	{
-		if (dup2(input, 0) == -1 || dup2(output, 1) == -1)
-			perror("Dup failed");
-		if (check_if_builtins(cmd) == 1)
+		if (cmd->args == NULL)
+			read_redirection(cmd);
+		if (cmd->next)
+			fd_handler(cmd, pipefd[1], pipefd[0]);
+		else
+			fd_handler(cmd, cmd->output_fd, -2);
+		if (cmd->input_fd != 0)
+        	dup2(cmd->input_fd, 0);
+		if (cmd->output_fd != 1)
+			dup2(cmd->output_fd, 1);
+		if (check_if_builtins(cmd))
 			execute_builtins(data, cmd);
 		else if (is_executable(cmd->args[0]) == 1)
 			exec_executable(data->env_variables, cmd);
@@ -74,39 +92,39 @@ void	fork_handler(t_data *data, t_command *cmd, int input, int output)
 	}
 	else
 	{
-		if (input != 0)
-			close(input);
-		wait(NULL);
+		if (cmd->input_fd != 0)
+			close(cmd->input_fd);
 	}
 }
 
-void	ft_execute(t_data *data)
+void ft_execute(t_data *data)
 {
-	t_command	*temp;
-	int			input;
-	int			pipefd[2];	
+    t_command *temp;
+    int pipefd[2];
 
-	temp = data->commands;
-	input = temp->input_fd;
-	signal_handler(2);
-	if (check_if_builtins(temp) && cmdsize(data->commands) == 1)
-	{
-		init_builtins(data, temp);
-		return ;
-	}
-	printf("%d - %d\n", temp->input_fd, temp->output_fd);
-	while (temp->next)
-	{
-		if (pipe(pipefd) != 0)
+    temp = data->commands;
+    if (cmdsize(data->commands) == 1)
+    {
+        if (init_builtins(data, temp) == 1)
 			return ;
-		
-		fork_handler(data, temp, input, pipefd[1]);
-		close(pipefd[1]);
-		input = pipefd[0];
-		temp = temp->next;
-		
-	}
-	printf("%d -- %d\n", input , temp->output_fd);
-	fork_handler(data, temp, input, temp->output_fd);
-	// close(input);
+    }
+    while (temp)
+    {
+        if (pipe(pipefd) != 0)
+        {
+            perror("pipe");
+            return;
+        }
+        fork_handler(data, temp, pipefd);
+		if (temp->next)
+        {
+            close(pipefd[1]);
+            if (temp->input_fd != 0)
+                close(temp->input_fd);
+            temp = temp->next;
+            temp->input_fd = pipefd[0];
+        }
+		else	
+			temp= temp->next;
+    }
 }
