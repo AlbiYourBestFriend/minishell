@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/20 10:55:28 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/20 12:29:20 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,6 @@ static void	build_command(t_data *data, char *cmd_line)
 		index++;
 	}
 	temp = data->commands;
-	while (temp)
-	{
-		read_redirection(temp);
-		temp = temp->next;
-	}
 	ft_execute(data);
 	free_cmds(data);
 	free_tab(data->splitted_cmds);

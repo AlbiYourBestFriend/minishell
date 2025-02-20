@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_output.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 12:43:35 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/13 11:41:11 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/20 13:59:33 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ void	print_output(t_command *cmd, int arg_i)
 				double_quote_print(cmd->args[arg_i], &i);
 			else
 			{
+				if (cmd->args[arg_i][i] == '$')
+					print_env_var(cmd->args[arg_i], &i);
 				write(1, &cmd->args[arg_i][i], 1);
 				i++;
 			}
