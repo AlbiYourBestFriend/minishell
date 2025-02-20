@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:29:38 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/17 12:54:05 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/20 15:36:38 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	check_option(t_command *cmd, int *count)
 	int	i;
 
 	new_line = 1;
-	i = 0;
+	i = 1;
 	while (cmd->args[i])
 	{
 		if (ft_strncmp(cmd->args[i], "-n", INT_MAX) == 0)
@@ -26,6 +26,8 @@ static int	check_option(t_command *cmd, int *count)
 			(*count)++;
 			new_line = 0;
 		}
+		else 
+			return (new_line);
 		i++;
 	}
 	return (new_line);
