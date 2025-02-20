@@ -76,6 +76,8 @@ int	main(int argc, char **argv, char **env)
 	}
 }
 
+// gerer g_exit_status
+
 /*
 
 valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp ./minishell

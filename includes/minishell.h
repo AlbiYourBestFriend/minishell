@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/19 17:08:51 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/20 14:21:06 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,9 @@ char		*get_env_var_name(char *cmd);
 char		*get_env_var_value(char *cmd);
 t_env_var	*modif_env_var(t_data *data, char *name, char *value, int n);
 t_env_var	*handle_env_var(t_data *data, char *cmd, int n);
-int			here_doc(int currentfd, char *limiter);
+int			here_doc(t_data *data, int currentfd, char *limiter);
 int			open_file(char *filename, int currentfd, int isoutput, int dotrunc);
-int			read_redirection(t_command *cmd);
+int			read_redirection(t_data *data, t_command *cmd);
 
 // Utils
 int			check_token(char *str);

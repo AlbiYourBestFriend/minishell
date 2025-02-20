@@ -3,21 +3,65 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:44:32 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/20 12:10:33 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/20 14:36:14 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	get_here_doc(int fd, char *limiter)
+static int	put_env_var_fd(t_data *data, char *buffer, int fd, int i)
+{
+	int			j;
+	char 		*name;
+	t_env_var	*env_var;
+
+	j = 0;
+	while (buffer[i + j] != '\0' && buffer[i + j] != ' ')
+	{
+		j++;
+	}
+	name = malloc((j + 1) * sizeof(char));
+	j = 0;
+	while (buffer[i + j] != '\0' && buffer[i + j] != ' ')
+	{
+		name[j] = buffer[i + j];
+		j++;
+	}
+	name[j] = '\0';
+	env_var = get_env_var(data, name);
+	if (env_var != NULL)
+		ft_putstr_fd(env_var->value, fd);
+	free(name);
+	return (j);
+}
+
+static void	write_here_doc(t_data *data, char *buffer, int fd)
+{
+	int	i;
+
+	i = 0;
+	while (buffer[i] != '\0')
+	{
+		if (buffer[i] == '$')
+		{
+			i++;
+			i = i + put_env_var_fd(data, buffer, fd, i);
+		}
+		else
+			ft_putchar_fd(buffer[i], fd);
+		if (buffer[i] != '\0')
+			i++;
+	}
+}
+
+static int	get_here_doc(t_data *data, int fd, char *limiter)
 {
 	char	*buffer;
 
 	buffer = NULL;
-	
 	while (1)
 	{
 		// signal_handler(1);
@@ -26,17 +70,16 @@ static int	get_here_doc(int fd, char *limiter)
 			return (0); // le heredoc doit etre fait quand meme
 		else if ((ft_strncmp(buffer, limiter, INT_MAX) == 0))
 			break ;
-		ft_putstr_fd(buffer, fd); // gerer les variables d'environnement
+		write_here_doc(data, buffer, fd);
 		write(fd, "\n", 1);
 		free(buffer);
 	}
-	
 	free(buffer);
 	close(fd);
 	return (1);
 }
 
-int	here_doc(int currentfd, char *limiter)
+int	here_doc(t_data *data, int currentfd, char *limiter)
 {
 	int	fd;
 
@@ -45,7 +88,7 @@ int	here_doc(int currentfd, char *limiter)
 	fd = open(HEREDOCFILE, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd < 0)
 		return (fd);
-	if (get_here_doc(fd, limiter) == 0)
+	if (get_here_doc(data, fd, limiter) == 0)
 	{
 		unlink(HEREDOCFILE);
 		return (-1);

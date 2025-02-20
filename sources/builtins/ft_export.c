@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:08:23 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/19 15:52:18 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/20 11:11:01 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,60 @@ static void	compare_var(char **str1, char **str2)
 	}
 }
 
+static int	assign_value(t_env_var *tmp_var, char **tab, int i)
+{
+	char	*tmp;
+
+	if (tmp_var->status == 1)
+	{
+		tmp = ft_strjoin(tmp_var->name, "=");
+		tab[i] = tmp;
+		tmp = ft_strjoin(tab[i], "\"");
+		free(tab[i]);
+		if (tmp_var->value == NULL)
+		{
+			tab[i] = ft_strjoin(tmp, "\"");
+			free(tmp);
+		}
+		else
+		{
+			tab[i] = ft_strjoin(tmp, tmp_var->value);
+			free(tmp);
+			tmp = ft_strjoin(tab[i], "\"");
+			free(tab[i]);
+			tab[i] = tmp;
+		}
+		i++;
+	}
+	return (i);
+}
+
+static char	**export_lst_to_tab(t_env_var *env_var)
+{
+	int			i;
+	char		**tab;
+	t_env_var	*tmp_var;
+
+	i = 0;
+	tmp_var = env_var;
+	while (tmp_var != NULL)
+	{
+		if (tmp_var->status == 1)
+			i++;
+		tmp_var = tmp_var->next;
+	}
+	tab = malloc((i + 1) * sizeof(char *));
+	i = 0;
+	tmp_var = env_var;
+	while (tmp_var != NULL)
+	{
+		i = assign_value(tmp_var, tab, i);
+		tmp_var = tmp_var->next;
+	}
+	tab[i] = NULL;
+	return (tab);
+}
+
 static void	print_export(t_data *data)
 {
 	int		i;
@@ -37,7 +91,7 @@ static void	print_export(t_data *data)
 	char	**tab;
 
 	i = 0;
-	tab = lst_to_tab(data->env_variables);
+	tab = export_lst_to_tab(data->env_variables);
 	if (tab[0] == NULL)
 		return ;
 	while (tab[i + 1] != NULL)
@@ -54,7 +108,7 @@ static void	print_export(t_data *data)
 	while (tab[++i] != NULL)
 	{
 		if (tab[i][0] != '_' || tab[i][1] != '=')
-			printf("%s\n", tab[i]);
+			printf("declare -x %s\n", tab[i]);
 	}
 	free_tab(tab);
 }
@@ -72,12 +126,10 @@ void	ft_export(t_data *data, t_command *cmd)
 		i = 1;
 		while (cmd->args[i] != NULL)
 		{
-			n = is_env_var(cmd->args[1]);
+			n = is_env_var(cmd->args[i]);
 			if (n != 0)
 			{
-				printf("n = %d\n", n);
 				env_var = handle_env_var(data, cmd->args[i], n);
-				printf("name = %s\nvalue = %s\nstatus = %d\n", env_var->name, env_var->value, env_var->status);
 				if (n == 1 || n == -1)
 				{
 					if (env_var->status == 0)
@@ -85,7 +137,10 @@ void	ft_export(t_data *data, t_command *cmd)
 				}
 			}
 			else
+			{
 				perror("invalid argument");
+				break ;
+			}
 			i++;
 		}
 	}

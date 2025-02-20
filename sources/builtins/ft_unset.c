@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:33:13 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/19 18:08:42 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/20 10:58:48 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	ft_unset(t_data *data, t_command *cmd)
 		tmp = env_var;
 		env_var = env_var->next;
 		free_env_var(tmp);
-		free(name);
 	}
 	else
 	{
@@ -45,6 +44,6 @@ void	ft_unset(t_data *data, t_command *cmd)
 			env_var->next = env_var->next->next;
 			free_env_var(tmp);
 		}
-		free(name);
 	}
+	free(name);
 }
