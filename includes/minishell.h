@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/20 14:21:06 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/20 15:54:12 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ t_data		init_data(char **env);
 int			get_word_count(char *str);
 char		*get_next_word(char *str, int *index);
 char		**lst_to_tab(t_env_var *env_var);
-void		print_output(t_command *cmd, int arg_index);
+void		print_output(t_data *data, t_command *cmd, int arg_index);
 int			ft_check(char **tab, char *line, char c, int k);
 char		**split_cmd_line(char *line, char c);
 int			tab_len(char **tab);

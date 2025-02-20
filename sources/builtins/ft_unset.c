@@ -6,11 +6,25 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:33:13 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/20 10:58:48 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/20 18:16:51 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static void search_and_unset(t_env_var *env_var, char *name, char *tmp)
+{
+	while (env_var->next != NULL
+		&& (ft_strncmp(env_var->next->name, name, ft_strlen(name)) != 0
+			|| ft_strlen(env_var->next->name) != ft_strlen(name)))
+		env_var = env_var->next;
+	if (env_var->next != NULL)
+	{
+		tmp = env_var->next;
+		env_var->next = env_var->next->next;
+		free_env_var(tmp);
+	}
+}
 
 void	ft_unset(t_data *data, t_command *cmd)
 {
@@ -34,16 +48,7 @@ void	ft_unset(t_data *data, t_command *cmd)
 	}
 	else
 	{
-		while (env_var->next != NULL
-			&& (ft_strncmp(env_var->next->name, name, ft_strlen(name)) != 0
-				|| ft_strlen(env_var->next->name) != ft_strlen(name)))
-			env_var = env_var->next;
-		if (env_var->next != NULL)
-		{
-			tmp = env_var->next;
-			env_var->next = env_var->next->next;
-			free_env_var(tmp);
-		}
+		search_and_unset(env_var, name, tmp);
 	}
 	free(name);
 }

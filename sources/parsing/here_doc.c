@@ -6,26 +6,26 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:44:32 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/20 14:36:14 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/20 18:12:40 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	put_env_var_fd(t_data *data, char *buffer, int fd, int i)
+static int	heredoc_put_env_var_fd(t_data *data, char *buffer, int fd, int i)
 {
 	int			j;
-	char 		*name;
+	char		*name;
 	t_env_var	*env_var;
 
 	j = 0;
-	while (buffer[i + j] != '\0' && buffer[i + j] != ' ')
+	while (buffer[i + j] != '\0' && ft_isspace(buffer[i + j]) == 0)
 	{
 		j++;
 	}
 	name = malloc((j + 1) * sizeof(char));
 	j = 0;
-	while (buffer[i + j] != '\0' && buffer[i + j] != ' ')
+	while (buffer[i + j] != '\0' && ft_isspace(buffer[i + j]) == 0)
 	{
 		name[j] = buffer[i + j];
 		j++;
@@ -48,7 +48,7 @@ static void	write_here_doc(t_data *data, char *buffer, int fd)
 		if (buffer[i] == '$')
 		{
 			i++;
-			i = i + put_env_var_fd(data, buffer, fd, i);
+			i = i + heredoc_put_env_var_fd(data, buffer, fd, i);
 		}
 		else
 			ft_putchar_fd(buffer[i], fd);
