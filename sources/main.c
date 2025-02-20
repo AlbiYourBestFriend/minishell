@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/19 15:32:00 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/20 10:55:28 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static void	build_command(t_data *data, char *cmd_line)
 	ft_execute(data);
 	free_cmds(data);
 	free_tab(data->splitted_cmds);
+	data->splitted_cmds = NULL;
 }
 
 volatile int	g_exit_status;
@@ -59,8 +60,9 @@ int	main(int argc, char **argv, char **env)
 		cmd_line = readline(PROMPT);
 		if (cmd_line == NULL) // ctrl+D
 		{
+			rl_clear_history();
+			free_data(&data);
 			printf("exit\n");
-			// free everything
 			return(g_exit_status);
 		}
 		if (cmd_line[0] != '\0')
@@ -79,3 +81,9 @@ int	main(int argc, char **argv, char **env)
 	free_data(&data);
 	return (g_exit_status);
 }
+
+/*
+
+valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp ./minishell
+
+*/

@@ -3,16 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:59:12 by mleproux          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/02/19 16:10:54 by mleproux         ###   ########.fr       */
+=======
+/*   Updated: 2025/02/19 17:15:06 by tprovost         ###   ########.fr       */
+>>>>>>> origin/main
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	try_execute(char *path, t_env_var *env_var, char **cmds)
+void	try_execute(char *path, t_env_var *env_var, char **cmds)
 {
 	char	**tab;
 
@@ -21,7 +25,9 @@ static void	try_execute(char *path, t_env_var *env_var, char **cmds)
 		tab = lst_to_tab(env_var);
 		execve(path, cmds, tab);
 		free_tab(tab);
-		printf("erreur");
+		perror("erreur");
+		// free data
+		// exit
 	}
 }
 
@@ -47,6 +53,7 @@ static void	command_executor(t_data *data, t_command *cmd)
 		index++;
 	}
 	free_tab(paths);
+	perror("command not found");
 }
 
 void	fork_handler(t_data *data, t_command *cmd, int input, int output)
@@ -55,7 +62,7 @@ void	fork_handler(t_data *data, t_command *cmd, int input, int output)
 
 	pid = fork();
 	if (pid == -1)
-		print_error("Fork failed");
+		perror("Fork failed");
 	else if (pid == 0)
 	{
         if (dup2(input, STDIN_FILENO) == -1)
@@ -63,6 +70,8 @@ void	fork_handler(t_data *data, t_command *cmd, int input, int output)
 
 		if (check_if_builtins(cmd))
 			execute_builtins(data, cmd);
+		else if (is_executable(cmd->args[0]) == 1)
+			exec_executable(data->env_variables, cmd);
 		else
 			command_executor(data, cmd);
 		ft_exit(data, cmd);

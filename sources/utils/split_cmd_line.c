@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   split_cmd_line.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 19:03:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/19 11:21:56 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/19 15:48:10 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
 
 static int	remp_utils(char *tab_j, char *line, int i, int l)
 {
