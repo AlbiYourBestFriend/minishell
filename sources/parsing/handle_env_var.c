@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   handle_env_var.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 18:05:52 by tprovost          #+#    #+#             */
 /*   Updated: 2025/02/21 15:15:24 by tprovost         ###   ########.fr       */

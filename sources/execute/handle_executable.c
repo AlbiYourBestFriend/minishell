@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   handle_executable.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 13:55:23 by tprovost          #+#    #+#             */
 /*   Updated: 2025/02/21 12:34:29 by tprovost         ###   ########.fr       */
@@ -32,7 +32,7 @@ void	exec_executable(t_data *data, t_command *cmd)
 	char		**tab;
 	t_env_var	*tmp;
 
-	try_execute(&cmd->args[0][1], data->env_variables, cmd->args);
+	try_execute(&cmd->args[0][1], data->env_variables, cmd->args, data);
 	tmp = get_env_var(data, "PWD");
 	i = 1;
 	if (ft_strlen(tmp->value) - i > 0

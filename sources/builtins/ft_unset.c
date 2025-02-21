@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:33:13 by mleproux          #+#    #+#             */
 /*   Updated: 2025/02/21 12:36:36 by tprovost         ###   ########.fr       */
