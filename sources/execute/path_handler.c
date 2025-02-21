@@ -6,19 +6,11 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 15:24:27 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/13 13:08:50 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/21 12:34:29 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-char	**get_paths(void)
-{
-	char	**splitted_paths;
-
-	splitted_paths = ft_split(getenv("PATH"), ':');
-	return (splitted_paths);
-}
 
 char	*create_path(char *path, char *cmd)
 {

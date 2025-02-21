@@ -6,26 +6,26 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:08:49 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/21 13:27:30 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/21 12:45:11 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	handle_redirection(t_data *data, t_command *cmd, char **args, int *index)
+static int	handle_redirection(t_data *data, t_command *cmd, char **arg, int *i)
 {
 	char	*filename;
 	int		redirection;
 
-	redirection = check_token(args[(*index)]);
-	(*index)++;
-	filename = args[(*index)];
+	redirection = check_token(arg[(*i)]);
+	(*i)++;
+	filename = arg[(*i)];
 	if (filename == NULL)
 	{
 		printf("c'est valo non");
 		return (0);
 	}
-	(*index)++;
+	(*i)++;
 	if (check_token(filename) > 0)
 		return (free(filename), 0); // syntax error near unexpected token
 	if (redirection == INPUT)

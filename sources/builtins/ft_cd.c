@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:31:02 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/19 15:52:18 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/21 12:18:13 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,7 @@ static void	cd_utils(t_data *data, t_env_var *tmp_env, char *tmp)
 	{
 		pwd = ft_strdup(tmp_env->value);
 		cd_utils_utils(tmp_env, tmp);
-		tmp_env = data->env_variables;
-		while (tmp_env != NULL && (ft_strlen(tmp_env->name) != 6
-				|| ft_strncmp(tmp_env->name, "OLDPWD", 6) != 0))
-			tmp_env = tmp_env->next;
+		tmp_env = get_env_var(data, "OLDPWD");
 		if (tmp_env != NULL)
 		{
 			if (tmp_env->value != NULL)
@@ -110,10 +107,7 @@ void	ft_cd(t_data *data, t_command *cmd)
 			perror("directory not found");
 		else
 		{
-			tmp_env = data->env_variables;
-			while (tmp_env != NULL && (ft_strncmp(tmp_env->name, "PWD", 3) != 0
-					|| ft_strlen(tmp_env->name) != 3))
-				tmp_env = tmp_env->next;
+			tmp_env = get_env_var(data, "PWD");
 			cd_utils(data, tmp_env, tmp);
 		}
 	}

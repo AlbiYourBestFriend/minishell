@@ -6,13 +6,13 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:33:13 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/21 10:50:26 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/21 12:36:36 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void search_and_unset(t_env_var *env_var, char *name, t_env_var *tmp)
+static void	search_and_unset(t_env_var *env_var, char *name, t_env_var *tmp)
 {
 	while (env_var->next != NULL
 		&& (ft_strncmp(env_var->next->name, name, ft_strlen(name)) != 0
@@ -28,27 +28,29 @@ static void search_and_unset(t_env_var *env_var, char *name, t_env_var *tmp)
 
 void	ft_unset(t_data *data, t_command *cmd)
 {
+	int			i;
 	char		*name;
-	t_env_var	*env_var;
 	t_env_var	*tmp;
+	t_env_var	*env_var;
 
-	name = get_env_var_name(cmd->args[1]);
-	tmp = NULL;
-	if (data->env_variables == NULL || name == NULL)
-		return ;
-	if (exist_var(data, name) == 0)
-		return (free(name));
-	env_var = data->env_variables;
-	if (ft_strncmp(env_var->name, name, ft_strlen(name)) == 0
-		&& ft_strlen(env_var->name) == ft_strlen(name))
+	i = 0;
+	while (cmd->args[++i] != NULL)
 	{
-		tmp = env_var;
-		env_var = env_var->next;
-		free_env_var(tmp);
+		name = get_env_var_name(cmd->args[i]);
+		if (name == NULL)
+			return ;
+		if (exist_var(data, name) == 0)
+			return (free(name));
+		env_var = data->env_variables;
+		if (ft_strncmp(env_var->name, name, ft_strlen(name)) == 0
+			&& ft_strlen(env_var->name) == ft_strlen(name))
+		{
+			tmp = env_var;
+			env_var = env_var->next;
+			free_env_var(tmp);
+		}
+		else
+			search_and_unset(env_var, name, tmp);
+		free(name);
 	}
-	else
-	{
-		search_and_unset(env_var, name, tmp);
-	}
-	free(name);
 }

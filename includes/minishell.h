@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/21 14:13:19 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/21 14:50:50 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct s_data
 	t_env_var	*env_variables;
 	t_command	*commands;
 	char		**splitted_cmds;
+	int			count_line;
 }			t_data;
 
 // pour connaitre le resultat des signaux et des execve
@@ -79,7 +80,7 @@ void		ft_echo(t_command *cmd);
 void		ft_env(t_data *data, t_command *cmd);
 void		ft_exit(t_data *data, t_command *cmd);
 void		ft_export(t_data *data, t_command *cmd);
-void		ft_pwd(t_data *data);
+void		ft_pwd(void);
 void		ft_unset(t_data *data, t_command *cmd);
 
 // Executing
@@ -89,9 +90,8 @@ int			check_if_builtins(t_command *cmd);
 int			try_execute(char *path, t_env_var *env_var, char **cmds, t_data *data);
 void		ft_execute(t_data *data);
 int			is_executable(char *cmd);
-void		exec_executable(t_env_var *env_var, t_command *cmd, t_data *data);
+void		exec_executable(t_data *data, t_command *cmd);
 char		*create_path(char *path, char *cmd);
-char		**get_paths(void);
 void		signal_handler(int state);
 
 // Parsing
@@ -117,6 +117,7 @@ int			count_char(char *str, char c);
 void		free_data(t_data *data);
 void		free_env_var(t_env_var *env_var);
 void		free_tab(char **tab);
+int			ft_is_atoi(char *str);
 t_data		init_data(char **env);
 int			get_word_count(char *str);
 char		*get_next_word(char *str, int *index);

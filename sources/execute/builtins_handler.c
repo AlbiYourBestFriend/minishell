@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:21:31 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/21 13:27:36 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/21 12:37:03 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	execute_builtins(t_data *data, t_command *cmd)
 	else if (ft_strncmp(command_name, "cd", 50) == 0)
 		ft_cd(data, cmd);
 	else if (ft_strncmp(command_name, "pwd", 50) == 0)
-		ft_pwd(data);
+		ft_pwd();
 	else if (ft_strncmp(command_name, "export", 50) == 0)
 		ft_export(data, cmd);
 	else if (ft_strncmp(command_name, "unset", 50) == 0)

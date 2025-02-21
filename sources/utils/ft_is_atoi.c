@@ -1,35 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   ft_is_atoi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/07 16:33:53 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/21 15:01:14 by tprovost         ###   ########.fr       */
+/*   Created: 2025/02/21 14:38:08 by tprovost          #+#    #+#             */
+/*   Updated: 2025/02/21 14:57:55 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_exit(t_data *data, t_command *cmd)
+int	ft_is_atoi(char *str)
 {
-	if (tab_len(cmd->args) > 1)
+	int		i;
+	int		z;
+	int		s;
+	long	n;
+
+	i = 0;
+	z = 0;
+	s = 1;
+	n = 0;
+	if (str == NULL)
+		return (0);
+	if (str[i] == '+' || str[i] == '-')
 	{
-		if (ft_is_atoi(cmd->args[1]) == 0)
-		{
-			printf("exit\n");
-			printf("exit: %s: numeric argument required\n", cmd->args[1]);
-		}
-		else if (tab_len(cmd->args) > 2)
-		{
-			printf("exit: too many arguments\n");
-			return ;
-		}
+		if (str[i++] == '-')
+			s = -1;
 	}
-	else
-		printf("exit\n");
-	rl_clear_history();
-	free_data(data);
-	exit(g_exit_status);
+	while (str[i + z] == '0')
+		z++;
+	i -= 1;
+	while (str[++i + z] >= '0' && str[i + z] <= '9')
+		n = (10 * n) + str[i + z] - 48;
+	if (str[i] != '\0' || (int)ft_strlen(str) > 11 + z
+		|| n > 2147483647 || n < -2147483648)
+		return (0);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:13:48 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/20 11:39:27 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/21 12:55:55 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ t_data	init_data(char **env)
 
 	data.commands = NULL;
 	data.splitted_cmds = NULL;
+	data.count_line = 0;
 	put_env_to_data(&data, env);
 	return (data);
 }
