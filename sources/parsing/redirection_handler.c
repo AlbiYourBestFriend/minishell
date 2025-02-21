@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_handler.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:08:49 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/20 14:21:06 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/21 13:27:30 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,6 @@ int	read_redirection(t_data *data, t_command *cmd)
 	if (!insert_arguments(cmd, args))
 		return (free_tab(args), 0);
 	free_tab(args);
+	clean_args(data, cmd);
 	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_handler.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:21:31 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/20 14:46:06 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/21 13:27:36 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	execute_builtins(t_data *data, t_command *cmd)
 	if (command_name == NULL)
 		return (0);
 	if (ft_strncmp(command_name, "echo", 50) == 0)
-		ft_echo(data, cmd);
+		ft_echo(cmd);
 	else if (ft_strncmp(command_name, "cd", 50) == 0)
 		ft_cd(data, cmd);
 	else if (ft_strncmp(command_name, "pwd", 50) == 0)
@@ -57,6 +57,7 @@ int	execute_builtins(t_data *data, t_command *cmd)
 int	init_builtins(t_data *data, t_command *cmd)
 {
 	int	output;
+
 	read_redirection(data, cmd);
 	if (check_if_builtins(cmd) != 1)
 		return (0);

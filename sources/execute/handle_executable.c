@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_executable.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 13:55:23 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/19 15:52:35 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/21 14:12:44 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ int	is_executable(char *cmd)
 	return (1);
 }
 
-void	exec_executable(t_env_var *env_var, t_command *cmd)
+void	exec_executable(t_env_var *env_var, t_command *cmd, t_data *data)
 {
 	int			i;
 	char		*path;
 	char		**tab;
 	t_env_var	*tmp;
 
-	try_execute(&cmd->args[0][1], env_var, cmd->args);
+	try_execute(&cmd->args[0][1], env_var, cmd->args, data);
 	tmp = env_var;
 	while (tmp != NULL && (ft_strncmp(tmp->name, "PWD", 3) != 0
 			|| ft_strlen(tmp->name) != 3))

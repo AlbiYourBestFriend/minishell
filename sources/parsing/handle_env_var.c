@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_env_var.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 18:05:52 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/20 10:50:44 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/21 15:14:03 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	is_env_var(char *cmd)
 	if (cmd[i] == '\0')
 		return (-2);
 	i++;
-	if (cmd[i] == '\0' || ft_isspace(cmd[i]) == 1)
+	if (cmd[i] == '\0')
 		return (-1);
 	return (1);
 }
