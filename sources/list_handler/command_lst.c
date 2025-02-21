@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_lst.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:21:36 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/20 15:21:35 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/21 12:27:40 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,9 @@ void	free_cmds(t_data *data)
 	t_command	*temp;
 
 	temp = data->commands;
-	while (temp)
+	while (temp != NULL)
 	{
-		if (temp->args)
-			free_tab(temp->args);
+		free_tab(temp->args);
 		to_free = temp;
 		temp = temp->next;
 		to_free->next = NULL;

@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 13:55:23 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/19 15:52:35 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/21 12:34:29 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,15 @@ int	is_executable(char *cmd)
 	return (1);
 }
 
-void	exec_executable(t_env_var *env_var, t_command *cmd)
+void	exec_executable(t_data *data, t_command *cmd)
 {
 	int			i;
 	char		*path;
 	char		**tab;
 	t_env_var	*tmp;
 
-	try_execute(&cmd->args[0][1], env_var, cmd->args);
-	tmp = env_var;
-	while (tmp != NULL && (ft_strncmp(tmp->name, "PWD", 3) != 0
-			|| ft_strlen(tmp->name) != 3))
-		tmp = tmp->next;
+	try_execute(&cmd->args[0][1], data->env_variables, cmd->args);
+	tmp = get_env_var(data, "PWD");
 	i = 1;
 	if (ft_strlen(tmp->value) - i > 0
 		&& tmp->value[ft_strlen(tmp->value) - i] == '/')
@@ -46,7 +43,7 @@ void	exec_executable(t_env_var *env_var, t_command *cmd)
 	path = ft_strjoin(tmp->value, &(cmd->args[0][i]));
 	if (access(path, F_OK | X_OK) == 0)
 	{
-		tab = lst_to_tab(env_var);
+		tab = lst_to_tab(data->env_variables);
 		execve(path, cmd->args, tab);
 		free_tab(tab);
 	}

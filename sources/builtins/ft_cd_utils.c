@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 16:28:12 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/18 19:09:30 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/21 12:21:02 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 static void	root_return_utils(t_env_var *tmp, char *pwd)
 {
-	while (tmp != NULL && (ft_strncmp(tmp->name, "OLDPWD", 6) != 0
-			|| ft_strlen(tmp->name) != 6))
-		tmp = tmp->next;
 	if (tmp != NULL)
 	{
 		if (tmp->value != NULL)
@@ -36,10 +33,7 @@ void	root_return(t_data *data)
 	char		*pwd;
 	t_env_var	*tmp;
 
-	tmp = data->env_variables;
-	while (tmp != NULL
-		&& (ft_strncmp(tmp->name, "PWD", 3) != 0 || ft_strlen(tmp->name) != 3))
-		tmp = tmp->next;
+	tmp = get_env_var(data, "PWD");
 	if (tmp != NULL && tmp->value != NULL && tmp->value[0] != '\0')
 	{
 		pwd = ft_strdup(tmp->value);
@@ -51,7 +45,7 @@ void	root_return(t_data *data)
 		}
 		tmp->value[0] = '/';
 		tmp->value[1] = '\0';
-		tmp = data->env_variables;
+		tmp = get_env_var(data, "OLDPWD");
 		root_return_utils(tmp, pwd);
 	}
 	else

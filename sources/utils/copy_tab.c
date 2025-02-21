@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 17:12:57 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/13 15:23:33 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/21 12:27:40 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	**copy_tab(char **tab)
 	{
 		copy[i] = ft_strdup(tab[i]);
 		if (copy[i] == NULL)
-			return (free_tab(tab), NULL);
+			return (free_tab(tab), free_tab(copy), NULL);
 		i++;
 	}
 	copy[i] = NULL;
