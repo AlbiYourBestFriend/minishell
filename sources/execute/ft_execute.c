@@ -3,31 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:59:12 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/20 15:16:24 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/21 14:13:14 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	try_execute(char *path, t_env_var *env_var, char **cmds)
+int	try_execute(char *path, t_env_var *env_var, char **cmds, t_data *data)
 {
 	char	**tab;
-
+	
 	if (access(path, F_OK | X_OK) == 0)
 	{
 		tab = lst_to_tab(env_var);
 		execve(path, cmds, tab);
 		free_tab(tab);
 		perror("Execve failed");
-		// free data
-		// exit
+		free_data(data);
+		if (path)
+			free(path);
+		return (0);
 	}
+	return (1);
 }
 
-// il faut gerer le execution de file : ./a.out ...
 static void	command_executor(t_data *data, t_command *cmd)
 {
 	char	**paths;
@@ -35,7 +37,8 @@ static void	command_executor(t_data *data, t_command *cmd)
 	int		index;
 
 	index = 0;
-	try_execute(cmd->args[0], data->env_variables, cmd->args);
+	if (try_execute(cmd->args[0], data->env_variables, cmd->args, data) == 0)
+		exit(1);
 	paths = get_paths();
 	if (paths == NULL)
 		perror("Erreur");
@@ -44,7 +47,11 @@ static void	command_executor(t_data *data, t_command *cmd)
 		path = create_path(paths[index], cmd->args[0]);
 		if (!path)
 			perror("Erreur");
-		try_execute(path, data->env_variables, cmd->args);
+		if (try_execute(path, data->env_variables, cmd->args, data) == 0)
+		{
+			free_tab(paths);
+			exit(1);
+		}
 		free(path);
 		index++;
 	}
@@ -96,7 +103,7 @@ void	fork_handler(t_data *data, t_command *cmd, int *pipefd)
 		if (check_if_builtins(cmd))
 			execute_builtins(data, cmd);
 		else if (is_executable(cmd->args[0]) == 1)
-			exec_executable(data->env_variables, cmd);
+			exec_executable(data->env_variables, cmd, data);
 		else
 			command_executor(data, cmd);
 		ft_exit(data, cmd);

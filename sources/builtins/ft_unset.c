@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:33:13 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/20 18:16:51 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/21 10:50:26 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void search_and_unset(t_env_var *env_var, char *name, char *tmp)
+static void search_and_unset(t_env_var *env_var, char *name, t_env_var *tmp)
 {
 	while (env_var->next != NULL
 		&& (ft_strncmp(env_var->next->name, name, ft_strlen(name)) != 0
