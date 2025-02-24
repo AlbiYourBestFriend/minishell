@@ -118,6 +118,7 @@ char		*token_error(char *cmd);
 int			arglen(t_data *data, char *arg);
 int			check_token(char *str);
 void		clean_args(t_data *data, t_command *cmd);
+int			check_token(char *cmd_line, int i);
 char		*clean_cmd(char *cmd);
 char		**copy_tab(char **tab);
 int			count_char(char *str, char c);
