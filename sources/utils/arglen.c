@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arglen.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 11:01:32 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/21 14:23:25 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/24 16:41:16 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ static int	single_quote_len(char *arg, int *i)
 	}
 	if (arg[*i] == '\'')
 		(*i)++;
-	
 	return (len);
 }
 

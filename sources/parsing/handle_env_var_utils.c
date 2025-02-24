@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 12:20:14 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/21 15:03:02 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/24 12:24:11 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,10 @@ int	skip_quote(char *cmd, int n, int s)
 	char	c;
 
 	c = cmd[n];
+	if (s != 1 && s != -1)
+		return (-1);
 	n = n + s;
-	while (cmd[n] != c)
+	while (cmd[n] != c && cmd[n] != '\0' && n != 0)
 		n = n + s;
 	return (n);
 }

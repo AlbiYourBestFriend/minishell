@@ -6,11 +6,13 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/21 13:22:07 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/24 16:47:03 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+volatile int	g_exit_status;
 
 static void	build_command(t_data *data, char *cmd_line)
 {
@@ -22,7 +24,7 @@ static void	build_command(t_data *data, char *cmd_line)
 	index = 0;
 	data->splitted_cmds = split_cmd_line(cmd_line, '|');
 	free(cmd_line);
-	if (!data->splitted_cmds)
+	if (data->splitted_cmds == NULL)
 	{
 		printf("Erreur");
 		return ;
@@ -47,13 +49,38 @@ static void	handle_ctrl_d(t_data *data)
 	exit(g_exit_status);
 }
 
-volatile int	g_exit_status;
+static void	handle_cmd_line(t_data *data, char *cmd_line)
+{
+	char	*token;
+	char	*str;
+
+	while (is_complete_cmd_line(cmd_line) == 0
+		&& token_error(cmd_line) == 0)
+		cmd_line = new_readline_join_cmd(cmd_line);
+	if (cmd_line == NULL)
+	{
+		printf("syntax error: unexpected end of file\n");
+		handle_ctrl_d(data);
+	}
+	add_history(cmd_line);
+	str = clean_cmd(cmd_line);
+	if (str != NULL)
+	{
+		token = token_error(str);
+		if (token == NULL && str[0] != '\0')
+			build_command(data, str);
+		else if (str[0] != '\0')
+		{
+			printf("syntax error near unexpected token `%s'\n", token);
+			free(str);
+		}
+	}
+}
 
 int	main(int argc, char **argv, char **env)
 {
 	t_data	data;
 	char	*cmd_line;
-	char	*str;
 
 	(void)argc;
 	(void)argv;
@@ -67,17 +94,13 @@ int	main(int argc, char **argv, char **env)
 			handle_ctrl_d(&data);
 		data.count_line++;
 		if (cmd_line[0] != '\0')
-		{
-			add_history(cmd_line);
-			str = clean_cmd(cmd_line);
-			build_command(&data, str);
-		}
+			handle_cmd_line(&data, cmd_line);
 		else
 			free(cmd_line);
 	}
 }
 
-// gerer g_exit_status
+// gerer g_exit_status et $?
 
 /*
 

@@ -23,9 +23,14 @@ SOURCES	=	ft_cd_utils.c \
 			handle_env_var_utils.c \
 			handle_env_var.c \
 			here_doc.c \
+			is_complete_cmd_line.c \
+			new_readline_join_cmd.c \
 			open_files.c \
 			redirection_handler.c \
+			token_error.c \
+			arglen.c \
 			check_token.c \
+			clean_args.c \
 			clean_cmd.c \
 			copy_tab.c \
 			count_char.c \
@@ -40,8 +45,6 @@ SOURCES	=	ft_cd_utils.c \
 			split_cmd_line_utils.c \
 			split_cmd_line.c \
 			tab_len.c \
-			arglen.c \
-			clean_args.c \
 			main.c \
 
 VPATH = sources:sources/list_handler:sources/utils:sources/parsing:sources/execute:sources/builtins

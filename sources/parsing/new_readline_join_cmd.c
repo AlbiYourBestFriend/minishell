@@ -1,36 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   new_readline_join_cmd.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/07 16:29:38 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/21 16:31:52 by tprovost         ###   ########.fr       */
+/*   Created: 2025/02/24 10:44:28 by tprovost          #+#    #+#             */
+/*   Updated: 2025/02/24 15:07:11 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_echo(t_command *cmd)
+char	*new_readline_join_cmd(char *cmd)
 {
-	int	i;
-	int	new_line;
+	char	*str;
+	char	*tmp;
 
-	i = 1;
-	new_line = 1;
-	while (ft_strncmp(cmd->args[i], "-n", INT_MAX) == 0)
+	str = NULL;
+	tmp = readline("> ");
+	if (tmp == NULL)
 	{
-		new_line = 0;
-		i++;
+		free(cmd);
+		return (NULL);
 	}
-	while (cmd->args[i] != NULL)
-	{
-		printf("%s", cmd->args[i]);
-		i++;
-		if (cmd->args[i] != NULL)
-			printf(" ");
-	}
-	if (new_line == 1)
-		printf("\n");
+	str = ft_strjoin(cmd, " ");
+	free(cmd);
+	cmd = str;
+	str = ft_strjoin(cmd, tmp);
+	free(cmd);
+	free(tmp);
+	cmd = str;
+	return (cmd);
 }
