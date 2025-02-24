@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 12:43:35 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/21 15:11:10 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/21 16:32:19 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static char	*env_var_write(t_data *data, char *arg, char *new_arg, int *index)
 	if (env_var != NULL)
 	{
 		j = 0;
-		printf("value%s\n", env_var->value);
+		// printf("value%s\n", env_var->value);
 		while (env_var->value[j] != '\0')
 		{
 			new_arg[index[1] + j] = env_var->value[j];
@@ -129,5 +129,5 @@ void	clean_args(t_data *data, t_command *cmd)
 		cmd->args[i] = new_arg;
 		i++;
 	}
-	printf("%s\n", cmd->args[1]);
+	// printf("%s\n", cmd->args[1]);
 }

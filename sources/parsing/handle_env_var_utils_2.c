@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_env_var_utils_2.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 15:43:45 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/21 15:10:52 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/24 16:40:36 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static void	get_value_utils(char *cmd, int *i, int *j, int *n)
 	else if (cmd[(*i)] == '=')
 	{
 		(*j) = (*i);
-		while (cmd[++(*i)] != '\0') //  && ft_isspace(cmd[(*i)]) == 0
+		while (cmd[++(*i)] != '\0')
 		{
 			if (cmd[(*i)] == '\"' || cmd[(*i)] == '\'')
 			{
@@ -120,7 +120,7 @@ char	*get_env_var_value(char *cmd)
 	}
 	value = malloc((n + 2) * sizeof(char));
 	n = 0;
-	while (cmd[++j] != '\0') // && ft_isspace(cmd[j]) == 0
+	while (cmd[++j] != '\0')
 		copy_str(cmd, &j, value, &n);
 	value[n] = '\0';
 	return (value);

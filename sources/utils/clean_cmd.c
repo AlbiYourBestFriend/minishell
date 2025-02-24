@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 12:56:42 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/17 19:11:51 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/21 17:00:34 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,9 @@ static void	do_remp_str(char *cmd, int *i, char *str, int *n)
 	if (cmd[(*i)] == '\"' || cmd[(*i)] == '\'')
 	{
 		count = remp_str(cmd, (*i), str, (*n));
-		(*n) = (*n) + count + 1;
+		if (cmd[(*i) + count] != '\0')
+			(*n)++;
+		(*n) = (*n) + count;
 		(*i) = (*i) + count;
 	}
 	else
@@ -116,7 +118,8 @@ char	*clean_cmd(char *cmd)
 	while (cmd[i] != '\0')
 	{
 		do_remp_str(cmd, &i, str, &n);
-		i++;
+		if (cmd[i] != '\0')
+			i++;
 	}
 	str[n] = '\0';
 	free(cmd);

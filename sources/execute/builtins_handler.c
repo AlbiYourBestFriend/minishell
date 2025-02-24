@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_handler.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:21:31 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/21 12:37:03 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/24 15:23:00 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	execute_builtins(t_data *data, t_command *cmd)
 	else if (ft_strncmp(command_name, "env", 50) == 0)
 		ft_env(data, cmd);
 	else if (ft_strncmp(command_name, "exit", 50) == 0)
-		ft_exit(data, cmd);
+		ft_exit(data, cmd, 1);
 	return (0);
 }
 

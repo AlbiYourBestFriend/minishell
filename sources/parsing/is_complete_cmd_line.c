@@ -1,36 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   is_complete_cmd_line.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/07 16:29:38 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/21 16:31:52 by tprovost         ###   ########.fr       */
+/*   Created: 2025/02/24 10:47:02 by tprovost          #+#    #+#             */
+/*   Updated: 2025/02/24 15:06:59 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_echo(t_command *cmd)
+int	is_complete_cmd_line(char *cmd)
 {
 	int	i;
-	int	new_line;
 
-	i = 1;
-	new_line = 1;
-	while (ft_strncmp(cmd->args[i], "-n", INT_MAX) == 0)
-	{
-		new_line = 0;
+	i = 0;
+	if (cmd == NULL)
+		return (0);
+	while (cmd[i] != '\0')
 		i++;
-	}
-	while (cmd->args[i] != NULL)
-	{
-		printf("%s", cmd->args[i]);
-		i++;
-		if (cmd->args[i] != NULL)
-			printf(" ");
-	}
-	if (new_line == 1)
-		printf("\n");
+	if (i == 0)
+		return (0);
+	i--;
+	while (ft_isspace(cmd[i]) == 1 && i > 0 && cmd[i] != '|')
+		i--;
+	if (cmd[i] == '|')
+		return (0);
+	return (1);
 }
