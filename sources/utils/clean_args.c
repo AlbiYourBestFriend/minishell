@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 12:43:35 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/21 15:11:10 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/24 11:35:12 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ static char	*env_var_write(t_data *data, char *arg, char *new_arg, int *index)
 
 	index[0]++;
 	j = 0;
-	while (arg[(index[0]) + j] != '\0' && ft_isspace(arg[index[0] + j]) == 0)
+	while (arg[(index[0]) + j] != '\0' && ft_isspace(arg[index[0] + j]) == 0 
+		&& arg[index[0] + j ] != '\"' && arg[index[0] + j ] != '\'')
 		j++;
 	name = ft_substr(arg, index[0], j);
 	if (!name)
@@ -31,13 +32,12 @@ static char	*env_var_write(t_data *data, char *arg, char *new_arg, int *index)
 	if (env_var != NULL)
 	{
 		j = 0;
-		printf("value%s\n", env_var->value);
 		while (env_var->value[j] != '\0')
 		{
-			new_arg[index[1] + j] = env_var->value[j];
+			new_arg[index[1]] = env_var->value[j];
 			j++;
+			index[1]++;
 		}
-		index[1] += j;
 	}
 	return (new_arg);
 }
@@ -47,11 +47,13 @@ static char	*double_quote_write(t_data *data, char *arg, char *new_arg, int *ind
 	index[0]++;
 	while (arg[index[0]] != '\"' && arg[index[0]] != '\0')
 	{
-		if (arg[index[0]] == '$')
+		if (arg[index[0]] == '$' && ft_isspace(arg[index[0] + 1]) == 0)
+		{
 			env_var_write(data, arg, new_arg, index);
-		if (new_arg == NULL)
-			return (NULL);
-		if (arg[index[0]] != '\0')
+			if (new_arg == NULL)
+				return (NULL);
+		}
+		else
 		{
 			new_arg[index[1]] = arg[index[0]];
 			index[0]++;
@@ -90,7 +92,7 @@ char	*process_argument(t_data *data, char *arg, char *new_arg)
 			new_arg = single_quote_write(arg, new_arg, index);
 		else if (arg[index[0]] == '\"')
 			new_arg = double_quote_write(data, arg, new_arg, index);
-		else if (arg[index[0]] == '$')
+		else if (arg[index[0]] == '$' && ft_isspace(arg[index[0] + 1]) == 0)
 			new_arg = env_var_write(data, arg, new_arg, index);
 		else
 		{
@@ -129,5 +131,4 @@ void	clean_args(t_data *data, t_command *cmd)
 		cmd->args[i] = new_arg;
 		i++;
 	}
-	printf("%s\n", cmd->args[1]);
 }

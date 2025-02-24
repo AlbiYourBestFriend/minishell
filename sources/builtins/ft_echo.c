@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:29:38 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/21 14:25:24 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/21 16:31:25 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	ft_echo(t_command *cmd)
 	{
 		printf("%s", cmd->args[i]);
 		i++;
+		if (cmd->args[i] != NULL)
+			printf(" ");
 	}
 	if (new_line == 1)
 		printf("\n");

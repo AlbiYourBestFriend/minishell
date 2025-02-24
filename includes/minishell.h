@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/21 14:50:50 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/24 13:01:26 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int			open_file(char *filename, int currentfd, int isoutput, int dotrunc);
 int			read_redirection(t_data *data, t_command *cmd);
 
 // Utils
-int			check_token(char *str);
+int			check_token(char *cmd_line, int i);
 char		*clean_cmd(char *cmd);
 char		**copy_tab(char **tab);
 int			count_char(char *str, char c);
@@ -122,7 +122,6 @@ t_data		init_data(char **env);
 int			get_word_count(char *str);
 char		*get_next_word(char *str, int *index);
 char		**lst_to_tab(t_env_var *env_var);
-void		print_output(t_data *data, t_command *cmd, int arg_index);
 int			ft_check(char **tab, char *line, char c, int k);
 char		**split_cmd_line(char *line, char c);
 int			tab_len(char **tab);

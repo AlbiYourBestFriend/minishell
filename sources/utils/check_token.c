@@ -6,28 +6,25 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 13:18:48 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/11 17:16:01 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/24 15:52:25 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	check_token(char *str)
+int	check_token(char *cmd_line, int i)
 {
-	int	token;
-
-	if (str == NULL)
-		return (-1);
-	token = 0;
-	if (ft_strncmp(str, "<", INT_MAX) == 0)
-		token = INPUT;
-	else if (ft_strncmp(str, "<<", INT_MAX) == 0)
-		token = HEREDOC;
-	else if (ft_strncmp(str, ">", INT_MAX) == 0)
-		token = TRUNC;
-	else if (ft_strncmp(str, ">>", INT_MAX) == 0)
-		token = APPEND;
-	else if (ft_strncmp(str, "|", INT_MAX) == 0)
-		token = PIPE;
-	return (token);
+	if (cmd_line[i] == '<')
+	{
+		if (cmd_line[i + 1] == '<')
+			return (2);
+		return (1);
+	}
+	else if (cmd_line[i] == '>')
+	{
+		if (cmd_line[i + 1] == '>')
+			return (4);
+		return (3);
+	}
+	return (0);
 }
