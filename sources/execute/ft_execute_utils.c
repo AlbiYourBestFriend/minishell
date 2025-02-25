@@ -1,38 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_quotes.c                                     :+:      :+:    :+:   */
+/*   ft_execute_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/10 17:11:58 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/25 14:27:47 by tprovost         ###   ########.fr       */
+/*   Created: 2025/02/25 11:55:36 by tprovost          #+#    #+#             */
+/*   Updated: 2025/02/25 11:58:49 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	check_quotes(char *cmd)
+void	fd_handler(t_command *cmd, int output, int input)
 {
-	int		i;
-	char	c;
-
-	i = 0;
-	while (cmd[i] != '\0')
+	if (cmd->output_fd == 1 && cmd->output_fd != output)
 	{
-		if (cmd[i] == '\"' || cmd[i] == '\'')
-		{
-			c = cmd[i];
-			i++;
-			while (cmd[i] != c && cmd[i] != '\0')
-				i++;
-			if (cmd[i] == '\0')
-				return ((int)c);
-			else
-				i++;
-		}
-		else
-			i++;
+		cmd->output_fd = output;
+		if (cmd->next && cmd->next->input_fd == 0)
+			cmd->next->input_fd = input;
 	}
-	return (0);
+	else if (cmd->output_fd != 1 && cmd->next == NULL)
+		cmd->output_fd = output;
+}
+
+void	wait_for_all(t_data *data)
+{
+	t_command	*temp;
+
+	temp = data->commands;
+	while (temp != NULL)
+	{
+		waitpid(temp->pid, NULL, 0);
+		temp = temp->next;
+	}
 }

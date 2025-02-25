@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 11:01:32 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/24 16:41:16 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/25 14:01:28 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	env_var_len(t_data *data, char *arg, int *i)
 	while (arg[(*i) + j] != '\0' && ft_isspace(arg[(*i) + j]) == 0)
 		j++;
 	name = ft_substr(arg, *i, j);
-	if (!name)
+	if (name == NULL)
 		return (-1);
 	env_var = get_env_var(data, name);
 	(*i) += j;

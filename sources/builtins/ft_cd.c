@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:31:02 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/21 12:18:13 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/25 14:25:05 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,14 @@ static void	cd_rm_last(char *pwd)
 		pwd[1] = '\0';
 }
 
-static void	cd_utils_utils(t_env_var *tmp_env, char *tmp)
+static int	cd_utils_utils(t_env_var *tmp_env, char *tmp)
 {
 	int			i;
 	char		**tab;
 
 	tab = ft_split(tmp, '/');
+	if (tab == NULL)
+		return (0);
 	free(tmp);
 	i = 0;
 	while (tab[i] != NULL)
@@ -62,6 +64,7 @@ static void	cd_utils_utils(t_env_var *tmp_env, char *tmp)
 		i++;
 	}
 	free_tab(tab);
+	return (1);
 }
 
 static void	cd_utils(t_data *data, t_env_var *tmp_env, char *tmp)
@@ -71,7 +74,10 @@ static void	cd_utils(t_data *data, t_env_var *tmp_env, char *tmp)
 	if (tmp_env != NULL && tmp_env->value != NULL && tmp_env->value[0] != '\0')
 	{
 		pwd = ft_strdup(tmp_env->value);
-		cd_utils_utils(tmp_env, tmp);
+		if (pwd == NULL)
+			return (free(tmp));
+		if (cd_utils_utils(tmp_env, tmp) == 0)
+			return (free(pwd));
 		tmp_env = get_env_var(data, "OLDPWD");
 		if (tmp_env != NULL)
 		{

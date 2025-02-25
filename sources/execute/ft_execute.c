@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:59:12 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/24 15:23:13 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/25 14:25:05 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	try_execute(char *path, t_env_var *env_var, char **cmds, t_data *data)
 {
 	char	**tab;
-	
+
 	if (access(path, F_OK | X_OK) == 0)
 	{
 		tab = lst_to_tab(env_var);
@@ -23,7 +23,7 @@ int	try_execute(char *path, t_env_var *env_var, char **cmds, t_data *data)
 		free_tab(tab);
 		perror("Execve failed");
 		free_data(data);
-		if (path)
+		if (path != NULL)
 			free(path);
 		return (0);
 	}
@@ -41,12 +41,12 @@ static void	command_executor(t_data *data, t_command *cmd)
 		exit(1);
 	paths = ft_split(getenv("PATH"), ':');
 	if (paths == NULL)
-		perror("Erreur");
+		return (perror("Erreur"));
 	while (paths[index] != NULL)
 	{
 		path = create_path(paths[index], cmd->args[0]);
-		if (!path)
-			perror("Erreur");
+		if (path == NULL)
+			return (free_tab(paths), perror("Erreur"));
 		if (try_execute(path, data->env_variables, cmd->args, data) == 0)
 		{
 			free_tab(paths);
@@ -57,30 +57,6 @@ static void	command_executor(t_data *data, t_command *cmd)
 	}
 	free_tab(paths);
 	perror("command not found");
-}
-
-void	fd_handler(t_command *cmd, int output, int input)
-{
-	if (cmd->output_fd == 1 && cmd->output_fd != output)
-	{
-		cmd->output_fd = output;
-		if (cmd->next && cmd->next->input_fd == 0)
-			cmd->next->input_fd = input;
-	}
-	else if (cmd->output_fd != 1 && cmd->next == NULL)
-		cmd->output_fd = output;
-}
-
-void	wait_for_all(t_data *data)
-{
-	t_command	*temp;
-
-	temp = data->commands;
-	while (temp != NULL)
-	{
-		waitpid(temp->pid, NULL, 0);
-		temp = temp->next;
-	}
 }
 
 void	fork_handler(t_data *data, t_command *cmd, int *pipefd)
@@ -100,7 +76,7 @@ void	fork_handler(t_data *data, t_command *cmd, int *pipefd)
 			dup2(cmd->input_fd, 0);
 		if (cmd->output_fd != 1)
 			dup2(cmd->output_fd, 1);
-		if (check_if_builtins(cmd))
+		if (check_if_builtins(cmd) == 1)
 			execute_builtins(data, cmd);
 		else if (is_executable(cmd->args[0]) == 1)
 			exec_executable(data, cmd);
@@ -108,12 +84,8 @@ void	fork_handler(t_data *data, t_command *cmd, int *pipefd)
 			command_executor(data, cmd);
 		ft_exit(data, cmd, 0);
 	}
-	else
-	{
-		if (cmd->input_fd != 0)
-			close(cmd->input_fd);
-		wait(NULL);
-	}
+	else if (cmd->input_fd != 0)
+		close(cmd->input_fd);
 }
 
 void	ft_execute(t_data *data)
@@ -122,18 +94,13 @@ void	ft_execute(t_data *data)
 	t_command	*temp;
 
 	temp = data->commands;
-	if (cmdsize(data->commands) == 1)
-	{
-		if (init_builtins(data, temp) == 1)
-			return ;
-	}
+	signal_handler(1);
+	if (cmdsize(data->commands) == 1 && init_builtins(data, temp) == 1)
+		return ;
 	while (temp != NULL)
 	{
 		if (pipe(pipefd) != 0)
-		{
-			perror("pipe");
-			return ;
-		}
+			return (perror("pipe"));
 		fork_handler(data, temp, pipefd);
 		if (temp->next != NULL)
 		{
