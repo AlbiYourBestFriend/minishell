@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/24 16:56:49 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/25 11:14:15 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,8 @@ char		*token_error(char *cmd);
 
 // Utils
 int			arglen(t_data *data, char *arg);
-int			check_token(char *str);
 void		clean_args(t_data *data, t_command *cmd);
+char		*process_argument(t_data *data, char *arg, char *new_arg);
 int			check_token(char *cmd_line, int i);
 char		*clean_cmd(char *cmd);
 char		**copy_tab(char **tab);
