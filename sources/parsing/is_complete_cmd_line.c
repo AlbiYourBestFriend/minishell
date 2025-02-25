@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 10:47:02 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/24 15:06:59 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/25 14:27:47 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ int	is_complete_cmd_line(char *cmd)
 
 	i = 0;
 	if (cmd == NULL)
-		return (0);
+		return (1);
+	if (check_quotes(cmd) != 0)
+		return (1);
 	while (cmd[i] != '\0')
 		i++;
 	if (i == 0)

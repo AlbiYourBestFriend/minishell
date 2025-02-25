@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:11:46 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/21 14:56:08 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/25 11:44:43 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ static void	handle_signal_here_doc(int sig)
 // SIGQUIT -> detecter ctrl+\                   /
 // SIGINT -> detecter ctrl+C
 // state = 0 -> wait prompt readline -> new prompt
-// state = 1 -> wait end heredoc -> end heredoc
-// state = 2 -> exec program -> stop exec
+// state = 1 -> exec program -> stop exec
+// state = 2 -> wait end heredoc -> end heredoc
 void	signal_handler(int state)
 {
 	struct sigaction	s_sig_init;

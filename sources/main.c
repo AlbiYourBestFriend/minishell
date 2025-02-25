@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/24 16:47:03 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/25 15:00:09 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,29 @@ static void	build_command(t_data *data, char *cmd_line)
 
 static void	handle_ctrl_d(t_data *data)
 {
+	g_exit_status = 2;
 	rl_clear_history();
 	free_data(data);
 	printf("exit\n");
 	exit(g_exit_status);
+}
+
+static int	handle_cmd_line_extension(t_data *data, char *cmd_line)
+{
+	if (cmd_line == NULL)
+	{
+		printf("syntax error: unexpected end of file\n");
+		handle_ctrl_d(data);
+	}
+	add_history(cmd_line);
+	if (check_quotes(cmd_line) != 0)
+	{
+		printf("unexpected end of file near \
+`%c'\n", (char)check_quotes(cmd_line));
+		free(cmd_line);
+		return (0);
+	}
+	return (1);
 }
 
 static void	handle_cmd_line(t_data *data, char *cmd_line)
@@ -56,13 +75,9 @@ static void	handle_cmd_line(t_data *data, char *cmd_line)
 
 	while (is_complete_cmd_line(cmd_line) == 0
 		&& token_error(cmd_line) == 0)
-		cmd_line = new_readline_join_cmd(cmd_line);
-	if (cmd_line == NULL)
-	{
-		printf("syntax error: unexpected end of file\n");
-		handle_ctrl_d(data);
-	}
-	add_history(cmd_line);
+		cmd_line = new_readline_join_cmd(&data, cmd_line);
+	if (handle_cmd_line_extension(data, cmd_line) == 0)
+		return ;
 	str = clean_cmd(cmd_line);
 	if (str != NULL)
 	{
@@ -71,6 +86,7 @@ static void	handle_cmd_line(t_data *data, char *cmd_line)
 			build_command(data, str);
 		else if (str[0] != '\0')
 		{
+			g_exit_status = 2;
 			printf("syntax error near unexpected token `%s'\n", token);
 			free(str);
 		}
@@ -84,8 +100,8 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argc;
 	(void)argv;
-	g_exit_status = 0;
 	data = init_data(env);
+	g_exit_status = 0;
 	while (1)
 	{
 		signal_handler(0);

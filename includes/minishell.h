@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/25 11:14:15 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/25 11:58:49 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,11 @@ void		ft_pwd(void);
 void		ft_unset(t_data *data, t_command *cmd);
 
 // Executing
-int			init_builtins(t_data *data, t_command *cmd);
-int			execute_builtins(t_data *data, t_command *cmd);
 int			check_if_builtins(t_command *cmd);
+int			execute_builtins(t_data *data, t_command *cmd);
+int			init_builtins(t_data *data, t_command *cmd);
+void		fd_handler(t_command *cmd, int output, int input);
+void		wait_for_all(t_data *data);
 int			try_execute(char *path, t_env_var *env_var, \
 						char **cmds, t_data *data);
 void		ft_execute(t_data *data);
@@ -109,7 +111,7 @@ t_env_var	*modif_env_var(t_data *data, char *name, char *value, int n);
 t_env_var	*handle_env_var(t_data *data, char *cmd, int n);
 int			here_doc(t_data *data, int currentfd, char *limiter);
 int			is_complete_cmd_line(char *cmd);
-char		*new_readline_join_cmd(char *cmd);
+char		*new_readline_join_cmd(t_data *data, char *cmd);
 int			open_file(char *filename, int currentfd, int isoutput, int dotrunc);
 int			read_redirection(t_data *data, t_command *cmd);
 char		*token_error(char *cmd);

@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_handler.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:08:49 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/25 14:40:17 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/25 13:34:13 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int skip_quotes(char *cmd_line, int i)
+static int	skip_quotes(char *cmd_line, int i)
 {
-	char quote;
+	char	quote;
 
 	quote = cmd_line[i];
 	i++;
@@ -24,6 +24,7 @@ static int skip_quotes(char *cmd_line, int i)
 		i++;
 	return (i);
 }
+
 static char	*get_file_name(t_data *data, char *cmd_line, int *i)
 {
 	char	*temp;
@@ -34,8 +35,8 @@ static char	*get_file_name(t_data *data, char *cmd_line, int *i)
 		(*i)++;
 	len = 0;
 	while (cmd_line[(*i) + len] != '\0' 
-	&& check_token(cmd_line, (*i) + len) == 0
-	&& ft_isspace(cmd_line[(*i) + len]) == 0)
+	  && check_token(cmd_line, (*i) + len) == 0
+	  && ft_isspace(cmd_line[(*i) + len]) == 0)
 	{
 		if (cmd_line[(*i) + len] == '\'' || cmd_line[(*i) + len] == '\"')
 			len += skip_quotes(cmd_line, (*i) + len) - ((*i) + len);
@@ -67,7 +68,7 @@ static int	handle_redirection(t_data *data, t_command *cmd, int *i)
 	char	*filename;
 	int		redirection;
 	int		start;
-	
+
 	start = (*i);
 	redirection = check_token(cmd->cmd_line, *i);
 	if (redirection == 1 || redirection == 3)

@@ -13,6 +13,7 @@ SOURCES	=	ft_cd_utils.c \
 			ft_pwd.c \
 			ft_unset.c \
 			builtins_handler.c \
+			ft_execute_utils.c \
 			ft_execute.c \
 			handle_executable.c \
 			path_handler.c \

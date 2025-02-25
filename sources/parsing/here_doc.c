@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:44:32 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/21 14:31:20 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/25 11:44:43 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,9 @@ int	here_doc(t_data *data, int currentfd, char *limiter)
 	fd = open(HEREDOCFILE, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd < 0)
 		return (fd);
-	signal_handler(1);
+	signal_handler(2);
 	get_here_doc(data, fd, limiter);
+	signal_handler(1);
 	close(fd);
 	fd = open(HEREDOCFILE, O_RDONLY);
 	if (fd < 0)

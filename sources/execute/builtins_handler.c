@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:21:31 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/24 15:23:00 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/25 14:25:05 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ int	check_if_builtins(t_command *cmd)
 {
 	char	*command_name;
 
-	command_name = cmd->args[0];
-	if (command_name == NULL)
+	if (cmd->args == NULL || cmd->args[0] == NULL)
 		return (0);
+	command_name = cmd->args[0];
 	if (ft_strncmp(command_name, "echo", 50) == 0
 		|| ft_strncmp(command_name, "cd", 50) == 0
 		|| ft_strncmp(command_name, "pwd", 50) == 0

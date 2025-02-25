@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:21:36 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/21 12:27:40 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/25 11:46:33 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_command	*cmdnew(char *cmd_line)
 	t_command	*list;
 
 	list = malloc(sizeof(t_command));
-	if (!list)
+	if (list == NULL)
 		return (NULL);
 	list->cmd_line = cmd_line;
 	list->input_fd = 0;
@@ -49,7 +49,7 @@ void	cmdadd_back(t_command **lst, t_command *newlst)
 	t_command	*last;
 
 	last = cmdlast(*lst);
-	if (last)
+	if (last != NULL)
 		last->next = newlst;
 	else
 		*lst = newlst;
@@ -59,7 +59,7 @@ t_command	*cmdlast(t_command *lst)
 {
 	t_command	*temp;
 
-	if (!lst)
+	if (lst == NULL)
 		return (NULL);
 	temp = lst;
 	while (temp->next != NULL)
@@ -74,7 +74,7 @@ int	cmdsize(t_command *lst)
 
 	temp = lst;
 	count = 0;
-	while (temp)
+	while (temp != NULL)
 	{
 		count++;
 		temp = temp->next;
