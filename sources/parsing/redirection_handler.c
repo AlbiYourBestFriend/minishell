@@ -25,21 +25,33 @@ static int	skip_quotes(char *cmd_line, int i)
 	return (i);
 }
 
-static char	*get_file_name(char *cmd_line, int *i)
+static char	*get_file_name(t_data *data, char *cmd_line, int *i)
 {
+	char	*temp;
 	char	*file_name;
 	int		len;
 
 	while (cmd_line[*i] != '\0' && ft_isspace(cmd_line[*i]) == 1)
 		(*i)++;
 	len = 0;
-	while (cmd_line[(*i) + len] != '\0'
-		&& check_token(cmd_line, (*i) + len) == 0
-		&& ft_isspace(cmd_line[(*i) + len]) == 0)
-		len++;
-	file_name = ft_substr(cmd_line, *i, len);
+	while (cmd_line[(*i) + len] != '\0' 
+	  && check_token(cmd_line, (*i) + len) == 0
+	  && ft_isspace(cmd_line[(*i) + len]) == 0)
+	{
+		if (cmd_line[(*i) + len] == '\'' || cmd_line[(*i) + len] == '\"')
+			len += skip_quotes(cmd_line, (*i) + len) - ((*i) + len);
+		else
+			len++;
+	}
+	temp = ft_substr(cmd_line, *i, len);
 	(*i) += len;
-	return (file_name);
+	if (!temp)
+		return (NULL);
+	file_name = malloc(sizeof(char) * (arglen(data, temp) + 1));
+	if (!file_name)
+		return (free(temp), NULL);
+	file_name = process_argument(data, temp, file_name);
+	return (free(temp), file_name);
 }
 
 static void	blankify(char *str, int start, int len)
@@ -63,7 +75,7 @@ static int	handle_redirection(t_data *data, t_command *cmd, int *i)
 		(*i)++;
 	else
 		(*i) += 2;
-	filename = get_file_name(cmd->cmd_line, i);
+	filename = get_file_name(data, cmd->cmd_line, i);
 	if (filename == NULL)
 		return (printf("c'est balo non"), 0);
 	blankify(cmd->cmd_line, start, *i);
@@ -90,10 +102,10 @@ int	read_redirection(t_data *data, t_command *cmd)
 	result = 0;
 	while (cmd->cmd_line[index] != '\0')
 	{
-		if (cmd->cmd_line[index] == '\'' || cmd->cmd_line[index] == '\"')
-			index += skip_quotes(cmd->cmd_line, index);
 		if (check_token(cmd->cmd_line, index) != 0)
 			result = handle_redirection(data, cmd, &index);
+		else if (cmd->cmd_line[index] == '\'' || cmd->cmd_line[index] == '\"')
+			index = skip_quotes(cmd->cmd_line, index);
 		else
 			index++;
 		if (result == -1)

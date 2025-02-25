@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   arglen.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 11:01:32 by mleproux          #+#    #+#             */
 /*   Updated: 2025/02/25 14:01:28 by tprovost         ###   ########.fr       */
@@ -20,7 +20,8 @@ static int	env_var_len(t_data *data, char *arg, int *i)
 
 	j = 0;
 	(*i)++;
-	while (arg[(*i) + j] != '\0' && ft_isspace(arg[(*i) + j]) == 0)
+	while (arg[(*i) + j] != '\0' && ft_isspace(arg[(*i) + j]) == 0
+		&& arg[(*i) + j] != '\"' && arg[(*i) + j] != '\'')
 		j++;
 	name = ft_substr(arg, *i, j);
 	if (name == NULL)
@@ -41,9 +42,9 @@ static int	double_quote_len(t_data *data, char *arg, int *i)
 	(*i)++;
 	while (arg[*i] != '\"' && arg[*i] != '\0')
 	{
-		if (arg[*i] == '$')
+		if (arg[*i] == '$' && ft_isspace(arg[(*i) + 1]) == 0)
 			len += env_var_len(data, arg, i);
-		if (arg[(*i)] != '\0')
+		else if (arg[(*i)] != '\0')
 		{
 			(*i)++;
 			len++;
@@ -83,7 +84,7 @@ int	arglen(t_data *data, char *arg)
 			len += single_quote_len(arg, &i);
 		else if (arg[i] == '\"')
 			len += double_quote_len(data, arg, &i);
-		else if (arg[i] == '$')
+		else if (arg[i] == '$' && ft_isspace(arg[i + 1]) == 0)
 			len += env_var_len(data, arg, &i);
 		else
 		{

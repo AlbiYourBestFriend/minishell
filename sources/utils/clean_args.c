@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   clean_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 12:43:35 by mleproux          #+#    #+#             */
 /*   Updated: 2025/02/25 13:35:13 by tprovost         ###   ########.fr       */
