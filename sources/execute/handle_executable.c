@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_executable.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 13:55:23 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/21 12:34:29 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/25 17:50:15 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,21 @@ void	exec_executable(t_data *data, t_command *cmd)
 	char		**tab;
 	t_env_var	*tmp;
 
-	try_execute(&cmd->args[0][1], data->env_variables, cmd->args, data);
+	if (try_execute(&cmd->args[0][1], data->env_variables, cmd->args, data) == 0)
+		ft_exit(data, cmd, 0);
 	tmp = get_env_var(data, "PWD");
+	if (tmp == NULL)
+	{
+		// printf("pwd not found\n");
+		ft_exit(data, cmd, 0);
+	}
 	i = 1;
 	if (ft_strlen(tmp->value) - i > 0
 		&& tmp->value[ft_strlen(tmp->value) - i] == '/')
-	{
 		i++;
-	}
 	path = ft_strjoin(tmp->value, &(cmd->args[0][i]));
+	if (path == NULL)
+		ft_exit(data, cmd, 0); // perror("Malloc error");
 	if (access(path, F_OK | X_OK) == 0)
 	{
 		tab = lst_to_tab(data->env_variables);
@@ -48,4 +54,5 @@ void	exec_executable(t_data *data, t_command *cmd)
 		free_tab(tab);
 	}
 	free(path);
+	perror(&(cmd->args[0][i])); // no such a file or directory
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:59:12 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/25 14:25:05 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/25 17:31:29 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	try_execute(char *path, t_env_var *env_var, char **cmds, t_data *data)
 		free_tab(tab);
 		perror("Execve failed");
 		free_data(data);
+		rl_clear_history();
 		if (path != NULL)
 			free(path);
 		return (0);
@@ -66,16 +67,16 @@ void	fork_handler(t_data *data, t_command *cmd, int *pipefd)
 		perror("Fork failed");
 	else if (cmd->pid == 0)
 	{
-		if (cmd->args == NULL)
-			read_redirection(data, cmd);
+		if (cmd->args == NULL && read_redirection(data, cmd) == 0)
+			ft_exit(data, cmd, 0);
 		if (cmd->next != NULL)
 			fd_handler(cmd, pipefd[1], pipefd[0]);
 		else
 			fd_handler(cmd, cmd->output_fd, -2);
-		if (cmd->input_fd != 0)
-			dup2(cmd->input_fd, 0);
-		if (cmd->output_fd != 1)
-			dup2(cmd->output_fd, 1);
+		if (cmd->input_fd != 0 && dup2(cmd->input_fd, 0) == -1)
+			ft_exit(data, cmd, 0);
+		if (cmd->output_fd != 1 && dup2(cmd->output_fd, 1) == -1)
+			ft_exit(data, cmd, 0);
 		if (check_if_builtins(cmd) == 1)
 			execute_builtins(data, cmd);
 		else if (is_executable(cmd->args[0]) == 1)

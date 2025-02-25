@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:08:49 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/25 13:34:13 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/25 17:42:43 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ static char	*get_file_name(t_data *data, char *cmd_line, int *i)
 	while (cmd_line[*i] != '\0' && ft_isspace(cmd_line[*i]) == 1)
 		(*i)++;
 	len = 0;
-	while (cmd_line[(*i) + len] != '\0' 
-	  && check_token(cmd_line, (*i) + len) == 0
-	  && ft_isspace(cmd_line[(*i) + len]) == 0)
+	while (cmd_line[(*i) + len] != '\0'
+		&& check_token(cmd_line, (*i) + len) == 0
+		&& ft_isspace(cmd_line[(*i) + len]) == 0)
 	{
 		if (cmd_line[(*i) + len] == '\'' || cmd_line[(*i) + len] == '\"')
 			len += skip_quotes(cmd_line, (*i) + len) - ((*i) + len);
@@ -45,10 +45,12 @@ static char	*get_file_name(t_data *data, char *cmd_line, int *i)
 	}
 	temp = ft_substr(cmd_line, *i, len);
 	(*i) += len;
-	if (!temp)
+	if (temp == NULL)
 		return (NULL);
 	file_name = malloc(sizeof(char) * (arglen(data, temp) + 1));
-	if (!file_name)
+	if (file_name == NULL)
+		return (free(temp), NULL);
+	if (file_name[0] == '\0')
 		return (free(temp), NULL);
 	file_name = process_argument(data, temp, file_name);
 	return (free(temp), file_name);
@@ -77,7 +79,7 @@ static int	handle_redirection(t_data *data, t_command *cmd, int *i)
 		(*i) += 2;
 	filename = get_file_name(data, cmd->cmd_line, i);
 	if (filename == NULL)
-		return (printf("c'est balo non"), 0);
+		return (printf("Malloc error\n"), 0); // modif comportement erreur
 	blankify(cmd->cmd_line, start, *i);
 	if (redirection == 1)
 		cmd->input_fd = open_file(filename, cmd->input_fd, 0, 0);
@@ -88,7 +90,7 @@ static int	handle_redirection(t_data *data, t_command *cmd, int *i)
 	else if (redirection == 4)
 		cmd->output_fd = open_file(filename, cmd->output_fd, 1, 0);
 	if (cmd->input_fd == -1 || cmd->output_fd == -1)
-		return (free(filename), 0);
+		return (printf("%s: No such a file or directory\n", filename), free(filename), 0);
 	return (free(filename), 1);
 }
 
@@ -108,8 +110,8 @@ int	read_redirection(t_data *data, t_command *cmd)
 			index = skip_quotes(cmd->cmd_line, index);
 		else
 			index++;
-		if (result == -1)
-			printf("erreur");
+		if (result == 0)
+			return (0); // modif
 	}
 	args = split_cmd_line(cmd->cmd_line, ' ');
 	cmd->args = args;

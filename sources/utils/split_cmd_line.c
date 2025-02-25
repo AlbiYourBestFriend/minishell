@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 19:03:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/19 15:48:10 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/25 17:20:53 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,8 @@ char	**split_cmd_line(char *line, char c)
 
 	i = 0;
 	nb_word = 0;
+	if (line == NULL)
+		return (NULL);
 	while (line[i] != '\0')
 	{
 		if (line[i] == '\"' || line[i] == '\'')
@@ -117,6 +119,8 @@ char	**split_cmd_line(char *line, char c)
 		}
 	}
 	tab = malloc((nb_word + 1) * sizeof(char *));
+	if (tab == NULL)
+		return (NULL);
 	return (remp_split(tab, line, c, nb_word));
 }
 
