@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   arglen.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 11:01:32 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/25 14:01:28 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/25 17:44:39 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	env_var_len(t_data *data, char *arg, int *i)
+static int	env_var_len(t_data *data, char *arg, int *i, int len)
 {
 	int			j;
 	char		*name;
@@ -31,28 +31,30 @@ static int	env_var_len(t_data *data, char *arg, int *i)
 	if (env_var != NULL)
 		j = ft_strlen(env_var->value);
 	free(name);
-	return (j);
+	return (j + len);
 }
 
-static int	double_quote_len(t_data *data, char *arg, int *i)
+static int	double_quote_len(t_data *data, char *arg, int *i, int len)
 {
-	int	len;
+	int	n;
 
-	len = 0;
+	n = 0;
 	(*i)++;
 	while (arg[*i] != '\"' && arg[*i] != '\0')
 	{
 		if (arg[*i] == '$' && ft_isspace(arg[(*i) + 1]) == 0)
-			len += env_var_len(data, arg, i);
+			n = env_var_len(data, arg, i, len);
 		else if (arg[(*i)] != '\0')
 		{
 			(*i)++;
-			len++;
+			n++;
 		}
+		if (n == -1)
+			return (-1);
 	}
 	if (arg[*i] == '\"')
 		(*i)++;
-	return (len);
+	return (n + len);
 }
 
 static int	single_quote_len(char *arg, int *i)
@@ -78,14 +80,14 @@ int	arglen(t_data *data, char *arg)
 
 	i = 0;
 	len = 0;
-	while ((int)ft_strlen(arg) > i)
+	while ((int)ft_strlen(arg) > i && len != -1)
 	{
 		if (arg[i] == '\'')
 			len += single_quote_len(arg, &i);
 		else if (arg[i] == '\"')
-			len += double_quote_len(data, arg, &i);
+			len = double_quote_len(data, arg, &i, len);
 		else if (arg[i] == '$' && ft_isspace(arg[i + 1]) == 0)
-			len += env_var_len(data, arg, &i);
+			len = env_var_len(data, arg, &i, len);
 		else
 		{
 			i++;

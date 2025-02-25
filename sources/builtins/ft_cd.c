@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:31:02 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/25 14:25:05 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/25 16:26:36 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,13 @@ static int	cd_utils_utils(t_env_var *tmp_env, char *tmp)
 		{
 			tmp = ft_strjoin(tmp_env->value, "/");
 			free(tmp_env->value);
+			if (tmp == NULL)
+				return (free_tab(tab), 0);
 			tmp_env->value = tmp;
 			tmp = ft_strjoin(tmp_env->value, tab[i]);
 			free(tmp_env->value);
+			if (tmp == NULL)
+				return (free_tab(tab), 0);
 			tmp_env->value = tmp;
 		}
 		i++;
@@ -108,6 +112,8 @@ void	ft_cd(t_data *data, t_command *cmd)
 	else if (tab_len(cmd->args) == 2)
 	{
 		tmp = ft_strtrim(cmd->args[1], "\"\'");
+		if (tmp == NULL)
+			return ;
 		result = chdir(tmp);
 		if (result == -1)
 			perror("directory not found");
