@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 12:43:35 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/21 16:32:19 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/25 14:35:11 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static char	*env_var_write(t_data *data, char *arg, char *new_arg, int *index)
 	index[0]++;
 	j = 0;
 	while (arg[(index[0]) + j] != '\0' && ft_isspace(arg[index[0] + j]) == 0 
-		&& arg[index[0] + j ] != '\"' && arg[index[0] + j ] != '\'')
+		&& arg[index[0] + j] != '\"' && arg[index[0] + j] != '\'')
 		j++;
 	name = ft_substr(arg, index[0], j);
 	if (!name)

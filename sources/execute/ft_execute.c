@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:59:12 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/24 15:23:13 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/25 11:53:13 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ void	fork_handler(t_data *data, t_command *cmd, int *pipefd)
 	{
 		if (cmd->input_fd != 0)
 			close(cmd->input_fd);
-		wait(NULL);
 	}
 }
 
