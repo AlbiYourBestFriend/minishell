@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 10:45:58 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/24 16:56:49 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/26 13:25:21 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ static char	*check_name_redirection(char *cmd, int *i)
 	while (ft_isspace(cmd[*i]) == 1)
 		(*i)++;
 	if (cmd[*i] == '\0')
-		return (NEW_LINE);
+		return ("newline");
 	else if (cmd[*i] == '|')
-		return (PIPE);
+		return ("|");
 	else if (cmd[*i] == '<')
-		return (INPUT);
+		return ("<");
 	else if (cmd[*i] == '>')
-		return (TRUNC);
+		return (">");
 	return (NULL);
 }
 
@@ -37,19 +37,13 @@ static char	*check_redirection(char *cmd, int *i)
 		(*i)++;
 		if (cmd[*i] == '<' || cmd[*i] == '>')
 		{
-			if (cmd[*i] != c)
-			{
-				if (cmd[*i] == '<')
-					return (INPUT);
-			}
+			if (cmd[*i] != c && cmd[*i] == '<')
+				return ("<");
 			(*i)++;
-			if (cmd[*i] == '<' || cmd[*i] == '>')
-			{
-				if (cmd[*i] == '<')
-					return (INPUT);
-				if (cmd[*i] == '>')
-					return (TRUNC);
-			}
+			if (cmd[*i] == '<')
+				return ("<");
+			if (cmd[*i] == '>')
+				return (">");
 		}
 		return (check_name_redirection(cmd, i));
 	}
@@ -88,7 +82,7 @@ char	*token_error(char *cmd)
 	while (cmd[i] != '\0' && ft_isspace(cmd[i]) == 1)
 		i++;
 	if (cmd[i] == '|')
-		return (PIPE);
+		return ("|");
 	i = 0;
 	while (cmd[i] != '\0')
 	{
@@ -97,7 +91,7 @@ char	*token_error(char *cmd)
 		else if (cmd[i] != '|' && ft_isspace(cmd[i]) == 0)
 			c = 0;
 		else if (cmd[i] == '|' && c == 1)
-			return (PIPE);
+			return ("|");
 		if (cmd[i] == '\'' || cmd[i] == '\"')
 			i = skip_quote(cmd, i, 1);
 		if (cmd[i] != '\0')

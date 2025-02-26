@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_handler.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:08:49 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/26 15:59:01 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/26 20:01:19 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,7 @@ static int	handle_redirection(t_data *data, t_command *cmd, int *i)
 	redirection = check_token(cmd->cmd_line, *i);
 	if (redirection == 1 || redirection == 3)
 		(*i)++;
-	else
-		(*i) += 2;
+	(*i)++;
 	filename = get_file_name(data, cmd->cmd_line, i);
 	if (filename == NULL)
 		return (0);
@@ -104,12 +103,14 @@ static int	handle_redirection(t_data *data, t_command *cmd, int *i)
 	else if (redirection == 4)
 		cmd->output_fd = open_file(filename, cmd->output_fd, 1, 0);
 	if (cmd->input_fd == -1 || cmd->output_fd == -1)
-		return (printf("%s: No such file or directory\n", filename), free(filename), 0);
+		return (printf("%s: No such a file or directory\n", \
+						filename), free(filename), 0);
 	return (free(filename), 1);
 }
 
 int	read_redirection(t_data *data, t_command *cmd)
 {
+	// char	*new_arg;
 	char	**args;
 	int		index;
 	int		result;
@@ -122,13 +123,16 @@ int	read_redirection(t_data *data, t_command *cmd)
 			result = handle_redirection(data, cmd, &index);
 		else if (cmd->cmd_line[index] == '\'' || cmd->cmd_line[index] == '\"')
 			index = skip_quotes(cmd->cmd_line, index);
-		else
+		else if (cmd->cmd_line[index] != '\0')
 			index++;
 		if (result == 0)
 			return (0);
 	}
+	cmd->cmd_line = handle_dollars(data, cmd->cmd_line);
+	if (cmd->cmd_line == NULL)
+		return (0);
 	args = split_cmd_line(cmd->cmd_line, ' ');
-	cmd->args = args;
-	clean_args(data, cmd);
+	if (args == NULL || handle_quotes(cmd, args, 0) == 0)
+		return (0);
 	return (1);
 }

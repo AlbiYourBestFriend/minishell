@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/26 15:55:55 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/26 19:51:10 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ void		ft_cd(t_data *data, t_command *cmd);
 void		ft_echo(t_command *cmd);
 void		ft_env(t_data *data, t_command *cmd);
 void		ft_exit(t_data *data, t_command *cmd, int p);
+void		compare_var(char **str1, char **str2);
+int			assign_value(t_env_var *tmp_var, char **tab, int i);
 void		ft_export(t_data *data, t_command *cmd);
 void		ft_pwd(void);
 void		ft_unset(t_data *data, t_command *cmd);
@@ -102,6 +104,14 @@ void		signal_handler(int state);
 
 // Parsing
 int			check_quotes(char *cmd);
+int			len_env_var_value(t_data *data, char *cmd, int *i, int n);
+int			get_len_simple_quote(char *cmd, int *i, int n);
+int			get_len_double_quote(t_data *data, char *cmd, int *i, int n);
+int			put_exit_status(t_data *data, char *str, int *i_n);
+int			put_env_var_value(t_data *data, char *cmd, char *str, int *i_n);
+void		put_simple_quote(char *cmd, char *str, int *i_n);
+int			put_double_quote(t_data *data, char *cmd, char *str, int *i_n);
+char		*handle_dollars(t_data *data, char *cmd);
 int			is_env_var(char *cmd);
 int			exist_var(t_data *data, char *name);
 t_env_var	*add_env_var(t_data *data, char *name, char *value);
@@ -111,6 +121,7 @@ char		*get_env_var_name(char *cmd);
 char		*get_env_var_value(char *cmd);
 t_env_var	*modif_env_var(t_data *data, char *name, char *value, int n);
 t_env_var	*handle_env_var(t_data *data, char *cmd, int n);
+int			handle_quotes(t_command *cmd, char **arg, int n);
 int			here_doc(t_data *data, int currentfd, char *limiter);
 int			is_complete_cmd_line(char *cmd);
 char		*new_readline_join_cmd(t_data *data, char *cmd);
@@ -119,6 +130,7 @@ int			read_redirection(t_data *data, t_command *cmd);
 char		*token_error(char *cmd);
 
 // Utils
+int			exit_status_len(t_data *data, int *i);
 int			arglen(t_data *data, char *arg);
 void		blankify(char *str, int start, int len);
 void		clean_args(t_data *data, t_command *cmd);
@@ -129,6 +141,11 @@ char		*double_quote_write(t_data *data, char *arg, \
 char		*env_var_write(t_data *data, char *arg, char *new_arg, int *index);
 char		*exit_status_write(t_data *data, char *new_arg, int *index);
 int			check_token(char *cmd_line, int i);
+char		*exit_status_write(t_data *data, char *new_arg, int *index);
+char		*env_var_write(t_data *data, char *arg, char *new_arg, int *index);
+char		*double_quote_write(t_data *data, char *arg, char *new_arg, int *index);
+char		*single_quote_write(char *arg, char *new_arg, int *index);
+char		*process_argument(t_data *data, char *arg, char *new_arg);
 char		*clean_cmd(char *cmd);
 char		**copy_tab(char **tab);
 int			count_char(char *str, char c);

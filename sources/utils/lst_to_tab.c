@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   lst_to_tab.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 12:57:19 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/13 18:08:26 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/26 13:12:01 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	assign_value(t_env_var *tmp_var, char **tab, int i)
+static int	put_value(t_env_var *tmp_var, char **tab, int i)
 {
 	char	*tmp;
 
@@ -48,7 +48,7 @@ char	**lst_to_tab(t_env_var *env_var)
 	tmp_var = env_var;
 	while (tmp_var != NULL)
 	{
-		i = assign_value(tmp_var, tab, i);
+		i = put_value(tmp_var, tab, i);
 		tmp_var = tmp_var->next;
 	}
 	tab[i] = NULL;

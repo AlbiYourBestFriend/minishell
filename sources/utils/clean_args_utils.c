@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_args_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:00:16 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/25 17:29:49 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/26 19:31:06 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*env_var_write(t_data *data, char *arg, char *new_arg, int *index)
 		j++;
 	name = ft_substr(arg, index[0], j);
 	if (name == NULL)
-		return (NULL); // free le new_arg?
+		return (NULL); // free le new_arg? free(new_arg);
 	env_var = get_env_var(data, name);
 	free(name);
 	index[0] += j;

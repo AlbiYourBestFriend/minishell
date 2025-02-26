@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 17:12:57 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/21 12:27:40 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/26 18:46:40 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	**copy_tab(char **tab)
 	int		i;
 
 	len = tab_len(tab);
+	if (len == -1)
+		return (NULL);
 	copy = malloc((len + 1) * sizeof(char *));
 	if (copy == NULL)
 		return (NULL);

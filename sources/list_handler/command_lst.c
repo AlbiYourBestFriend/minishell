@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:21:36 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/25 11:46:33 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/26 18:49:09 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	free_cmds(t_data *data)
 	while (temp != NULL)
 	{
 		free_tab(temp->args);
+		if (temp->cmd_line != NULL)
+			free(temp->cmd_line);
 		to_free = temp;
 		temp = temp->next;
 		to_free->next = NULL;
