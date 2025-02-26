@@ -1,36 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   blankify.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/07 16:29:38 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/26 11:38:18 by mleproux         ###   ########.fr       */
+/*   Created: 2025/02/26 15:37:55 by mleproux          #+#    #+#             */
+/*   Updated: 2025/02/26 15:38:12 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_echo(t_command *cmd)
+void	blankify(char *str, int start, int len)
 {
-	int	i;
-	int	new_line;
-
-	i = 1;
-	new_line = 1;
-	while (ft_strncmp(cmd->args[i], "-n", INT_MAX) == 0)
+	while (len > start && str[start] != '\0')
 	{
-		new_line = 0;
-		i++;
+		str[start] = ' ';
+		start++;
 	}
-	while (cmd->args[i] != NULL)
-	{
-		printf("%s", cmd->args[i]);
-		i++;
-		if (cmd->args[i] != NULL)
-			printf(" ");
-	}
-	if (new_line == 1)
-		printf("\n");
 }

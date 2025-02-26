@@ -35,6 +35,7 @@ SOURCES	=	ft_cd_utils.c \
 			redirection_handler.c \
 			token_error.c \
 			arglen.c \
+			blankify.c \
 			check_token.c \
 			clean_args.c \
 			clean_args_utils.c \

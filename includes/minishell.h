@@ -49,6 +49,7 @@
 # define FORK_ERR		"error during fork"
 # define DUP_ERR		"error when duplicate(1) fd"
 # define DUP2_ERR		"error when duplicate(2) fd"
+# define ALLOC_ERR		"Cannot allocate memory"
 # define PATH			"PATH="
 # define EXECVE_ERR		"error during execve"
 # define PATH_ERR		"path not found"
@@ -131,6 +132,9 @@ char		*token_error(char *cmd);
 // Utils
 int			exit_status_len(t_data *data, int *i);
 int			arglen(t_data *data, char *arg);
+void		blankify(char *str, int start, int len);
+void		clean_args(t_data *data, t_command *cmd);
+char		*process_argument(t_data *data, char *arg, char *new_arg);
 char		*single_quote_write(char *arg, char *new_arg, int *index);
 char		*double_quote_write(t_data *data, char *arg, \
 									char *new_arg, int *index);

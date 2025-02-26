@@ -66,3 +66,28 @@ char	*process_argument(t_data *data, char *arg, char *new_arg)
 // 		i++;
 // 	}
 // }
+void	clean_args(t_data *data, t_command *cmd)
+{
+	char	*new_arg;
+	int		i;
+	int		len;
+	
+	len = 0;
+	i = 0;
+	while (cmd->args[i] != NULL)
+	{
+		len = arglen(data, cmd->args[i]);
+		if (len == -1) // erreur
+			return ;
+		new_arg = malloc((len + 1) * sizeof(char));
+		if (new_arg == NULL) // erreur
+			return ;
+		new_arg = process_argument(data, cmd->args[i], new_arg);
+		if (new_arg == NULL) // erreur
+			return ;
+		free(cmd->args[i]);
+		cmd->args[i] = NULL;
+		cmd->args[i] = new_arg;
+		i++;
+	}
+}

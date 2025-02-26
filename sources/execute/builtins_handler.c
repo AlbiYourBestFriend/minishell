@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_handler.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:21:31 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/25 14:25:05 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/26 15:24:25 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,16 @@ int	execute_builtins(t_data *data, t_command *cmd)
 	return (0);
 }
 
+
 int	init_builtins(t_data *data, t_command *cmd)
 {
 	int	output;
 
-	read_redirection(data, cmd);
+	if (read_redirection(data, cmd) == 0)
+	{
+		data->exit_status = 1;
+		return (1);
+	}
 	if (check_if_builtins(cmd) != 1)
 		return (0);
 	if (cmd->output_fd != 1)

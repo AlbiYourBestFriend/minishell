@@ -25,10 +25,39 @@ static int	skip_quotes(char *cmd_line, int i)
 	return (i);
 }
 
+static char *clean_file_name(t_data *data, char *temp)
+{
+	char	*file_args;
+	char	*file_name;
+
+	
+	file_name = handle_dollar();
+	if (!file_name)
+		return (NULL);
+	file_args = split_cmd_line(file_name, ' ');
+	free(file_name);
+	if (!file_args)
+		return (printf("minishell: %s\n", ALLOC_ERR), NULL);
+	else if (tab_len(file_args) != 1)
+	{
+		printf("%s: ambiguous redirect\n", temp);
+		return (free_tab(file_args), free(temp), NULL);
+	}
+	free(temp);
+	file_name = handle_quotes(file_args[0]);
+	free_tab(file_args);
+	// file_name = malloc(sizeof(char) * (arglen(data, temp) + 1));
+	// if (file_name == NULL)
+	// 	return (printf("minishell: %s\n", ALLOC_ERR), free(temp), NULL);
+	// file_name = process_argument(data, temp, file_name);
+	// if (file_name == NULL)
+	// 	return (free(temp), NULL);
+	return (file_name);
+}
+
 static char	*get_file_name(t_data *data, char *cmd_line, int *i)
 {
 	char	*temp;
-	char	*file_name;
 	int		len;
 
 	while (cmd_line[*i] != '\0' && ft_isspace(cmd_line[*i]) == 1)
@@ -46,21 +75,8 @@ static char	*get_file_name(t_data *data, char *cmd_line, int *i)
 	temp = ft_substr(cmd_line, *i, len);
 	(*i) += len;
 	if (temp == NULL)
-		return (NULL);
-	file_name = malloc(sizeof(char) * (arglen(data, temp) + 1));
-	if (file_name == NULL)
-		return (free(temp), NULL);
-	file_name = process_argument(data, temp, file_name);
-	return (free(temp), file_name);
-}
-
-static void	blankify(char *str, int start, int len)
-{
-	while (len > start && str[start] != '\0')
-	{
-		str[start] = ' ';
-		start++;
-	}
+		return (printf("minishell: %s\n", ALLOC_ERR), NULL);
+	return (clean_file_name(data, temp));
 }
 
 static int	handle_redirection(t_data *data, t_command *cmd, int *i)
@@ -76,7 +92,7 @@ static int	handle_redirection(t_data *data, t_command *cmd, int *i)
 	(*i)++;
 	filename = get_file_name(data, cmd->cmd_line, i);
 	if (filename == NULL)
-		return (printf("Malloc error\n"), 0); // modif comportement erreur
+		return (0);
 	blankify(cmd->cmd_line, start, *i);
 	if (redirection == 1)
 		cmd->input_fd = open_file(filename, cmd->input_fd, 0, 0);
@@ -110,7 +126,7 @@ int	read_redirection(t_data *data, t_command *cmd)
 		else if (cmd->cmd_line[index] != '\0')
 			index++;
 		if (result == 0)
-			return (0); // modif
+			return (0);
 	}
 	cmd->cmd_line = handle_dollars(data, cmd->cmd_line);
 	if (cmd->cmd_line == NULL)
