@@ -6,76 +6,17 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:08:23 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/25 16:46:30 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/26 19:32:33 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	compare_var(char **str1, char **str2)
+static char	**export_lst_to_tab(t_env_var *env_var, int i)
 {
-	int		i;
-	char	*tmp;
-
-	i = 0;
-	while ((*str1)[i] != '=' && (*str2)[i] != '=' && (*str1)[i] == (*str2)[i])
-		i++;
-	if ((*str1)[i] == '=')
-		return ;
-	if ((*str2)[i] == '=' || (*str1)[i] > (*str2)[i])
-	{
-		tmp = (*str1);
-		(*str1) = (*str2);
-		(*str2) = tmp;
-	}
-}
-
-static int	assign_value(t_env_var *tmp_var, char **tab, int i)
-{
-	char	*tmp;
-
-	if (tmp_var->status == 1)
-	{
-		tmp = ft_strjoin(tmp_var->name, "=");
-		if (tmp == NULL)
-			return (-1);
-		tab[i] = ft_strjoin(tmp, "\"");
-		free(tmp);
-		if (tab[i] == NULL)
-			return (-1);
-		if (tmp_var->value == NULL)
-		{
-			tmp = tab[i];
-			tab[i] = ft_strjoin(tmp, "\"");
-			free(tmp);
-			if (tab[i] == NULL)
-				return (-1);
-		}
-		else
-		{
-			tmp = tab[i];
-			tab[i] = ft_strjoin(tmp, tmp_var->value);
-			free(tmp);
-			if (tab[i] == NULL)
-				return (-1);
-			tmp = tab[i];
-			tab[i] = ft_strjoin(tmp, "\"");
-			free(tmp);
-			if (tab[i] == NULL)
-				return (-1);
-		}
-		i++;
-	}
-	return (i);
-}
-
-static char	**export_lst_to_tab(t_env_var *env_var)
-{
-	int			i;
 	char		**tab;
 	t_env_var	*tmp_var;
 
-	i = 0;
 	tmp_var = env_var;
 	while (tmp_var != NULL)
 	{
@@ -106,7 +47,7 @@ static void	print_export(t_data *data)
 	char	**tab;
 
 	i = 0;
-	tab = export_lst_to_tab(data->env_variables);
+	tab = export_lst_to_tab(data->env_variables, i);
 	if (tab[0] == NULL)
 		return ;
 	while (tab[i + 1] != NULL)
@@ -150,10 +91,7 @@ void	ft_export(t_data *data, t_command *cmd)
 					env_var->status = 1;
 			}
 			else
-			{
-				perror("invalid argument");
-				break ;
-			}
+				return (printf("export: "), perror(cmd->args[i]));
 		}
 	}
 }

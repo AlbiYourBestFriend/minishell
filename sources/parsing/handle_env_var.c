@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 18:05:52 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/25 16:46:30 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/26 12:27:37 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,16 @@ int	is_env_var(char *cmd)
 	int	i;
 
 	i = 0;
-	if (cmd[i] > 32 && cmd[i] < 127)
+	if ((cmd[i] >= 'A' && cmd[i] <= 'Z') || (cmd[i] >= 'a' && cmd[i] <= 'z')
+		|| cmd[i] == '_')
 		i++;
 	else
 		return (0);
-	while (cmd[i] > 32 && cmd[i] < 127 && cmd[i] != '\0' && cmd[i] != '=')
+	while (((cmd[i] >= 'A' && cmd[i] <= 'Z') || (cmd[i] >= 'a' && cmd[i] <= 'z')
+			|| (cmd[i] >= '0' && cmd[i] <= '9') || cmd[i] == '_')
+		&& cmd[i] != '\0' && cmd[i] != '=')
 		i++;
-	if (cmd[i] <= 32 || cmd[i] >= 127)
+	if (cmd[i] != '\0' && cmd[i] != '=')
 		return (0);
 	if (cmd[i] == '\0')
 		return (-2);

@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 12:20:14 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/25 16:46:30 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/26 14:38:59 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,23 @@ int	exist_var(t_data *data, char *name)
 	return (0);
 }
 
-t_env_var	*add_env_var(t_data *data, char *name, char *value)
+static	t_env_var	*new_env_var(char *name, char *value, int status)
 {
 	t_env_var	*new_env_var;
+
+	new_env_var = malloc(sizeof(t_env_var));
+	if (new_env_var == NULL)
+		return (NULL);
+	new_env_var->name = name;
+	new_env_var->value = value;
+	new_env_var->status = status;
+	new_env_var->next = NULL;
+	return (new_env_var);
+}
+
+t_env_var	*add_env_var(t_data *data, char *name, char *value)
+{
+	t_env_var	*new_var;
 	t_env_var	*tmp_env_var;
 	char		*tmp_value;
 
@@ -39,23 +53,17 @@ t_env_var	*add_env_var(t_data *data, char *name, char *value)
 		return (NULL);
 	if (value != NULL)
 		tmp_value = ft_strdup(value);
-	new_env_var = malloc(sizeof(t_env_var));
-	if (new_env_var == NULL)
-		return (NULL);
-	new_env_var->name = name;
-	new_env_var->value = tmp_value;
-	new_env_var->status = 0;
-	new_env_var->next = NULL;
-	tmp_env_var = data->env_variables;
-	if (tmp_env_var == NULL)
-		data->env_variables = new_env_var;
+	new_var = new_env_var(name, tmp_value, 0);
+	if (data->env_variables == NULL)
+		data->env_variables = new_var;
 	else
 	{
+		tmp_env_var = data->env_variables;
 		while (tmp_env_var->next != NULL)
 			tmp_env_var = tmp_env_var->next;
-		tmp_env_var->next = new_env_var;
+		tmp_env_var->next = new_var;
 	}
-	return (new_env_var);
+	return (new_var);
 }
 
 t_env_var	*get_env_var(t_data *data, char *name)

@@ -9,6 +9,7 @@ SOURCES	=	ft_cd_utils.c \
 			ft_echo.c \
 			ft_env.c \
 			ft_exit.c \
+			ft_export_utils.c \
 			ft_export.c \
 			ft_pwd.c \
 			ft_unset.c \
@@ -20,9 +21,13 @@ SOURCES	=	ft_cd_utils.c \
 			signal_handler.c \
 			command_lst.c \
 			check_quotes.c \
+			handle_dollar_utils_2.c \
+			handle_dollar_utils.c \
+			handle_dollar.c \
 			handle_env_var_utils_2.c \
 			handle_env_var_utils.c \
 			handle_env_var.c \
+			handle_quote.c \
 			here_doc.c \
 			is_complete_cmd_line.c \
 			new_readline_join_cmd.c \
