@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/25 15:00:09 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/25 15:56:23 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void	handle_cmd_line(t_data *data, char *cmd_line)
 
 	while (is_complete_cmd_line(cmd_line) == 0
 		&& token_error(cmd_line) == 0)
-		cmd_line = new_readline_join_cmd(&data, cmd_line);
+		cmd_line = new_readline_join_cmd(data, cmd_line);
 	if (handle_cmd_line_extension(data, cmd_line) == 0)
 		return ;
 	str = clean_cmd(cmd_line);

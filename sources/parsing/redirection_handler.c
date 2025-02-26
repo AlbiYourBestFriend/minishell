@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_handler.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:08:49 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/25 13:34:13 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/25 15:56:49 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ static char	*get_file_name(t_data *data, char *cmd_line, int *i)
 	while (cmd_line[*i] != '\0' && ft_isspace(cmd_line[*i]) == 1)
 		(*i)++;
 	len = 0;
-	while (cmd_line[(*i) + len] != '\0' 
-	  && check_token(cmd_line, (*i) + len) == 0
-	  && ft_isspace(cmd_line[(*i) + len]) == 0)
+	while (cmd_line[(*i) + len] != '\0'
+		&& check_token(cmd_line, (*i) + len) == 0
+		&& ft_isspace(cmd_line[(*i) + len]) == 0)
 	{
 		if (cmd_line[(*i) + len] == '\'' || cmd_line[(*i) + len] == '\"')
 			len += skip_quotes(cmd_line, (*i) + len) - ((*i) + len);

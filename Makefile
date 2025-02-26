@@ -32,6 +32,7 @@ SOURCES	=	ft_cd_utils.c \
 			arglen.c \
 			check_token.c \
 			clean_args.c \
+			clean_args_utils.c \
 			clean_cmd.c \
 			copy_tab.c \
 			count_char.c \
