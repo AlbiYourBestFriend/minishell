@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/25 11:58:49 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/25 17:21:22 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct s_data
 	t_command	*commands;
 	char		**splitted_cmds;
 	int			count_line;
+	int			exit_status;
 }			t_data;
 
 // pour connaitre le resultat des signaux et des execve
@@ -120,6 +121,11 @@ char		*token_error(char *cmd);
 int			arglen(t_data *data, char *arg);
 void		clean_args(t_data *data, t_command *cmd);
 char		*process_argument(t_data *data, char *arg, char *new_arg);
+char		*single_quote_write(char *arg, char *new_arg, int *index);
+char		*double_quote_write(t_data *data, char *arg, \
+									char *new_arg, int *index);
+char		*env_var_write(t_data *data, char *arg, char *new_arg, int *index);
+char		*exit_status_write(t_data *data, char *new_arg, int *index);
 int			check_token(char *cmd_line, int i);
 char		*clean_cmd(char *cmd);
 char		**copy_tab(char **tab);

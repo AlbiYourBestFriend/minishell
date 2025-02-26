@@ -6,11 +6,27 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 11:01:32 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/25 17:44:39 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/25 17:06:22 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static int	exit_status_len(t_data *data, int *i)
+{
+	int	len;
+	int	nb;
+
+	nb = data->exit_status;
+	len = 1;
+	while (nb > 9)
+	{
+		nb = nb / 10;
+		len++;
+	}
+	(*i)++;
+	return (len);
+}
 
 static int	env_var_len(t_data *data, char *arg, int *i, int len)
 {
@@ -20,6 +36,8 @@ static int	env_var_len(t_data *data, char *arg, int *i, int len)
 
 	j = 0;
 	(*i)++;
+	if (arg[*i] == '?' && ft_isspace(arg[(*i) + 1]) == 1)
+		return (exit_status_len(data, i));
 	while (arg[(*i) + j] != '\0' && ft_isspace(arg[(*i) + j]) == 0
 		&& arg[(*i) + j] != '\"' && arg[(*i) + j] != '\'')
 		j++;

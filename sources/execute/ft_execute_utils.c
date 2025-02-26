@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 11:55:36 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/25 11:58:49 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/25 16:45:16 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,14 @@ void	fd_handler(t_command *cmd, int output, int input)
 void	wait_for_all(t_data *data)
 {
 	t_command	*temp;
+	int			status;
 
+	status = 0;
 	temp = data->commands;
 	while (temp != NULL)
 	{
-		waitpid(temp->pid, NULL, 0);
+		waitpid(temp->pid, &status, 0);
+		data->exit_status = WEXITSTATUS(status);
 		temp = temp->next;
 	}
 }
