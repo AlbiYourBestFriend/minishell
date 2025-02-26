@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:33:13 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/21 12:36:36 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/25 16:48:26 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	ft_unset(t_data *data, t_command *cmd)
 		if (exist_var(data, name) == 0)
 			return (free(name));
 		env_var = data->env_variables;
+		if (env_var == NULL)
+			return ;
 		if (ft_strncmp(env_var->name, name, ft_strlen(name)) == 0
 			&& ft_strlen(env_var->name) == ft_strlen(name))
 		{

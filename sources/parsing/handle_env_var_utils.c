@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 12:20:14 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/25 14:01:44 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/25 16:46:30 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	exist_var(t_data *data, char *name)
 	t_env_var	*env_var;
 
 	env_var = data->env_variables;
+	if (name == NULL)
+		return (0);
 	while (env_var != NULL
 		&& (ft_strncmp(env_var->name, name, ft_strlen(name)) != 0
 			|| ft_strlen(env_var->name) != ft_strlen(name)))
@@ -33,6 +35,8 @@ t_env_var	*add_env_var(t_data *data, char *name, char *value)
 	char		*tmp_value;
 
 	tmp_value = NULL;
+	if (name == NULL)
+		return (NULL);
 	if (value != NULL)
 		tmp_value = ft_strdup(value);
 	new_env_var = malloc(sizeof(t_env_var));
@@ -59,6 +63,8 @@ t_env_var	*get_env_var(t_data *data, char *name)
 	t_env_var	*env_var;
 
 	env_var = data->env_variables;
+	if (name == NULL)
+		return (NULL);
 	while (env_var != NULL
 		&& (ft_strncmp(env_var->name, name, ft_strlen(name)) != 0
 			|| ft_strlen(env_var->name) != ft_strlen(name)))

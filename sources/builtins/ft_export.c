@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:08:23 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/20 18:15:09 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/25 16:46:30 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,32 @@ static int	assign_value(t_env_var *tmp_var, char **tab, int i)
 	if (tmp_var->status == 1)
 	{
 		tmp = ft_strjoin(tmp_var->name, "=");
-		tab[i] = tmp;
-		tmp = ft_strjoin(tab[i], "\"");
-		free(tab[i]);
+		if (tmp == NULL)
+			return (-1);
+		tab[i] = ft_strjoin(tmp, "\"");
+		free(tmp);
+		if (tab[i] == NULL)
+			return (-1);
 		if (tmp_var->value == NULL)
 		{
+			tmp = tab[i];
 			tab[i] = ft_strjoin(tmp, "\"");
 			free(tmp);
+			if (tab[i] == NULL)
+				return (-1);
 		}
 		else
 		{
+			tmp = tab[i];
 			tab[i] = ft_strjoin(tmp, tmp_var->value);
 			free(tmp);
-			tmp = ft_strjoin(tab[i], "\"");
-			free(tab[i]);
-			tab[i] = tmp;
+			if (tab[i] == NULL)
+				return (-1);
+			tmp = tab[i];
+			tab[i] = ft_strjoin(tmp, "\"");
+			free(tmp);
+			if (tab[i] == NULL)
+				return (-1);
 		}
 		i++;
 	}
@@ -73,11 +84,15 @@ static char	**export_lst_to_tab(t_env_var *env_var)
 		tmp_var = tmp_var->next;
 	}
 	tab = malloc((i + 1) * sizeof(char *));
+	if (tab == NULL)
+		return (NULL);
 	i = 0;
 	tmp_var = env_var;
 	while (tmp_var != NULL)
 	{
 		i = assign_value(tmp_var, tab, i);
+		if (i < 0)
+			return (free_tab(tab), NULL);
 		tmp_var = tmp_var->next;
 	}
 	tab[i] = NULL;
@@ -130,7 +145,8 @@ void	ft_export(t_data *data, t_command *cmd)
 			if (n != 0)
 			{
 				env_var = handle_env_var(data, cmd->args[i], n);
-				if ((n == 1 || n == -1) && env_var->status == 0)
+				if (env_var != NULL && (n == 1 || n == -1)
+					&& env_var->status == 0)
 					env_var->status = 1;
 			}
 			else

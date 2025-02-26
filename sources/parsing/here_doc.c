@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:44:32 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/25 11:44:43 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/25 16:18:46 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,17 @@ static int	heredoc_put_env_var_fd(t_data *data, char *buffer, int fd, int i)
 	j = 0;
 	while (buffer[i + j] != '\0' && ft_isspace(buffer[i + j]) == 0)
 	{
-		name[j] = buffer[i + j];
+		if (name != NULL)
+			name[j] = buffer[i + j];
 		j++;
 	}
-	name[j] = '\0';
+	if (name != NULL)
+		name[j] = '\0';
 	env_var = get_env_var(data, name);
 	if (env_var != NULL)
 		ft_putstr_fd(env_var->value, fd);
-	free(name);
+	if (name != NULL)
+		free(name);
 	return (j);
 }
 
