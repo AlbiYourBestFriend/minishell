@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/25 17:21:22 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/26 15:55:55 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@
 # define FORK_ERR		"error during fork"
 # define DUP_ERR		"error when duplicate(1) fd"
 # define DUP2_ERR		"error when duplicate(2) fd"
+# define ALLOC_ERR		"Cannot allocate memory"
 # define PATH			"PATH="
 # define EXECVE_ERR		"error during execve"
 # define PATH_ERR		"path not found"
@@ -119,6 +120,7 @@ char		*token_error(char *cmd);
 
 // Utils
 int			arglen(t_data *data, char *arg);
+void		blankify(char *str, int start, int len);
 void		clean_args(t_data *data, t_command *cmd);
 char		*process_argument(t_data *data, char *arg, char *new_arg);
 char		*single_quote_write(char *arg, char *new_arg, int *index);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:59:12 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/25 17:31:29 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/26 12:13:22 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	fork_handler(t_data *data, t_command *cmd, int *pipefd)
 	else if (cmd->pid == 0)
 	{
 		if (cmd->args == NULL && read_redirection(data, cmd) == 0)
-			ft_exit(data, cmd, 0);
+			return (free_data(data), rl_clear_history(), exit(1));
 		if (cmd->next != NULL)
 			fd_handler(cmd, pipefd[1], pipefd[0]);
 		else
@@ -98,6 +98,7 @@ void	ft_execute(t_data *data)
 	signal_handler(1);
 	if (cmdsize(data->commands) == 1 && init_builtins(data, temp) == 1)
 		return ;
+	write(1, "j", 1);
 	while (temp != NULL)
 	{
 		if (pipe(pipefd) != 0)

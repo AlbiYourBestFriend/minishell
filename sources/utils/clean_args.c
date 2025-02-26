@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 12:43:35 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/25 17:28:35 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/26 13:20:44 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ char	*process_argument(t_data *data, char *arg, char *new_arg)
 
 	index[0] = 0;
 	index[1] = 0;
-	printf("ARG=%s\n", arg);
 	while ((int)ft_strlen(arg) > index[0])
 	{
 		if (arg[index[0]] == '\'')
@@ -47,7 +46,7 @@ void	clean_args(t_data *data, t_command *cmd)
 	char	*new_arg;
 	int		i;
 	int		len;
-
+	
 	len = 0;
 	i = 0;
 	while (cmd->args[i] != NULL)
