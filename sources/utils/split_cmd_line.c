@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_cmd_line.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 19:03:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/25 17:20:53 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/26 15:59:19 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ char	**split_cmd_line(char *line, char c)
 	}
 	tab = malloc((nb_word + 1) * sizeof(char *));
 	if (tab == NULL)
-		return (NULL);
+		return (printf("minishell: %s\n", ALLOC_ERR), NULL);
 	return (remp_split(tab, line, c, nb_word));
 }
 

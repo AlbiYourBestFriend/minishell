@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 11:55:36 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/25 16:45:16 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/26 11:54:07 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ void	wait_for_all(t_data *data)
 	while (temp != NULL)
 	{
 		waitpid(temp->pid, &status, 0);
+		printf("exit status: %d\n", status);
 		data->exit_status = WEXITSTATUS(status);
+		printf("cleaned exit status: %d\n", data->exit_status);
 		temp = temp->next;
 	}
 }
