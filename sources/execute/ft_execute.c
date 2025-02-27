@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:59:12 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/27 13:29:49 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/27 16:43:32 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	try_execute(char *path, t_env_var *env_var, char **cmds)
 		tab = lst_to_tab(env_var);
 		execve(path, cmds, tab);
 		free_tab(tab);
-		perror("Execve failed");
+		perror(EXECVE_ERR);
 		if (path != NULL)
 			free(path);
 		return (0);
@@ -40,12 +40,12 @@ static void	command_executor(t_data *data, t_command *cmd)
 		ft_free_all_exit(data, 1);
 	paths = ft_split(getenv("PATH"), ':');
 	if (paths == NULL)
-		return (perror("Erreur"));
+		return (perror(ALLOC_ERR));
 	while (paths[index] != NULL)
 	{
 		path = create_path(paths[index], cmd->args[0]);
 		if (path == NULL)
-			return (free_tab(paths), perror("Erreur"));
+			return (free_tab(paths), perror(ALLOC_ERR));
 		if (try_execute(path, data->env_variables, cmd->args) == 0)
 		{
 			free_tab(paths);
@@ -55,14 +55,14 @@ static void	command_executor(t_data *data, t_command *cmd)
 		index++;
 	}
 	free_tab(paths);
-	perror("command not found");
+	printf("%s: command not found\n", cmd->args[0]);
 }
 
 void	fork_handler(t_data *data, t_command *cmd, int *pipefd)
 {
 	cmd->pid = fork();
 	if (cmd->pid == -1)
-		perror("Fork failed");
+		printf("%s%s\n", ERREUR, FORK_ERR);
 	else if (cmd->pid == 0)
 	{
 		if (cmd->args == NULL && process_cmd_line(data, cmd) == 0)
@@ -87,7 +87,7 @@ void	fork_handler(t_data *data, t_command *cmd, int *pipefd)
 		close(cmd->input_fd);
 }
 
-void	ft_execute(t_data *data)
+int	ft_execute(t_data *data)
 {
 	int			pipefd[2];
 	t_command	*temp;
@@ -95,12 +95,11 @@ void	ft_execute(t_data *data)
 	temp = data->commands;
 	signal_handler(1);
 	if (cmdsize(data->commands) == 1 && init_builtins(data, temp) == 1)
-		return ;
-	write(1, "j", 1);
+		return (1);
 	while (temp != NULL)
 	{
 		if (pipe(pipefd) != 0)
-			return (perror("pipe"));
+			return (printf("%s%s\n", ERREUR, PIPE_ERR), 0);
 		fork_handler(data, temp, pipefd);
 		if (temp->next != NULL)
 		{
@@ -114,4 +113,5 @@ void	ft_execute(t_data *data)
 			temp = temp->next;
 	}
 	wait_for_all(data);
+	return (1);
 }

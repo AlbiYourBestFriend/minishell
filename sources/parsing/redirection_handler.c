@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:08:49 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/27 13:31:36 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/27 17:31:02 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,21 @@ static int	skip_quotes(char *cmd_line, int i)
 	return (i);
 }
 
-static char *clean_file_name(t_data *data, char *temp)
+static char	*clean_file_name(t_data *data, char *temp)
 {
 	char	*file_name;
 	char	**file_args;
 
-	
 	file_name = handle_dollars(data, temp);
 	if (file_name == NULL)
 		return (NULL);
 	file_args = split_cmd_line(file_name, ' ');
 	free(file_name);
 	if (file_args == NULL)
-		return (printf("minishell: %s\n", ALLOC_ERR), NULL);
+		return (printf("%s%s\n", ERREUR, ALLOC_ERR), NULL);
 	else if (tab_len(file_args) != 1)
 	{
-		printf("%s: ambiguous redirect\n", temp);
+		printf("%s%s: ambiguous redirect\n", ERREUR, temp);
 		return (free_tab(file_args), free(temp), NULL);
 	}
 	free(temp);
@@ -75,7 +74,7 @@ static char	*get_file_name(t_data *data, char *cmd_line, int *i)
 	temp = ft_substr(cmd_line, *i, len);
 	(*i) += len;
 	if (temp == NULL)
-		return (printf("minishell: %s\n", ALLOC_ERR), NULL);
+		return (printf("%s%s\n", ERREUR, ALLOC_ERR), NULL);
 	return (clean_file_name(data, temp));
 }
 
@@ -103,14 +102,13 @@ static int	handle_redirection(t_data *data, t_command *cmd, int *i)
 	else if (redirection == 4)
 		cmd->output_fd = open_file(filename, cmd->output_fd, 1, 0);
 	if (cmd->input_fd == -1 || cmd->output_fd == -1)
-		return (printf("%s: No such a file or directory\n", \
+		return (printf("%s%s: No such a file or directory\n", ERREUR, \
 						filename), free(filename), 0);
 	return (free(filename), 1);
 }
 
 int	read_redirection(t_data *data, t_command *cmd)
 {
-	// char	*new_arg;
 	int		index;
 	int		result;
 

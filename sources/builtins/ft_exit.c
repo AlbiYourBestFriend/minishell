@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:33:53 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/27 13:28:20 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/27 17:32:39 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,12 @@ void	ft_exit(t_data *data, t_command *cmd, int p)
 			if (ft_is_atoi(cmd->args[1]) == 0)
 			{
 				printf("exit\n");
-				printf("exit: %s: numeric argument required\n", cmd->args[1]);
+				printf("%sexit: %s: numeric argument required\n", \
+						ERREUR, cmd->args[1]);
 			}
 			else if (tab_len(cmd->args) > 2)
 			{
-				printf("exit: too many arguments\n");
+				printf("%sexit: too many arguments\n", ERREUR);
 				return ;
 			}
 		}
