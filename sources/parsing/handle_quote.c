@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:26:03 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/26 19:54:10 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/27 13:19:14 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,51 +49,44 @@ static int	total_len(char *str)
 	return (len);
 }
 
-static void	put_in_quotes(char *new_arg, int *j, char *arg, int *i)
+static void	put_in_quotes(char *new_arg, int *n, char *arg, int *j)
 {
 	char	c;
 
-	c = arg[*i];
-	(*i)++;
-	while (arg[*i] != c)
+	c = arg[*j];
+	(*j)++;
+	while (arg[*j] != c)
 	{
-		new_arg[*j] = arg[*i];
-		(*i)++;
+		new_arg[*n] = arg[*j];
 		(*j)++;
+		(*n)++;
 	}
-	(*i)++;
+	(*j)++;
 }
 
 // n = 0 quand on appelle la fonction sinon elle fait plus de 25 lignes
-int	handle_quotes(t_command *cmd, char **arg, int n)
+char	*handle_quotes(char *arg_i)
 {
-	int		i;
 	int		j;
+	int		n;
 	char	*new_arg;
 
-	while (arg[n] != NULL)
+	new_arg = malloc((total_len(arg_i) + 1) * sizeof(char));
+	if (new_arg == NULL)
+		return (NULL);
+	j = 0;
+	n = 0;
+	while (arg_i[j] != '\0')
 	{
-		new_arg = malloc((total_len(arg[n]) + 1) * sizeof(char));
-		if (new_arg == NULL)
-			return (0);
-		i = 0;
-		j = 0;
-		while (arg[n][i] != '\0')
+		if (arg_i[j] == '\'' || arg_i[j] == '\"')
+			put_in_quotes(new_arg, &n, arg_i, &j);
+		else if (arg_i[j] != '\0')
 		{
-			if (arg[n][i] == '\'' || arg[n][i] == '\"')
-				put_in_quotes(new_arg, &j, arg[n], &i);
-			else if (arg[n][i] != '\0')
-			{
-				new_arg[j] = arg[n][i];
-				j++;
-				i++;
-			}
+			new_arg[n] = arg_i[j];
+			j++;
+			n++;
 		}
-		new_arg[j] = '\0';
-		free(arg[n]);
-		arg[n] = new_arg;
-		n++;
 	}
-	cmd->args = arg;
-	return (1);
+	new_arg[j] = '\0';
+	return (new_arg);
 }

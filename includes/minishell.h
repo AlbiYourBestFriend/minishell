@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/26 19:51:10 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/27 13:19:14 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,9 +121,10 @@ char		*get_env_var_name(char *cmd);
 char		*get_env_var_value(char *cmd);
 t_env_var	*modif_env_var(t_data *data, char *name, char *value, int n);
 t_env_var	*handle_env_var(t_data *data, char *cmd, int n);
-int			handle_quotes(t_command *cmd, char **arg, int n);
+char		*handle_quotes(char *arg);
 int			here_doc(t_data *data, int currentfd, char *limiter);
 int			is_complete_cmd_line(char *cmd);
+int			process_cmd_line(t_data *data, t_command *cmd);
 char		*new_readline_join_cmd(t_data *data, char *cmd);
 int			open_file(char *filename, int currentfd, int isoutput, int dotrunc);
 int			read_redirection(t_data *data, t_command *cmd);
@@ -153,6 +154,7 @@ void		free_cmds(t_data *data);
 void		free_data(t_data *data);
 void		free_env_var(t_env_var *env_var);
 void		free_tab(char **tab);
+void		ft_free_all_exit(t_data *data, int exit_status);
 int			ft_is_atoi(char *str);
 t_data		init_data(char **env);
 int			get_word_count(char *str);

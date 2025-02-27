@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_handler.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:21:31 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/26 15:24:25 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/27 13:08:14 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	init_builtins(t_data *data, t_command *cmd)
 {
 	int	output;
 
-	if (read_redirection(data, cmd) == 0)
+	if (process_cmd_line(data, cmd) == 0)
 	{
 		data->exit_status = 1;
 		return (1);
