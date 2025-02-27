@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 12:43:35 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/26 19:38:00 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/27 17:33:00 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,13 @@ char	*process_argument(t_data *data, char *arg, char *new_arg)
 // 		i++;
 // 	}
 // }
+
 void	clean_args(t_data *data, t_command *cmd)
 {
 	char	*new_arg;
 	int		i;
 	int		len;
-	
+
 	len = 0;
 	i = 0;
 	while (cmd->args[i] != NULL)

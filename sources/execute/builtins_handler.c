@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:21:31 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/27 13:08:14 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/27 17:32:13 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int	execute_builtins(t_data *data, t_command *cmd)
 		ft_exit(data, cmd, 1);
 	return (0);
 }
-
 
 int	init_builtins(t_data *data, t_command *cmd)
 {

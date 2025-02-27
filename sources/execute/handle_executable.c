@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 13:55:23 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/27 13:29:49 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/27 17:29:14 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	exec_executable_utils(t_data *data, t_command *cmd, t_env_var *tmp)
 	path = ft_strjoin(tmp->value, &(cmd->args[0][i]));
 	if (path == NULL)
 	{
-		perror("Malloc error");
+		printf("%s%s\n", ERREUR, ALLOC_ERR);
 		ft_free_all_exit(data, 1);
 	}
 	if (access(path, F_OK | X_OK) == 0)
@@ -66,6 +66,6 @@ void	exec_executable(t_data *data, t_command *cmd)
 		ft_free_all_exit(data, 1);
 	}
 	exec_executable_utils(data, cmd, tmp);
-	perror(cmd->args[0]);
+	printf("%s%s: No such file or directory\n", ERREUR, cmd->args[0]);
 	ft_free_all_exit(data, 1);
 }

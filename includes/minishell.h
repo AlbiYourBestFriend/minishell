@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/27 13:29:49 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/27 16:43:32 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,31 +36,32 @@
 # include <curses.h>
 # include <sys/types.h>
 
-# define PROMPT "Minishell : "
+# define PROMPT "Minishell$ "
 # define MY_CHAR_MAX 4096
 
-// pipex errors
-# define ENV_ERR		"no environment detected"
-# define ARGC_ERR		"wrong number of argument"
-# define HERE_DOC		"here_doc"
-# define INFILE_ERR		"error in opening infile"
-# define OUTFILE_ERR	"error in opening outfile"
+// errors messages
+# define ERREUR			"Minishell: "
+# define ALLOC_ERR		"Cannot allocate memory"
 # define PIPE_ERR		"error in pipe creation"
 # define FORK_ERR		"error during fork"
-# define DUP_ERR		"error when duplicate(1) fd"
-# define DUP2_ERR		"error when duplicate(2) fd"
-# define ALLOC_ERR		"Cannot allocate memory"
-# define PATH			"PATH="
 # define EXECVE_ERR		"error during execve"
-# define PATH_ERR		"path not found"
+# define DUP2_ERR		"error when duplicate(2) fd"
+# define DUP_ERR		"error when duplicate(1) fd"
+# define INVALID_ID		"not a valid identifier"
+# define FILE_ERR		"error in opening file"
+
+// # define ENV_ERR		"no environment detected"
+// # define ARGC_ERR		"wrong number of argument"
+// # define HERE_DOC		"here_doc"
+// # define PATH_ERR		"path not found"
 
 // can be deleted ?
-# define INPUT "<"
-# define HEREDOC "<<"
-# define TRUNC ">"
-# define APPEND ">>"
-# define PIPE "|"
-# define NEW_LINE "newline"
+// # define INPUT "<"
+// # define HEREDOC "<<"
+// # define TRUNC ">"
+// # define APPEND ">>"
+// # define PIPE "|"
+// # define NEW_LINE "newline"
 
 # define HEREDOCFILE ".heredoc.tmp"
 
@@ -84,7 +85,7 @@ void		ft_env(t_data *data, t_command *cmd);
 void		ft_exit(t_data *data, t_command *cmd, int p);
 void		compare_var(char **str1, char **str2);
 int			assign_value(t_env_var *tmp_var, char **tab, int i);
-void		ft_export(t_data *data, t_command *cmd);
+int			ft_export(t_data *data, t_command *cmd);
 void		ft_pwd(void);
 void		ft_unset(t_data *data, t_command *cmd);
 
@@ -96,7 +97,7 @@ void		fd_handler(t_command *cmd, int output, int input);
 void		wait_for_all(t_data *data);
 int			try_execute(char *path, t_env_var *env_var, \
 						char **cmds);
-void		ft_execute(t_data *data);
+int			ft_execute(t_data *data);
 int			is_executable(char *cmd);
 void		exec_executable(t_data *data, t_command *cmd);
 char		*create_path(char *path, char *cmd);

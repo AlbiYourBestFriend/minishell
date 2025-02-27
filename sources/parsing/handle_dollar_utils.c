@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 16:28:16 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/26 19:23:16 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/27 15:35:20 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	put_exit_status(t_data *data, char *str, int *i_n)
 		i++;
 	}
 	free(exit);
-	i_n[1] += 2;
+	i_n[0] += 2;
 	return (1);
 }
 

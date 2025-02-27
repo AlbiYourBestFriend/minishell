@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:31:22 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/21 12:27:40 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/27 16:34:22 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ void	ft_pwd(void)
 	}
 	else
 	{
-		perror("erreur");
+		printf("%s%s\n", ERREUR, ALLOC_ERR);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:31:02 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/26 11:57:37 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/27 16:22:38 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	ft_cd(t_data *data, t_command *cmd)
 	t_env_var	*tmp_env;
 
 	if (tab_len(cmd->args) > 2)
-		perror("too many arguments");
+		printf("%s%s: too many arguments\n", ERREUR, cmd->args[0]);
 	else if (tab_len(cmd->args) == 1)
 		root_return(data);
 	else if (tab_len(cmd->args) == 2)
@@ -105,7 +105,7 @@ void	ft_cd(t_data *data, t_command *cmd)
 		if (tmp == NULL)
 			return ;
 		if (chdir(tmp) == -1)
-			perror("directory not found");
+			printf("%s%s: directory not found", ERREUR, cmd->args[0]);
 		else
 		{
 			tmp_env = get_env_var(data, "PWD");

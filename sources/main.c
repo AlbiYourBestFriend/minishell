@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/27 14:40:34 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/27 17:34:14 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	build_command(t_data *data, char *cmd_line)
 	free(cmd_line);
 	if (data->splitted_cmds == NULL)
 	{
-		printf("Erreur");
+		printf("%s%s\n", ERREUR, ALLOC_ERR);
 		return ;
 	}
 	while (data->splitted_cmds[index] != NULL)
@@ -52,14 +52,14 @@ static int	handle_cmd_line_extension(t_data *data, char *cmd_line)
 {
 	if (cmd_line == NULL)
 	{
-		printf("syntax error: unexpected end of file\n");
+		printf("%ssyntax error: unexpected end of file\n", ERREUR);
 		handle_ctrl_d(data);
 	}
 	add_history(cmd_line);
 	if (check_quotes(cmd_line) != 0)
 	{
-		printf("unexpected end of file near \
-`%c'\n", (char)check_quotes(cmd_line));
+		printf("%sunexpected end of file near `%c'\n", \
+				ERREUR, (char)check_quotes(cmd_line));
 		free(cmd_line);
 		return (0);
 	}
@@ -85,7 +85,8 @@ static void	handle_cmd_line(t_data *data, char *cmd_line)
 		else if (str[0] != '\0')
 		{
 			g_exit_status = 2;
-			printf("syntax error near unexpected token `%s'\n", token);
+			printf("%ssyntax error near unexpected token `%s'\n", \
+					ERREUR, token);
 			free(str);
 		}
 	}
