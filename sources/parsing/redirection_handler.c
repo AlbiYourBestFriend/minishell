@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:08:49 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/27 13:06:13 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/27 13:31:36 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,16 @@ static int	skip_quotes(char *cmd_line, int i)
 
 static char *clean_file_name(t_data *data, char *temp)
 {
-	char	*file_args;
 	char	*file_name;
+	char	**file_args;
 
 	
-	file_name = handle_dollar();
-	if (!file_name)
+	file_name = handle_dollars(data, temp);
+	if (file_name == NULL)
 		return (NULL);
 	file_args = split_cmd_line(file_name, ' ');
 	free(file_name);
-	if (!file_args)
+	if (file_args == NULL)
 		return (printf("minishell: %s\n", ALLOC_ERR), NULL);
 	else if (tab_len(file_args) != 1)
 	{

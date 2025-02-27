@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/25 15:56:23 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/27 14:40:34 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,18 @@ static void	build_command(t_data *data, char *cmd_line)
 		cmdadd_back(&data->commands, cmdnew(data->splitted_cmds[index]));
 		index++;
 	}
+	free_tab(data->splitted_cmds);
+	data->splitted_cmds = NULL;
 	temp = data->commands;
 	ft_execute(data);
 	free_cmds(data);
-	free_tab(data->splitted_cmds);
-	data->splitted_cmds = NULL;
 }
 
 static void	handle_ctrl_d(t_data *data)
 {
 	g_exit_status = 2;
-	rl_clear_history();
-	free_data(data);
 	printf("exit\n");
-	exit(g_exit_status);
+	ft_free_all_exit(data, g_exit_status);
 }
 
 static int	handle_cmd_line_extension(t_data *data, char *cmd_line)

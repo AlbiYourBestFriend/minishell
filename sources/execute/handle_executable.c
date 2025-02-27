@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_executable.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 13:55:23 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/26 12:48:34 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/27 13:29:49 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,7 @@ static void	exec_executable_utils(t_data *data, t_command *cmd, t_env_var *tmp)
 	if (path == NULL)
 	{
 		perror("Malloc error");
-		free_data(data);
-		rl_clear_history();
-		exit(1);
+		ft_free_all_exit(data, 1);
 	}
 	if (access(path, F_OK | X_OK) == 0)
 	{
@@ -57,23 +55,17 @@ void	exec_executable(t_data *data, t_command *cmd)
 	t_env_var	*tmp;
 
 	if (try_execute(&cmd->args[0][1], \
-	data->env_variables, cmd->args, data) == 0)
+	data->env_variables, cmd->args) == 0)
 	{
-		free_data(data);
-		rl_clear_history();
-		exit(1);
+		ft_free_all_exit(data, 1);
 	}
 	tmp = get_env_var(data, "PWD");
 	if (tmp == NULL)
 	{
 		printf("pwd not found\n");
-		free_data(data);
-		rl_clear_history();
-		exit(1);
+		ft_free_all_exit(data, 1);
 	}
 	exec_executable_utils(data, cmd, tmp);
 	perror(cmd->args[0]);
-	free_data(data);
-	rl_clear_history();
-	exit(1);
+	ft_free_all_exit(data, 1);
 }

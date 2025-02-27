@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:21:36 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/26 18:49:09 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/27 14:38:21 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,15 @@ void	free_cmds(t_data *data)
 	{
 		free_tab(temp->args);
 		if (temp->cmd_line != NULL)
+		{
 			free(temp->cmd_line);
+			temp->cmd_line = NULL;
+		}
 		to_free = temp;
 		temp = temp->next;
 		to_free->next = NULL;
 		free(to_free);
+		to_free = NULL;
 	}
 	data->commands = NULL;
 }
@@ -38,7 +42,9 @@ t_command	*cmdnew(char *cmd_line)
 	list = malloc(sizeof(t_command));
 	if (list == NULL)
 		return (NULL);
-	list->cmd_line = cmd_line;
+	list->cmd_line = ft_strdup(cmd_line);
+	if (list->cmd_line == NULL)
+		return (free(list), NULL);
 	list->input_fd = 0;
 	list->output_fd = 1;
 	list->args = NULL;

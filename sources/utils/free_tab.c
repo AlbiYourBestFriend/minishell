@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 18:31:34 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/19 17:12:36 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/27 14:29:08 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,12 @@ void	free_tab(char **tab)
 	i = 0;
 	if (tab == NULL)
 		return ;
-	while (tab[i])
+	while (tab[i] != NULL)
 	{
 		free(tab[i]);
+		tab[i] = NULL;
 		i++;
 	}
 	free(tab);
+	tab = NULL;
 }

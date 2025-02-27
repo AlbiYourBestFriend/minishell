@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:26:03 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/27 13:19:14 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/27 14:02:30 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,6 @@ char	*handle_quotes(char *arg_i)
 			n++;
 		}
 	}
-	new_arg[j] = '\0';
+	new_arg[n] = '\0';
 	return (new_arg);
 }

@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:26:00 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/26 19:56:33 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/27 14:10:43 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ static char	*handle_dollar_copy_str(t_data *data, char *cmd, int n)
 	i_n[1] = 0;
 	str = malloc((n + 1) * sizeof(char));
 	if (str == NULL)
-		return (free(cmd), NULL);
+		return (NULL);
 	if (put_char_to_str(data, cmd, str, i_n) == 0)
-		return (free(cmd), free(str), NULL);
+		return (free(str), NULL);
 	return (str);
 }
 
@@ -76,7 +76,7 @@ char	*handle_dollars(t_data *data, char *cmd)
 			i++;
 		}
 		if (n == -1)
-			return (free(cmd), NULL);
+			return (NULL);
 	}
 	return (handle_dollar_copy_str(data, cmd, n));
 }
