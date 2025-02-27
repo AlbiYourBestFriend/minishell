@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:08:49 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/26 20:01:19 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/27 13:06:13 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ static int	handle_redirection(t_data *data, t_command *cmd, int *i)
 int	read_redirection(t_data *data, t_command *cmd)
 {
 	// char	*new_arg;
-	char	**args;
 	int		index;
 	int		result;
 
@@ -128,11 +127,5 @@ int	read_redirection(t_data *data, t_command *cmd)
 		if (result == 0)
 			return (0);
 	}
-	cmd->cmd_line = handle_dollars(data, cmd->cmd_line);
-	if (cmd->cmd_line == NULL)
-		return (0);
-	args = split_cmd_line(cmd->cmd_line, ' ');
-	if (args == NULL || handle_quotes(cmd, args, 0) == 0)
-		return (0);
 	return (1);
 }

@@ -30,6 +30,7 @@ SOURCES	=	ft_cd_utils.c \
 			handle_quote.c \
 			here_doc.c \
 			is_complete_cmd_line.c \
+			process_cmd_line.c \
 			new_readline_join_cmd.c \
 			open_files.c \
 			redirection_handler.c \
@@ -45,6 +46,7 @@ SOURCES	=	ft_cd_utils.c \
 			free_data.c \
 			free_env_var.c \
 			free_tab.c \
+			ft_free_all_exit.c \
 			ft_is_atoi.c \
 			get_next_word.c \
 			get_word_count.c \
