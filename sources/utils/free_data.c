@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:20:59 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/21 12:27:40 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/27 14:36:15 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	free_data(t_data *data)
 	if (data == NULL)
 		return ;
 	free_cmds(data);
-	free_tab(data->splitted_cmds);
+	if (data->splitted_cmds != NULL)
+		free_tab(data->splitted_cmds);
 	var = data->env_variables;
 	while (data->env_variables != NULL)
 	{
@@ -27,4 +28,5 @@ void	free_data(t_data *data)
 		free_env_var(data->env_variables);
 		data->env_variables = var;
 	}
+	data = NULL;
 }

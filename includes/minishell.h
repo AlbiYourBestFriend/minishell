@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/27 13:19:14 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/27 13:29:49 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int			init_builtins(t_data *data, t_command *cmd);
 void		fd_handler(t_command *cmd, int output, int input);
 void		wait_for_all(t_data *data);
 int			try_execute(char *path, t_env_var *env_var, \
-						char **cmds, t_data *data);
+						char **cmds);
 void		ft_execute(t_data *data);
 int			is_executable(char *cmd);
 void		exec_executable(t_data *data, t_command *cmd);

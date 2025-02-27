@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 19:19:48 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/26 19:33:16 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/27 14:04:48 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	get_len_double_quote(t_data *data, char *cmd, int *i, int n)
 			(*i)++;
 			len++;
 		}
-		if (len == n - 1)
+		if (len == - n - 1)
 			return (-1);
 	}
 	(*i)++;

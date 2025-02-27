@@ -6,13 +6,13 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:59:12 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/27 13:08:14 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/27 13:29:49 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	try_execute(char *path, t_env_var *env_var, char **cmds, t_data *data)
+int	try_execute(char *path, t_env_var *env_var, char **cmds)
 {
 	char	**tab;
 
@@ -22,8 +22,6 @@ int	try_execute(char *path, t_env_var *env_var, char **cmds, t_data *data)
 		execve(path, cmds, tab);
 		free_tab(tab);
 		perror("Execve failed");
-		free_data(data);
-		rl_clear_history();
 		if (path != NULL)
 			free(path);
 		return (0);
@@ -38,8 +36,8 @@ static void	command_executor(t_data *data, t_command *cmd)
 	int		index;
 
 	index = 0;
-	if (try_execute(cmd->args[0], data->env_variables, cmd->args, data) == 0)
-		exit(1);
+	if (try_execute(cmd->args[0], data->env_variables, cmd->args) == 0)
+		ft_free_all_exit(data, 1);
 	paths = ft_split(getenv("PATH"), ':');
 	if (paths == NULL)
 		return (perror("Erreur"));
@@ -48,10 +46,10 @@ static void	command_executor(t_data *data, t_command *cmd)
 		path = create_path(paths[index], cmd->args[0]);
 		if (path == NULL)
 			return (free_tab(paths), perror("Erreur"));
-		if (try_execute(path, data->env_variables, cmd->args, data) == 0)
+		if (try_execute(path, data->env_variables, cmd->args) == 0)
 		{
 			free_tab(paths);
-			exit(1);
+			ft_free_all_exit(data, 1);
 		}
 		free(path);
 		index++;
@@ -74,16 +72,16 @@ void	fork_handler(t_data *data, t_command *cmd, int *pipefd)
 		else
 			fd_handler(cmd, cmd->output_fd, -2);
 		if (cmd->input_fd != 0 && dup2(cmd->input_fd, 0) == -1)
-			ft_exit(data, cmd, 0);
+			ft_free_all_exit(data, 1);
 		if (cmd->output_fd != 1 && dup2(cmd->output_fd, 1) == -1)
-			ft_exit(data, cmd, 0);
+			ft_free_all_exit(data, 1);
 		if (check_if_builtins(cmd) == 1)
 			execute_builtins(data, cmd);
 		else if (is_executable(cmd->args[0]) == 1)
 			exec_executable(data, cmd);
 		else
 			command_executor(data, cmd);
-		ft_exit(data, cmd, 0);
+		ft_free_all_exit(data, 1);
 	}
 	else if (cmd->input_fd != 0)
 		close(cmd->input_fd);
