@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:13:48 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/25 16:26:12 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/10 18:44:05 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ static void	put_env_to_data(t_data *data, char **env)
 	while (env[i] != NULL)
 	{
 		new_var = new_env_var(env[i]);
+		if (ft_strncmp(new_var->name, "USER", 4) && ft_strlen(new_var->name) == 4)
+			data->username = ft_strdup(new_var->value);
 		last_var->next = new_var;
 		last_var = last_var->next;
 		i++;
