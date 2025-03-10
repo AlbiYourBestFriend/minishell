@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 16:28:12 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/25 16:26:36 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/10 18:51:00 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,32 @@ void	root_return(t_data *data)
 		tmp->value[0] = '/';
 		tmp->value[1] = '\0';
 		tmp = get_env_var(data, "OLDPWD");
-		root_return_utils(tmp, pwd);
+		return_home_user_utils(tmp, pwd);
 	}
 	else
 		perror("pwd not found in env");
+}
+
+void	return_home_user(t_data *data)
+{
+	int			n;
+	t_env_var	*tmp;
+
+	tmp = get_env_var(data, "PWD");
+	if (tmp == NULL)
+		return ;
+	n = count_char(tmp->value, '/');
+	while (n > 0)
+	{
+		chdir("..");
+		n--;
+	}
+	if (access("home", F_OK) == 0)
+	{
+		if (access(data->username, F_OK) == 0)
+		{
+			chdir("home");
+			chdir(data->username);
+		}
+	}
 }

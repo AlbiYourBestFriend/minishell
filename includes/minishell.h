@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/27 16:43:32 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/10 19:54:54 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@
 typedef struct s_data
 {
 	t_env_var	*env_variables;
+	char		*username;
 	t_command	*commands;
 	char		**splitted_cmds;
 	int			count_line;
@@ -79,6 +80,7 @@ extern volatile int	g_exit_status;
 
 // Builtins
 void		root_return(t_data *data);
+void		return_home_user(t_data *data);
 void		ft_cd(t_data *data, t_command *cmd);
 void		ft_echo(t_command *cmd);
 void		ft_env(t_data *data, t_command *cmd);
