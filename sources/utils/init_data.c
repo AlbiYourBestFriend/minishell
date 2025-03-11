@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:13:48 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/10 18:44:05 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/11 15:22:44 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void	put_env_to_data(t_data *data, char **env)
 	while (env[i] != NULL)
 	{
 		new_var = new_env_var(env[i]);
-		if (ft_strncmp(new_var->name, "USER", 4) && ft_strlen(new_var->name) == 4)
+		if (ft_strncmp(new_var->name, "USER", 4) == 0 && ft_strlen(new_var->name) == 4)
 			data->username = ft_strdup(new_var->value);
 		last_var->next = new_var;
 		last_var = last_var->next;
@@ -87,6 +87,7 @@ t_data	init_data(char **env)
 {
 	t_data	data;
 
+	data.username = NULL;
 	data.commands = NULL;
 	data.splitted_cmds = NULL;
 	data.count_line = 0;
