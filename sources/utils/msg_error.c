@@ -1,36 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_data.c                                        :+:      :+:    :+:   */
+/*   msg_error.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/12 17:20:59 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/12 14:22:45 by mleproux         ###   ########.fr       */
+/*   Created: 2025/03/10 15:01:53 by mleproux          #+#    #+#             */
+/*   Updated: 2025/03/11 12:04:06 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	free_data(t_data *data)
+void	allocate_error(t_data *data, char *err)
 {
-	t_env_var	*var;
-	
-	if (data == NULL)
-		return ;
-	free_cmds(data);
-	if (data->splitted_cmds != NULL)
-		free_tab(data->splitted_cmds);
-	var = data->env_variables;
-	while (data->env_variables != NULL)
-	{
-		var = data->env_variables->next;
-		free_env_var(data->env_variables);
-		data->env_variables = var;
-	}
-	if (data->program_path)
-		free(data->program_path);
-	if (data->tmp_path)
-		free(data->tmp_path);
-	data = NULL;
+	data->exit_status = 1;
+	printf("%s%s\n", ERREUR, err);
+}
+
+void	nofile_error(t_data *data, char *err, char *filename)
+{
+	data->exit_status = 1;
+	printf("%s%s: %s\n", ERREUR, filename, err);
 }

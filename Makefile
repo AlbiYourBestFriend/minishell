@@ -4,8 +4,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 OTHER_FLAGS = -lreadline -lncurses
 
-SOURCES	=	ft_cd_utils_2.c \
-			ft_cd_utils.c \
+SOURCES	=	ft_cd_utils.c \
 			ft_cd.c \
 			ft_echo.c \
 			ft_env.c \
@@ -34,6 +33,7 @@ SOURCES	=	ft_cd_utils_2.c \
 			process_cmd_line.c \
 			new_readline_join_cmd.c \
 			open_files.c \
+			read_here_doc.c \
 			redirection_handler.c \
 			token_error.c \
 			arglen.c \
@@ -45,6 +45,7 @@ SOURCES	=	ft_cd_utils_2.c \
 			copy_tab.c \
 			count_char.c \
 			free_data.c \
+			get_program_path.c \
 			free_env_var.c \
 			free_tab.c \
 			ft_free_all_exit.c \
@@ -53,9 +54,11 @@ SOURCES	=	ft_cd_utils_2.c \
 			get_word_count.c \
 			init_data.c \
 			lst_to_tab.c \
+			msg_error.c \
 			split_cmd_line_utils.c \
 			split_cmd_line.c \
 			tab_len.c \
+			unlink_tmp.c \
 			main.c \
 
 VPATH = sources:sources/list_handler:sources/utils:sources/parsing:sources/execute:sources/builtins
@@ -69,10 +72,13 @@ OBJECTS		= $(addprefix $(OBJECTS_DIR)/,$(SOURCES:.c=.o))
 LIBFT_DIR = libft
 LIBFT_A = ${LIBFT_DIR}/libft.a
 
+TMP_DIR = .tmp
+
 all: ${NAME}
 
 ${NAME}: ${OBJECTS}
 	@${MAKE} --no-print-directory -C ${LIBFT_DIR}
+	@mkdir -p $(TMP_DIR)
 	${CC} ${CFLAGS} ${OTHER_FLAGS} -o ${NAME} ${OBJECTS} ${LIBFT_A}
 
 $(OBJECTS_DIR)/%.o: %.c

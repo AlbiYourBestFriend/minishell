@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/27 17:34:14 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/12 14:20:38 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,19 @@ static void	build_command(t_data *data, char *cmd_line)
 	free(cmd_line);
 	if (data->splitted_cmds == NULL)
 	{
-		printf("%s%s\n", ERREUR, ALLOC_ERR);
-		return ;
+		data->exit_status = 1;
+		return (printf("%s%s\n", ERREUR, ALLOC_ERR), free_cmds(data));
 	}
 	while (data->splitted_cmds[index] != NULL)
-	{
-		cmdadd_back(&data->commands, cmdnew(data->splitted_cmds[index]));
-		index++;
-	}
+		cmdadd_back(&data->commands, cmdnew(data->splitted_cmds[index++]));
 	free_tab(data->splitted_cmds);
+	if (index != cmdsize(data->commands))
+		return (allocate_error(data, ALLOC_ERR), free_cmds(data));
 	data->splitted_cmds = NULL;
 	temp = data->commands;
 	ft_execute(data);
 	free_cmds(data);
+	unlink_tmp(data);
 }
 
 static void	handle_ctrl_d(t_data *data)
@@ -71,24 +71,25 @@ static void	handle_cmd_line(t_data *data, char *cmd_line)
 	char	*token;
 	char	*str;
 
-	while (is_complete_cmd_line(cmd_line) == 0
-		&& token_error(cmd_line) == 0)
+	while (is_complete_cmd_line(cmd_line) == 0 && token_error(cmd_line) == 0)
 		cmd_line = new_readline_join_cmd(data, cmd_line);
 	if (handle_cmd_line_extension(data, cmd_line) == 0)
 		return ;
 	str = clean_cmd(cmd_line);
-	if (str != NULL)
+	if (!str)
 	{
-		token = token_error(str);
-		if (token == NULL && str[0] != '\0')
-			build_command(data, str);
-		else if (str[0] != '\0')
-		{
-			g_exit_status = 2;
-			printf("%ssyntax error near unexpected token `%s'\n", \
-					ERREUR, token);
-			free(str);
-		}
+		printf("%s%s\n", ERREUR, ALLOC_ERR);
+		data->exit_status = 1;
+	}
+	token = token_error(str);
+	if (token == NULL && str[0] != '\0')
+		build_command(data, str);
+	else if (str[0] != '\0')
+	{
+		g_exit_status = 2;
+		printf("%ssyntax error near unexpected token `%s'\n", \
+				ERREUR, token);
+		free(str);
 	}
 }
 
@@ -98,8 +99,7 @@ int	main(int argc, char **argv, char **env)
 	char	*cmd_line;
 
 	(void)argc;
-	(void)argv;
-	data = init_data(env);
+	data = init_data(env, argv[0]);
 	g_exit_status = 0;
 	while (1)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_quote.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:26:03 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/27 14:02:30 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/11 10:51:35 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,7 @@ static void	put_in_quotes(char *new_arg, int *n, char *arg, int *j)
 	(*j)++;
 }
 
-// n = 0 quand on appelle la fonction sinon elle fait plus de 25 lignes
-char	*handle_quotes(char *arg_i)
+char	*handle_quotes(t_data *data, char *arg_i)
 {
 	int		j;
 	int		n;
@@ -73,7 +72,7 @@ char	*handle_quotes(char *arg_i)
 
 	new_arg = malloc((total_len(arg_i) + 1) * sizeof(char));
 	if (new_arg == NULL)
-		return (NULL);
+		return (allocate_error(data, ALLOC_ERR), NULL);
 	j = 0;
 	n = 0;
 	while (arg_i[j] != '\0')

@@ -6,71 +6,50 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 16:28:12 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/12 14:29:00 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/02/25 16:26:36 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	cd_rm_last(char *pwd)
+static void	root_return_utils(t_env_var *tmp, char *pwd)
 {
-	int	i;
-
-	if (ft_strlen(pwd) == 1 && pwd[0] == '/')
-		return ;
-	if (count_char(pwd, '/') == (int)ft_strlen(pwd))
-		return ;
-	i = 0;
-	while (pwd[i] != '\0')
+	if (tmp != NULL)
 	{
-		i++;
+		if (tmp->value != NULL)
+			free(tmp->value);
+		tmp->value = pwd;
 	}
-	i--;
-	if (pwd[i] == '/')
-		i--;
-	while (pwd[i] != '/')
-	{
-		i--;
-	}
-	if (i != 0)
-		pwd[i] = '\0';
 	else
-		pwd[1] = '\0';
-}
-
-int	check_path_cd(t_data *data, t_env_var *tmp_env_pwd, char **tab)
-{
-	int	i;
-
-	i = 1;
-	if (return_home_user(data) == 0)
-		return (0);
-	while (tab[i] != NULL)
 	{
-		if (access(tab[i], F_OK | X_OK) == 0)
-			chdir(tab[i]);
-		else
-		{
-			while (i >= 0)
-			{
-				chdir("..");
-				i--;
-			}
-			chdir(tmp_env_pwd->value);
-			return (0);
-		}
-		i++;
+		free(pwd);
+		perror("oldpwd not found in env");
 	}
-	return (1);
 }
 
-int	cd_check_chdir(char *tmp)
+void	root_return(t_data *data)
 {
-	if (tmp[0] == '-' && tmp[1] == '\0')
-		return (1);
-	if (tmp[0] == '~' && (tmp[1] == '/' || tmp[1] == '\0'))
-		return (1);
-	if (chdir(tmp) == -1)
-		return (0);
-	return (1);
+	int			n;
+	char		*pwd;
+	t_env_var	*tmp;
+
+	tmp = get_env_var(data, "PWD");
+	if (tmp != NULL && tmp->value != NULL && tmp->value[0] != '\0')
+	{
+		pwd = ft_strdup(tmp->value);
+		if (pwd == NULL)
+			return ;
+		n = 0;
+		while (n < count_char(pwd, '/'))
+		{
+			chdir("..");
+			n++;
+		}
+		tmp->value[0] = '/';
+		tmp->value[1] = '\0';
+		tmp = get_env_var(data, "OLDPWD");
+		root_return_utils(tmp, pwd);
+	}
+	else
+		perror("pwd not found in env");
 }

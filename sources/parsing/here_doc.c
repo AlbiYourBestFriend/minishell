@@ -3,45 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:44:32 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/27 16:34:22 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/12 14:11:52 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	heredoc_put_env_var_fd(t_data *data, char *buffer, int fd, int i)
+static int	heredoc_put_env_var_fd(t_data *data, char *buffer, int fd, int *i)
 {
 	int			j;
 	char		*name;
 	t_env_var	*env_var;
 
 	j = 0;
-	while (buffer[i + j] != '\0' && ft_isspace(buffer[i + j]) == 0)
-	{
+	while (buffer[(*i) + j] != '\0' && ft_isspace(buffer[(*i) + j]) == 0)
 		j++;
-	}
 	name = malloc((j + 1) * sizeof(char));
+	if (!name)
+		return (allocate_error(data, ALLOC_ERR), 0);
 	j = 0;
-	while (buffer[i + j] != '\0' && ft_isspace(buffer[i + j]) == 0)
+	while (buffer[(*i) + j] != '\0' && ft_isspace(buffer[(*i) + j]) == 0)
 	{
-		if (name != NULL)
-			name[j] = buffer[i + j];
+		name[j] = buffer[(*i) + j];
 		j++;
 	}
-	if (name != NULL)
-		name[j] = '\0';
+	name[j] = '\0';
 	env_var = get_env_var(data, name);
 	if (env_var != NULL)
 		ft_putstr_fd(env_var->value, fd);
-	if (name != NULL)
-		free(name);
-	return (j);
+	free(name);
+	(*i) += j;
+	return (1);
 }
 
-static void	write_here_doc(t_data *data, char *buffer, int fd)
+static int	write_here_doc(t_data *data, char *buffer, int fd)
 {
 	int	i;
 
@@ -51,7 +49,8 @@ static void	write_here_doc(t_data *data, char *buffer, int fd)
 		if (buffer[i] == '$')
 		{
 			i++;
-			i = i + heredoc_put_env_var_fd(data, buffer, fd, i);
+			if (heredoc_put_env_var_fd(data, buffer, fd, &i) == 0)
+				return (0);
 		}
 		else
 			ft_putchar_fd(buffer[i], fd);
@@ -60,9 +59,10 @@ static void	write_here_doc(t_data *data, char *buffer, int fd)
 	}
 	ft_putchar_fd('\n', fd);
 	free(buffer);
+	return (1);
 }
 
-static void	get_here_doc(t_data *data, int fd, char *limiter)
+static int	get_here_doc(t_data *data, int fd, char *limiter)
 {
 	char	*buffer;
 	int		tmp_count_line;
@@ -73,45 +73,77 @@ static void	get_here_doc(t_data *data, int fd, char *limiter)
 		buffer = readline("> ");
 		if (buffer == NULL)
 		{
-			printf("warning: here-document at line %d ", data->count_line);
+			printf("%swarning: here-document at line %d ", ERREUR, data->count_line);
 			printf("delimited by end-of-file (wanted `%s')\n", limiter);
 			data->count_line += tmp_count_line;
-			break ;
+			return (1);
 		}
 		if ((ft_strncmp(buffer, limiter, INT_MAX) == 0))
 		{
 			tmp_count_line++;
 			data->count_line += tmp_count_line;
-			break ;
+			free(buffer);
+			return (1);
 		}
 		tmp_count_line++;
-		write_here_doc(data, buffer, fd);
+		if (write_here_doc(data, buffer, fd) == 0)
+			return (free(buffer), 0);
 	}
-	if (buffer != NULL)
-		free(buffer);
+}
+
+char	*open_here_doc_file(t_data *data, int *fd)
+{
+	char	*filename;
+	char	*nbr_char;
+	int		nbr;
+
+	nbr = 1;
+	while (1)
+	{
+		nbr_char = ft_itoa(nbr);
+		if (!nbr_char)
+			return (allocate_error(data, ALLOC_ERR), NULL);
+		filename = ft_strjoin(data->tmp_path, nbr_char);
+		free(nbr_char);
+		if (!filename)
+			return (allocate_error(data, ALLOC_ERR), NULL);
+		if (access(filename, F_OK) == -1)
+		{
+			(*fd) = open(filename, O_CREAT | O_WRONLY, 0644);
+			break ;
+		}
+		free(filename);
+		nbr++;
+	}
+	if ((*fd) == -1)
+		nofile_error(data, FILE_ERR, filename);
+	return (filename);
 }
 
 int	here_doc(t_data *data, int currentfd, char *limiter)
 {
-	int	fd;
+	int		fd;
+	char	*filename;
 
 	if (currentfd > 0)
 		close(currentfd);
-	fd = open(HEREDOCFILE, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	fd = 0;
+	filename = open_here_doc_file(data, &fd);
 	if (fd < 0)
-	{
-		printf("%s%s%s\n", ERREUR, HEREDOCFILE, FILE_ERR);
-		return (fd);
-	}
+		return (free(filename), fd);
 	signal_handler(2);
-	get_here_doc(data, fd, limiter);
+	if (get_here_doc(data, fd, limiter) == 0)
+		return (free(filename), close(fd), -1);
 	signal_handler(1);
 	close(fd);
-	fd = open(HEREDOCFILE, O_RDONLY);
-	if (fd < 0)
+	if (access(filename, O_RDONLY) == -1)
 	{
-		printf("%s%s%s\n", ERREUR, HEREDOCFILE, FILE_ERR);
-		unlink(HEREDOCFILE);
+		nofile_error(data, NO_PERM, filename);
+		return (free(filename), -1);
 	}
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		nofile_error(data, NO_FILE, filename);
+	free(filename);
 	return (fd);
 }

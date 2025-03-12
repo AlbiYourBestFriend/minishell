@@ -1,36 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_data.c                                        :+:      :+:    :+:   */
+/*   unlink_tmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/12 17:20:59 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/12 14:22:45 by mleproux         ###   ########.fr       */
+/*   Created: 2025/03/12 12:15:40 by mleproux          #+#    #+#             */
+/*   Updated: 2025/03/12 14:12:53 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	free_data(t_data *data)
+void	unlink_tmp(t_data *data)
 {
-	t_env_var	*var;
-	
-	if (data == NULL)
-		return ;
-	free_cmds(data);
-	if (data->splitted_cmds != NULL)
-		free_tab(data->splitted_cmds);
-	var = data->env_variables;
-	while (data->env_variables != NULL)
+	int		nbr;
+	char	*nbr_char;
+	char	*temp;
+
+	nbr = 1;
+	while (1)
 	{
-		var = data->env_variables->next;
-		free_env_var(data->env_variables);
-		data->env_variables = var;
+		nbr_char = ft_itoa(nbr);
+		if (!nbr_char)
+			return (allocate_error(data, ALLOC_ERR));
+		temp = ft_strjoin(data->tmp_path, nbr_char);
+		free(nbr_char);
+		if (!temp)
+			return (allocate_error(data, ALLOC_ERR));
+		if (access(temp, F_OK) == -1)
+			break;
+		else if (access(temp, W_OK) == 0)
+			unlink(temp);
+		free(temp);
+		nbr++;
 	}
-	if (data->program_path)
-		free(data->program_path);
-	if (data->tmp_path)
-		free(data->tmp_path);
-	data = NULL;
+	free(temp);
 }

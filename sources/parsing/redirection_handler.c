@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_handler.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:08:49 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/27 17:31:02 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/11 12:04:49 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,21 +36,15 @@ static char	*clean_file_name(t_data *data, char *temp)
 	file_args = split_cmd_line(file_name, ' ');
 	free(file_name);
 	if (file_args == NULL)
-		return (printf("%s%s\n", ERREUR, ALLOC_ERR), NULL);
+		return (allocate_error(data, ALLOC_ERR), NULL);
 	else if (tab_len(file_args) != 1)
 	{
 		printf("%s%s: ambiguous redirect\n", ERREUR, temp);
 		return (free_tab(file_args), free(temp), NULL);
 	}
 	free(temp);
-	file_name = handle_quotes(file_args[0]);
+	file_name = handle_quotes(data, file_args[0]);
 	free_tab(file_args);
-	// file_name = malloc(sizeof(char) * (arglen(data, temp) + 1));
-	// if (file_name == NULL)
-	// 	return (printf("minishell: %s\n", ALLOC_ERR), free(temp), NULL);
-	// file_name = process_argument(data, temp, file_name);
-	// if (file_name == NULL)
-	// 	return (free(temp), NULL);
 	return (file_name);
 }
 
@@ -86,24 +80,15 @@ static int	handle_redirection(t_data *data, t_command *cmd, int *i)
 
 	start = (*i);
 	redirection = check_token(cmd->cmd_line, *i);
-	if (redirection == 1 || redirection == 3)
+	if (redirection == 2 || redirection == 4)
 		(*i)++;
 	(*i)++;
 	filename = get_file_name(data, cmd->cmd_line, i);
 	if (filename == NULL)
 		return (0);
 	blankify(cmd->cmd_line, start, *i);
-	if (redirection == 1)
-		cmd->input_fd = open_file(filename, cmd->input_fd, 0, 0);
-	else if (redirection == 2)
-		cmd->input_fd = here_doc(data, cmd->input_fd, filename);
-	else if (redirection == 3)
-		cmd->output_fd = open_file(filename, cmd->output_fd, 1, 1);
-	else if (redirection == 4)
-		cmd->output_fd = open_file(filename, cmd->output_fd, 1, 0);
-	if (cmd->input_fd == -1 || cmd->output_fd == -1)
-		return (printf("%s%s: No such a file or directory\n", ERREUR, \
-						filename), free(filename), 0);
+	if (open_file(data, cmd, redirection, filename) == 0)
+		return (free(filename), 0);
 	return (free(filename), 1);
 }
 
