@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_here_doc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:03:58 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/12 11:46:30 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/12 17:21:25 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ int	read_heredoc(t_data *data)
 	int			result;
 
 	temp = data->commands;
-
 	while (temp)
 	{
 		index = 0;
@@ -81,7 +80,8 @@ int	read_heredoc(t_data *data)
 		{
 			if (check_token(temp->cmd_line, index) == 2)
 				result = handle_heredoc(data, temp, &index);
-			else if (temp->cmd_line[index] == '\'' || temp->cmd_line[index] == '\"')
+			else if (temp->cmd_line[index] == '\''
+				|| temp->cmd_line[index] == '\"')
 				index = skip_quotes(temp->cmd_line, index);
 			else if (temp->cmd_line[index] != '\0')
 				index++;

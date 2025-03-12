@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   open_files.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:08:49 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/12 16:54:10 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/12 17:19:17 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int		check_input_errors(t_data *data, t_command *cmd, char *filename)
+int	check_input_errors(t_data *data, t_command *cmd, char *filename)
 {
 	if (access(filename, F_OK) == -1)
 	{
@@ -86,4 +86,3 @@ int	open_file(t_data *data, t_command *cmd, int redirection, char *filename)
 		return (0);
 	return (1);
 }
-

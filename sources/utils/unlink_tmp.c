@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unlink_tmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 12:15:40 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/12 14:12:53 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/12 17:20:44 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ void	unlink_tmp(t_data *data)
 	while (1)
 	{
 		nbr_char = ft_itoa(nbr);
-		if (!nbr_char)
+		if (nbr_char == NULL)
 			return (allocate_error(data, ALLOC_ERR));
 		temp = ft_strjoin(data->tmp_path, nbr_char);
 		free(nbr_char);
-		if (!temp)
+		if (temp == NULL)
 			return (allocate_error(data, ALLOC_ERR));
 		if (access(temp, F_OK) == -1)
-			break;
+			break ;
 		else if (access(temp, W_OK) == 0)
 			unlink(temp);
 		free(temp);

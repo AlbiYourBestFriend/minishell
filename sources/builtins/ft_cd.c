@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:31:02 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/12 14:31:59 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/12 20:11:40 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,16 @@ static int	cd_utils_2(t_data *data, t_env_var *tmp_env_pwd, \
 {
 	int		i;
 
-	free(cd_path);
 	if (tab == NULL)
-		return (0);
+		return (free(cd_path), 0);
 	i = -1;
 	if (tab[0][0] == '~' && tab[0][1] == '\0')
 	{
-		if (check_path_cd(data, tmp_env_pwd, tab) == 0)
-			return (free_tab(tab), 0);
+		if (check_path_cd(data, tmp_env_pwd, tab, cd_path) == 0)
+			return (free(cd_path), free_tab(tab), 0);
 		i++;
 	}
+	free(cd_path);
 	while (tab[++i] != NULL)
 	{
 		if (ft_strncmp(tab[i], "..", 2) == 0 && ft_strlen(tab[i]) == 2)
@@ -124,7 +124,7 @@ void	ft_cd(t_data *data, t_command *cmd)
 		if (cd_path == NULL)
 			printf("%s%s\n", ERREUR, ALLOC_ERR);
 		else if (cd_check_chdir(cd_path) == 0)
-			printf("%s%s: %s: directory not found\n", \
+			printf("%s%s: %s: No such file or directory\n", \
 					ERREUR, cmd->args[0], cmd->args[1]);
 		else
 		{

@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:08:23 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/27 17:32:39 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/12 20:20:17 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ int	ft_export(t_data *data, t_command *cmd)
 	int			n;
 	int			i;
 
+	printf("len = %d\n", tab_len(cmd->args));
+	printf("args[0] = %s\n", cmd->args[0]);
 	if (tab_len(cmd->args) == 1)
 		print_export(data);
 	else
