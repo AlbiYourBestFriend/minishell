@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 16:28:12 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/12 14:29:00 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/12 20:12:09 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	cd_rm_last(char *pwd)
 		pwd[1] = '\0';
 }
 
-int	check_path_cd(t_data *data, t_env_var *tmp_env_pwd, char **tab)
+int	check_path_cd(t_data *data, t_env_var *tmp_env_pwd, char **tab, char *cd_path)
 {
 	int	i;
 
@@ -51,6 +51,8 @@ int	check_path_cd(t_data *data, t_env_var *tmp_env_pwd, char **tab)
 			chdir(tab[i]);
 		else
 		{
+			printf("%scd: home/%s%s: No such file or directory\n", \
+					ERREUR, data->username, &cd_path[1]); // erreur msg
 			while (i >= 0)
 			{
 				chdir("..");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:44:32 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/12 16:57:46 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/12 19:12:45 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	heredoc_put_env_var_fd(t_data *data, char *buffer, int fd, int *i)
 	while (buffer[(*i) + j] != '\0' && ft_isspace(buffer[(*i) + j]) == 0)
 		j++;
 	name = malloc((j + 1) * sizeof(char));
-	if (!name)
+	if (name == NULL)
 		return (allocate_error(data, ALLOC_ERR), 0);
 	j = 0;
 	while (buffer[(*i) + j] != '\0' && ft_isspace(buffer[(*i) + j]) == 0)
@@ -73,17 +73,17 @@ static int	get_here_doc(t_data *data, int fd, char *limiter)
 		buffer = readline("> ");
 		if (buffer == NULL)
 		{
-			printf("%swarning: here-document at line %d ", ERREUR, data->count_line);
+			printf("%swarning: here-document at line %d ", \
+					ERREUR, data->count_line);
 			printf("delimited by end-of-file (wanted `%s')\n", limiter);
 			data->count_line += tmp_count_line;
 			return (1);
 		}
-		if ((ft_strncmp(buffer, limiter, INT_MAX) == 0))
+		if (ft_strncmp(buffer, limiter, INT_MAX) == 0)
 		{
 			tmp_count_line++;
 			data->count_line += tmp_count_line;
-			free(buffer);
-			return (1);
+			return (free(buffer), 1);
 		}
 		tmp_count_line++;
 		if (write_here_doc(data, buffer, fd) == 0)
@@ -101,11 +101,11 @@ char	*open_here_doc_file(t_data *data, int *fd)
 	while (1)
 	{
 		nbr_char = ft_itoa(nbr);
-		if (!nbr_char)
+		if (nbr_char == NULL)
 			return (allocate_error(data, ALLOC_ERR), NULL);
 		filename = ft_strjoin(data->tmp_path, nbr_char);
 		free(nbr_char);
-		if (!filename)
+		if (filename == NULL)
 			return (allocate_error(data, ALLOC_ERR), NULL);
 		if (access(filename, F_OK) == -1)
 		{
