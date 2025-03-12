@@ -55,7 +55,11 @@ SOURCES	=	ft_cd_utils_2.c \
 			lst_to_tab.c \
 			split_cmd_line_utils.c \
 			split_cmd_line.c \
+			get_program_path.c \
 			tab_len.c \
+			unlink_tmp.c \
+			msg_error.c \
+			read_here_doc.c \
 			main.c \
 
 VPATH = sources:sources/list_handler:sources/utils:sources/parsing:sources/execute:sources/builtins
@@ -66,6 +70,8 @@ MY_SOURCES	= $(addprefix $(SOURCES_DIR)/,$(SOURCES))
 OBJECTS_DIR	= objects
 OBJECTS		= $(addprefix $(OBJECTS_DIR)/,$(SOURCES:.c=.o))
 
+TMP_DIR = .tmp
+
 LIBFT_DIR = libft
 LIBFT_A = ${LIBFT_DIR}/libft.a
 
@@ -73,6 +79,7 @@ all: ${NAME}
 
 ${NAME}: ${OBJECTS}
 	@${MAKE} --no-print-directory -C ${LIBFT_DIR}
+	@mkdir -p $(TMP_DIR)
 	${CC} ${CFLAGS} ${OTHER_FLAGS} -o ${NAME} ${OBJECTS} ${LIBFT_A}
 
 $(OBJECTS_DIR)/%.o: %.c

@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:24:55 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/20 15:14:54 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/12 17:05:29 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct s_command
 	char				**args;
 	int					input_fd;
 	int					output_fd;
+	int					heredoc_fd;
 	pid_t				pid;
 	struct s_command	*next;
 }			t_command;
