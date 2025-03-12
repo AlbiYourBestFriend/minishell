@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:13:48 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/12 15:01:53 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/12 17:01:00 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,15 +84,17 @@ static void	put_env_to_data(t_data *data, char **env)
 	}
 }
 
-t_data	init_data(char **env)
+t_data	init_data(char **env, char *filelocation)
 {
 	t_data	data;
 
-	data.username = NULL;
 	data.commands = NULL;
 	data.splitted_cmds = NULL;
+	data.program_path = NULL;
+	data.tmp_path = NULL;
 	data.count_line = 0;
 	data.exit_status = 0;
 	put_env_to_data(&data, env);
+	get_program_path(&data, filelocation);
 	return (data);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:59:12 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/27 16:43:32 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/12 16:52:37 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int	ft_execute(t_data *data)
 
 	temp = data->commands;
 	signal_handler(1);
+	read_heredoc(data);
 	if (cmdsize(data->commands) == 1 && init_builtins(data, temp) == 1)
 		return (1);
 	while (temp != NULL)
@@ -112,6 +113,5 @@ int	ft_execute(t_data *data)
 		else
 			temp = temp->next;
 	}
-	wait_for_all(data);
-	return (1);
+	return (wait_for_all(data), 1);
 }

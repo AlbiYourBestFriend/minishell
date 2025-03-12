@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/12 14:29:00 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/12 17:05:04 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,9 @@
 # define DUP2_ERR		"error when duplicate(2) fd"
 # define DUP_ERR		"error when duplicate(1) fd"
 # define INVALID_ID		"not a valid identifier"
-# define FILE_ERR		"error in opening file"
+# define FILE_ERR		"Error in opening file"
+# define NO_FILE		"No such file or directory"
+# define NO_PERM		"Permission denied"
 
 // # define ENV_ERR		"no environment detected"
 // # define ARGC_ERR		"wrong number of argument"
@@ -63,14 +65,16 @@
 // # define PIPE "|"
 // # define NEW_LINE "newline"
 
-# define HEREDOCFILE ".heredoc.tmp"
+# define HEREDOCFILE ".tmp/heredoc"
 
 typedef struct s_data
 {
 	t_env_var	*env_variables;
-	char		*username;
 	t_command	*commands;
 	char		**splitted_cmds;
+	char		*program_path;
+	char		*tmp_path;
+	char		*username;
 	int			count_line;
 	int			exit_status;
 }			t_data;
@@ -80,10 +84,6 @@ extern volatile int	g_exit_status;
 
 // Builtins
 void		root_return(t_data *data);
-int			return_home_user(t_data *data);
-void		cd_rm_last(char *pwd);
-int			check_path_cd(t_data *data, t_env_var *tmp_env_pwd, char **tab);
-int			cd_check_chdir(char *tmp);
 void		ft_cd(t_data *data, t_command *cmd);
 void		ft_echo(t_command *cmd);
 void		ft_env(t_data *data, t_command *cmd);
@@ -127,14 +127,19 @@ char		*get_env_var_name(char *cmd);
 char		*get_env_var_value(char *cmd);
 t_env_var	*modif_env_var(t_data *data, char *name, char *value, int n);
 t_env_var	*handle_env_var(t_data *data, char *cmd, int n);
-char		*handle_quotes(char *arg);
+char		*handle_quotes(t_data *data, char *arg);
 int			here_doc(t_data *data, int currentfd, char *limiter);
+int			read_heredoc(t_data *data);
 int			is_complete_cmd_line(char *cmd);
 int			process_cmd_line(t_data *data, t_command *cmd);
 char		*new_readline_join_cmd(t_data *data, char *cmd);
-int			open_file(char *filename, int currentfd, int isoutput, int dotrunc);
+int			open_file(t_data *data, t_command *cmd, int redirection, char *filename);
 int			read_redirection(t_data *data, t_command *cmd);
 char		*token_error(char *cmd);
+int			return_home_user(t_data *data);
+int			check_path_cd(t_data *data, t_env_var *tmp_env_pwd, char **tab);
+void		cd_rm_last(char *pwd);
+int			cd_check_chdir(char *tmp);
 
 // Utils
 int			exit_status_len(t_data *data, int *i);
@@ -150,8 +155,7 @@ char		*exit_status_write(t_data *data, char *new_arg, int *index);
 int			check_token(char *cmd_line, int i);
 char		*exit_status_write(t_data *data, char *new_arg, int *index);
 char		*env_var_write(t_data *data, char *arg, char *new_arg, int *index);
-char		*double_quote_write(t_data *data, \
-								char *arg, char *new_arg, int *index);
+char		*double_quote_write(t_data *data, char *arg, char *new_arg, int *index);
 char		*single_quote_write(char *arg, char *new_arg, int *index);
 char		*process_argument(t_data *data, char *arg, char *new_arg);
 char		*clean_cmd(char *cmd);
@@ -163,12 +167,16 @@ void		free_env_var(t_env_var *env_var);
 void		free_tab(char **tab);
 void		ft_free_all_exit(t_data *data, int exit_status);
 int			ft_is_atoi(char *str);
-t_data		init_data(char **env);
+t_data		init_data(char **env, char *filelocation);
+void		get_program_path(t_data *data, char *argv0);
 int			get_word_count(char *str);
 char		*get_next_word(char *str, int *index);
 char		**lst_to_tab(t_env_var *env_var);
+void		allocate_error(t_data *data, char *err);
+void		nofile_error(t_data *data, char *err, char *filename);
 int			ft_check(char **tab, char *line, char c, int k);
 char		**split_cmd_line(char *line, char c);
 int			tab_len(char **tab);
+void		unlink_tmp(t_data *data);
 
 #endif
