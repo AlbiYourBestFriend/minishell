@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_lst.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:21:36 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/12 11:04:11 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/27 14:38:21 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ void	free_cmds(t_data *data)
 			free(temp->cmd_line);
 			temp->cmd_line = NULL;
 		}
-		if (temp->heredoc_fd > 0)
-			close(temp->heredoc_fd);
 		to_free = temp;
 		temp = temp->next;
 		to_free->next = NULL;
@@ -49,7 +47,6 @@ t_command	*cmdnew(char *cmd_line)
 		return (free(list), NULL);
 	list->input_fd = 0;
 	list->output_fd = 1;
-	list->heredoc_fd = 0;
 	list->args = NULL;
 	list->next = NULL;
 	return (list);

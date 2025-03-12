@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_executable.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 13:55:23 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/12 11:39:18 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/02/27 17:29:14 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ static void	exec_executable_utils(t_data *data, t_command *cmd, t_env_var *tmp)
 	char	**tab;
 
 	i = 1;
-	write(1, "g", 1);
 	if (ft_strlen(tmp->value) - i > 0
 		&& tmp->value[ft_strlen(tmp->value) - i] == '/')
 		i++;
