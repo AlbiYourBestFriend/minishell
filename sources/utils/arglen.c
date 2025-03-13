@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arglen.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 11:01:32 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/13 11:41:12 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:21:06 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	env_var_len(t_data *data, char *arg, int *i, int len)
 		j++;
 	name = ft_substr(arg, *i, j);
 	if (name == NULL)
-		return (-1);
+		return (allocate_error(ALLOC_ERR), -1);
 	env_var = get_env_var(data, name);
 	(*i) += j;
 	if (env_var != NULL)

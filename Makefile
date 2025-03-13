@@ -18,6 +18,7 @@ SOURCES	=	ft_cd_utils_2.c \
 			ft_execute_utils.c \
 			ft_execute.c \
 			handle_executable.c \
+			open_files.c \
 			path_handler.c \
 			signal_handler.c \
 			command_lst.c \
@@ -31,9 +32,9 @@ SOURCES	=	ft_cd_utils_2.c \
 			handle_quote.c \
 			here_doc.c \
 			is_complete_cmd_line.c \
-			process_cmd_line.c \
 			new_readline_join_cmd.c \
-			open_files.c \
+			process_cmd_line.c \
+			read_here_doc.c \
 			redirection_handler.c \
 			token_error.c \
 			arglen.c \
@@ -53,13 +54,12 @@ SOURCES	=	ft_cd_utils_2.c \
 			get_word_count.c \
 			init_data.c \
 			lst_to_tab.c \
+			msg_error.c \
 			split_cmd_line_utils.c \
 			split_cmd_line.c \
 			get_program_path.c \
 			tab_len.c \
 			unlink_tmp.c \
-			msg_error.c \
-			read_here_doc.c \
 			main.c \
 
 VPATH = sources:sources/list_handler:sources/utils:sources/parsing:sources/execute:sources/builtins

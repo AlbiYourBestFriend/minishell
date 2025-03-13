@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_dollar_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 16:28:16 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/13 13:41:51 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:35:48 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	put_exit_status(char *str, int *i_n)
 	exit = ft_itoa(g_exit_status);
 	if (exit == NULL)
 	{
+		allocate_error(ALLOC_ERR);
 		return (0);
 	}
 	while (exit[i] != '\0')
@@ -70,7 +71,7 @@ int	put_env_var_value(t_data *data, char *cmd, char *str, int *i_n)
 		j++;
 	name = ft_substr(cmd, i_n[0], j);
 	if (name == NULL)
-		return (0);
+		return (allocate_error(ALLOC_ERR), 0);
 	i_n[0] += j;
 	env_var = get_env_var(data, name);
 	if (env_var != NULL)

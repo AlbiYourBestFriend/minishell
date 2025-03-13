@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 15:43:45 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/13 13:44:54 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:35:48 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	*get_env_var_name(char *cmd)
 		j--;
 	name = malloc((i - j - n + 1) * sizeof(char));
 	if (name == NULL)
-		return (printf("%s%s\n", ERREUR, ALLOC_ERR), NULL);
+		return (allocate_error(ALLOC_ERR), NULL);
 	i = 0;
 	while (cmd[++j] != '=' && cmd[j] != '\0')
 		copy_str(cmd, &j, name, &i);
@@ -122,7 +122,7 @@ char	*get_env_var_value(char *cmd)
 	}
 	value = malloc((n + 2) * sizeof(char));
 	if (value == NULL)
-		return (printf("%s%s\n", ERREUR, ALLOC_ERR), NULL);
+		return (allocate_error(ALLOC_ERR), NULL);
 	n = 0;
 	while (cmd[++j] != '\0')
 		copy_str(cmd, &j, value, &n);

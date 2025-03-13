@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 18:05:52 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/26 12:27:37 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:21:06 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,11 @@ t_env_var	*modif_env_var(t_data *data, char *name, char *value, int n)
 			if (value == NULL)
 				env_var->value = NULL;
 			else
+			{
 				env_var->value = ft_strdup(value);
+				if (env_var->value == NULL)
+					return (allocate_error(ALLOC_ERR), NULL);
+			}
 		}
 		else
 			env_var->status = 1;
