@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:44:32 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/13 11:46:08 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/13 17:39:00 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static int	get_here_doc(t_data *data, int fd, char *limiter)
 		if (buffer == NULL)
 		{
 			printf("%swarning: here-document at line %d ", \
-					ERREUR, data->count_line);
+					ERROR, data->count_line);
 			printf("delimited by end-of-file (wanted `%s')\n", limiter);
 			data->count_line += tmp_count_line;
 			return (1);
@@ -143,7 +143,7 @@ int	here_doc(t_data *data, int currentfd, char *limiter)
 	}
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-		nofile_error(NO_FILE, filename);
+		nofile_error(NO_FILE_DIR, filename);
 	free(filename);
 	return (fd);
 }

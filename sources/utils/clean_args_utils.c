@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:00:16 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/13 14:21:06 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/13 17:43:33 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ char	*env_var_write(t_data *data, char *arg, char *new_arg, int *index)
 		&& arg[index[0] + j] != '\"' && arg[index[0] + j] != '\'')
 		j++;
 	name = ft_substr(arg, index[0], j);
-	if (name == NULL)
-		return (allocate_error(ALLOC_ERR), NULL); // free le new_arg? free(new_arg);
+	if (name == NULL) // free le new_arg? free(new_arg);
+		return (allocate_error(ALLOC_ERR), NULL);
 	env_var = get_env_var(data, name);
 	free(name);
 	index[0] += j;

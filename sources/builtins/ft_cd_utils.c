@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 16:28:12 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/13 12:39:47 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/13 17:39:00 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	cd_rm_last(char *pwd)
 
 // check si le chemin d'acces existe et peut etre accede
 // si oui on y va
-// sinon ERREUR
+// sinon ERROR
 int	check_path_cd(t_data *data, t_env_var *tmp_env_pwd, \
 					char **tab, char *cd_path)
 {
@@ -56,8 +56,8 @@ int	check_path_cd(t_data *data, t_env_var *tmp_env_pwd, \
 			chdir(tab[i]);
 		else
 		{
-			printf("%scd: home/%s%s: No such file or directory\n", \
-					ERREUR, data->username, &cd_path[1]);
+			printf("%scd: home/%s%s: %s\n", \
+					ERROR, data->username, &cd_path[1], NO_FILE_DIR);
 			while (i >= 0)
 			{
 				chdir("..");
@@ -78,6 +78,6 @@ int	cd_check_chdir(char *tmp)
 	if (tmp[0] == '~' && (tmp[1] == '/' || tmp[1] == '\0'))
 		return (1);
 	if (chdir(tmp) == -1)
-		return (0);
+		return (free(tmp), 0);
 	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_files.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:08:49 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/13 11:49:39 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/13 17:39:00 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	check_input_errors(t_command *cmd, char *filename)
 	if (access(filename, F_OK) == -1)
 	{
 		cmd->input_fd = -1;
-		nofile_error(NO_FILE, filename);
+		nofile_error(NO_FILE_DIR, filename);
 		return (0);
 	}
 	if (access(filename, O_RDONLY) == -1)
@@ -42,7 +42,7 @@ void	open_in(t_command *cmd, int redirection, char *filename)
 		}
 		cmd->input_fd = dup(cmd->heredoc_fd);
 		if (cmd->input_fd == -1)
-			printf("%s Dup failed", ERREUR);
+			printf("%s Dup failed", ERROR);
 		return ;
 	}
 	if (check_input_errors(cmd, filename) == 0)

@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 13:55:23 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/13 14:35:48 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/13 17:42:54 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ static void	exec_executable_utils(t_data *data, t_command *cmd, t_env_var *tmp)
 	if (access(path, F_OK | X_OK) == 0)
 	{
 		tab = lst_to_tab(data->env_variables);
-		if (tab == NULL)
-			return ; // a gerer
+		if (tab == NULL) // a gerer
+			return ;
 		execve(path, cmd->args, tab);
 		free_tab(tab);
 	}
@@ -68,6 +68,6 @@ void	exec_executable(t_data *data, t_command *cmd)
 		ft_free_all_exit(data, 1);
 	}
 	exec_executable_utils(data, cmd, tmp);
-	printf("%s%s: No such file or directory\n", ERREUR, cmd->args[0]);
+	printf("%s%s: %s\n", ERROR, cmd->args[0], NO_FILE_DIR);
 	ft_free_all_exit(data, 1);
 }

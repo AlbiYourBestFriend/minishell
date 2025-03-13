@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 19:19:48 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/13 14:35:48 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/13 19:57:02 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	len_env_var_value(t_data *data, char *cmd, int *i, int n)
 	if (l != -1)
 		return (l);
 	while (cmd[(*i) + j] != '\0' && ft_isspace(cmd[(*i) + j]) == 0
-		&& cmd[(*i) + j] != '\"' && cmd[(*i) + j] != '\'')
+		&& cmd[(*i) + j] != '\"' && cmd[(*i) + j] != '\'' && cmd[(*i) + j] != '$')
 		j++;
 	name = ft_substr(cmd, *i, j);
 	if (name == NULL)
