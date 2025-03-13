@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 12:20:14 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/26 14:38:59 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/13 13:49:49 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static	t_env_var	*new_env_var(char *name, char *value, int status)
 
 	new_env_var = malloc(sizeof(t_env_var));
 	if (new_env_var == NULL)
-		return (NULL);
+		return (allocate_error(data, ALLOC_ERR), NULL);
 	new_env_var->name = name;
 	new_env_var->value = value;
 	new_env_var->status = status;
@@ -52,7 +52,11 @@ t_env_var	*add_env_var(t_data *data, char *name, char *value)
 	if (name == NULL)
 		return (NULL);
 	if (value != NULL)
+	{
 		tmp_value = ft_strdup(value);
+		if (tmp_value == NULL)
+			return (allocate_error(data, ALLOC_ERR), NULL);
+	}
 	new_var = new_env_var(name, tmp_value, 0);
 	if (data->env_variables == NULL)
 		data->env_variables = new_var;

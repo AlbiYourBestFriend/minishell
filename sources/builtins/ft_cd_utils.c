@@ -6,12 +6,13 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 16:28:12 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/12 20:12:09 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/13 12:39:47 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+// handle cd ..
 void	cd_rm_last(char *pwd)
 {
 	int	i;
@@ -38,7 +39,11 @@ void	cd_rm_last(char *pwd)
 		pwd[1] = '\0';
 }
 
-int	check_path_cd(t_data *data, t_env_var *tmp_env_pwd, char **tab, char *cd_path)
+// check si le chemin d'acces existe et peut etre accede
+// si oui on y va
+// sinon ERREUR
+int	check_path_cd(t_data *data, t_env_var *tmp_env_pwd, \
+					char **tab, char *cd_path)
 {
 	int	i;
 
@@ -52,7 +57,7 @@ int	check_path_cd(t_data *data, t_env_var *tmp_env_pwd, char **tab, char *cd_pat
 		else
 		{
 			printf("%scd: home/%s%s: No such file or directory\n", \
-					ERREUR, data->username, &cd_path[1]); // erreur msg
+					ERREUR, data->username, &cd_path[1]);
 			while (i >= 0)
 			{
 				chdir("..");

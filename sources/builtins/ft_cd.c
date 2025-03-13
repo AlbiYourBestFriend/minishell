@@ -6,12 +6,13 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:31:02 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/12 20:11:40 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/13 12:38:20 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+// join 2 str avec un / entre les 2
 static int	cd_utils_3(t_env_var *tmp_env_pwd, char **tab, int i)
 {
 	char	*tmp;
@@ -58,6 +59,7 @@ static int	cd_utils_2(t_data *data, t_env_var *tmp_env_pwd, \
 	return (free_tab(tab), 1);
 }
 
+// handle cd -
 static void	cd_switch_pwd(t_data *data, t_env_var *env_var_pwd, char *cd_path)
 {
 	int			n;
@@ -81,6 +83,9 @@ static void	cd_switch_pwd(t_data *data, t_env_var *env_var_pwd, char *cd_path)
 	printf("%s\n", env_var_pwd->value);
 }
 
+// check cd -
+// modif PWD
+// modif OLDPWD
 static void	cd_utils(t_data *data, t_env_var *tmp_env_pwd, char *cd_path)
 {
 	char		*pwd;
@@ -106,9 +111,11 @@ static void	cd_utils(t_data *data, t_env_var *tmp_env_pwd, char *cd_path)
 	}
 }
 
-// check nb arguments
-// if nb args == 1 => return home/user
-// else : chdir
+//	check nb arguments
+//	if nb args == 1 => return home/user
+//	else : cd_check_chdir
+//		trim quotes
+//		if chdir ok => chdir + modif PWD
 void	ft_cd(t_data *data, t_command *cmd)
 {
 	char		*cd_path;

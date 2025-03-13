@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:22:24 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/12 14:29:00 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/13 12:45:11 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ static void	root_return_utils(t_env_var *tmp, char *pwd)
 	}
 }
 
+// retourne a la racine
+// modifie PWD et OLDPWD
 void	root_return(t_data *data)
 {
 	int			n;
@@ -54,6 +56,8 @@ void	root_return(t_data *data)
 		perror("pwd not found in env");
 }
 
+// handle cd et cd ~
+// va a /home/username
 int	return_home_user(t_data *data)
 {
 	int			n;

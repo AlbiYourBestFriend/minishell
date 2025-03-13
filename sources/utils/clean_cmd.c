@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 12:56:42 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/13 12:12:42 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/13 13:02:02 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ char	*clean_cmd(char *cmd)
 
 	str = malloc((nb_char(cmd) + 1) * sizeof(char));
 	if (str == NULL)
-		return (NULL);
+		return (printf("%s%s\n", ERREUR, ALLOC_ERR), NULL);
 	i = 0;
 	n = 0;
 	while (ft_isspace(cmd[i]) == 1)

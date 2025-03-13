@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/13 12:54:24 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/13 13:02:02 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static void	handle_cmd_line(t_data *data, char *cmd_line)
 	if (handle_cmd_line_extension(data, cmd_line) == 0)
 		return ;
 	str = clean_cmd(cmd_line);
-	if (!str)
+	if (str == NULL)
 	{
 		printf("%s%s\n", ERREUR, ALLOC_ERR);
 		data->exit_status = 1;
