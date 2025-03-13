@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:44:32 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/12 19:12:45 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/13 11:46:08 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	heredoc_put_env_var_fd(t_data *data, char *buffer, int fd, int *i)
 		j++;
 	name = malloc((j + 1) * sizeof(char));
 	if (name == NULL)
-		return (allocate_error(data, ALLOC_ERR), 0);
+		return (allocate_error(ALLOC_ERR), 0);
 	j = 0;
 	while (buffer[(*i) + j] != '\0' && ft_isspace(buffer[(*i) + j]) == 0)
 	{
@@ -102,11 +102,11 @@ char	*open_here_doc_file(t_data *data, int *fd)
 	{
 		nbr_char = ft_itoa(nbr);
 		if (nbr_char == NULL)
-			return (allocate_error(data, ALLOC_ERR), NULL);
+			return (allocate_error(ALLOC_ERR), NULL);
 		filename = ft_strjoin(data->tmp_path, nbr_char);
 		free(nbr_char);
 		if (filename == NULL)
-			return (allocate_error(data, ALLOC_ERR), NULL);
+			return (allocate_error(ALLOC_ERR), NULL);
 		if (access(filename, F_OK) == -1)
 		{
 			(*fd) = open(filename, O_CREAT | O_WRONLY, 0644);
@@ -116,7 +116,7 @@ char	*open_here_doc_file(t_data *data, int *fd)
 		nbr++;
 	}
 	if ((*fd) == -1)
-		nofile_error(data, FILE_ERR, filename);
+		nofile_error(FILE_ERR, filename);
 	return (filename);
 }
 
@@ -138,12 +138,12 @@ int	here_doc(t_data *data, int currentfd, char *limiter)
 	close(fd);
 	if (access(filename, O_RDONLY) == -1)
 	{
-		nofile_error(data, NO_PERM, filename);
+		nofile_error(NO_PERM, filename);
 		return (free(filename), -1);
 	}
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-		nofile_error(data, NO_FILE, filename);
+		nofile_error(NO_FILE, filename);
 	free(filename);
 	return (fd);
 }

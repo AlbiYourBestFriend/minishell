@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/12 17:09:03 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/13 12:54:24 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ static void	build_command(t_data *data, char *cmd_line)
 
 static void	handle_ctrl_d(t_data *data)
 {
-	g_exit_status = 2;
 	printf("exit\n");
 	ft_free_all_exit(data, g_exit_status);
 }

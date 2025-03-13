@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   arglen.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 11:01:32 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/26 17:22:20 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/13 11:41:12 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	exit_status_len(t_data *data, int *i)
+int	exit_status_len(int *i)
 {
 	int	len;
 	int	nb;
 
-	nb = data->exit_status;
+	nb = g_exit_status;
 	len = 1;
 	while (nb > 9)
 	{
@@ -37,7 +37,7 @@ static int	env_var_len(t_data *data, char *arg, int *i, int len)
 	j = 0;
 	(*i)++;
 	if (arg[*i] == '?' && ft_isspace(arg[(*i) + 1]) == 1)
-		return (exit_status_len(data, i));
+		return (exit_status_len(i));
 	while (arg[(*i) + j] != '\0' && ft_isspace(arg[(*i) + j]) == 0
 		&& arg[(*i) + j] != '\"' && arg[(*i) + j] != '\'')
 		j++;

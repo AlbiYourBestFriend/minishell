@@ -6,13 +6,13 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:59:12 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/12 16:52:37 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/13 12:43:35 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	try_execute(char *path, t_env_var *env_var, char **cmds)
+int	try_execute(char *path, t_env_var *env_var, char **cmds, int n)
 {
 	char	**tab;
 
@@ -22,7 +22,7 @@ int	try_execute(char *path, t_env_var *env_var, char **cmds)
 		execve(path, cmds, tab);
 		free_tab(tab);
 		perror(EXECVE_ERR);
-		if (path != NULL)
+		if (path != NULL && n)
 			free(path);
 		return (0);
 	}
@@ -36,9 +36,9 @@ static void	command_executor(t_data *data, t_command *cmd)
 	int		index;
 
 	index = 0;
-	if (try_execute(cmd->args[0], data->env_variables, cmd->args) == 0)
+	if (try_execute(cmd->args[0], data->env_variables, cmd->args, 0) == 0)
 		ft_free_all_exit(data, 1);
-	paths = ft_split(getenv("PATH"), ':');
+	paths = ft_split(get_env_var(data, "PATH")->value, ':');
 	if (paths == NULL)
 		return (perror(ALLOC_ERR));
 	while (paths[index] != NULL)
@@ -46,16 +46,14 @@ static void	command_executor(t_data *data, t_command *cmd)
 		path = create_path(paths[index], cmd->args[0]);
 		if (path == NULL)
 			return (free_tab(paths), perror(ALLOC_ERR));
-		if (try_execute(path, data->env_variables, cmd->args) == 0)
-		{
-			free_tab(paths);
+		if (try_execute(path, data->env_variables, cmd->args, 1) == 0)
 			ft_free_all_exit(data, 1);
-		}
 		free(path);
 		index++;
 	}
 	free_tab(paths);
 	printf("%s: command not found\n", cmd->args[0]);
+	g_exit_status = 127;
 }
 
 void	fork_handler(t_data *data, t_command *cmd, int *pipefd)
@@ -81,7 +79,7 @@ void	fork_handler(t_data *data, t_command *cmd, int *pipefd)
 			exec_executable(data, cmd);
 		else
 			command_executor(data, cmd);
-		ft_free_all_exit(data, 1);
+		ft_free_all_exit(data, g_exit_status);
 	}
 	else if (cmd->input_fd != 0)
 		close(cmd->input_fd);

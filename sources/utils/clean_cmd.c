@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 12:56:42 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/21 17:00:34 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/13 12:12:42 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,5 +123,6 @@ char	*clean_cmd(char *cmd)
 	}
 	str[n] = '\0';
 	free(cmd);
+	cmd = NULL;
 	return (str);
 }
