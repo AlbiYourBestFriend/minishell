@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_here_doc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:03:58 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/13 11:50:47 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:21:06 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static char	*get_limiter(char *cmd_line, int *i)
 	limiter = ft_substr(cmd_line, *i, len);
 	(*i) += len;
 	if (limiter == NULL)
-		return (printf("%s%s\n", ERREUR, ALLOC_ERR), NULL);
+		return (allocate_error(ALLOC_ERR), NULL);
 	temp = limiter;
 	limiter = handle_quotes(limiter);
 	free(temp);

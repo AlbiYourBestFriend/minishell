@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_args_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:00:16 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/13 11:43:03 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:21:06 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*exit_status_write(char *new_arg, int *index)
 	index[0] += 2;
 	exit_status = ft_itoa(g_exit_status);
 	if (exit_status == NULL)
-		return (NULL);
+		return (allocate_error(ALLOC_ERR), NULL);
 	j = 0;
 	while (exit_status[j] != '\0')
 	{
@@ -45,7 +45,7 @@ char	*env_var_write(t_data *data, char *arg, char *new_arg, int *index)
 		j++;
 	name = ft_substr(arg, index[0], j);
 	if (name == NULL)
-		return (NULL); // free le new_arg? free(new_arg);
+		return (allocate_error(ALLOC_ERR), NULL); // free le new_arg? free(new_arg);
 	env_var = get_env_var(data, name);
 	free(name);
 	index[0] += j;

@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:08:49 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/13 13:44:54 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:21:06 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ static char	*clean_file_name(t_data *data, char *temp)
 
 	file_name = handle_dollars(data, temp);
 	if (file_name == NULL)
-		return (printf("%s%s\n", ERREUR, ALLOC_ERR), NULL);
+		return (NULL);
 	file_args = split_cmd_line(file_name, ' ');
 	free(file_name);
 	if (file_args == NULL)
-		return (allocate_error(ALLOC_ERR), NULL);
+		return (NULL);
 	else if (tab_len(file_args) != 1)
 	{
 		printf("%s%s: ambiguous redirect\n", ERREUR, temp);
@@ -68,7 +68,7 @@ static char	*get_file_name(t_data *data, char *cmd_line, int *i)
 	temp = ft_substr(cmd_line, *i, len);
 	(*i) += len;
 	if (temp == NULL)
-		return (printf("%s%s\n", ERREUR, ALLOC_ERR), NULL);
+		return (allocate_error(ALLOC_ERR), NULL);
 	return (clean_file_name(data, temp));
 }
 

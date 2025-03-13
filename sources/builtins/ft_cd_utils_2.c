@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:22:24 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/13 12:45:11 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:35:48 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	root_return(t_data *data)
 	{
 		pwd = ft_strdup(tmp->value);
 		if (pwd == NULL)
-			return ;
+			return (allocate_error(ALLOC_ERR));
 		n = 0;
 		while (n < count_char(pwd, '/'))
 		{

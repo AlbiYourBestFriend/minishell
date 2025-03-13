@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_lst.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:21:36 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/12 16:54:42 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:35:48 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ t_command	*cmdnew(char *cmd_line)
 
 	list = malloc(sizeof(t_command));
 	if (list == NULL)
-		return (NULL);
+		return (allocate_error(ALLOC_ERR), NULL);
 	list->cmd_line = ft_strdup(cmd_line);
 	if (list->cmd_line == NULL)
-		return (free(list), NULL);
+		return (allocate_error(ALLOC_ERR), free(list), NULL);
 	list->input_fd = 0;
 	list->output_fd = 1;
 	list->heredoc_fd = 0;

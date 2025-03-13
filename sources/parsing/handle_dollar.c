@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_dollar.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:26:00 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/13 13:42:06 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:35:48 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static char	*handle_dollar_copy_str(t_data *data, char *cmd, int n)
 	i_n[1] = 0;
 	str = malloc((n + 1) * sizeof(char));
 	if (str == NULL)
-		return (NULL);
+		return (allocate_error(ALLOC_ERR), NULL);
 	if (put_char_to_str(data, cmd, str, i_n) == 0)
 		return (free(str), NULL);
 	return (str);

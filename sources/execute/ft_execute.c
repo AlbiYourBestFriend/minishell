@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:59:12 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/13 12:43:35 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:35:48 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	try_execute(char *path, t_env_var *env_var, char **cmds, int n)
 	if (access(path, F_OK | X_OK) == 0)
 	{
 		tab = lst_to_tab(env_var);
+		if (tab == NULL)
+			return (0); // a gerer
 		execve(path, cmds, tab);
 		free_tab(tab);
 		perror(EXECVE_ERR);
@@ -40,12 +42,12 @@ static void	command_executor(t_data *data, t_command *cmd)
 		ft_free_all_exit(data, 1);
 	paths = ft_split(get_env_var(data, "PATH")->value, ':');
 	if (paths == NULL)
-		return (perror(ALLOC_ERR));
+		return (allocate_error(ALLOC_ERR));
 	while (paths[index] != NULL)
 	{
 		path = create_path(paths[index], cmd->args[0]);
 		if (path == NULL)
-			return (free_tab(paths), perror(ALLOC_ERR));
+			return (free_tab(paths), allocate_error(ALLOC_ERR));
 		if (try_execute(path, data->env_variables, cmd->args, 1) == 0)
 			ft_free_all_exit(data, 1);
 		free(path);
@@ -64,7 +66,7 @@ void	fork_handler(t_data *data, t_command *cmd, int *pipefd)
 	else if (cmd->pid == 0)
 	{
 		if (cmd->args == NULL && process_cmd_line(data, cmd) == 0)
-			return (free_data(data), rl_clear_history(), exit(1));
+			return (ft_free_all_exit(data, 1));
 		if (cmd->next != NULL)
 			fd_handler(cmd, pipefd[1], pipefd[0]);
 		else

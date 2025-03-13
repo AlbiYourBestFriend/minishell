@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:31:02 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/13 12:38:20 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:35:48 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ static int	cd_utils_3(t_env_var *tmp_env_pwd, char **tab, int i)
 	tmp = ft_strjoin(tmp_env_pwd->value, "/");
 	free(tmp_env_pwd->value);
 	if (tmp == NULL)
-		return (free_tab(tab), 0);
+		return (allocate_error(ALLOC_ERR), 0);
 	tmp_env_pwd->value = tmp;
 	tmp = ft_strjoin(tmp_env_pwd->value, tab[i]);
 	free(tmp_env_pwd->value);
 	if (tmp == NULL)
-		return (free_tab(tab), 0);
+		return (allocate_error(ALLOC_ERR), 0);
 	tmp_env_pwd->value = tmp;
 	return (1);
 }
@@ -40,7 +40,7 @@ static int	cd_utils_2(t_data *data, t_env_var *tmp_env_pwd, \
 	int		i;
 
 	if (tab == NULL)
-		return (free(cd_path), 0);
+		return (allocate_error(ALLOC_ERR), free(cd_path), 0);
 	i = -1;
 	if (tab[0][0] == '~' && tab[0][1] == '\0')
 	{
@@ -54,7 +54,7 @@ static int	cd_utils_2(t_data *data, t_env_var *tmp_env_pwd, \
 		if (ft_strncmp(tab[i], "..", 2) == 0 && ft_strlen(tab[i]) == 2)
 			cd_rm_last(tmp_env_pwd->value);
 		else if (cd_utils_3(tmp_env_pwd, tab, i) == 0)
-			return (0);
+			return (free_tab(tab), 0);
 	}
 	return (free_tab(tab), 1);
 }
@@ -92,7 +92,7 @@ static void	cd_utils(t_data *data, t_env_var *tmp_env_pwd, char *cd_path)
 
 	pwd = ft_strdup(tmp_env_pwd->value);
 	if (pwd == NULL)
-		return (free(cd_path));
+		return (allocate_error(ALLOC_ERR), free(cd_path));
 	if (cd_path[0] == '-' && cd_path[1] == '\0')
 		return (cd_switch_pwd(data, tmp_env_pwd, cd_path), free(pwd));
 	if (cd_utils_2(data, tmp_env_pwd, cd_path, ft_split(cd_path, '/')) == 0)
@@ -129,7 +129,7 @@ void	ft_cd(t_data *data, t_command *cmd)
 	{
 		cd_path = ft_strtrim(cmd->args[1], "\"\'");
 		if (cd_path == NULL)
-			printf("%s%s\n", ERREUR, ALLOC_ERR);
+			allocate_error(ALLOC_ERR);
 		else if (cd_check_chdir(cd_path) == 0)
 			printf("%s%s: %s: No such file or directory\n", \
 					ERREUR, cmd->args[0], cmd->args[1]);

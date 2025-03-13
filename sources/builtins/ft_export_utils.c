@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 12:03:03 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/26 12:13:06 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:35:48 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ static int	assign_value_utils(t_env_var *tmp_var, char **tab, char *tmp, int i)
 	tab[i] = ft_strjoin(tmp, tmp_var->value);
 	free(tmp);
 	if (tab[i] == NULL)
-		return (-1);
+		return (allocate_error(ALLOC_ERR), -1);
 	tmp = tab[i];
 	tab[i] = ft_strjoin(tmp, "\"");
 	free(tmp);
 	if (tab[i] == NULL)
-		return (-1);
+		return (allocate_error(ALLOC_ERR), -1);
 	return (0);
 }
 
@@ -53,18 +53,18 @@ int	assign_value(t_env_var *tmp_var, char **tab, int i)
 	{
 		tmp = ft_strjoin(tmp_var->name, "=");
 		if (tmp == NULL)
-			return (-1);
+			return (allocate_error(ALLOC_ERR), -1);
 		tab[i] = ft_strjoin(tmp, "\"");
 		free(tmp);
 		if (tab[i] == NULL)
-			return (-1);
+			return (allocate_error(ALLOC_ERR), -1);
 		if (tmp_var->value == NULL)
 		{
 			tmp = tab[i];
 			tab[i] = ft_strjoin(tmp, "\"");
 			free(tmp);
 			if (tab[i] == NULL)
-				return (-1);
+				return (allocate_error(ALLOC_ERR), -1);
 		}
 		else if (assign_value_utils(tmp_var, tab, tmp, i) == -1)
 			return (-1);

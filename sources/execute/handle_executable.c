@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_executable.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 13:55:23 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/13 12:06:52 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:35:48 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,14 @@ static void	exec_executable_utils(t_data *data, t_command *cmd, t_env_var *tmp)
 	path = ft_strjoin(tmp->value, &(cmd->args[0][i]));
 	if (path == NULL)
 	{
-		printf("%s%s\n", ERREUR, ALLOC_ERR);
+		allocate_error(ALLOC_ERR);
 		ft_free_all_exit(data, 1);
 	}
 	if (access(path, F_OK | X_OK) == 0)
 	{
 		tab = lst_to_tab(data->env_variables);
+		if (tab == NULL)
+			return ; // a gerer
 		execve(path, cmd->args, tab);
 		free_tab(tab);
 	}

@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 18:09:37 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/13 18:02:52 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:21:06 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	*get_next_word(char *str, int *i)
 		(*i)++;
 	word = malloc(sizeof(char) * word_len(str, *i) + 1);
 	if (word == NULL)
-		return (NULL);
+		return (allocate_error(ALLOC_ERR), NULL);
 	word = fill_word(str, word, i);
 	return (word);
 }

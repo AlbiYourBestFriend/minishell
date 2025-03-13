@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_dollar_utils_2.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 19:19:48 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/13 13:02:02 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:35:48 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	len_env_var_value(t_data *data, char *cmd, int *i, int n)
 		j++;
 	name = ft_substr(cmd, *i, j);
 	if (name == NULL)
-		return (printf("%s%s\n", ERREUR, ALLOC_ERR), -1);
+		return (allocate_error(ALLOC_ERR), -1);
 	env_var = get_env_var(data, name);
 	(*i) += j;
 	if (env_var != NULL)
