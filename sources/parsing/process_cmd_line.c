@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:03:50 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/12 16:58:28 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/13 11:47:31 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	process_cmd_line(t_data *data, t_command *cmd)
 	i = 0;
 	while (cmd->args[i] != NULL)
 	{
-		tmp = handle_quotes(data, cmd->args[i]);
+		tmp = handle_quotes(cmd->args[i]);
 		if (tmp == NULL)
 			return (0);
 		free(cmd->args[i]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 12:43:35 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/27 17:33:00 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/13 11:44:21 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*process_argument(t_data *data, char *arg, char *new_arg)
 		else if (arg[index[0]] == '$' && ft_isalpha(arg[index[0] + 1]) == 1)
 			new_arg = env_var_write(data, arg, new_arg, index);
 		else if (arg[index[0]] == '$' && arg[index[0] + 1] == '?')
-			new_arg = exit_status_write(data, new_arg, index);
+			new_arg = exit_status_write(new_arg, index);
 		else
 		{
 			new_arg[index[1]] = arg[index[0]];

@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   handle_dollar_utils_2.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 19:19:48 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/27 17:31:58 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/13 11:42:16 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	len_env_var_value_utils(t_data *data, char *cmd, int *i, int n)
+static int	len_env_var_value_utils(char *cmd, int *i, int n)
 {
 	if (cmd[*i] == '?')
-		return (exit_status_len(data, i) + n);
+		return (exit_status_len(i) + n);
 	if (ft_isdigit(cmd[*i]) == 1)
 	{
 		(*i)++;
@@ -38,7 +38,7 @@ int	len_env_var_value(t_data *data, char *cmd, int *i, int n)
 
 	j = 0;
 	(*i)++;
-	l = len_env_var_value_utils(data, cmd, i, n);
+	l = len_env_var_value_utils(cmd, i, n);
 	if (l != -1)
 		return (l);
 	while (cmd[(*i) + j] != '\0' && ft_isspace(cmd[(*i) + j]) == 0

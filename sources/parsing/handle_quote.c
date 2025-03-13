@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:26:03 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/12 16:57:12 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/13 11:46:53 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	put_in_quotes(char *new_arg, int *n, char *arg, int *j)
 	(*j)++;
 }
 
-char	*handle_quotes(t_data *data, char *arg_i)
+char	*handle_quotes(char *arg_i)
 {
 	int		j;
 	int		n;
@@ -72,7 +72,7 @@ char	*handle_quotes(t_data *data, char *arg_i)
 
 	new_arg = malloc((total_len(arg_i) + 1) * sizeof(char));
 	if (new_arg == NULL)
-		return (allocate_error(data, ALLOC_ERR), NULL);
+		return (allocate_error(ALLOC_ERR), NULL);
 	j = 0;
 	n = 0;
 	while (arg_i[j] != '\0')

@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:21:31 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/12 16:51:43 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/13 11:39:08 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	init_builtins(t_data *data, t_command *cmd)
 
 	if (process_cmd_line(data, cmd) == 0)
 	{
-		data->exit_status = 1;
+		g_exit_status = 1;
 		return (1);
 	}
 	if (check_if_builtins(cmd) != 1)
@@ -76,6 +76,6 @@ int	init_builtins(t_data *data, t_command *cmd)
 		dup2(output, 1);
 		close(output);
 	}
-	data->exit_status = 0;
+	g_exit_status = 0;
 	return (1);
 }
