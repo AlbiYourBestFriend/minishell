@@ -6,27 +6,34 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:31:02 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/13 14:35:48 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/13 19:06:39 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 // join 2 str avec un / entre les 2
-static int	cd_utils_3(t_env_var *tmp_env_pwd, char **tab, int i)
+static int	cd_utils_3(t_env_var *tmp_env_pwd, char *tab_i)
 {
-	char	*tmp;
+	int		i;
+	int		n;
+	char	*str;
 
-	tmp = ft_strjoin(tmp_env_pwd->value, "/");
-	free(tmp_env_pwd->value);
-	if (tmp == NULL)
+	i = -1;
+	n = -1;
+	str = malloc((ft_strlen(tmp_env_pwd->value) + \
+					ft_strlen(tab_i) + 2) * sizeof(char));
+	if (str == NULL)
 		return (allocate_error(ALLOC_ERR), 0);
-	tmp_env_pwd->value = tmp;
-	tmp = ft_strjoin(tmp_env_pwd->value, tab[i]);
+	while (tmp_env_pwd->value[++i] != '\0')
+		str[i] = tmp_env_pwd->value[i];
+	str[i] = '/';
+	i++;
+	while (tab_i[++n] != '\0')
+		str[i + n] = tab_i[n];
+	str[i + n] = '\0';
 	free(tmp_env_pwd->value);
-	if (tmp == NULL)
-		return (allocate_error(ALLOC_ERR), 0);
-	tmp_env_pwd->value = tmp;
+	tmp_env_pwd->value = str;
 	return (1);
 }
 
@@ -40,33 +47,31 @@ static int	cd_utils_2(t_data *data, t_env_var *tmp_env_pwd, \
 	int		i;
 
 	if (tab == NULL)
-		return (allocate_error(ALLOC_ERR), free(cd_path), 0);
+		return (allocate_error(ALLOC_ERR), 0);
 	i = -1;
 	if (tab[0][0] == '~' && tab[0][1] == '\0')
 	{
 		if (check_path_cd(data, tmp_env_pwd, tab, cd_path) == 0)
-			return (free(cd_path), free_tab(tab), 0);
+			return (free_tab(tab), 0);
 		i++;
 	}
-	free(cd_path);
 	while (tab[++i] != NULL)
 	{
 		if (ft_strncmp(tab[i], "..", 2) == 0 && ft_strlen(tab[i]) == 2)
 			cd_rm_last(tmp_env_pwd->value);
-		else if (cd_utils_3(tmp_env_pwd, tab, i) == 0)
+		else if (cd_utils_3(tmp_env_pwd, tab[i]) == 0)
 			return (free_tab(tab), 0);
 	}
 	return (free_tab(tab), 1);
 }
 
 // handle cd -
-static void	cd_switch_pwd(t_data *data, t_env_var *env_var_pwd, char *cd_path)
+static void	cd_switch_pwd(t_data *data, t_env_var *env_var_pwd)
 {
 	int			n;
 	char		*pwd;
 	t_env_var	*tmp_env_old_pwd;
 
-	free(cd_path);
 	tmp_env_old_pwd = get_env_var(data, "OLDPWD");
 	if (tmp_env_old_pwd == NULL)
 		return ;
@@ -92,9 +97,9 @@ static void	cd_utils(t_data *data, t_env_var *tmp_env_pwd, char *cd_path)
 
 	pwd = ft_strdup(tmp_env_pwd->value);
 	if (pwd == NULL)
-		return (allocate_error(ALLOC_ERR), free(cd_path));
+		return (allocate_error(ALLOC_ERR));
 	if (cd_path[0] == '-' && cd_path[1] == '\0')
-		return (cd_switch_pwd(data, tmp_env_pwd, cd_path), free(pwd));
+		return (cd_switch_pwd(data, tmp_env_pwd), free(pwd));
 	if (cd_utils_2(data, tmp_env_pwd, cd_path, ft_split(cd_path, '/')) == 0)
 		return (free(pwd));
 	tmp_env_pwd = get_env_var(data, "OLDPWD");
@@ -122,7 +127,7 @@ void	ft_cd(t_data *data, t_command *cmd)
 	t_env_var	*tmp_env;
 
 	if (tab_len(cmd->args) > 2)
-		printf("%s%s: too many arguments\n", ERREUR, cmd->args[0]);
+		printf("%s%s: too many arguments\n", ERROR, cmd->args[0]);
 	else if (tab_len(cmd->args) == 1)
 		return_home_user(data);
 	else if (tab_len(cmd->args) == 2)
@@ -131,8 +136,7 @@ void	ft_cd(t_data *data, t_command *cmd)
 		if (cd_path == NULL)
 			allocate_error(ALLOC_ERR);
 		else if (cd_check_chdir(cd_path) == 0)
-			printf("%s%s: %s: No such file or directory\n", \
-					ERREUR, cmd->args[0], cmd->args[1]);
+			printf("%scd: %s: %s\n", ERROR, cmd->args[1], NO_FILE_DIR);
 		else
 		{
 			tmp_env = get_env_var(data, "PWD");
@@ -140,7 +144,8 @@ void	ft_cd(t_data *data, t_command *cmd)
 				&& tmp_env->value[0] != '\0')
 				cd_utils(data, tmp_env, cd_path);
 			else
-				perror("pwd not found or error in env");
+				perror("pwd not found in env");
+			free(cd_path);
 		}
 	}
 }

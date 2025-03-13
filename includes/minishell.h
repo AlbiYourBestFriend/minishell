@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/13 12:07:02 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/13 17:39:00 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 # define MY_CHAR_MAX 4096
 
 // errors messages
-# define ERREUR			"Minishell: "
+# define ERROR			"Minishell: "
 # define ALLOC_ERR		"Cannot allocate memory"
 # define PIPE_ERR		"error in pipe creation"
 # define FORK_ERR		"error during fork"
@@ -49,7 +49,7 @@
 # define DUP_ERR		"error when duplicate(1) fd"
 # define INVALID_ID		"not a valid identifier"
 # define FILE_ERR		"Error in opening file"
-# define NO_FILE		"No such file or directory"
+# define NO_FILE_DIR	"No such file or directory"
 # define NO_PERM		"Permission denied"
 
 // # define ENV_ERR		"no environment detected"

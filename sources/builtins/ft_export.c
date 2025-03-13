@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:08:23 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/13 14:35:48 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/13 17:39:00 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	print_export(t_data *data)
 	i = 0;
 	tab = export_lst_to_tab(data->env_variables, i);
 	if (tab == NULL)
-		return (allocate_error(ALLOC_ERR), 0);
+		return (0);
 	while (tab[i + 1] != NULL)
 	{
 		j = i + 1;
@@ -96,7 +96,7 @@ int	ft_export(t_data *data, t_command *cmd)
 			}
 			else
 				return (printf("%sexport: `%s': %s\n", \
-								ERREUR, cmd->args[i], INVALID_ID), 0);
+								ERROR, cmd->args[i], INVALID_ID), 0);
 		}
 	}
 	return (1);

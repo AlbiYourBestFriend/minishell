@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:13:48 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/13 14:21:06 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/13 19:20:12 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,30 +72,27 @@ static t_env_var	*new_env_var(char *env_i)
 
 static int	put_env_to_data(t_data *data, char **env)
 {
-	t_env_var	*new_var;
-	t_env_var	*last_var;
 	int			i;
+	t_env_var	*tmp_env_var;
 
-	new_var = new_env_var(env[0]);
-	if (new_var == NULL)
+	tmp_env_var = new_env_var(env[0]);
+	if (tmp_env_var == NULL)
 		return (0);
-	data->env_variables = new_var;
-	last_var = new_var;
+	data->env_variables = tmp_env_var;
 	i = 1;
 	while (env[i] != NULL)
 	{
-		new_var = new_env_var(env[i]);
-		if (new_var == NULL)
+		tmp_env_var->next = new_env_var(env[i]);
+		if (tmp_env_var->next == NULL)
 			return (0);
-		if (ft_strncmp(new_var->name, "USER", 4) == 0
-			&& ft_strlen(new_var->name) == 4)
+		if (ft_strncmp(tmp_env_var->next->name, "USER", 4) == 0
+			&& ft_strlen(tmp_env_var->next->name) == 4)
 		{
-			data->username = ft_strdup(new_var->value);
+			data->username = ft_strdup(tmp_env_var->next->value);
 			if (data->username == NULL)
 				return (allocate_error(ALLOC_ERR), 0);
 		}
-		last_var->next = new_var;
-		last_var = last_var->next;
+		tmp_env_var = tmp_env_var->next;
 		i++;
 	}
 	return (1);

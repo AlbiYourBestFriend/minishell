@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:59:12 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/13 14:35:48 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/13 17:39:00 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	fork_handler(t_data *data, t_command *cmd, int *pipefd)
 {
 	cmd->pid = fork();
 	if (cmd->pid == -1)
-		printf("%s%s\n", ERREUR, FORK_ERR);
+		printf("%s%s\n", ERROR, FORK_ERR);
 	else if (cmd->pid == 0)
 	{
 		if (cmd->args == NULL && process_cmd_line(data, cmd) == 0)
@@ -100,7 +100,7 @@ int	ft_execute(t_data *data)
 	while (temp != NULL)
 	{
 		if (pipe(pipefd) != 0)
-			return (printf("%s%s\n", ERREUR, PIPE_ERR), 0);
+			return (printf("%s%s\n", ERROR, PIPE_ERR), 0);
 		fork_handler(data, temp, pipefd);
 		if (temp->next != NULL)
 		{
