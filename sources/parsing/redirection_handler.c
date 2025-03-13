@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_handler.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:08:49 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/12 16:58:56 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/13 13:44:54 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static char	*clean_file_name(t_data *data, char *temp)
 
 	file_name = handle_dollars(data, temp);
 	if (file_name == NULL)
-		return (NULL);
+		return (printf("%s%s\n", ERREUR, ALLOC_ERR), NULL);
 	file_args = split_cmd_line(file_name, ' ');
 	free(file_name);
 	if (file_args == NULL)

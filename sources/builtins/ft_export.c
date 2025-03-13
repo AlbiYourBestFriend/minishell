@@ -6,12 +6,14 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:08:23 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/12 20:20:17 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/13 12:46:04 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+// transforme l'environnement en un tableau de chaines de caracteres
+// avec la vauer de la variable entre guillemets
 static char	**export_lst_to_tab(t_env_var *env_var, int i)
 {
 	char		**tab;
@@ -40,6 +42,8 @@ static char	**export_lst_to_tab(t_env_var *env_var, int i)
 	return (tab);
 }
 
+// handle export sans argument
+// print les variables d'environnement dans l'ordre alphabetique
 static int	print_export(t_data *data)
 {
 	int		i;
@@ -48,7 +52,7 @@ static int	print_export(t_data *data)
 
 	i = 0;
 	tab = export_lst_to_tab(data->env_variables, i);
-	if (tab[0] == NULL)
+	if (tab == NULL)
 		return (printf("%s%s\n", ERREUR, ALLOC_ERR), 0);
 	while (tab[i + 1] != NULL)
 	{
@@ -75,8 +79,6 @@ int	ft_export(t_data *data, t_command *cmd)
 	int			n;
 	int			i;
 
-	printf("len = %d\n", tab_len(cmd->args));
-	printf("args[0] = %s\n", cmd->args[0]);
 	if (tab_len(cmd->args) == 1)
 		print_export(data);
 	else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_cmd_line.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:03:50 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/12 16:58:28 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/13 13:44:54 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	process_cmd_line(t_data *data, t_command *cmd)
 		return (0);
 	tmp = handle_dollars(data, cmd->cmd_line);
 	if (tmp == NULL)
-		return (0);
+		return (printf("%s%s\n", ERREUR, ALLOC_ERR), 0);
 	free(cmd->cmd_line);
 	cmd->cmd_line = tmp;
 	cmd->args = split_cmd_line(cmd->cmd_line, ' ');
