@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_here_doc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:03:58 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/12 17:21:25 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/13 11:50:47 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	skip_quotes(char *cmd_line, int i)
 	return (i);
 }
 
-static char	*get_limiter(t_data *data, char *cmd_line, int *i)
+static char	*get_limiter(char *cmd_line, int *i)
 {
 	char	*limiter;
 	char	*temp;
@@ -48,7 +48,7 @@ static char	*get_limiter(t_data *data, char *cmd_line, int *i)
 	if (limiter == NULL)
 		return (printf("%s%s\n", ERREUR, ALLOC_ERR), NULL);
 	temp = limiter;
-	limiter = handle_quotes(data, limiter);
+	limiter = handle_quotes(limiter);
 	free(temp);
 	return (limiter);
 }
@@ -58,7 +58,7 @@ static int	handle_heredoc(t_data *data, t_command *cmd, int *i)
 	char	*limiter;
 
 	(*i) += 2;
-	limiter = get_limiter(data, cmd->cmd_line, i);
+	limiter = get_limiter(cmd->cmd_line, i);
 	if (limiter == NULL)
 		return (0);
 	cmd->heredoc_fd = here_doc(data, cmd->heredoc_fd, limiter);

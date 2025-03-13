@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   clean_args_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:00:16 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/26 19:31:06 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/13 11:43:03 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*exit_status_write(t_data *data, char *new_arg, int *index)
+char	*exit_status_write(char *new_arg, int *index)
 {
 	char	*exit_status;
 	int		j;
 
 	index[0] += 2;
-	exit_status = ft_itoa(data->exit_status);
+	exit_status = ft_itoa(g_exit_status);
 	if (exit_status == NULL)
 		return (NULL);
 	j = 0;
@@ -74,7 +74,7 @@ char	*double_quote_write(t_data *data, char *arg, char *new_arg, int *index)
 		}
 		else if (arg[index[0]] == '$' && arg[index[0] + 1] == '?')
 		{
-			exit_status_write(data, new_arg, index);
+			exit_status_write(new_arg, index);
 			if (new_arg == NULL)
 				return (NULL);
 		}

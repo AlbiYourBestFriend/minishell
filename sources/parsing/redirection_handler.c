@@ -36,14 +36,14 @@ static char	*clean_file_name(t_data *data, char *temp)
 	file_args = split_cmd_line(file_name, ' ');
 	free(file_name);
 	if (file_args == NULL)
-		return (allocate_error(data, ALLOC_ERR), NULL);
+		return (allocate_error(ALLOC_ERR), NULL);
 	else if (tab_len(file_args) != 1)
 	{
 		printf("%s%s: ambiguous redirect\n", ERREUR, temp);
 		return (free_tab(file_args), free(temp), NULL);
 	}
 	free(temp);
-	file_name = handle_quotes(data, file_args[0]);
+	file_name = handle_quotes(file_args[0]);
 	free_tab(file_args);
 	return (file_name);
 }
@@ -87,7 +87,7 @@ static int	handle_redirection(t_data *data, t_command *cmd, int *i)
 	if (filename == NULL)
 		return (0);
 	blankify(cmd->cmd_line, start, *i);
-	if (open_file(data, cmd, redirection, filename) == 0)
+	if (open_file(cmd, redirection, filename) == 0)
 		return (free(filename), 0);
 	return (free(filename), 1);
 }

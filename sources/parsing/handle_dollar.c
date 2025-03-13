@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   handle_dollar.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:26:00 by tprovost          #+#    #+#             */
 /*   Updated: 2025/03/13 13:42:06 by tprovost         ###   ########.fr       */
@@ -24,7 +24,7 @@ static int	put_char_to_str(t_data *data, char *cmd, char *str, int *i_n)
 		else if (cmd[i_n[0]] == '\"')
 			n = put_double_quote(data, cmd, str, i_n);
 		else if (cmd[i_n[0]] == '$' && cmd[i_n[0] + 1] == '?')
-			n = put_exit_status(data, str, i_n);
+			n = put_exit_status(str, i_n);
 		else if (cmd[i_n[0]] == '$' && ft_isspace(cmd[i_n[0] + 1]) == 0
 			&& cmd[i_n[0] + 1] != '\0')
 			n = put_env_var_value(data, cmd, str, i_n);

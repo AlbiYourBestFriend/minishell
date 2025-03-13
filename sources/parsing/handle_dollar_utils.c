@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   handle_dollar_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 16:28:16 by tprovost          #+#    #+#             */
 /*   Updated: 2025/03/13 13:41:51 by tprovost         ###   ########.fr       */
@@ -12,13 +12,13 @@
 
 #include "../../includes/minishell.h"
 
-int	put_exit_status(t_data *data, char *str, int *i_n)
+int	put_exit_status(char *str, int *i_n)
 {
 	int		i;
 	char	*exit;
 
 	i = 0;
-	exit = ft_itoa(data->exit_status);
+	exit = ft_itoa(g_exit_status);
 	if (exit == NULL)
 	{
 		return (0);

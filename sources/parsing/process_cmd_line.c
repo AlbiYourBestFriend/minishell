@@ -30,7 +30,7 @@ int	process_cmd_line(t_data *data, t_command *cmd)
 	i = 0;
 	while (cmd->args[i] != NULL)
 	{
-		tmp = handle_quotes(data, cmd->args[i]);
+		tmp = handle_quotes(cmd->args[i]);
 		if (tmp == NULL)
 			return (0);
 		free(cmd->args[i]);
