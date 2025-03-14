@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:59:12 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/14 11:54:13 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/14 14:34:59 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,9 @@ int	try_execute(char *path, t_env_var *env_var, char **cmds, int n)
 		}
 		tab = lst_to_tab(env_var);
 		if (tab == NULL)
-			return (0); // a gerer
+			return (0);
 		execve(path, cmds, tab);
 		free_tab(tab);
-		perror(EXECVE_ERR);
 		if (path != NULL && n)
 			free(path);
 		return (0);
@@ -63,7 +62,7 @@ static void	command_executor(t_data *data, t_command *cmd)
 		index++;
 	}
 	free_tab(paths);
-	printf("%s: command not found\n", cmd->args[0]);
+	printf("%s%s: command not found\n", ERROR,cmd->args[0]);
 	g_exit_status = 127;
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_env_var.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 18:05:52 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/13 18:11:46 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/14 14:40:56 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,6 @@ t_env_var	*modif_env_var(t_data *data, char *name, char *value, int n)
 		else
 			env_var->status = 1;
 	}
-	free(name);
-	if (value != NULL)
-		free(value);
 	return (env_var);
 }
 
