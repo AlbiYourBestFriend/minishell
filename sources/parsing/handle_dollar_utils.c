@@ -6,12 +6,13 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 16:28:16 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/13 19:57:02 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/14 13:32:41 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+// ecrit la valeur de l'exit
 int	put_exit_status(char *str, int *i_n)
 {
 	int		i;
@@ -57,6 +58,7 @@ static int	put_env_var_value_utils(char *cmd, char *str, int *i_n)
 	return (0);
 }
 
+// ecrit la valeur de la variable
 int	put_env_var_value(t_data *data, char *cmd, char *str, int *i_n)
 {
 	int			j;
@@ -86,6 +88,7 @@ int	put_env_var_value(t_data *data, char *cmd, char *str, int *i_n)
 	return (free(name), 1);
 }
 
+// ecrit ce qu'il y a dans les ''
 void	put_simple_quote(char *cmd, char *str, int *i_n)
 {
 	str[i_n[1]] = cmd[i_n[0]];
@@ -102,6 +105,7 @@ void	put_simple_quote(char *cmd, char *str, int *i_n)
 	i_n[1]++;
 }
 
+// ecrit ce qu'il y a dans les ""
 int	put_double_quote(t_data *data, char *cmd, char *str, int *i_n)
 {
 	str[i_n[1]] = cmd[i_n[0]];

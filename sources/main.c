@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/13 17:39:00 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/14 12:46:03 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ volatile int	g_exit_status;
 
 static void	build_command(t_data *data, char *cmd_line)
 {
+	int			i;
 	t_command	*temp;
-	int			index;
 
 	if (cmd_line[0] == '\0')
 		return (free(cmd_line));
-	index = 0;
+	i = 0;
 	data->splitted_cmds = split_cmd_line(cmd_line, '|');
 	free(cmd_line);
 	if (data->splitted_cmds == NULL)
@@ -29,10 +29,12 @@ static void	build_command(t_data *data, char *cmd_line)
 		allocate_error(ALLOC_ERR);
 		return ;
 	}
-	while (data->splitted_cmds[index] != NULL)
+	while (data->splitted_cmds[i] != NULL)
 	{
-		cmdadd_back(&data->commands, cmdnew(data->splitted_cmds[index]));
-		index++;
+		// gerer cas malloc echoue
+		printf("%s\n", data->splitted_cmds[i]);
+		cmdadd_back(&data->commands, cmdnew(data->splitted_cmds[i]));
+		i++;
 	}
 	free_tab(data->splitted_cmds);
 	data->splitted_cmds = NULL;
@@ -52,14 +54,14 @@ static int	handle_cmd_line_extension(t_data *data, char *cmd_line)
 {
 	if (cmd_line == NULL)
 	{
-		printf("%ssyntax error: unexpected end of file\n", ERROR);
+		printf("%ssyntax error: %s\n", ERROR, UNEXPEC_EOF);
 		handle_ctrl_d(data);
 	}
 	add_history(cmd_line);
 	if (check_quotes(cmd_line) != 0)
 	{
-		printf("%sunexpected end of file near `%c'\n", \
-				ERROR, (char)check_quotes(cmd_line));
+		printf("%s%s near `%c'\n", ERROR, UNEXPEC_EOF, \
+								(char)check_quotes(cmd_line));
 		free(cmd_line);
 		return (0);
 	}

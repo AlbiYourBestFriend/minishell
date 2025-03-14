@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/13 17:39:00 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/14 12:45:00 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,22 @@
 # include <sys/types.h>
 
 # define PROMPT "Minishell$ "
+# define HEREDOCFILE ".tmp/heredoc"
 # define MY_CHAR_MAX 4096
 
 // errors messages
 # define ERROR			"Minishell: "
+# define NO_FILE_DIR	"No such file or directory"
 # define ALLOC_ERR		"Cannot allocate memory"
-# define PIPE_ERR		"error in pipe creation"
-# define FORK_ERR		"error during fork"
-# define EXECVE_ERR		"error during execve"
-# define DUP2_ERR		"error when duplicate(2) fd"
-# define DUP_ERR		"error when duplicate(1) fd"
 # define INVALID_ID		"not a valid identifier"
 # define FILE_ERR		"Error in opening file"
-# define NO_FILE_DIR	"No such file or directory"
 # define NO_PERM		"Permission denied"
+# define UNEXPEC_EOF	"unexpected end of file"
+# define PIPE_ERR		"error in pipe creation"
+# define FORK_ERR		"error during fork"
+# define DUP2_ERR		"error when duplicate(2) fd"
+# define DUP_ERR		"error when duplicate(1) fd"
+# define EXECVE_ERR		"error during execve"
 
 // # define ENV_ERR		"no environment detected"
 // # define ARGC_ERR		"wrong number of argument"
@@ -65,7 +67,6 @@
 // # define PIPE "|"
 // # define NEW_LINE "newline"
 
-# define HEREDOCFILE ".tmp/heredoc"
 
 typedef struct s_data
 {
