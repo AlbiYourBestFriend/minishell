@@ -29,10 +29,9 @@ int	try_execute(char *path, t_env_var *env_var, char **cmds, int n)
 		}
 		tab = lst_to_tab(env_var);
 		if (tab == NULL)
-			return (0); // a gerer
+			return (0);
 		execve(path, cmds, tab);
 		free_tab(tab);
-		perror(EXECVE_ERR);
 		if (path != NULL && n)
 			free(path);
 		return (0);
@@ -64,7 +63,7 @@ static void	command_executor(t_data *data, t_command *cmd)
 		index++;
 	}
 	free_tab(paths);
-	printf("%s: command not found\n", cmd->args[0]);
+	printf("%s%s: command not found\n", ERROR,cmd->args[0]);
 	g_exit_status = 127;
 }
 
