@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_dollar_utils_2.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 19:19:48 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/14 13:30:37 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/14 20:12:56 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 
 static int	len_env_var_value_utils(char *cmd, int *i, int n)
 {
+	if (ft_isspace(cmd[*i]) == 1
+		|| cmd[*i] == '\"' || cmd[*i] == '\''
+		|| cmd[*i] == '$' || cmd[*i] == '\0')
+	{
+		// (*i)++;
+		return (n + 1);
+	}
 	if (cmd[*i] == '?')
 		return (exit_status_len(i) + n);
 	if (ft_isdigit(cmd[*i]) == 1)
@@ -41,8 +48,9 @@ int	len_env_var_value(t_data *data, char *cmd, int *i, int n)
 	l = len_env_var_value_utils(cmd, i, n);
 	if (l != -1)
 		return (l);
-	while (cmd[(*i) + j] != '\0' && ft_isspace(cmd[(*i) + j]) == 0
-		&& cmd[(*i) + j] != '\"' && cmd[(*i) + j] != '\'' && cmd[(*i) + j] != '$')
+	while (ft_isspace(cmd[(*i) + j]) == 0
+		&& cmd[(*i) + j] != '\"' && cmd[(*i) + j] != '\''
+		&& cmd[(*i) + j] != '$' && cmd[(*i) + j] != '\0')
 		j++;
 	name = ft_substr(cmd, *i, j);
 	if (name == NULL)
@@ -62,44 +70,40 @@ int	get_len_simple_quote(char *cmd, int *i, int n)
 	int		len;
 
 	len = 0;
-	(*i)++;
-	len++;
+	copy_and_inc(NULL, &len, NULL, i);
 	while (cmd[(*i)] && cmd[(*i)] != '\'')
 	{
-		(*i)++;
-		len++;
+		copy_and_inc(NULL, &len, NULL, i);
 	}
 	if (cmd[*i] == '\'')
 	{
-		len++;
-		(*i)++;
+		copy_and_inc(NULL, &len, NULL, i);
 	}
 	return (len + n);
 }
 
 int	get_len_double_quote(t_data *data, char *cmd, int *i, int n)
 {
-	int		len;
+	int	len;
+	int	l;
 
 	len = 0;
-	(*i)++;
-	len++;
-	while (cmd[*i] && cmd[*i] != '\"')
+	copy_and_inc(NULL, &len, NULL, i);
+	while (cmd[*i] != '\0' && cmd[*i] != '\"')
 	{
 		if (cmd[*i] == '$')
-			len = len_env_var_value(data, cmd, i, n) - n;
-		else if (cmd[*i] != '\"')
 		{
-			(*i)++;
-			len++;
+			l = len;
+			len = len_env_var_value(data, cmd, i, n) - n;
+			if (len != -1)
+				len = len + l;
 		}
+		else if (cmd[*i] != '\"')
+			copy_and_inc(NULL, &len, NULL, i);
 		if (len == -n - 1)
 			return (-1);
 	}
 	if (cmd[*i] == '\"')
-	{
-		len++;
-		(*i)++;
-	}
+		copy_and_inc(NULL, &len, NULL, i);
 	return (len + n);
 }

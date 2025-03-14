@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:44:32 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/13 17:39:00 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/14 19:45:11 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ static int	get_here_doc(t_data *data, int fd, char *limiter)
 	tmp_count_line = 0;
 	while (1)
 	{
+		// g_exit_status = 0;
 		buffer = readline("> ");
 		if (buffer == NULL)
 		{
@@ -79,6 +80,8 @@ static int	get_here_doc(t_data *data, int fd, char *limiter)
 			data->count_line += tmp_count_line;
 			return (1);
 		}
+		if (g_exit_status == 130)
+			return (free(buffer), 0);
 		if (ft_strncmp(buffer, limiter, INT_MAX) == 0)
 		{
 			tmp_count_line++;

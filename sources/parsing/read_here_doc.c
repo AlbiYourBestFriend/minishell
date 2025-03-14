@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:03:58 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/13 14:21:06 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/14 15:04:02 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,29 +62,32 @@ static int	handle_heredoc(t_data *data, t_command *cmd, int *i)
 	if (limiter == NULL)
 		return (0);
 	cmd->heredoc_fd = here_doc(data, cmd->heredoc_fd, limiter);
-	return (free(limiter), 1);
+	free(limiter);
+	if (cmd->heredoc_fd == -1)
+		return (0);
+	return (1);
 }
 
 int	read_heredoc(t_data *data)
 {
-	t_command	*temp;
-	int			index;
+	int			i;
 	int			result;
+	t_command	*temp;
 
 	temp = data->commands;
-	while (temp)
+	while (temp != NULL)
 	{
-		index = 0;
+		i = 0;
 		result = 1;
-		while (temp->cmd_line[index] != '\0')
+		while (temp->cmd_line[i] != '\0')
 		{
-			if (check_token(temp->cmd_line, index) == 2)
-				result = handle_heredoc(data, temp, &index);
-			else if (temp->cmd_line[index] == '\''
-				|| temp->cmd_line[index] == '\"')
-				index = skip_quotes(temp->cmd_line, index);
-			else if (temp->cmd_line[index] != '\0')
-				index++;
+			if (check_token(temp->cmd_line, i) == 2)
+				result = handle_heredoc(data, temp, &i);
+			else if (temp->cmd_line[i] == '\''
+				|| temp->cmd_line[i] == '\"')
+				i = skip_quotes(temp->cmd_line, i);
+			else if (temp->cmd_line[i] != '\0')
+				i++;
 			if (result == 0)
 				return (0);
 		}

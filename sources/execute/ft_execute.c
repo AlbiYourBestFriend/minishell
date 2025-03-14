@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:59:12 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/14 14:34:59 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/14 15:02:58 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ static void	command_executor(t_data *data, t_command *cmd)
 	int		index;
 
 	index = 0;
-	if (try_execute(cmd->args[0], data->env_variables, cmd->args, 0) == 0)
+	if (cmd->args[0][0] == '/'
+		&& try_execute(cmd->args[0], data->env_variables, cmd->args, 0) == 0)
 		ft_free_all_exit(data, 1);
 	paths = ft_split(get_env_var(data, "PATH")->value, ':');
 	if (paths == NULL)
@@ -102,7 +103,8 @@ int	ft_execute(t_data *data)
 
 	temp = data->commands;
 	signal_handler(1);
-	read_heredoc(data);
+	if (read_heredoc(data) == 0)
+		return (0);
 	if (cmdsize(data->commands) == 1 && init_builtins(data, temp) == 1)
 		return (1);
 	while (temp != NULL)

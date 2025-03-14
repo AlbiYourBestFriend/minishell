@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_dollar_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 16:28:16 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/14 13:32:41 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/14 20:12:56 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ int	put_exit_status(char *str, int *i_n)
 	}
 	while (exit[i] != '\0')
 	{
-		str[i_n[1]] = exit[i];
-		i_n[1]++;
-		i++;
+		copy_and_inc(str, &i_n[1], exit, &i);
 	}
 	free(exit);
 	i_n[0] += 2;
@@ -38,6 +36,13 @@ int	put_exit_status(char *str, int *i_n)
 
 static int	put_env_var_value_utils(char *cmd, char *str, int *i_n)
 {
+	if (ft_isspace(cmd[i_n[0] + 1]) == 0
+		&& cmd[i_n[0] + 1] != '\"' && cmd[i_n[0] + 1] != '\''
+		&& cmd[i_n[0] + 1] != '$' && cmd[i_n[0] + 1] != '\0')
+	{
+		copy_and_inc(str, &i_n[1], cmd, &i_n[0]);
+		return (1);
+	}
 	if (ft_isdigit(cmd[i_n[0] + 1]) == 1)
 	{
 		i_n[0]++;
@@ -46,12 +51,8 @@ static int	put_env_var_value_utils(char *cmd, char *str, int *i_n)
 	}
 	if (ft_isalpha(cmd[i_n[0] + 1]) == 0 && cmd[i_n[0] + 1] != '_')
 	{
-		str[i_n[1]] = cmd[i_n[0]];
-		i_n[0]++;
-		i_n[1]++;
-		str[i_n[1]] = cmd[i_n[0]];
-		i_n[0]++;
-		i_n[1]++;
+		copy_and_inc(str, &i_n[1], cmd, &i_n[0]);
+		copy_and_inc(str, &i_n[1], cmd, &i_n[0]);
 		return (1);
 	}
 	i_n[0]++;
@@ -68,8 +69,9 @@ int	put_env_var_value(t_data *data, char *cmd, char *str, int *i_n)
 	if (put_env_var_value_utils(cmd, str, i_n) == 1)
 		return (1);
 	j = 0;
-	while (cmd[i_n[0] + j] != '\0' && ft_isspace(cmd[i_n[0] + j]) == 0
-		&& cmd[i_n[0] + j] != '\"' && cmd[i_n[0] + j] != '\'' && cmd[i_n[0] + j] != '$')
+	while (ft_isspace(cmd[i_n[0] + j]) == 0
+		&& cmd[i_n[0] + j] != '\"' && cmd[i_n[0] + j] != '\''
+		&& cmd[i_n[0] + j] != '$' && cmd[i_n[0] + j] != '\0')
 		j++;
 	name = ft_substr(cmd, i_n[0], j);
 	if (name == NULL)
@@ -78,12 +80,9 @@ int	put_env_var_value(t_data *data, char *cmd, char *str, int *i_n)
 	env_var = get_env_var(data, name);
 	if (env_var != NULL)
 	{
-		j = -1;
-		while (env_var->value[++j] != '\0')
-		{
-			str[i_n[1]] = env_var->value[j];
-			i_n[1]++;
-		}
+		j = 0;
+		while (env_var->value[j] != '\0')
+			copy_and_inc(str, &i_n[1], env_var->value, &j);
 	}
 	return (free(name), 1);
 }
@@ -91,46 +90,36 @@ int	put_env_var_value(t_data *data, char *cmd, char *str, int *i_n)
 // ecrit ce qu'il y a dans les ''
 void	put_simple_quote(char *cmd, char *str, int *i_n)
 {
-	str[i_n[1]] = cmd[i_n[0]];
-	i_n[0]++;
-	i_n[1]++;
+	copy_and_inc(str, &i_n[1], cmd, &i_n[0]);
 	while (cmd[i_n[0]] && cmd[i_n[0]] != '\'')
 	{
-		str[i_n[1]] = cmd[i_n[0]];
-		i_n[0]++;
-		i_n[1]++;
+		copy_and_inc(str, &i_n[1], cmd, &i_n[0]);
 	}
 	str[i_n[1]] = cmd[i_n[0]];
 	if (cmd[i_n[0]] == '\"')
 	{
-		i_n[0]++;
-		i_n[1]++;
+		copy_and_inc(NULL, &i_n[1], NULL, &i_n[0]);
 	}
 }
 
 // ecrit ce qu'il y a dans les ""
 int	put_double_quote(t_data *data, char *cmd, char *str, int *i_n)
 {
-	str[i_n[1]] = cmd[i_n[0]];
-	i_n[0]++;
-	i_n[1]++;
-	while (cmd[i_n[0]] && cmd[i_n[0]] != '\"')
+	copy_and_inc(str, &i_n[1], cmd, &i_n[0]);
+	while (cmd[i_n[0]] != '\0' && cmd[i_n[0]] != '\"')
 	{
 		if (cmd[i_n[0]] == '$')
 			if (put_env_var_value(data, cmd, str, i_n) == 0)
 				return (0);
-		if (cmd[i_n[0]] != '\"')
+		if (cmd[i_n[0]] != '\"' && cmd[i_n[0]] != '$')
 		{
-			str[i_n[1]] = cmd[i_n[0]];
-			i_n[0]++;
-			i_n[1]++;
+			copy_and_inc(str, &i_n[1], cmd, &i_n[0]);
 		}
 	}
 	str[i_n[1]] = cmd[i_n[0]];
 	if (cmd[i_n[0]] == '\"')
 	{
-		i_n[0]++;
-		i_n[1]++;
+		copy_and_inc(NULL, &i_n[1], NULL, &i_n[0]);
 	}
 	return (1);
 }

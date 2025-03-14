@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:11:46 by tprovost          #+#    #+#             */
-/*   Updated: 2025/02/25 11:44:43 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/14 19:45:56 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void	handle_signal_exec(int sig)
 	}
 }
 
+// << qwe cat | << qwe cat
 static void	handle_signal_here_doc(int sig)
 {
 	if (sig == SIGINT)
@@ -48,11 +49,11 @@ static void	handle_signal_here_doc(int sig)
 		rl_on_new_line();
 		g_exit_status = sig + 128;
 	}
-	if (sig == SIGQUIT)
-	{
-		printf("\b\b  \b\b");
-		g_exit_status = sig + 128;
-	}
+	// if (sig == SIGQUIT)
+	// {
+	// 	printf("\b\b  \b\b");
+	// 	g_exit_status = sig + 128;
+	// }
 }
 
 // state indique ce qu'on est en train de faire
