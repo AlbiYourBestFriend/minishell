@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_dollar.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:26:00 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/14 13:31:02 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/14 20:02:32 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,7 @@ static int	put_char_to_str(t_data *data, char *cmd, char *str, int *i_n)
 			n = put_env_var_value(data, cmd, str, i_n);
 		else if (cmd[i_n[0]] != '\0')
 		{
-			str[i_n[1]] = cmd[i_n[0]];
-			i_n[1]++;
-			i_n[0]++;
+			copy_and_inc(str, &i_n[1], cmd, &i_n[0]);
 		}
 	}
 	str[i_n[1]] = '\0';

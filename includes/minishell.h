@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/14 12:45:00 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/14 19:50:59 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,17 +56,6 @@
 
 // # define ENV_ERR		"no environment detected"
 // # define ARGC_ERR		"wrong number of argument"
-// # define HERE_DOC		"here_doc"
-// # define PATH_ERR		"path not found"
-
-// can be deleted ?
-// # define INPUT "<"
-// # define HEREDOC "<<"
-// # define TRUNC ">"
-// # define APPEND ">>"
-// # define PIPE "|"
-// # define NEW_LINE "newline"
-
 
 typedef struct s_data
 {
@@ -161,6 +150,7 @@ char		*double_quote_write(t_data *data, \
 char		*single_quote_write(char *arg, char *new_arg, int *index);
 char		*process_argument(t_data *data, char *arg, char *new_arg);
 char		*clean_cmd(char *cmd);
+void		copy_and_inc(char *str1, int *i, char *str2, int *j);
 char		**copy_tab(char **tab);
 int			count_char(char *str, char c);
 void		free_cmds(t_data *data);
