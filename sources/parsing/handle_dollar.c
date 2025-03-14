@@ -6,12 +6,13 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:26:00 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/14 11:41:51 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/14 13:31:02 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+// remplie la chaine en fonction des caracteres rencontres
 static int	put_char_to_str(t_data *data, char *cmd, char *str, int *i_n)
 {
 	int	n;
@@ -39,6 +40,7 @@ static int	put_char_to_str(t_data *data, char *cmd, char *str, int *i_n)
 	return (n);
 }
 
+// verifier que la chaine a bien ete creee et qu'elle sera bien remplie
 static char	*handle_dollar_copy_str(t_data *data, char *cmd, int n)
 {
 	char	*str;
@@ -54,6 +56,7 @@ static char	*handle_dollar_copy_str(t_data *data, char *cmd, int n)
 	return (str);
 }
 
+// n est la longueur total de la chaine de carateres a creer
 char	*handle_dollars(t_data *data, char *cmd)
 {
 	int		i;
