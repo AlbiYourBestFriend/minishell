@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:59:12 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/13 17:39:00 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/14 11:54:13 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,17 @@ int	try_execute(char *path, t_env_var *env_var, char **cmds, int n)
 {
 	char	**tab;
 
-	if (access(path, F_OK | X_OK) == 0)
+	if (!path)
+		return (0);
+	if (access(path, F_OK) == 0)
 	{
+		if (access(path, X_OK) == -1)
+		{
+			g_exit_status = 126;
+			if (path != NULL && n)
+				free(path);
+			return (nofile_error(NO_PERM, cmds[0]), 0);
+		}
 		tab = lst_to_tab(env_var);
 		if (tab == NULL)
 			return (0); // a gerer

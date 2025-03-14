@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_dollar_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 16:28:16 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/13 19:57:02 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/14 11:43:08 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,15 +91,18 @@ void	put_simple_quote(char *cmd, char *str, int *i_n)
 	str[i_n[1]] = cmd[i_n[0]];
 	i_n[0]++;
 	i_n[1]++;
-	while (cmd[i_n[0]] != '\'')
+	while (cmd[i_n[0]] && cmd[i_n[0]] != '\'')
 	{
 		str[i_n[1]] = cmd[i_n[0]];
 		i_n[0]++;
 		i_n[1]++;
 	}
 	str[i_n[1]] = cmd[i_n[0]];
-	i_n[0]++;
-	i_n[1]++;
+	if (cmd[i_n[0]] == '\"')
+	{
+		i_n[0]++;
+		i_n[1]++;
+	}
 }
 
 int	put_double_quote(t_data *data, char *cmd, char *str, int *i_n)
@@ -107,13 +110,11 @@ int	put_double_quote(t_data *data, char *cmd, char *str, int *i_n)
 	str[i_n[1]] = cmd[i_n[0]];
 	i_n[0]++;
 	i_n[1]++;
-	while (cmd[i_n[0]] != '\"')
+	while (cmd[i_n[0]] && cmd[i_n[0]] != '\"')
 	{
 		if (cmd[i_n[0]] == '$')
-		{
 			if (put_env_var_value(data, cmd, str, i_n) == 0)
 				return (0);
-		}
 		if (cmd[i_n[0]] != '\"')
 		{
 			str[i_n[1]] = cmd[i_n[0]];
@@ -122,7 +123,10 @@ int	put_double_quote(t_data *data, char *cmd, char *str, int *i_n)
 		}
 	}
 	str[i_n[1]] = cmd[i_n[0]];
-	i_n[0]++;
-	i_n[1]++;
+	if (cmd[i_n[0]] == '\"')
+	{
+		i_n[0]++;
+		i_n[1]++;
+	}
 	return (1);
 }
