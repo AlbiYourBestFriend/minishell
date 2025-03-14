@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_dollar_utils_2.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 19:19:48 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/13 19:57:02 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/14 11:42:44 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,16 @@ int	get_len_simple_quote(char *cmd, int *i, int n)
 	len = 0;
 	(*i)++;
 	len++;
-	while (cmd[(*i)] != '\'')
+	while (cmd[(*i)] && cmd[(*i)] != '\'')
 	{
 		(*i)++;
 		len++;
 	}
-	(*i)++;
-	len++;
+	if (cmd[*i] == '\'')
+	{
+		len++;
+		(*i)++;
+	}
 	return (len + n);
 }
 
@@ -81,12 +84,10 @@ int	get_len_double_quote(t_data *data, char *cmd, int *i, int n)
 	len = 0;
 	(*i)++;
 	len++;
-	while (cmd[*i] != '\"')
+	while (cmd[*i] && cmd[*i] != '\"')
 	{
 		if (cmd[*i] == '$')
-		{
 			len = len_env_var_value(data, cmd, i, n) - n;
-		}
 		else if (cmd[*i] != '\"')
 		{
 			(*i)++;
@@ -95,7 +96,10 @@ int	get_len_double_quote(t_data *data, char *cmd, int *i, int n)
 		if (len == -n - 1)
 			return (-1);
 	}
-	(*i)++;
-	len++;
+	if (cmd[*i] == '\"')
+	{
+		len++;
+		(*i)++;
+	}
 	return (len + n);
 }
