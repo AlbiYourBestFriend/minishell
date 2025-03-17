@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/17 11:57:29 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/17 18:10:53 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ void		free_data(t_data *data);
 void		free_env_var(t_env_var *env_var);
 void		free_tab(char **tab);
 void		ft_free_all_exit(t_data *data, int exit_status);
-int			ft_is_atoi(char *str);
+int			ft_is_atol(char *str);
 t_data		init_data(char **env, char *filelocation);
 void		get_program_path(t_data *data, char *argv0);
 int			get_word_count(char *str);
