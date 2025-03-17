@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:08:23 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/13 17:39:00 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/17 16:59:59 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,11 @@ int	ft_export(t_data *data, t_command *cmd)
 					env_var->status = 1;
 			}
 			else
+			{
+				g_exit_status = 1;
 				return (printf("%sexport: `%s': %s\n", \
 								ERROR, cmd->args[i], INVALID_ID), 0);
+			}
 		}
 	}
 	return (1);

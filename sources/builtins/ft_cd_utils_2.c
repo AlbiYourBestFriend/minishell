@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:22:24 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/17 14:44:34 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/17 15:04:02 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,18 +60,7 @@ void	root_return(t_data *data)
 // va a /home/username
 int	return_home_user(t_data *data)
 {
-	int			n;
-	t_env_var	*tmp;
-
-	tmp = get_env_var(data, "PWD");
-	if (tmp == NULL || tmp->value)
-		return (0);
-	n = count_char(tmp->value, '/');
-	while (n > 0)
-	{
-		chdir("..");
-		n--;
-	}
+	root_return(data);
 	if (access("home", F_OK | X_OK) == 0)
 	{
 		chdir("home");
