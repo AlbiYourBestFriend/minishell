@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:22:24 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/13 14:35:48 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/17 14:44:34 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	return_home_user(t_data *data)
 	t_env_var	*tmp;
 
 	tmp = get_env_var(data, "PWD");
-	if (tmp == NULL)
+	if (tmp == NULL || tmp->value)
 		return (0);
 	n = count_char(tmp->value, '/');
 	while (n > 0)

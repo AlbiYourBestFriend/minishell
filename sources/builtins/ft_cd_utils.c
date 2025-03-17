@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 16:28:12 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/13 17:39:00 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/17 14:31:40 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,10 @@ int	cd_check_chdir(char *tmp)
 	if (tmp[0] == '~' && (tmp[1] == '/' || tmp[1] == '\0'))
 		return (1);
 	if (chdir(tmp) == -1)
-		return (free(tmp), 0);
+	{
+		g_exit_status = 1;
+		free(tmp);
+		return (0);
+	}
 	return (1);
 }

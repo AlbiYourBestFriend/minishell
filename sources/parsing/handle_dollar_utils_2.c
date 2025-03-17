@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 19:19:48 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/14 20:12:56 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/17 14:44:34 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	len_env_var_value(t_data *data, char *cmd, int *i, int n)
 		return (allocate_error(ALLOC_ERR), -1);
 	env_var = get_env_var(data, name);
 	(*i) += j;
-	if (env_var != NULL)
+	if (env_var != NULL && env_var->value != NULL)
 		j = ft_strlen(env_var->value);
 	else
 		j = 0;

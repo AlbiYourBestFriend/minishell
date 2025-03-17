@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:59:12 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/17 12:35:15 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/17 14:44:34 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	command_executor(t_data *data, t_command *cmd)
 		index++;
 	}
 	free_tab(paths);
-	printf("%s%s: command not found\n", ERROR,cmd->args[0]);
+	printf("%s%s: command not found\n", ERROR, cmd->args[0]);
 	g_exit_status = 127;
 }
 
