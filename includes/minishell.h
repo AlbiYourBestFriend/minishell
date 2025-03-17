@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/14 19:50:59 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/17 11:57:29 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ char		*get_env_var_value(char *cmd);
 t_env_var	*modif_env_var(t_data *data, char *name, char *value, int n);
 t_env_var	*handle_env_var(t_data *data, char *cmd, int n);
 char		*handle_quotes(char *arg);
+char		*open_here_doc_file(t_data *data, int *fd);
 int			here_doc(t_data *data, int currentfd, char *limiter);
 int			read_heredoc(t_data *data);
 int			is_complete_cmd_line(char *cmd);

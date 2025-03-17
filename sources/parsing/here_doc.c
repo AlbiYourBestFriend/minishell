@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:44:32 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/14 19:45:11 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/17 11:57:29 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,27 @@ static int	write_here_doc(t_data *data, char *buffer, int fd)
 	return (1);
 }
 
+static int	check_here_doc(t_data *data, char *buffer, char *limiter, \
+							int *tmp_count_line)
+{
+	if (buffer == NULL)
+	{
+		printf("\n%swarning: here-document at line %d ", \
+				ERROR, data->count_line);
+		printf("delimited by end-of-file (wanted `%s')\n", limiter);
+		data->count_line += (*tmp_count_line);
+		return (1);
+	}
+	if (ft_strncmp(buffer, limiter, ft_strlen(limiter)) == 0
+		&& ft_strlen(buffer) == ft_strlen(limiter) + 1)
+	{
+		(*tmp_count_line)++;
+		data->count_line += (*tmp_count_line);
+		return (free(buffer), 1);
+	}
+	return (0);
+}
+
 static int	get_here_doc(t_data *data, int fd, char *limiter)
 {
 	char	*buffer;
@@ -70,57 +91,17 @@ static int	get_here_doc(t_data *data, int fd, char *limiter)
 	tmp_count_line = 0;
 	while (1)
 	{
-		// g_exit_status = 0;
-		buffer = readline("> ");
-		if (buffer == NULL)
-		{
-			printf("%swarning: here-document at line %d ", \
-					ERROR, data->count_line);
-			printf("delimited by end-of-file (wanted `%s')\n", limiter);
-			data->count_line += tmp_count_line;
-			return (1);
-		}
+		g_exit_status = 0;
+		ft_putstr_fd("> ", 1);
+		buffer = get_next_line(0);
 		if (g_exit_status == 130)
 			return (free(buffer), 0);
-		if (ft_strncmp(buffer, limiter, INT_MAX) == 0)
-		{
-			tmp_count_line++;
-			data->count_line += tmp_count_line;
-			return (free(buffer), 1);
-		}
+		if (check_here_doc(data, buffer, limiter, &tmp_count_line) == 1)
+			return (1);
 		tmp_count_line++;
 		if (write_here_doc(data, buffer, fd) == 0)
 			return (free(buffer), 0);
 	}
-}
-
-char	*open_here_doc_file(t_data *data, int *fd)
-{
-	char	*filename;
-	char	*nbr_char;
-	int		nbr;
-
-	nbr = 1;
-	while (1)
-	{
-		nbr_char = ft_itoa(nbr);
-		if (nbr_char == NULL)
-			return (allocate_error(ALLOC_ERR), NULL);
-		filename = ft_strjoin(data->tmp_path, nbr_char);
-		free(nbr_char);
-		if (filename == NULL)
-			return (allocate_error(ALLOC_ERR), NULL);
-		if (access(filename, F_OK) == -1)
-		{
-			(*fd) = open(filename, O_CREAT | O_WRONLY, 0644);
-			break ;
-		}
-		free(filename);
-		nbr++;
-	}
-	if ((*fd) == -1)
-		nofile_error(FILE_ERR, filename);
-	return (filename);
 }
 
 int	here_doc(t_data *data, int currentfd, char *limiter)
