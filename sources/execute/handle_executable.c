@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_executable.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 13:55:23 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/17 12:45:14 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/17 15:09:33 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void	exec_executable(t_data *data, t_command *cmd)
 {
 	t_env_var	*tmp;
 
+	if (ft_strlen(cmd->args[0]) == 0)
+		ft_free_all_exit(data, 0);
 	if (try_execute(&cmd->args[0][1], \
 	data->env_variables, cmd->args, 0) == 0)
 	{
