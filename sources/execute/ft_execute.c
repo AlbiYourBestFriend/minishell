@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:59:12 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/17 10:29:13 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/17 12:35:15 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	command_executor(t_data *data, t_command *cmd)
 		if (path == NULL)
 			return (free_tab(paths), allocate_error(ALLOC_ERR));
 		if (try_execute(path, data->env_variables, cmd->args, 1) == 0)
-			ft_free_all_exit(data, 1);
+			return (free_tab(paths), ft_free_all_exit(data, 1));
 		free(path);
 		index++;
 	}
