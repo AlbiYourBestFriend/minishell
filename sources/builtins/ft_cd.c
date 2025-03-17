@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:31:02 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/14 14:31:06 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/17 14:31:20 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,31 +91,33 @@ static void	cd_switch_pwd(t_data *data, t_env_var *env_var_pwd)
 // check cd -
 // modif PWD
 // modif OLDPWD
-static void	cd_utils(t_data *data, t_env_var *tmp_env_pwd, char *cd_path)
+static void	cd_utils(t_data *data, t_env_var *tmp_env, char *cd_path)
 {
-	char		*pwd;
+	char	*pwd;
 
-	pwd = ft_strdup(tmp_env_pwd->value);
-	if (pwd == NULL)
-		return (allocate_error(ALLOC_ERR));
-	if (cd_path[0] == '/' && cd_path[1] == '\0')
-		return (root_return(data));
-	if (cd_path[0] == '-' && cd_path[1] == '\0')
-		return (cd_switch_pwd(data, tmp_env_pwd), free(pwd));
-	if (cd_utils_2(data, tmp_env_pwd, cd_path, ft_split(cd_path, '/')) == 0)
-		return (free(pwd));
-	tmp_env_pwd = get_env_var(data, "OLDPWD");
-	if (tmp_env_pwd != NULL)
+	if (tmp_env != NULL && tmp_env->value != NULL && tmp_env->value[0] != '\0')
 	{
-		if (tmp_env_pwd->value != NULL)
-			free(tmp_env_pwd->value);
-		tmp_env_pwd->value = pwd;
+		pwd = ft_strdup(tmp_env->value);
+		if (pwd == NULL)
+			return (allocate_error(ALLOC_ERR));
+		if (cd_path[0] == '/' && cd_path[1] == '\0')
+			return (root_return(data));
+		if (cd_path[0] == '-' && cd_path[1] == '\0')
+			return (cd_switch_pwd(data, tmp_env), free(pwd));
+		if (cd_utils_2(data, tmp_env, cd_path, ft_split(cd_path, '/')) == 0)
+			return (free(pwd));
+		tmp_env = get_env_var(data, "OLDPWD");
+		if (tmp_env != NULL)
+		{
+			if (tmp_env->value != NULL)
+				free(tmp_env->value);
+			tmp_env->value = pwd;
+		}
+		else
+			return (free(pwd), perror("old pwd not found in env"));
 	}
 	else
-	{
-		free(pwd);
-		perror("old pwd not found in env");
-	}
+		perror("pwd not found in env");
 }
 
 //	check nb arguments
@@ -129,7 +131,10 @@ void	ft_cd(t_data *data, t_command *cmd)
 	t_env_var	*tmp_env;
 
 	if (tab_len(cmd->args) > 2)
+	{
+		g_exit_status = 1;
 		printf("%s%s: too many arguments\n", ERROR, cmd->args[0]);
+	}
 	else if (tab_len(cmd->args) == 1)
 		return_home_user(data);
 	else if (tab_len(cmd->args) == 2)
@@ -142,11 +147,7 @@ void	ft_cd(t_data *data, t_command *cmd)
 		else
 		{
 			tmp_env = get_env_var(data, "PWD");
-			if (tmp_env != NULL && tmp_env->value != NULL
-				&& tmp_env->value[0] != '\0')
-				cd_utils(data, tmp_env, cd_path);
-			else
-				perror("pwd not found in env");
+			cd_utils(data, tmp_env, cd_path);
 			free(cd_path);
 		}
 	}

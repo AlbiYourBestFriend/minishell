@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 13:55:23 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/14 20:03:28 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/17 12:45:14 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,5 @@ void	exec_executable(t_data *data, t_command *cmd)
 		ft_free_all_exit(data, 1);
 	}
 	exec_executable_utils(data, cmd, tmp);
-	// printf("%s%s: caca %s\n", ERROR, cmd->args[0], NO_FILE_DIR);
 	ft_free_all_exit(data, 1);
 }
