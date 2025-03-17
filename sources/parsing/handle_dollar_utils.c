@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 16:28:16 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/14 20:12:56 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/17 10:10:59 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ int	put_exit_status(char *str, int *i_n)
 
 static int	put_env_var_value_utils(char *cmd, char *str, int *i_n)
 {
-	if (ft_isspace(cmd[i_n[0] + 1]) == 0
-		&& cmd[i_n[0] + 1] != '\"' && cmd[i_n[0] + 1] != '\''
-		&& cmd[i_n[0] + 1] != '$' && cmd[i_n[0] + 1] != '\0')
+	if (ft_isspace(cmd[i_n[0] + 1]) == 1
+		|| cmd[i_n[0] + 1] == '\"' || cmd[i_n[0] + 1] == '\''
+		|| cmd[i_n[0] + 1] == '$' || cmd[i_n[0] + 1] == '\0')
 	{
 		copy_and_inc(str, &i_n[1], cmd, &i_n[0]);
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/14 13:33:57 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/17 09:52:48 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ static void	build_command(t_data *data, char *cmd_line)
 	}
 	while (data->splitted_cmds[i] != NULL)
 	{
-		// gerer cas malloc echoue
 		cmdadd_back(&data->commands, cmdnew(data->splitted_cmds[i]));
+		// gerer cas malloc echoue
 		i++;
 	}
 	free_tab(data->splitted_cmds);
