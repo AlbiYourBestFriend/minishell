@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:31:02 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/17 14:31:20 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/17 15:02:33 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ static void	cd_utils(t_data *data, t_env_var *tmp_env, char *cd_path)
 		pwd = ft_strdup(tmp_env->value);
 		if (pwd == NULL)
 			return (allocate_error(ALLOC_ERR));
-		if (cd_path[0] == '/' && cd_path[1] == '\0')
+		if (count_char(cd_path, '/') == (int)ft_strlen(cd_path))
 			return (root_return(data));
 		if (cd_path[0] == '-' && cd_path[1] == '\0')
 			return (cd_switch_pwd(data, tmp_env), free(pwd));
