@@ -30,6 +30,7 @@ SOURCES	=	ft_cd_utils_2.c \
 			handle_env_var_utils.c \
 			handle_env_var.c \
 			handle_quote.c \
+			here_doc_utils.c \
 			here_doc.c \
 			is_complete_cmd_line.c \
 			new_readline_join_cmd.c \
