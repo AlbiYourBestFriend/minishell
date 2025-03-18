@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 13:55:23 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/17 12:45:14 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/18 12:17:25 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	exec_executable_utils(t_data *data, t_command *cmd, t_env_var *tmp)
 		i++;
 	path = ft_strjoin(tmp->value, &(cmd->args[0][i]));
 	if (path == NULL)
-		return (allocate_error(ALLOC_ERR), ft_free_all_exit(data, 1));
+		return (allocate_error(ALLOC_ERR), ft_free_all_exit(data, g_exit_status));
 	if (access(path, F_OK) == 0)
 	{
 		if (access(path, X_OK) == -1)
@@ -46,11 +46,12 @@ static void	exec_executable_utils(t_data *data, t_command *cmd, t_env_var *tmp)
 		tab = lst_to_tab(data->env_variables);
 		if (tab == NULL)
 			return (free(path), allocate_error(ALLOC_ERR), \
-				ft_free_all_exit(data, 1));
+				ft_free_all_exit(data, g_exit_status));
 		execve(path, cmd->args, tab);
 		free_tab(tab);
 	}
 	free(path);
+	g_exit_status = 127;
 }
 
 void	exec_executable(t_data *data, t_command *cmd)
@@ -60,14 +61,14 @@ void	exec_executable(t_data *data, t_command *cmd)
 	if (try_execute(&cmd->args[0][1], \
 	data->env_variables, cmd->args, 0) == 0)
 	{
-		ft_free_all_exit(data, 1);
+		ft_free_all_exit(data, g_exit_status);
 	}
 	tmp = get_env_var(data, "PWD");
 	if (tmp == NULL)
 	{
 		printf("pwd not found\n");
-		ft_free_all_exit(data, 1);
+		ft_free_all_exit(data, g_exit_status);
 	}
 	exec_executable_utils(data, cmd, tmp);
-	ft_free_all_exit(data, 1);
+	ft_free_all_exit(data, g_exit_status);
 }

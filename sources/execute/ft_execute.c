@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:59:12 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/18 11:27:49 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/18 12:36:13 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int	try_execute(char *path, t_env_var *env_var, char **cmds, int n)
 		if (tab == NULL)
 			return (0);
 		execve(path, cmds, tab);
+		printf("%s%s: command not found\n", ERROR, cmds[0]);
+		g_exit_status = 127;
 		free_tab(tab);
 		if (path != NULL && n)
 			free(path);
@@ -48,7 +50,7 @@ static void	command_executor(t_data *data, t_command *cmd)
 	index = 0;
 	if (cmd->args[0][0] == '/'
 		&& try_execute(cmd->args[0], data->env_variables, cmd->args, 0) == 0)
-		ft_free_all_exit(data, 1);
+		ft_free_all_exit(data, g_exit_status);
 	paths = ft_split(get_env_var(data, "PATH")->value, ':');
 	if (paths == NULL)
 		return (allocate_error(ALLOC_ERR));
@@ -58,7 +60,7 @@ static void	command_executor(t_data *data, t_command *cmd)
 		if (path == NULL)
 			return (free_tab(paths), allocate_error(ALLOC_ERR));
 		if (try_execute(path, data->env_variables, cmd->args, 1) == 0)
-			return (free_tab(paths), ft_free_all_exit(data, 1));
+			return (free_tab(paths), ft_free_all_exit(data, g_exit_status));
 		free(path);
 		index++;
 	}
