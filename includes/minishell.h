@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/18 14:02:31 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/18 17:07:22 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 // Libraries
 # include "../libft/sources/libft.h"
-# include "lsthandler.h"
-# include "colors.h"
 
 // Standard Libraries
 # include <string.h>
@@ -57,6 +55,25 @@
 
 // # define ENV_ERR		"no environment detected"
 // # define ARGC_ERR		"wrong number of argument"
+
+typedef struct s_command
+{
+	char				*cmd_line;
+	char				**args;
+	int					input_fd;
+	int					output_fd;
+	int					heredoc_fd;
+	pid_t				pid;
+	struct s_command	*next;
+}			t_command;
+
+typedef struct s_env_var
+{
+	char				*name;
+	char				*value;
+	int					status;
+	struct s_env_var	*next;
+}			t_env_var;
 
 typedef struct s_data
 {
@@ -105,6 +122,12 @@ int			is_executable(char *cmd);
 void		exec_executable(t_data *data, t_command *cmd);
 char		*create_path(char *path, char *cmd);
 void		signal_handler(int state);
+
+// Commandes listes
+t_command	*cmdnew(char *cmd_line);
+void		cmdadd_back(t_command **lst, t_command *newlst);
+t_command	*cmdlast(t_command *lst);
+int			cmdsize(t_command *lst);
 
 // Parsing
 int			check_quotes(char *cmd);
