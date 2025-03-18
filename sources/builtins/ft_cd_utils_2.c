@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:22:24 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/17 15:04:02 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/18 11:50:45 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,19 @@ void	root_return(t_data *data)
 	}
 	else
 		perror("pwd not found in env");
+	g_exit_status = 0;
 }
 
 // handle cd et cd ~
 // va a /home/username
 int	return_home_user(t_data *data)
 {
+	g_exit_status = 0;
 	root_return(data);
+	if (g_exit_status == 1)
+	{
+		return (0);
+	}
 	if (access("home", F_OK | X_OK) == 0)
 	{
 		chdir("home");
@@ -69,5 +75,6 @@ int	return_home_user(t_data *data)
 		else
 			chdir("..");
 	}
+	g_exit_status = 1;
 	return (0);
 }

@@ -6,11 +6,22 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:03:50 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/18 10:29:00 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/18 11:27:49 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static int	check_empty_cmd(t_command *cmd)
+{
+	if (ft_strlen(cmd->args[0]) == 0)
+	{
+		g_exit_status = 127;
+		printf("'': command not found\n");
+		return (0);
+	}
+	return (1);
+}
 
 int	process_cmd_line(t_data *data, t_command *cmd)
 {
@@ -27,16 +38,15 @@ int	process_cmd_line(t_data *data, t_command *cmd)
 	cmd->args = split_cmd_line(cmd->cmd_line, ' ');
 	if (cmd->args == NULL || cmd->args[0] == NULL)
 		return (0);
-	i = -1;
-	while (cmd->args[++i] != NULL)
+	i = 0;
+	while (cmd->args[i] != NULL)
 	{
 		tmp = handle_quotes(cmd->args[i]);
 		if (tmp == NULL)
 			return (0);
 		free(cmd->args[i]);
 		cmd->args[i] = tmp;
+		i++;
 	}
-	if (ft_strlen(cmd->args[0]) == 0)
-		return (0);
-	return (1);
+	return (check_empty_cmd(cmd));
 }
