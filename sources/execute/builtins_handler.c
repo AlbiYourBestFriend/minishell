@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_handler.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:21:31 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/14 11:22:26 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/18 11:52:13 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,6 @@ int	init_builtins(t_data *data, t_command *cmd)
 		dup2(output, 1);
 		close(output);
 	}
-	g_exit_status = 0;
+	// g_exit_status = 0;
 	return (1);
 }

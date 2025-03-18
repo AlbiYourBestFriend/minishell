@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:33:13 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/26 12:50:45 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/18 11:43:25 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	ft_unset(t_data *data, t_command *cmd)
 	t_env_var	*env_var;
 
 	i = 0;
+	g_exit_status = 0;
 	while (cmd->args[++i] != NULL)
 	{
 		name = get_env_var_name(cmd->args[i]);

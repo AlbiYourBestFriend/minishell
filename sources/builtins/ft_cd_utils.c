@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 16:28:12 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/18 10:50:46 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/18 11:50:45 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int	check_path_cd(t_data *data, t_env_var *tmp_env_pwd, \
 				i--;
 			}
 			chdir(tmp_env_pwd->value);
+			g_exit_status = 1;
 			return (0);
 		}
 		i++;

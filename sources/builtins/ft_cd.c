@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:31:02 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/18 10:50:46 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/18 11:51:44 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	cd_utils_3(t_env_var *tmp_env_pwd, char *tab_i)
 	char	*str;
 
 	i = -1;
-	n = -1;
+	n = 0;
 	str = malloc((ft_strlen(tmp_env_pwd->value) + \
 					ft_strlen(tab_i) + 2) * sizeof(char));
 	if (str == NULL)
@@ -29,11 +29,15 @@ static int	cd_utils_3(t_env_var *tmp_env_pwd, char *tab_i)
 		str[i] = tmp_env_pwd->value[i];
 	str[i] = '/';
 	i++;
-	while (tab_i[++n] != '\0')
+	while (tab_i[n] != '\0')
+	{
 		str[i + n] = tab_i[n];
+		n++;
+	}
 	str[i + n] = '\0';
 	free(tmp_env_pwd->value);
 	tmp_env_pwd->value = str;
+	g_exit_status = 0;
 	return (1);
 }
 
@@ -62,6 +66,7 @@ static int	cd_utils_2(t_data *data, t_env_var *tmp_env_pwd, \
 		else if (cd_utils_3(tmp_env_pwd, tab[i]) == 0)
 			return (free_tab(tab), 0);
 	}
+	g_exit_status = 0;
 	return (free_tab(tab), 1);
 }
 
@@ -86,6 +91,7 @@ static void	cd_switch_pwd(t_data *data, t_env_var *env_var_pwd)
 	}
 	chdir(env_var_pwd->value);
 	printf("%s\n", env_var_pwd->value);
+	g_exit_status = 0;
 }
 
 // check cd -

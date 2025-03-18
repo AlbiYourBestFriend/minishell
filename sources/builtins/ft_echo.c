@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:29:38 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/14 13:49:44 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/18 11:37:47 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,5 @@ void	ft_echo(t_command *cmd)
 	}
 	if (new_line == 1)
 		printf("\n");
+	g_exit_status = 0;
 }

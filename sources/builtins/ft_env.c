@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:33:34 by mleproux          #+#    #+#             */
-/*   Updated: 2025/02/19 15:52:18 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/18 11:43:25 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,5 @@ void	ft_env(t_data *data, t_command *cmd)
 		}
 		env_var = env_var->next;
 	}
+	g_exit_status = 0;
 }
