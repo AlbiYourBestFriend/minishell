@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/18 10:50:46 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/18 14:02:31 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,10 @@ extern volatile int	g_exit_status;
 // Builtins
 void		root_return(t_data *data);
 int			return_home_user(t_data *data);
+void		cd_switch_pwd(t_data *data, t_env_var *env_var_pwd);
 int			check_path_cd(t_data *data, t_env_var *tmp_env_pwd, \
 							char **tab, char *cd_path);
+t_env_var	*cd_add_pwd(t_data *data, char *name);
 void		cd_rm_last(char *pwd);
 int			cd_check_chdir(t_command *cmd, char *tmp);
 void		ft_cd(t_data *data, t_command *cmd);

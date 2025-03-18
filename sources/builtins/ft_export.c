@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:08:23 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/18 11:40:13 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/18 14:31:31 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static int	ft_export_utils(t_data *data, t_command *cmd, int i)
 
 int	ft_export(t_data *data, t_command *cmd)
 {
-	int			i;
+	int	i;
 
 	if (tab_len(cmd->args) == 1)
 	{
