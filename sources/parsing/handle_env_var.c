@@ -6,13 +6,13 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 18:05:52 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/17 14:17:43 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/18 14:24:39 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-// -2 name but no value
+// -2 name but no value / no '='
 // -1 name + value = NULL
 // 0 is not an env var
 // 1 env + value != NULL
@@ -58,6 +58,7 @@ t_env_var	*modif_env_var(t_data *data, char *name, char *value, int n)
 		}
 		else
 			env_var->status = 1;
+		free(name);
 	}
 	return (env_var);
 }

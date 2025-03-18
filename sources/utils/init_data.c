@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:13:48 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/17 12:11:18 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/18 14:41:15 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,13 +102,15 @@ t_data	init_data(char **env, char *filelocation)
 {
 	t_data	data;
 
+	data.env_variables = NULL;
 	data.commands = NULL;
 	data.splitted_cmds = NULL;
 	data.program_path = NULL;
 	data.tmp_path = NULL;
+	data.username = NULL;
 	data.count_line = 0;
 	data.exit_status = 0;
-	if (put_env_to_data(&data, env) == 0)
+	if (env != NULL && env[0] != NULL && put_env_to_data(&data, env) == 0)
 	{
 		free_data(&data);
 		exit(1);
