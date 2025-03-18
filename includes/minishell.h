@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/17 18:10:53 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/18 10:50:46 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@
 // errors messages
 # define ERROR			"Minishell: "
 # define NO_FILE_DIR	"No such file or directory"
+# define NO_DIR			"Not a directory"
 # define ALLOC_ERR		"Cannot allocate memory"
 # define INVALID_ID		"not a valid identifier"
 # define FILE_ERR		"Error in opening file"
@@ -78,7 +79,7 @@ int			return_home_user(t_data *data);
 int			check_path_cd(t_data *data, t_env_var *tmp_env_pwd, \
 							char **tab, char *cd_path);
 void		cd_rm_last(char *pwd);
-int			cd_check_chdir(char *tmp);
+int			cd_check_chdir(t_command *cmd, char *tmp);
 void		ft_cd(t_data *data, t_command *cmd);
 void		ft_echo(t_command *cmd);
 void		ft_env(t_data *data, t_command *cmd);

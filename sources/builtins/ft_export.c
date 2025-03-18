@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:08:23 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/17 16:59:59 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/18 10:33:43 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,33 +73,44 @@ static int	print_export(t_data *data)
 	return (free_tab(tab), 1);
 }
 
-int	ft_export(t_data *data, t_command *cmd)
+static int	ft_export_utils(t_data *data, t_command *cmd, int i)
 {
 	t_env_var	*env_var;
 	int			n;
+
+	n = is_env_var(cmd->args[i]);
+	if (n != 0)
+	{
+		env_var = handle_env_var(data, cmd->args[i], n);
+		if (env_var != NULL && (n == 1 || n == -1)
+			&& env_var->status == 0)
+			env_var->status = 1;
+	}
+	else
+	{
+		g_exit_status = 1;
+		printf("%sexport: `%s': %s\n", ERROR, cmd->args[i], INVALID_ID);
+		return (0);
+	}
+	return (1);
+}
+
+int	ft_export(t_data *data, t_command *cmd)
+{
 	int			i;
 
 	if (tab_len(cmd->args) == 1)
 		print_export(data);
 	else
 	{
-		i = 0;
-		while (cmd->args[++i] != NULL)
+		i = 1;
+		while (cmd->args[i] != NULL)
 		{
-			n = is_env_var(cmd->args[i]);
-			if (n != 0)
+			if (ft_export_utils(data, cmd, i) == 0)
 			{
-				env_var = handle_env_var(data, cmd->args[i], n);
-				if (env_var != NULL && (n == 1 || n == -1)
-					&& env_var->status == 0)
-					env_var->status = 1;
+				return (0);
 			}
-			else
-			{
-				g_exit_status = 1;
-				return (printf("%sexport: `%s': %s\n", \
-								ERROR, cmd->args[i], INVALID_ID), 0);
-			}
+			i++;
 		}
 	}
 	return (1);

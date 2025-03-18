@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:31:02 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/17 15:02:33 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/18 10:50:46 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,8 +142,8 @@ void	ft_cd(t_data *data, t_command *cmd)
 		cd_path = ft_strtrim(cmd->args[1], "\"\'");
 		if (cd_path == NULL)
 			allocate_error(ALLOC_ERR);
-		else if (cd_check_chdir(cd_path) == 0)
-			printf("%scd: %s: %s\n", ERROR, cmd->args[1], NO_FILE_DIR);
+		else if (cd_check_chdir(cmd, cd_path) == 0)
+			return ;
 		else
 		{
 			tmp_env = get_env_var(data, "PWD");
