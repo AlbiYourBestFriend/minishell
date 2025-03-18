@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 19:19:48 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/17 14:44:34 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/18 10:28:49 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static int	len_env_var_value_utils(char *cmd, int *i, int n)
 		|| cmd[*i] == '\"' || cmd[*i] == '\''
 		|| cmd[*i] == '$' || cmd[*i] == '\0')
 	{
-		// (*i)++;
 		return (n + 1);
 	}
 	if (cmd[*i] == '?')

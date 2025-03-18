@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 16:28:12 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/17 14:31:40 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/18 10:50:46 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	check_path_cd(t_data *data, t_env_var *tmp_env_pwd, \
 	return (1);
 }
 
-int	cd_check_chdir(char *tmp)
+int	cd_check_chdir(t_command *cmd, char *tmp)
 {
 	if (tmp[0] == '-' && tmp[1] == '\0')
 		return (1);
@@ -80,6 +80,10 @@ int	cd_check_chdir(char *tmp)
 	if (chdir(tmp) == -1)
 	{
 		g_exit_status = 1;
+		if (access(tmp, F_OK) == 0)
+			printf("%scd: %s: %s\n", ERROR, cmd->args[1], NO_DIR);
+		else
+			printf("%scd: %s: %s\n", ERROR, cmd->args[1], NO_FILE_DIR);
 		free(tmp);
 		return (0);
 	}

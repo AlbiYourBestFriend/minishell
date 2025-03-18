@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_cmd_line.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:03:50 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/17 12:29:46 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/18 10:29:00 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,3 @@ int	process_cmd_line(t_data *data, t_command *cmd)
 		return (0);
 	return (1);
 }
-
