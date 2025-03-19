@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/19 15:31:30 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/19 15:55:39 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ typedef struct s_data
 	int			exit_status;
 }			t_data;
 
-// pour connaitre le resultat des signaux et des execve
 extern volatile int	g_exit_status;
 
 // Builtins
@@ -130,6 +129,7 @@ char		*create_path(char *path, char *cmd);
 void		signal_handler(int state);
 
 // Commandes listes
+void		free_cmds(t_data *data);
 t_command	*cmdnew(char *cmd_line);
 void		cmdadd_back(t_command **lst, t_command *newlst);
 t_command	*cmdlast(t_command *lst);
@@ -182,15 +182,6 @@ void		blankify(char *str, int start, int len);
 
 int			check_token(char *cmd_line, int i);
 
-char		*exit_status_write(char *new_arg, int *index);
-char		*env_var_write(t_data *data, char *arg, char *new_arg, int *index);
-char		*double_quote_write(t_data *data, \
-								char *arg, char *new_arg, int *index);
-char		*single_quote_write(char *arg, char *new_arg, int *index);
-
-char		*process_argument(t_data *data, char *arg, char *new_arg);
-void		clean_args(t_data *data, t_command *cmd);
-
 char		*clean_cmd(char *cmd);
 
 void		copy_and_inc(char *str1, int *i, char *str2, int *j);
@@ -199,7 +190,6 @@ char		**copy_tab(char **tab);
 
 int			count_char(char *str, char c);
 
-void		free_cmds(t_data *data);
 void		free_data(t_data *data);
 void		free_env_var(t_env_var *env_var);
 void		free_tab(char **tab);
@@ -207,11 +197,7 @@ void		free_all_exit(t_data *data, int exit_status);
 
 int			ft_is_atol(char *str);
 
-char		*get_next_word(char *str, int *index);
-
 void		get_program_path(t_data *data, char *argv0);
-
-int			get_word_count(char *str);
 
 t_data		init_data(char **env, char *filelocation);
 

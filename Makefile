@@ -45,19 +45,17 @@ SOURCES	=	ft_cd_utils_2.c \
 			copy_and_inc.c \
 			copy_tab.c \
 			count_char.c \
+			free_all_exit.c \
 			free_data.c \
 			free_env_var.c \
 			free_tab.c \
-			free_all_exit.c \
 			ft_is_atol.c \
-			get_next_word.c \
-			get_word_count.c \
+			get_program_path.c \
 			init_data.c \
 			lst_to_tab.c \
 			msg_error.c \
 			split_cmd_line_utils.c \
 			split_cmd_line.c \
-			get_program_path.c \
 			tab_len.c \
 			unlink_tmp.c \
 			main.c \
