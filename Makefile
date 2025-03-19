@@ -41,8 +41,6 @@ SOURCES	=	ft_cd_utils_2.c \
 			arglen.c \
 			blankify.c \
 			check_token.c \
-			clean_args.c \
-			clean_args_utils.c \
 			clean_cmd.c \
 			copy_and_inc.c \
 			copy_tab.c \
