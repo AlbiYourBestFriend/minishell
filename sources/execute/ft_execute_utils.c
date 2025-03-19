@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 11:55:36 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/19 11:39:38 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/19 15:20:54 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,6 @@ void	fd_handler(t_command *cmd, int output, int input)
 	}
 	else if (cmd->output_fd != 1 && cmd->next == NULL)
 		cmd->output_fd = output;
-	// close(input);
-	// if (cmd->output_fd == 1)
-	// 	cmd->output_fd = output;
-	// else
-	// 	close(output);
 }
 
 void	wait_for_all(t_data *data)

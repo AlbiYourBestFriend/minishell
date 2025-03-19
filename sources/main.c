@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/19 11:14:37 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/19 15:24:11 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ static void	build_command(t_data *data, char *cmd_line)
 	while (data->splitted_cmds[i] != NULL)
 	{
 		cmdadd_back(&data->commands, cmdnew(data->splitted_cmds[i]));
-		// gerer cas malloc echoue
 		i++;
 	}
 	free_tab(data->splitted_cmds);
@@ -120,6 +119,8 @@ int	main(int argc, char **argv, char **env)
 
 /*
 
-clear && make && valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes --track-fds=yes --suppressions=readline.supp ./minishell
+clear && make && valgrind --leak-check=full 
+--show-leak-kinds=all --trace-children=yes --track-fds=yes 
+--suppressions=readline.supp ./minishell
 
 */
