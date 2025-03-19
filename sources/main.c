@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
 /*   Updated: 2025/03/19 15:32:46 by tprovost         ###   ########.fr       */
@@ -21,17 +21,18 @@ static void	build_command(t_data *data, char *cmd_line)
 
 	if (cmd_line[0] == '\0')
 		return (free(cmd_line));
-	i = -1;
+	i = 0;
 	data->splitted_cmds = split_cmd_line(cmd_line, '|');
 	free(cmd_line);
 	if (data->splitted_cmds == NULL)
 		return (allocate_error(ALLOC_ERR));
-	while (data->splitted_cmds[++i] != NULL)
+	while (data->splitted_cmds[i] != NULL)
 	{
 		temp = cmdnew(data->splitted_cmds[i]);
 		if (temp == NULL)
 			return (free_tab(data->splitted_cmds), free_cmds(data));
 		cmdadd_back(&data->commands, temp);
+    i++;
 	}
 	free_tab(data->splitted_cmds);
 	ft_execute(data);
@@ -116,6 +117,8 @@ int	main(int argc, char **argv, char **env)
 
 /*
 
-clear && make && valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes --track-fds=yes --suppressions=readline.supp ./minishell
+clear && make && valgrind --leak-check=full 
+--show-leak-kinds=all --trace-children=yes --track-fds=yes 
+--suppressions=readline.supp ./minishell
 
 */

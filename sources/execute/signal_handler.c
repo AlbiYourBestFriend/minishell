@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:11:46 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/17 10:48:04 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/19 15:20:40 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,6 @@ static void	handle_signal_here_doc(int sig)
 		rl_on_new_line();
 		g_exit_status = sig + 128;
 	}
-	// if (sig == SIGQUIT)
-	// {
-	// 	printf("\b\b  \b\b");
-	// 	g_exit_status = sig + 128;
-	// }
 }
 
 // state indique ce qu'on est en train de faire
