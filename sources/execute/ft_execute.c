@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:59:12 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/19 10:05:01 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/19 12:31:22 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,13 @@ void	fork_handler(t_data *data, t_command *cmd, int *pipefd)
 		if (cmd->args == NULL && process_cmd_line(data, cmd) == 0)
 			return (free_all_exit(data, g_exit_status));
 		if (cmd->next != NULL)
+		{
 			fd_handler(cmd, pipefd[1], pipefd[0]);
-		else
-			fd_handler(cmd, cmd->output_fd, -2);
+			close(pipefd[0]);
+			close(pipefd[1]);
+		}
+		close(cmd->input_fd);
+		close(cmd->output_fd);
 		if (cmd->input_fd != 0 && dup2(cmd->input_fd, 0) == -1)
 			free_all_exit(data, 1);
 		if (cmd->output_fd != 1 && dup2(cmd->output_fd, 1) == -1)
@@ -94,8 +98,6 @@ void	fork_handler(t_data *data, t_command *cmd, int *pipefd)
 			command_executor(data, cmd);
 		free_all_exit(data, g_exit_status);
 	}
-	else if (cmd->input_fd != 0)
-		close(cmd->input_fd);
 }
 
 int	ft_execute(t_data *data)
