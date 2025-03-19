@@ -113,8 +113,6 @@ int	main(int argc, char **argv, char **env)
 	}
 }
 
-// gerer g_exit_status et $?
-
 /*
 
 clear && make && valgrind --leak-check=full 
