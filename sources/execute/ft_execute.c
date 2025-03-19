@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:59:12 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/19 15:22:49 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/19 14:48:19 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ int	ft_execute(t_data *data)
 		close(pipefd[1]);
 		if (temp->input_fd != 0)
 			close(temp->input_fd);
-		if (temp->next)
+		if (temp->next != NULL)
 			temp->next->input_fd = pipefd[0];
 		else
 			break ;

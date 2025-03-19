@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/19 15:24:11 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/19 15:32:46 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,16 @@ static void	build_command(t_data *data, char *cmd_line)
 	data->splitted_cmds = split_cmd_line(cmd_line, '|');
 	free(cmd_line);
 	if (data->splitted_cmds == NULL)
-	{
-		allocate_error(ALLOC_ERR);
-		return ;
-	}
+		return (allocate_error(ALLOC_ERR));
 	while (data->splitted_cmds[i] != NULL)
 	{
-		cmdadd_back(&data->commands, cmdnew(data->splitted_cmds[i]));
-		i++;
+		temp = cmdnew(data->splitted_cmds[i]);
+		if (temp == NULL)
+			return (free_tab(data->splitted_cmds), free_cmds(data));
+		cmdadd_back(&data->commands, temp);
+    i++;
 	}
 	free_tab(data->splitted_cmds);
-	data->splitted_cmds = NULL;
-	temp = data->commands;
 	ft_execute(data);
 	free_cmds(data);
 	unlink_tmp(data);
