@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 13:55:23 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/18 12:17:25 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/19 10:05:01 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,16 @@ static void	exec_executable_utils(t_data *data, t_command *cmd, t_env_var *tmp)
 		i++;
 	path = ft_strjoin(tmp->value, &(cmd->args[0][i]));
 	if (path == NULL)
-		return (allocate_error(ALLOC_ERR), ft_free_all_exit(data, g_exit_status));
+		return (allocate_error(ALLOC_ERR), free_all_exit(data, g_exit_status));
 	if (access(path, F_OK) == 0)
 	{
 		if (access(path, X_OK) == -1)
 			return (free(path), nofile_error(NO_PERM, cmd->args[0]), \
-				ft_free_all_exit(data, 126));
+				free_all_exit(data, 126));
 		tab = lst_to_tab(data->env_variables);
 		if (tab == NULL)
 			return (free(path), allocate_error(ALLOC_ERR), \
-				ft_free_all_exit(data, g_exit_status));
+				free_all_exit(data, g_exit_status));
 		execve(path, cmd->args, tab);
 		free_tab(tab);
 	}
@@ -61,14 +61,14 @@ void	exec_executable(t_data *data, t_command *cmd)
 	if (try_execute(&cmd->args[0][1], \
 	data->env_variables, cmd->args, 0) == 0)
 	{
-		ft_free_all_exit(data, g_exit_status);
+		free_all_exit(data, g_exit_status);
 	}
 	tmp = get_env_var(data, "PWD");
 	if (tmp == NULL)
 	{
 		printf("pwd not found\n");
-		ft_free_all_exit(data, g_exit_status);
+		free_all_exit(data, g_exit_status);
 	}
 	exec_executable_utils(data, cmd, tmp);
-	ft_free_all_exit(data, g_exit_status);
+	free_all_exit(data, g_exit_status);
 }

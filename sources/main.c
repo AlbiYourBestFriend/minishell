@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/18 14:46:53 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/19 10:05:01 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	build_command(t_data *data, char *cmd_line)
 static void	handle_ctrl_d(t_data *data)
 {
 	printf("exit\n");
-	ft_free_all_exit(data, g_exit_status);
+	free_all_exit(data, g_exit_status);
 }
 
 static int	handle_cmd_line_extension(t_data *data, char *cmd_line)
@@ -120,6 +120,6 @@ int	main(int argc, char **argv, char **env)
 
 /*
 
-valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp ./minishell
+clear && make && valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --suppressions=readline.supp ./minishell
 
 */
