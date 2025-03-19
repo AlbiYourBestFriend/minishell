@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:21:36 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/13 14:35:48 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/19 12:31:22 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ void	free_cmds(t_data *data)
 		}
 		if (temp->heredoc_fd > 0)
 			close(temp->heredoc_fd);
+		if (temp->input_fd != 0)
+			close(temp->input_fd);
+		if (temp->output_fd != 1)
+			close(temp->output_fd);
 		to_free = temp;
 		temp = temp->next;
 		to_free->next = NULL;
