@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/19 11:14:37 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/19 15:32:46 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,19 @@ static void	build_command(t_data *data, char *cmd_line)
 
 	if (cmd_line[0] == '\0')
 		return (free(cmd_line));
-	i = 0;
+	i = -1;
 	data->splitted_cmds = split_cmd_line(cmd_line, '|');
 	free(cmd_line);
 	if (data->splitted_cmds == NULL)
+		return (allocate_error(ALLOC_ERR));
+	while (data->splitted_cmds[++i] != NULL)
 	{
-		allocate_error(ALLOC_ERR);
-		return ;
-	}
-	while (data->splitted_cmds[i] != NULL)
-	{
-		cmdadd_back(&data->commands, cmdnew(data->splitted_cmds[i]));
-		// gerer cas malloc echoue
-		i++;
+		temp = cmdnew(data->splitted_cmds[i]);
+		if (temp == NULL)
+			return (free_tab(data->splitted_cmds), free_cmds(data));
+		cmdadd_back(&data->commands, temp);
 	}
 	free_tab(data->splitted_cmds);
-	data->splitted_cmds = NULL;
-	temp = data->commands;
 	ft_execute(data);
 	free_cmds(data);
 	unlink_tmp(data);
