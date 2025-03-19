@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:33:53 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/17 18:10:53 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/19 10:05:01 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_exit(t_data *data, t_command *cmd, int p)
 			{
 				printf("%sexit: %s: numeric argument required\n", \
 						ERROR, cmd->args[1]);
-				ft_free_all_exit(data, 2);
+				free_all_exit(data, 2);
 			}
 			else if (tab_len(cmd->args) > 2)
 			{
@@ -31,10 +31,10 @@ void	ft_exit(t_data *data, t_command *cmd, int p)
 				g_exit_status = 1;
 				return ;
 			}
-			ft_free_all_exit(data, ft_atol(cmd->args[1]) % 256);
+			free_all_exit(data, ft_atol(cmd->args[1]) % 256);
 		}
 	}
-	ft_free_all_exit(data, 0);
+	free_all_exit(data, 0);
 }
 
 // nombre doit etre un long

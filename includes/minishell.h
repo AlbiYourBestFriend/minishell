@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/18 17:07:22 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/19 10:05:01 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,7 @@ void		free_cmds(t_data *data);
 void		free_data(t_data *data);
 void		free_env_var(t_env_var *env_var);
 void		free_tab(char **tab);
-void		ft_free_all_exit(t_data *data, int exit_status);
+void		free_all_exit(t_data *data, int exit_status);
 int			ft_is_atol(char *str);
 t_data		init_data(char **env, char *filelocation);
 void		get_program_path(t_data *data, char *argv0);

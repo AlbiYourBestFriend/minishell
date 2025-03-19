@@ -50,7 +50,7 @@ SOURCES	=	ft_cd_utils_2.c \
 			free_data.c \
 			free_env_var.c \
 			free_tab.c \
-			ft_free_all_exit.c \
+			free_all_exit.c \
 			ft_is_atol.c \
 			get_next_word.c \
 			get_word_count.c \

@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:59:12 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/18 12:36:13 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/19 10:05:01 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	command_executor(t_data *data, t_command *cmd)
 	index = 0;
 	if (cmd->args[0][0] == '/'
 		&& try_execute(cmd->args[0], data->env_variables, cmd->args, 0) == 0)
-		ft_free_all_exit(data, g_exit_status);
+		free_all_exit(data, g_exit_status);
 	paths = ft_split(get_env_var(data, "PATH")->value, ':');
 	if (paths == NULL)
 		return (allocate_error(ALLOC_ERR));
@@ -60,7 +60,7 @@ static void	command_executor(t_data *data, t_command *cmd)
 		if (path == NULL)
 			return (free_tab(paths), allocate_error(ALLOC_ERR));
 		if (try_execute(path, data->env_variables, cmd->args, 1) == 0)
-			return (free_tab(paths), ft_free_all_exit(data, g_exit_status));
+			return (free_tab(paths), free_all_exit(data, g_exit_status));
 		free(path);
 		index++;
 	}
@@ -77,22 +77,22 @@ void	fork_handler(t_data *data, t_command *cmd, int *pipefd)
 	else if (cmd->pid == 0)
 	{
 		if (cmd->args == NULL && process_cmd_line(data, cmd) == 0)
-			return (ft_free_all_exit(data, g_exit_status));
+			return (free_all_exit(data, g_exit_status));
 		if (cmd->next != NULL)
 			fd_handler(cmd, pipefd[1], pipefd[0]);
 		else
 			fd_handler(cmd, cmd->output_fd, -2);
 		if (cmd->input_fd != 0 && dup2(cmd->input_fd, 0) == -1)
-			ft_free_all_exit(data, 1);
+			free_all_exit(data, 1);
 		if (cmd->output_fd != 1 && dup2(cmd->output_fd, 1) == -1)
-			ft_free_all_exit(data, 1);
+			free_all_exit(data, 1);
 		if (check_if_builtins(cmd) == 1)
 			execute_builtins(data, cmd);
 		else if (is_executable(cmd->args[0]) == 1)
 			exec_executable(data, cmd);
 		else
 			command_executor(data, cmd);
-		ft_free_all_exit(data, g_exit_status);
+		free_all_exit(data, g_exit_status);
 	}
 	else if (cmd->input_fd != 0)
 		close(cmd->input_fd);
@@ -109,7 +109,7 @@ int	ft_execute(t_data *data)
 		return (0);
 	if (cmdsize(data->commands) == 1 && init_builtins(data, temp) == 1)
 		return (1);
-	while (temp != NULL)
+	while (temp->next != NULL)
 	{
 		if (pipe(pipefd) != 0)
 			return (printf("%s%s\n", ERROR, PIPE_ERR), 0);
@@ -123,5 +123,6 @@ int	ft_execute(t_data *data)
 		}
 		temp = temp->next;
 	}
+	fork_handler(data, temp, pipefd);
 	return (wait_for_all(data), 1);
 }
