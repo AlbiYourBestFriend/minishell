@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 12:03:03 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/13 14:35:48 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/20 15:02:14 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ int	assign_value(t_env_var *tmp_var, char **tab, int i)
 		}
 		else if (assign_value_utils(tmp_var, tab, tmp, i) == -1)
 			return (-1);
-		i++;
 	}
-	return (i);
+	else if ((tab[i] = ft_strdup(tmp_var->name)) == NULL)
+		return (allocate_error(ALLOC_ERR), -1);
+	return (i + 1);
 }
