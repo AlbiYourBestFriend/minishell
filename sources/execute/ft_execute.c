@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:59:12 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/19 15:44:58 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/20 11:46:15 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	try_execute(char *path, t_env_var *env_var, char **cmds, int n)
+int	try_execute(char *path, t_env_var *env_var, char **cmds)
 {
 	char	**tab;
 
@@ -23,8 +23,6 @@ int	try_execute(char *path, t_env_var *env_var, char **cmds, int n)
 		if (access(path, X_OK) == -1)
 		{
 			g_exit_status = 126;
-			if (path != NULL && n)
-				free(path);
 			return (nofile_error(NO_PERM, cmds[0]), 0);
 		}
 		tab = lst_to_tab(env_var);
@@ -34,8 +32,6 @@ int	try_execute(char *path, t_env_var *env_var, char **cmds, int n)
 		printf("%s%s: command not found\n", ERROR, cmds[0]);
 		g_exit_status = 127;
 		free_tab(tab);
-		if (path != NULL && n)
-			free(path);
 		return (0);
 	}
 	return (1);
@@ -49,7 +45,7 @@ static void	command_executor(t_data *data, t_command *cmd)
 
 	index = 0;
 	if (cmd->args[0][0] == '/'
-		&& try_execute(cmd->args[0], data->env_variables, cmd->args, 0) == 0)
+		&& try_execute(cmd->args[0], data->env_variables, cmd->args) == 0)
 		free_all_exit(data, g_exit_status);
 	paths = ft_split(get_env_var(data, "PATH")->value, ':');
 	if (paths == NULL)
@@ -59,8 +55,9 @@ static void	command_executor(t_data *data, t_command *cmd)
 		path = create_path(paths[index], cmd->args[0]);
 		if (path == NULL)
 			return (free_tab(paths), allocate_error(ALLOC_ERR));
-		if (try_execute(path, data->env_variables, cmd->args, 1) == 0)
-			return (free_tab(paths), free_all_exit(data, g_exit_status));
+		if (try_execute(path, data->env_variables, cmd->args) == 0)
+			return (free(path), free_tab(paths), \
+				free_all_exit(data, g_exit_status));
 		free(path);
 		index++;
 	}
@@ -80,6 +77,8 @@ static void	close_fd(t_command *cmd, int *pipefd)
 		close(cmd->input_fd);
 	if (cmd->output_fd != 1)
 		close(cmd->output_fd);
+	if (cmd->heredoc_fd > 0)
+		close(cmd->heredoc_fd);
 }
 
 void	fork_handler(t_data *data, t_command *cmd, int *pipefd)

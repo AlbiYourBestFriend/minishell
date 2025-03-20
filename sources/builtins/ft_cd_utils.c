@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 16:28:12 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/18 14:14:46 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/20 12:03:14 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,18 @@
 
 t_env_var	*cd_add_pwd(t_data *data, char *name)
 {
-	char	pwd[MY_CHAR_MAX];
+	char		pwd[MY_CHAR_MAX];
+	t_env_var	*tmp;
 
 	if (getcwd(pwd, MY_CHAR_MAX) == NULL)
-	{
 		return (NULL);
+	if (exist_var(data, "PWD") != 0)
+	{
+		tmp = get_env_var(data, "PWD");
+		if (tmp->value != NULL)
+			free(tmp->value);
+		tmp->value = pwd;
+		return (tmp);
 	}
 	return (add_env_var(data, ft_strdup(name), ft_strdup(pwd)));
 }

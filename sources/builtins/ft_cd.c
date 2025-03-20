@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:31:02 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/18 14:08:49 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/20 11:57:31 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,8 @@ static void	cd_utils(t_data *data, t_env_var *tmp_env, char *cd_path)
 	else
 	{
 		tmp_env = cd_add_pwd(data, "PWD");
-		cd_utils(data, tmp_env, cd_path);
+		if (tmp_env != NULL)
+			cd_utils(data, tmp_env, cd_path);
 	}
 }
 

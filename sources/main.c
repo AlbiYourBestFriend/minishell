@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/19 16:11:47 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/20 11:17:32 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	build_command(t_data *data, char *cmd_line)
 	data->splitted_cmds = split_cmd_line(cmd_line, '|');
 	free(cmd_line);
 	if (data->splitted_cmds == NULL)
-		return (allocate_error(ALLOC_ERR));
+		return ;
 	while (data->splitted_cmds[++i] != NULL)
 	{
 		temp = cmdnew(data->splitted_cmds[i]);
@@ -78,13 +78,13 @@ static void	handle_cmd_line(t_data *data, char *cmd_line)
 	str = clean_cmd(cmd_line);
 	if (str == NULL)
 	{
-		allocate_error(ALLOC_ERR);
 		data->exit_status = 1;
+		return ;
 	}
 	token = token_error(str);
-	if (token == NULL && str[0] != '\0')
+	if (token == NULL)
 		build_command(data, str);
-	else if (str[0] != '\0')
+	else
 	{
 		g_exit_status = 2;
 		printf("%ssyntax error near unexpected token `%s'\n", \
