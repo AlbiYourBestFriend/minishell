@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 11:55:36 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/20 16:06:54 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/20 17:55:37 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	wait_for_all(t_data *data)
 	}
 }
 
-static char	*command_executor_utils_2(t_data *data, t_command *cmd)
+static void	command_executor_utils_2(t_data *data, t_command *cmd)
 {
 	char	**tab;
 
@@ -69,7 +69,6 @@ char	*command_executor_utils(t_data *data, t_command *cmd)
 	tmp = get_env_var(data, "PATH");
 	if (tmp == NULL || tmp->value == NULL)
 	{
-		printf("test\n");
 		if (access(cmd->args[0], F_OK) == 0)
 		{
 			command_executor_utils_2(data, cmd);
