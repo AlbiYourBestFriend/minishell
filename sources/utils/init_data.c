@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:13:48 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/18 14:41:15 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/21 10:38:02 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,10 @@ static char	*get_env_value(char *str)
 
 	i = 0;
 	value = NULL;
-	while (str[i] != '=')
+	while (str[i] != '=' && str[i] != '\0')
 		i++;
-	i++;
+	if (str[i] == '=')
+		i++;
 	if (str[i] != '\0')
 	{
 		value = ft_strdup(&str[i]);
@@ -56,15 +57,17 @@ static t_env_var	*new_env_var(char *env_i)
 {
 	t_env_var	*new_var;
 
+	if (is_env_var(env_i) == -2)
+		return (NULL);
 	new_var = malloc(sizeof(t_env_var));
 	if (new_var == NULL)
 		return (allocate_error(ALLOC_ERR), NULL);
 	new_var->name = get_env_name(env_i);
 	if (new_var->name == NULL)
-		return (allocate_error(ALLOC_ERR), NULL);
+		return (free(new_var), NULL);
 	new_var->value = get_env_value(env_i);
-	if (new_var->value == NULL)
-		return (allocate_error(ALLOC_ERR), NULL);
+	if (new_var->value == NULL && is_env_var(env_i) == 1)
+		return (free(new_var->name), free(new_var), NULL);
 	new_var->status = 1;
 	new_var->next = NULL;
 	return (new_var);
@@ -83,16 +86,17 @@ static int	put_env_to_data(t_data *data, char **env)
 	while (env[i] != NULL)
 	{
 		tmp_env_var->next = new_env_var(env[i]);
-		if (tmp_env_var->next == NULL)
+		if (tmp_env_var->next == NULL && is_env_var(env[i]) != -2)
 			return (0);
-		if (ft_strncmp(tmp_env_var->next->name, "USER", 4) == 0
-			&& ft_strlen(tmp_env_var->next->name) == 4)
+		if (tmp_env_var->next != NULL && ft_strlen(tmp_env_var->next->name) == 4
+			&& ft_strncmp(tmp_env_var->next->name, "USER", 4) == 0)
 		{
 			data->username = ft_strdup(tmp_env_var->next->value);
 			if (data->username == NULL)
 				return (allocate_error(ALLOC_ERR), 0);
 		}
-		tmp_env_var = tmp_env_var->next;
+		if (is_env_var(env[i]) != -2)
+			tmp_env_var = tmp_env_var->next;
 		i++;
 	}
 	return (1);
