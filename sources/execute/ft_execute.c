@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:59:12 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/20 15:57:17 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/25 11:00:11 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static void	command_executor(t_data *data, t_command *cmd)
 
 static void	close_fd(t_data *data, t_command *cmd, int *pipefd)
 {
-	t_command *temp;
+	t_command	*temp;
 
 	if (pipefd)
 	{
@@ -98,13 +98,16 @@ void	fork_handler(t_data *data, t_command *cmd, int *pipefd)
 	else if (cmd->pid == 0)
 	{
 		if (cmd->args == NULL && process_cmd_line(data, cmd) == 0)
-			return (close_fd(data, cmd, pipefd), free_all_exit(data, g_exit_status));
+			return (close_fd(data, cmd, pipefd), \
+			free_all_exit(data, g_exit_status));
 		if (cmd->next != NULL)
 			fd_handler(cmd, pipefd[1], pipefd[0]);
 		if (cmd->input_fd != 0 && dup2(cmd->input_fd, 0) == -1)
-			return (close_fd(data, cmd, pipefd), free_all_exit(data, g_exit_status));
+			return (close_fd(data, cmd, pipefd), \
+			free_all_exit(data, g_exit_status));
 		if (cmd->output_fd != 1 && dup2(cmd->output_fd, 1) == -1)
-			return (close_fd(data, cmd, pipefd), free_all_exit(data, g_exit_status));
+			return (close_fd(data, cmd, pipefd), \
+			free_all_exit(data, g_exit_status));
 		close_fd(data, cmd, pipefd);
 		if (check_if_builtins(cmd) == 1)
 			execute_builtins(data, cmd);
