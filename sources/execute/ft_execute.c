@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:59:12 by mleproux          #+#    #+#             */
 /*   Updated: 2025/03/25 11:00:11 by mleproux         ###   ########.fr       */
@@ -39,15 +39,14 @@ int	try_execute(char *path, t_env_var *env_var, char **cmds)
 
 static void	command_executor(t_data *data, t_command *cmd)
 {
-	char	**paths;
-	char	*path;
-	int		index;
+	int			index;
+	char		*path;
+	char		**paths;
+	char		*env_path;
 
 	index = 0;
-	if (cmd->args[0][0] == '/'
-		&& try_execute(cmd->args[0], data->env_variables, cmd->args) == 0)
-		free_all_exit(data, g_exit_status);
-	paths = ft_split(get_env_var(data, "PATH")->value, ':');
+	env_path = command_executor_utils(data, cmd);
+	paths = ft_split(env_path, ':');
 	if (paths == NULL)
 		return (allocate_error(ALLOC_ERR));
 	while (paths[index] != NULL)

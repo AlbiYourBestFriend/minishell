@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:08:23 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/18 14:31:31 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/20 15:03:08 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ static char	**export_lst_to_tab(t_env_var *env_var, int i)
 	tmp_var = env_var;
 	while (tmp_var != NULL)
 	{
-		if (tmp_var->status == 1)
-			i++;
+		i++;
 		tmp_var = tmp_var->next;
 	}
 	tab = malloc((i + 1) * sizeof(char *));

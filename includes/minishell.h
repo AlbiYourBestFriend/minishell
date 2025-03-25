@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/20 11:46:38 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/20 15:53:44 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ int			init_builtins(t_data *data, t_command *cmd);
 
 void		fd_handler(t_command *cmd, int output, int input);
 void		wait_for_all(t_data *data);
+char		*command_executor_utils(t_data *data, t_command *cmd);
 int			try_execute(char *path, t_env_var *env_var, char **cmds);
 int			ft_execute(t_data *data);
 
