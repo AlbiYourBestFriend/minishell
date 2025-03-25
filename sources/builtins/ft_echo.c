@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:29:38 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/18 11:37:47 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/20 16:16:20 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ void	ft_echo(t_command *cmd)
 	}
 	while (cmd->args[i] != NULL)
 	{
-		printf("%s", cmd->args[i]);
+		ft_putstr_fd(cmd->args[i], 1);
 		i++;
 		if (cmd->args[i] != NULL)
 			printf(" ");
 	}
 	if (new_line == 1)
-		printf("\n");
+		ft_putstr_fd("\n", 1);
 	g_exit_status = 0;
 }
