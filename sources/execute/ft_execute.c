@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:59:12 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/20 11:46:15 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/20 15:57:17 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,10 @@ static void	command_executor(t_data *data, t_command *cmd)
 	g_exit_status = 127;
 }
 
-static void	close_fd(t_command *cmd, int *pipefd)
+static void	close_fd(t_data *data, t_command *cmd, int *pipefd)
 {
+	t_command *temp;
+
 	if (pipefd)
 	{
 		close(pipefd[0]);
@@ -77,8 +79,15 @@ static void	close_fd(t_command *cmd, int *pipefd)
 		close(cmd->input_fd);
 	if (cmd->output_fd != 1)
 		close(cmd->output_fd);
-	if (cmd->heredoc_fd > 0)
-		close(cmd->heredoc_fd);
+	if (!data)
+		return ;
+	temp = data->commands;
+	while (temp)
+	{
+		if (temp->heredoc_fd > 0)
+			close(temp->heredoc_fd);
+		temp = temp->next;
+	}
 }
 
 void	fork_handler(t_data *data, t_command *cmd, int *pipefd)
@@ -89,14 +98,14 @@ void	fork_handler(t_data *data, t_command *cmd, int *pipefd)
 	else if (cmd->pid == 0)
 	{
 		if (cmd->args == NULL && process_cmd_line(data, cmd) == 0)
-			return (close_fd(cmd, pipefd), free_all_exit(data, g_exit_status));
+			return (close_fd(data, cmd, pipefd), free_all_exit(data, g_exit_status));
 		if (cmd->next != NULL)
 			fd_handler(cmd, pipefd[1], pipefd[0]);
 		if (cmd->input_fd != 0 && dup2(cmd->input_fd, 0) == -1)
-			return (close_fd(cmd, pipefd), free_all_exit(data, g_exit_status));
+			return (close_fd(data, cmd, pipefd), free_all_exit(data, g_exit_status));
 		if (cmd->output_fd != 1 && dup2(cmd->output_fd, 1) == -1)
-			return (close_fd(cmd, pipefd), free_all_exit(data, g_exit_status));
-		close_fd(cmd, pipefd);
+			return (close_fd(data, cmd, pipefd), free_all_exit(data, g_exit_status));
+		close_fd(data, cmd, pipefd);
 		if (check_if_builtins(cmd) == 1)
 			execute_builtins(data, cmd);
 		else if (is_executable(cmd->args[0]) == 1)
@@ -132,6 +141,6 @@ int	ft_execute(t_data *data)
 			break ;
 		temp = temp->next;
 	}
-	close_fd(temp, NULL);
+	close_fd(NULL, temp, NULL);
 	return (close(pipefd[0]), wait_for_all(data), 1);
 }
