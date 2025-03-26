@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:08:23 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/20 15:03:08 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/26 17:56:11 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static int	print_export(t_data *data)
 	return (free_tab(tab), 1);
 }
 
-static int	ft_export_utils(t_data *data, t_command *cmd, int i)
+static void	ft_export_utils(t_data *data, t_command *cmd, int i)
 {
 	t_env_var	*env_var;
 	int			n;
@@ -89,9 +89,7 @@ static int	ft_export_utils(t_data *data, t_command *cmd, int i)
 	{
 		g_exit_status = 1;
 		printf("%sexport: `%s': %s\n", ERROR, cmd->args[i], INVALID_ID);
-		return (0);
 	}
-	return (1);
 }
 
 int	ft_export(t_data *data, t_command *cmd)
@@ -108,10 +106,7 @@ int	ft_export(t_data *data, t_command *cmd)
 		i = 1;
 		while (cmd->args[i] != NULL)
 		{
-			if (ft_export_utils(data, cmd, i) == 0)
-			{
-				return (0);
-			}
+			ft_export_utils(data, cmd, i);
 			i++;
 		}
 		g_exit_status = 0;
