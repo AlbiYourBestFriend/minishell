@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:57:54 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/20 16:11:35 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/27 12:09:03 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,5 +122,3 @@ clear && make && valgrind --leak-check=full
 --suppressions=readline.supp ./minishell
 
 */
-
-// problemes fds heredoc

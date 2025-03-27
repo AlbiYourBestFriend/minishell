@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/20 15:53:44 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/27 12:01:26 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void		ft_exit(t_data *data, t_command *cmd, int p);
 
 void		compare_var(char **str1, char **str2);
 int			assign_value(t_env_var *tmp_var, char **tab, int i);
-int			ft_export(t_data *data, t_command *cmd);
+void		ft_export(t_data *data, t_command *cmd);
 
 void		ft_pwd(void);
 
