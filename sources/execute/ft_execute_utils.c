@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 11:55:36 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/20 17:55:37 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/25 12:28:15 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ char	*command_executor_utils(t_data *data, t_command *cmd)
 		&& try_execute(cmd->args[0], data->env_variables, cmd->args) == 1)
 	{
 		printf("%s%s: command not found\n", ERROR, cmd->args[0]);
+		g_exit_status = 127;
 		free_all_exit(data, g_exit_status);
 	}
 	tmp = get_env_var(data, "PATH");
@@ -75,6 +76,7 @@ char	*command_executor_utils(t_data *data, t_command *cmd)
 		}
 		else
 			printf("%s%s: %s\n", ERROR, cmd->args[0], NO_FILE_DIR);
+		g_exit_status = 127;
 		free_all_exit(data, g_exit_status);
 	}
 	return (tmp->value);
