@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:22:24 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/18 14:02:31 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/27 15:47:06 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,31 +60,36 @@ void	root_return(t_data *data)
 		}
 		root_return_utils(data, tmp, pwd);
 	}
+	else if (cd_add_pwd(data, "PWD") != NULL)
+		root_return(data);
 	else
 	{
-		cd_add_pwd(data, "PWD");
-		root_return(data);
+		g_exit_status = 1;
+		return ;
 	}
 	g_exit_status = 0;
 }
 
-// handle cd et cd ~
+// handle cd
 // va a /home/username
 int	return_home_user(t_data *data)
 {
+	t_env_var	*tmp;
+
 	g_exit_status = 0;
 	root_return(data);
 	if (g_exit_status == 1)
-	{
 		return (0);
-	}
-	if (access("home", F_OK | X_OK) == 0)
+	tmp = get_env_var(data, "HOME");
+	if (tmp == NULL)
 	{
-		chdir("home");
-		if (access(data->username, F_OK | X_OK) == 0)
-			return (chdir(data->username), 1);
-		else
-			chdir("..");
+		printf("%scd: HOME not set\n", ERROR);
+	}
+	if (tmp->value == NULL)
+		return (1);
+	if (access(tmp->value, F_OK | X_OK) == 0)
+	{
+		chdir(tmp->value);
 	}
 	g_exit_status = 1;
 	return (0);

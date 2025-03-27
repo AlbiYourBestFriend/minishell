@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 16:28:12 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/20 12:03:14 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/27 16:16:48 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,13 @@
 t_env_var	*cd_add_pwd(t_data *data, char *name)
 {
 	char		pwd[MY_CHAR_MAX];
+	char		*new_name;
+	char		*new_pwd;
 	t_env_var	*tmp;
 
 	if (getcwd(pwd, MY_CHAR_MAX) == NULL)
 		return (NULL);
-	if (exist_var(data, "PWD") != 0)
+	if (exist_var(data, "PWD") == 1)
 	{
 		tmp = get_env_var(data, "PWD");
 		if (tmp->value != NULL)
@@ -27,7 +29,13 @@ t_env_var	*cd_add_pwd(t_data *data, char *name)
 		tmp->value = pwd;
 		return (tmp);
 	}
-	return (add_env_var(data, ft_strdup(name), ft_strdup(pwd)));
+	new_name = ft_strdup(name);
+	if (new_name == NULL)
+		return (NULL);
+	new_pwd = ft_strdup(pwd);
+	if (new_pwd == NULL)
+		return (free(new_name), NULL);
+	return (add_env_var(data, new_name, new_pwd));
 }
 
 // handle cd ..
@@ -57,44 +65,9 @@ void	cd_rm_last(char *pwd)
 		pwd[1] = '\0';
 }
 
-// check si le chemin d'acces existe et peut etre accede
-// si oui on y va
-// sinon ERROR
-int	check_path_cd(t_data *data, t_env_var *tmp_env_pwd, \
-					char **tab, char *cd_path)
-{
-	int	i;
-
-	i = 1;
-	if (return_home_user(data) == 0)
-		return (0);
-	while (tab[i] != NULL)
-	{
-		if (access(tab[i], F_OK | X_OK) == 0)
-			chdir(tab[i]);
-		else
-		{
-			printf("%scd: home/%s%s: %s\n", \
-					ERROR, data->username, &cd_path[1], NO_FILE_DIR);
-			while (i >= 0)
-			{
-				chdir("..");
-				i--;
-			}
-			chdir(tmp_env_pwd->value);
-			g_exit_status = 1;
-			return (0);
-		}
-		i++;
-	}
-	return (1);
-}
-
 int	cd_check_chdir(t_command *cmd, char *cd_path)
 {
 	if (cd_path[0] == '-' && cd_path[1] == '\0')
-		return (1);
-	if (cd_path[0] == '~' && (cd_path[1] == '/' || cd_path[1] == '\0'))
 		return (1);
 	if (chdir(cd_path) == -1)
 	{

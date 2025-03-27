@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:31:02 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/20 11:57:31 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/27 15:39:12 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,19 +52,14 @@ static int	cd_utils_2(t_data *data, t_env_var *tmp_env_pwd, \
 
 	if (tab == NULL)
 		return (allocate_error(ALLOC_ERR), 0);
-	i = -1;
-	if (tab[0][0] == '~' && tab[0][1] == '\0')
-	{
-		if (check_path_cd(data, tmp_env_pwd, tab, cd_path) == 0)
-			return (free_tab(tab), 0);
-		i++;
-	}
-	while (tab[++i] != NULL)
+	i = 0;
+	while (tab[i] != NULL)
 	{
 		if (ft_strncmp(tab[i], "..", 2) == 0 && ft_strlen(tab[i]) == 2)
 			cd_rm_last(tmp_env_pwd->value);
 		else if (cd_utils_3(tmp_env_pwd, tab[i]) == 0)
 			return (free_tab(tab), 0);
+		i++;
 	}
 	g_exit_status = 0;
 	return (free_tab(tab), 1);

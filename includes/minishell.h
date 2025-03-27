@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/20 15:53:44 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/27 15:47:06 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ typedef struct s_data
 	char		**splitted_cmds;
 	char		*program_path;
 	char		*tmp_path;
-	char		*username;
 	int			count_line;
 	int			exit_status;
 }			t_data;
@@ -87,8 +86,6 @@ extern volatile int	g_exit_status;
 void		root_return(t_data *data);
 int			return_home_user(t_data *data);
 void		cd_switch_pwd(t_data *data, t_env_var *env_var_pwd);
-int			check_path_cd(t_data *data, t_env_var *tmp_env_pwd, \
-							char **tab, char *cd_path);
 t_env_var	*cd_add_pwd(t_data *data, char *name);
 void		cd_rm_last(char *pwd);
 int			cd_check_chdir(t_command *cmd, char *tmp);
