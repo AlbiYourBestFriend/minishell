@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:13:48 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/21 10:38:02 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/27 15:08:25 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,6 @@ static int	put_env_to_data(t_data *data, char **env)
 		tmp_env_var->next = new_env_var(env[i]);
 		if (tmp_env_var->next == NULL && is_env_var(env[i]) != -2)
 			return (0);
-		if (tmp_env_var->next != NULL && ft_strlen(tmp_env_var->next->name) == 4
-			&& ft_strncmp(tmp_env_var->next->name, "USER", 4) == 0)
-		{
-			data->username = ft_strdup(tmp_env_var->next->value);
-			if (data->username == NULL)
-				return (allocate_error(ALLOC_ERR), 0);
-		}
 		if (is_env_var(env[i]) != -2)
 			tmp_env_var = tmp_env_var->next;
 		i++;
@@ -111,7 +104,6 @@ t_data	init_data(char **env, char *filelocation)
 	data.splitted_cmds = NULL;
 	data.program_path = NULL;
 	data.tmp_path = NULL;
-	data.username = NULL;
 	data.count_line = 0;
 	data.exit_status = 0;
 	if (env != NULL && env[0] != NULL && put_env_to_data(&data, env) == 0)

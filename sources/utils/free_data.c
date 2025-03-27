@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:20:59 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/20 15:27:12 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/27 15:08:16 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,5 @@ void	free_data(t_data *data)
 		free(data->program_path);
 	if (data->tmp_path != NULL)
 		free(data->tmp_path);
-	if (data->username != NULL)
-		free(data->username);
 	data = NULL;
 }
