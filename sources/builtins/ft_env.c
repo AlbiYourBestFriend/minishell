@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:33:34 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/18 11:43:25 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/25 14:19:21 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,23 @@
 void	ft_env(t_data *data, t_command *cmd)
 {
 	t_env_var	*env_var;
-	int			fd_out;
 
 	env_var = data->env_variables;
-	fd_out = cmd->output_fd;
+	if (tab_len(cmd->args) > 1)
+	{
+		printf("env: ‘%s‘: %s\n", cmd->args[1], NO_FILE_DIR);
+		g_exit_status = 127;
+		return ;
+	}
 	while (env_var != NULL)
 	{
 		if (env_var->status == 1)
 		{
-			write(fd_out, env_var->name, ft_strlen(env_var->name));
-			write(fd_out, "=", 1);
+			ft_putstr_fd(env_var->name, 1);
+			ft_putstr_fd("=", 1);
 			if (env_var->value != NULL)
-				write(fd_out, env_var->value, ft_strlen(env_var->value));
-			write(fd_out, "\n", 1);
+				ft_putstr_fd(env_var->value, 1);
+			ft_putstr_fd("\n", 1);
 		}
 		env_var = env_var->next;
 	}
