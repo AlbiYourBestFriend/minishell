@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 15:43:45 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/13 14:35:48 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/28 12:51:01 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	copy_str(char *cmd, int *j, char *str, int *i)
 	}
 }
 
-static int	get_name_utils(char *cmd, int *j)
+static int	get_name_2(char *cmd, int *j)
 {
 	int	n;
 
@@ -66,7 +66,7 @@ char	*get_env_var_name(char *cmd)
 			i = skip_quote(cmd, i, 1);
 	}
 	j = i;
-	n = get_name_utils(cmd, &j);
+	n = get_name_2(cmd, &j);
 	if (ft_isspace(cmd[j]) == 0)
 		j--;
 	name = malloc((i - j - n + 1) * sizeof(char));
@@ -80,7 +80,7 @@ char	*get_env_var_name(char *cmd)
 }
 
 // a modifier pour gerer les \" entre les "..."
-static void	get_value_utils(char *cmd, int *i, int *j, int *n)
+static void	get_value_2(char *cmd, int *i, int *j, int *n)
 {
 	char	c;
 
@@ -116,7 +116,7 @@ char	*get_env_var_value(char *cmd)
 	n = -1;
 	while (cmd[i] != '\0' && n == -1)
 	{
-		get_value_utils(cmd, &i, &j, &n);
+		get_value_2(cmd, &i, &j, &n);
 		if (cmd[i] != '\0')
 			i++;
 	}

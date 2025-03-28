@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 12:03:03 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/20 18:06:57 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/28 12:34:57 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	compare_var(char **str1, char **str2)
 	}
 }
 
-static int	assign_value_utils(t_env_var *tmp_var, char **tab, char *tmp, int i)
+static int	assign_value_2(t_env_var *tmp_var, char **tab, char *tmp, int i)
 {
 	if (tmp_var->value == NULL)
 	{
@@ -69,7 +69,7 @@ int	assign_value(t_env_var *tmp_var, char **tab, int i)
 		free(tmp);
 		if (tab[i] == NULL)
 			return (allocate_error(ALLOC_ERR), -1);
-		if (assign_value_utils(tmp_var, tab, tmp, i) == 0)
+		if (assign_value_2(tmp_var, tab, tmp, i) == 0)
 			return (-1);
 	}
 	else

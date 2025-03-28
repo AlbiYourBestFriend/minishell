@@ -6,14 +6,14 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:31:02 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/28 11:51:03 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/28 12:38:57 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 // join 2 str avec un / entre les 2
-static int	cd_utils_3(t_env_var *tmp_env_pwd, char *tab_i)
+static int	cd_3(t_env_var *tmp_env_pwd, char *tab_i)
 {
 	int		i;
 	int		n;
@@ -44,8 +44,8 @@ static int	cd_utils_3(t_env_var *tmp_env_pwd, char *tab_i)
 // tmp_env contient le PWD
 // tmp contient l'argument de cd
 // tab contient l'argument de cd split au niveau des /
-// cd_utils_3 permet de faire des strjoin
-static int	cd_utils_2(t_env_var *tmp_env_pwd, char **tab)
+// cd_3 permet de faire des strjoin
+static int	cd_2(t_env_var *tmp_env_pwd, char **tab)
 {
 	int		i;
 
@@ -56,7 +56,7 @@ static int	cd_utils_2(t_env_var *tmp_env_pwd, char **tab)
 	{
 		if (ft_strncmp(tab[i], "..", 2) == 0 && ft_strlen(tab[i]) == 2)
 			cd_rm_last(tmp_env_pwd->value);
-		else if (cd_utils_3(tmp_env_pwd, tab[i]) == 0)
+		else if (cd_3(tmp_env_pwd, tab[i]) == 0)
 			return (free_tab(tab), 0);
 		i++;
 	}
@@ -64,34 +64,31 @@ static int	cd_utils_2(t_env_var *tmp_env_pwd, char **tab)
 	return (free_tab(tab), 1);
 }
 
-static void	cd_utils_4(t_data *data, t_env_var *tmp_env, char *pwd)
+void	cd_5(t_data *data, t_env_var *tmp_env, char *cd_path)
 {
-	char	*name;
-
-	tmp_env = get_env_var(data, "OLDPWD");
-	if (tmp_env != NULL)
+	if (cd_path[0] == '-' && cd_path[1] == '\0')
 	{
-		if (tmp_env->value != NULL)
-			free(tmp_env->value);
-		tmp_env->value = pwd;
+		if (get_env_var(data, "OLDPWD") != NULL)
+		{
+			tmp_env = cd_add_pwd(data, "PWD");
+			if (tmp_env != NULL)
+				cd_1(data, tmp_env, cd_path);
+		}
+		else
+			ft_printf("%scd: OLDPWD not set\n", ERROR);
 	}
 	else
 	{
-		name = ft_strdup("OLDPWD");
-		if (name == NULL)
-			return (free(pwd));
-		if (add_env_var(data, name, pwd) == NULL)
-		{
-			free(name);
-			free(pwd);
-		}
+		tmp_env = cd_add_pwd(data, "PWD");
+		if (tmp_env != NULL)
+			cd_4(data, tmp_env, ft_strdup(tmp_env->value));
 	}
 }
 
 // check cd -
 // modif PWD
 // modif OLDPWD
-static void	cd_utils(t_data *data, t_env_var *tmp_env, char *cd_path)
+static void	cd_1(t_data *data, t_env_var *tmp_env, char *cd_path)
 {
 	char	*pwd;
 
@@ -104,15 +101,13 @@ static void	cd_utils(t_data *data, t_env_var *tmp_env, char *cd_path)
 			return (root_return(data), free(pwd));
 		if (cd_path[0] == '-' && cd_path[1] == '\0')
 			return (cd_switch_pwd(data, tmp_env), free(pwd));
-		if (cd_utils_2(tmp_env, ft_split(cd_path, '/')) == 0)
+		if (cd_2(tmp_env, ft_split(cd_path, '/')) == 0)
 			return (free(pwd));
 		cd_utils_4(data, tmp_env, pwd);
 	}
 	else
 	{
-		tmp_env = cd_add_pwd(data, "PWD");
-		if (tmp_env != NULL)
-			cd_utils(data, tmp_env, cd_path);
+		cd_5(data, tmp_env, cd_path);
 	}
 }
 
@@ -143,7 +138,7 @@ void	ft_cd(t_data *data, t_command *cmd)
 		else
 		{
 			tmp_env = get_env_var(data, "PWD");
-			cd_utils(data, tmp_env, cd_path);
+			cd_1(data, tmp_env, cd_path);
 			free(cd_path);
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/28 11:44:54 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/28 12:51:01 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ extern volatile int	g_exit_status;
 void		root_return(t_data *data);
 void		return_home_user(t_data *data);
 void		cd_switch_pwd(t_data *data, t_env_var *env_var_pwd);
+void		cd_4(t_data *data, t_env_var *tmp_env, char *pwd);
 t_env_var	*cd_add_pwd(t_data *data, char *name);
 void		cd_rm_last(char *pwd);
 int			cd_check_chdir(t_command *cmd, char *tmp);
@@ -112,7 +113,7 @@ int			init_builtins(t_data *data, t_command *cmd);
 
 void		fd_handler(t_command *cmd, int output, int input);
 void		wait_for_all(t_data *data);
-char		*command_executor_utils(t_data *data, t_command *cmd);
+char		*command_executor_2(t_data *data, t_command *cmd);
 int			try_execute(char *path, t_env_var *env_var, char **cmds);
 int			ft_execute(t_data *data);
 
@@ -187,10 +188,12 @@ char		**copy_tab(char **tab);
 
 int			count_char(char *str, char c);
 
+void		free_all_exit(t_data *data, int exit_status);
 void		free_data(t_data *data);
 void		free_env_var(t_env_var *env_var);
 void		free_tab(char **tab);
-void		free_all_exit(t_data *data, int exit_status);
+
+void		ft_close(t_command *cmd, int x);
 
 int			ft_is_atol(char *str);
 
@@ -209,7 +212,5 @@ char		**split_cmd_line(char *line, char c);
 int			tab_len(char **tab);
 
 void		unlink_tmp(t_data *data);
-
-void		ft_close(t_command *cmd, int x);
 
 #endif

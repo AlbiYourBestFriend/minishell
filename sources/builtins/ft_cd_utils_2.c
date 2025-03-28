@@ -6,13 +6,13 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:22:24 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/28 12:14:02 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/28 12:38:57 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	root_return_utils(t_data *data, t_env_var *tmp, char *pwd)
+static void	root_return_2(t_data *data, t_env_var *tmp, char *pwd)
 {
 	char	*name;
 
@@ -55,7 +55,7 @@ void	root_return(t_data *data)
 		{
 			chdir("..");
 		}
-		root_return_utils(data, tmp, pwd);
+		root_return_2(data, tmp, pwd);
 	}
 	else if (cd_add_pwd(data, "PWD") != NULL)
 		root_return(data);
@@ -102,7 +102,10 @@ void	cd_switch_pwd(t_data *data, t_env_var *env_var_pwd)
 
 	tmp_env_old_pwd = get_env_var(data, "OLDPWD");
 	if (tmp_env_old_pwd == NULL)
+	{
+		ft_printf("%scd: OLDPWD not set\n", ERROR);
 		return ;
+	}
 	pwd = env_var_pwd->value;
 	env_var_pwd->value = tmp_env_old_pwd->value;
 	tmp_env_old_pwd->value = pwd;
@@ -115,4 +118,31 @@ void	cd_switch_pwd(t_data *data, t_env_var *env_var_pwd)
 	chdir(env_var_pwd->value);
 	ft_printf("%s\n", env_var_pwd->value);
 	g_exit_status = 0;
+}
+
+// modifie le OLDPWD
+void	cd_4(t_data *data, t_env_var *tmp_env, char *pwd)
+{
+	char	*name;
+
+	if (pwd == NULL)
+		return (allocate_error(ALLOC_ERR));
+	tmp_env = get_env_var(data, "OLDPWD");
+	if (tmp_env != NULL)
+	{
+		if (tmp_env->value != NULL)
+			free(tmp_env->value);
+		tmp_env->value = pwd;
+	}
+	else
+	{
+		name = ft_strdup("OLDPWD");
+		if (name == NULL)
+			return (free(pwd));
+		if (add_env_var(data, name, pwd) == NULL)
+		{
+			free(name);
+			free(pwd);
+		}
+	}
 }

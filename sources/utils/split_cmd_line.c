@@ -6,13 +6,13 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 19:03:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/13 13:55:54 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/28 12:51:01 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	remp_utils(char *tab_j, char *line, int i, int l)
+static int	remp_split_2(char *tab_j, char *line, int i, int l)
 {
 	char	c;
 
@@ -58,7 +58,7 @@ static char	**remp_split(char **tab, char *line, char c, int nb_word)
 		l = i;
 		while (line[i] != '\0' && line[i] != c)
 		{
-			i = remp_utils(tab[j], line, i, l);
+			i = remp_split_2(tab[j], line, i, l);
 		}
 		tab[j][i - l] = '\0';
 		j++;
