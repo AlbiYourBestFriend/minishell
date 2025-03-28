@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:59:12 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/25 11:03:35 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/27 16:19:43 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,16 +75,16 @@ static void	close_fd(t_data *data, t_command *cmd, int *pipefd)
 		close(pipefd[1]);
 	}
 	if (cmd->input_fd != 0)
-		close(cmd->input_fd);
+		ft_close(cmd, 1);
 	if (cmd->output_fd != 1)
-		close(cmd->output_fd);
+		ft_close(cmd, 2);
 	if (!data)
 		return ;
 	temp = data->commands;
 	while (temp)
 	{
 		if (temp->heredoc_fd > 0)
-			close(temp->heredoc_fd);
+			ft_close(temp, 3);
 		temp = temp->next;
 	}
 }
@@ -136,7 +136,7 @@ int	ft_execute(t_data *data)
 		fork_handler(data, temp, pipefd);
 		close(pipefd[1]);
 		if (temp->input_fd != 0)
-			close(temp->input_fd);
+			ft_close(temp, 1);
 		if (temp->next != NULL)
 			temp->next->input_fd = pipefd[0];
 		else

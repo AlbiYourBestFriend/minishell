@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/27 17:38:45 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/28 11:31:48 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,5 +209,7 @@ char		**split_cmd_line(char *line, char c);
 int			tab_len(char **tab);
 
 void		unlink_tmp(t_data *data);
+
+void		ft_close(t_command *cmd, int x);
 
 #endif
