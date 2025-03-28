@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:03:58 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/20 11:25:32 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/27 16:15:51 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static int	handle_heredoc(t_data *data, t_command *cmd, int *i)
 	if (limiter == NULL)
 		return (0);
 	if (cmd->heredoc_fd > 0)
-		close(cmd->heredoc_fd);
+		ft_close(cmd, 3);
 	cmd->heredoc_fd = here_doc(data, cmd->heredoc_fd, limiter);
 	free(limiter);
 	if (cmd->heredoc_fd == -1)
