@@ -6,13 +6,13 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 19:19:48 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/18 10:28:49 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/28 12:51:01 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	len_env_var_value_utils(char *cmd, int *i, int n)
+static int	len_env_var_value_2(char *cmd, int *i, int n)
 {
 	if (ft_isspace(cmd[*i]) == 1
 		|| cmd[*i] == '\"' || cmd[*i] == '\''
@@ -44,7 +44,7 @@ int	len_env_var_value(t_data *data, char *cmd, int *i, int n)
 
 	j = 0;
 	(*i)++;
-	l = len_env_var_value_utils(cmd, i, n);
+	l = len_env_var_value_2(cmd, i, n);
 	if (l != -1)
 		return (l);
 	while (ft_isspace(cmd[(*i) + j]) == 0

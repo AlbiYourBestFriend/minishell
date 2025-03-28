@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:59:12 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/28 11:51:03 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/28 12:51:01 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	command_executor(t_data *data, t_command *cmd)
 	char		*env_path;
 
 	index = 0;
-	env_path = command_executor_utils(data, cmd);
+	env_path = command_executor_2(data, cmd);
 	paths = ft_split(env_path, ':');
 	if (paths == NULL)
 		return (allocate_error(ALLOC_ERR));

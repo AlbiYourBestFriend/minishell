@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 11:55:36 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/28 11:51:03 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/28 12:51:01 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	wait_for_all(t_data *data)
 	}
 }
 
-static void	command_executor_utils_2(t_data *data, t_command *cmd)
+static void	command_executor_3(t_data *data, t_command *cmd)
 {
 	char	**tab;
 
@@ -56,7 +56,7 @@ static void	command_executor_utils_2(t_data *data, t_command *cmd)
 		ft_printf("%s%s: %s\n", ERROR, cmd->args[0], NO_PERM);
 }
 
-char	*command_executor_utils(t_data *data, t_command *cmd)
+char	*command_executor_2(t_data *data, t_command *cmd)
 {
 	t_env_var	*tmp;
 
@@ -72,7 +72,7 @@ char	*command_executor_utils(t_data *data, t_command *cmd)
 	{
 		if (access(cmd->args[0], F_OK) == 0)
 		{
-			command_executor_utils_2(data, cmd);
+			command_executor_3(data, cmd);
 		}
 		else
 			ft_printf("%s%s: %s\n", ERROR, cmd->args[0], NO_FILE_DIR);
