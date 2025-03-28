@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:31:02 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/27 17:26:56 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/28 11:38:43 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	cd_utils_3(t_env_var *tmp_env_pwd, char *tab_i)
 // tmp contient l'argument de cd
 // tab contient l'argument de cd split au niveau des /
 // cd_utils_3 permet de faire des strjoin
-static int	cd_utils_2(t_data *data, t_env_var *tmp_env_pwd, char **tab)
+static int	cd_utils_2(t_env_var *tmp_env_pwd, char **tab)
 {
 	int		i;
 
@@ -104,7 +104,7 @@ static void	cd_utils(t_data *data, t_env_var *tmp_env, char *cd_path)
 			return (root_return(data), free(pwd));
 		if (cd_path[0] == '-' && cd_path[1] == '\0')
 			return (cd_switch_pwd(data, tmp_env), free(pwd));
-		if (cd_utils_2(data, tmp_env, ft_split(cd_path, '/')) == 0)
+		if (cd_utils_2(tmp_env, ft_split(cd_path, '/')) == 0)
 			return (free(pwd));
 		cd_utils_4(data, tmp_env, pwd);
 	}

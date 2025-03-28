@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:22:24 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/27 15:47:06 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/28 11:39:21 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,10 @@ void	root_return(t_data *data)
 		pwd = ft_strdup(tmp->value);
 		if (pwd == NULL)
 			return (allocate_error(ALLOC_ERR));
-		n = 0;
-		while (n < count_char(pwd, '/'))
+		n = -1;
+		while (++n < count_char(pwd, '/'))
 		{
 			chdir("..");
-			n++;
 		}
 		root_return_utils(data, tmp, pwd);
 	}
@@ -79,20 +78,22 @@ int	return_home_user(t_data *data)
 	g_exit_status = 0;
 	root_return(data);
 	if (g_exit_status == 1)
-		return (0);
+		return ;
 	tmp = get_env_var(data, "HOME");
 	if (tmp == NULL)
 	{
 		printf("%scd: HOME not set\n", ERROR);
+		g_exit_status = 1;
 	}
 	if (tmp->value == NULL)
-		return (1);
+		return ;
 	if (access(tmp->value, F_OK | X_OK) == 0)
 	{
 		chdir(tmp->value);
 	}
-	g_exit_status = 1;
-	return (0);
+	else
+		g_exit_status = 1;
+	return ;
 }
 
 // handle cd -
