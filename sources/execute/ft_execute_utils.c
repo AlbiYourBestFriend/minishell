@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 11:55:36 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/25 12:28:15 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/28 11:51:03 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	command_executor_utils_2(t_data *data, t_command *cmd)
 		free_tab(tab);
 	}
 	else
-		printf("%s%s: %s\n", ERROR, cmd->args[0], NO_PERM);
+		ft_printf("%s%s: %s\n", ERROR, cmd->args[0], NO_PERM);
 }
 
 char	*command_executor_utils(t_data *data, t_command *cmd)
@@ -63,7 +63,7 @@ char	*command_executor_utils(t_data *data, t_command *cmd)
 	if (cmd->args[0][0] == '/'
 		&& try_execute(cmd->args[0], data->env_variables, cmd->args) == 1)
 	{
-		printf("%s%s: command not found\n", ERROR, cmd->args[0]);
+		ft_printf("%s%s: command not found\n", ERROR, cmd->args[0]);
 		g_exit_status = 127;
 		free_all_exit(data, g_exit_status);
 	}
@@ -75,7 +75,7 @@ char	*command_executor_utils(t_data *data, t_command *cmd)
 			command_executor_utils_2(data, cmd);
 		}
 		else
-			printf("%s%s: %s\n", ERROR, cmd->args[0], NO_FILE_DIR);
+			ft_printf("%s%s: %s\n", ERROR, cmd->args[0], NO_FILE_DIR);
 		g_exit_status = 127;
 		free_all_exit(data, g_exit_status);
 	}

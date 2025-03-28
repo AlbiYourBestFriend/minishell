@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/28 11:31:48 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/28 11:44:54 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ extern volatile int	g_exit_status;
 
 // Builtins
 void		root_return(t_data *data);
-int			return_home_user(t_data *data);
+void		return_home_user(t_data *data);
 void		cd_switch_pwd(t_data *data, t_env_var *env_var_pwd);
 t_env_var	*cd_add_pwd(t_data *data, char *name);
 void		cd_rm_last(char *pwd);

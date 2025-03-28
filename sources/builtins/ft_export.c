@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:08:23 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/27 12:01:26 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/28 11:51:03 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static int	print_export(t_data *data)
 	while (tab[++i] != NULL)
 	{
 		if (tab[i][0] != '_' || tab[i][1] != '=')
-			printf("declare -x %s\n", tab[i]);
+			ft_printf("declare -x %s\n", tab[i]);
 	}
 	return (free_tab(tab), 1);
 }
@@ -88,7 +88,7 @@ static void	ft_export_utils(t_data *data, t_command *cmd, int i)
 	else
 	{
 		g_exit_status = 1;
-		printf("%sexport: `%s': %s\n", ERROR, cmd->args[i], INVALID_ID);
+		ft_printf("%sexport: `%s': %s\n", ERROR, cmd->args[i], INVALID_ID);
 	}
 }
 

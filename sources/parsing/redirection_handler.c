@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:08:49 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/18 11:27:49 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/28 11:51:03 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static char	*clean_file_name(t_data *data, char *temp)
 	else if (tab_len(file_args) != 1)
 	{
 		g_exit_status = 1;
-		printf("%s%s: ambiguous redirect\n", ERROR, temp);
+		ft_printf("%s%s: ambiguous redirect\n", ERROR, temp);
 		return (free_tab(file_args), free(temp), NULL);
 	}
 	free(temp);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:11:46 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/19 15:20:40 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/28 11:51:03 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	handle_signal_readline(int sig)
 {
 	if (sig == SIGINT)
 	{
-		printf("\n");
+		ft_printf("\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
@@ -28,7 +28,7 @@ static void	handle_signal_exec(int sig)
 {
 	if (sig == SIGINT)
 	{
-		printf("\n");
+		ft_printf("\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		g_exit_status = sig + 128;
@@ -45,7 +45,7 @@ static void	handle_signal_here_doc(int sig)
 {
 	if (sig == SIGINT)
 	{
-		printf("\n");
+		ft_printf("\n");
 		rl_on_new_line();
 		g_exit_status = sig + 128;
 	}

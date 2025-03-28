@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:33:34 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/25 14:19:21 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/28 11:51:03 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_env(t_data *data, t_command *cmd)
 	env_var = data->env_variables;
 	if (tab_len(cmd->args) > 1)
 	{
-		printf("env: ‘%s‘: %s\n", cmd->args[1], NO_FILE_DIR);
+		ft_printf("env: ‘%s‘: %s\n", cmd->args[1], NO_FILE_DIR);
 		g_exit_status = 127;
 		return ;
 	}

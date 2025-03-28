@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:22:24 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/28 11:39:21 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/28 11:51:03 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	root_return(t_data *data)
 
 // handle cd
 // va a /home/username
-int	return_home_user(t_data *data)
+void	return_home_user(t_data *data)
 {
 	t_env_var	*tmp;
 
@@ -82,7 +82,7 @@ int	return_home_user(t_data *data)
 	tmp = get_env_var(data, "HOME");
 	if (tmp == NULL)
 	{
-		printf("%scd: HOME not set\n", ERROR);
+		ft_printf("%scd: HOME not set\n", ERROR);
 		g_exit_status = 1;
 	}
 	if (tmp->value == NULL)
@@ -116,6 +116,6 @@ void	cd_switch_pwd(t_data *data, t_env_var *env_var_pwd)
 		n--;
 	}
 	chdir(env_var_pwd->value);
-	printf("%s\n", env_var_pwd->value);
+	ft_printf("%s\n", env_var_pwd->value);
 	g_exit_status = 0;
 }

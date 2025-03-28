@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:03:50 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/18 11:27:49 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/28 11:51:03 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	check_empty_cmd(t_command *cmd)
 	if (ft_strlen(cmd->args[0]) == 0)
 	{
 		g_exit_status = 127;
-		printf("'': command not found\n");
+		ft_printf("'': command not found\n");
 		return (0);
 	}
 	return (1);
