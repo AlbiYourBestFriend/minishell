@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_files.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:08:49 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/28 11:20:02 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/28 11:51:03 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	open_in(t_command *cmd, int redirection, char *filename)
 		}
 		cmd->input_fd = dup(cmd->heredoc_fd);
 		if (cmd->input_fd == -1)
-			printf("%s Dup failed", ERROR);
+			ft_printf("%s Dup failed", ERROR);
 		return ;
 	}
 	if (check_input_errors(cmd, filename) == 0)

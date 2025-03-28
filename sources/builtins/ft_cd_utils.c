@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 16:28:12 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/27 16:16:48 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/28 11:51:03 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ int	cd_check_chdir(t_command *cmd, char *cd_path)
 	{
 		g_exit_status = 1;
 		if (access(cd_path, F_OK) == 0)
-			printf("%scd: %s: %s\n", ERROR, cmd->args[1], NO_DIR);
+			ft_printf("%scd: %s: %s\n", ERROR, cmd->args[1], NO_DIR);
 		else
-			printf("%scd: %s: %s\n", ERROR, cmd->args[1], NO_FILE_DIR);
+			ft_printf("%scd: %s: %s\n", ERROR, cmd->args[1], NO_FILE_DIR);
 		free(cd_path);
 		return (0);
 	}

@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:44:32 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/17 14:44:34 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/28 11:51:03 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ static int	check_here_doc(t_data *data, char *buffer, char *limiter, \
 {
 	if (buffer == NULL)
 	{
-		printf("\n%swarning: here-document at line %d ", \
+		ft_printf("\n%swarning: here-document at line %d ", \
 				ERROR, data->count_line);
-		printf("delimited by end-of-file (wanted `%s')\n", limiter);
+		ft_printf("delimited by end-of-file (wanted `%s')\n", limiter);
 		data->count_line += (*tmp_count_line);
 		return (1);
 	}

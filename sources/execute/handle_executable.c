@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_executable.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 13:55:23 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/20 11:51:06 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/28 11:51:03 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	exec_executable(t_data *data, t_command *cmd)
 	tmp = get_env_var(data, "PWD");
 	if (tmp == NULL)
 	{
-		printf("pwd not found\n");
+		ft_printf("PWD not found in env\n");
 		free_all_exit(data, g_exit_status);
 	}
 	exec_executable_utils(data, cmd, tmp);

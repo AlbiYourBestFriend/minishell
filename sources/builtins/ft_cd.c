@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:31:02 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/28 11:38:43 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/28 11:51:03 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ void	ft_cd(t_data *data, t_command *cmd)
 	if (tab_len(cmd->args) > 2)
 	{
 		g_exit_status = 1;
-		printf("%s%s: too many arguments\n", ERROR, cmd->args[0]);
+		ft_printf("%s%s: too many arguments\n", ERROR, cmd->args[0]);
 	}
 	else if (tab_len(cmd->args) == 1)
 		return_home_user(data);
