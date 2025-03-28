@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 12:15:40 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/13 11:46:24 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/03/28 12:03:35 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	unlink_tmp(t_data *data)
 	char	*temp;
 
 	nbr = 1;
+	if (data->tmp_path == NULL)
+		return ;
 	while (1)
 	{
 		nbr_char = ft_itoa(nbr);

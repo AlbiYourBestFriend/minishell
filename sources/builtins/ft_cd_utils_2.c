@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd_utils_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:22:24 by tprovost          #+#    #+#             */
 /*   Updated: 2025/03/28 12:38:57 by tprovost         ###   ########.fr       */
@@ -38,8 +38,6 @@ static void	root_return_2(t_data *data, t_env_var *tmp, char *pwd)
 	}
 }
 
-// retourne a la racine
-// modifie PWD et OLDPWD
 void	root_return(t_data *data)
 {
 	int			n;
@@ -69,8 +67,6 @@ void	root_return(t_data *data)
 	g_exit_status = 0;
 }
 
-// handle cd
-// va a /home/username
 void	return_home_user(t_data *data)
 {
 	t_env_var	*tmp;
