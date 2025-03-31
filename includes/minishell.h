@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/28 12:51:01 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/31 16:27:14 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void		ft_echo(t_command *cmd);
 
 void		ft_env(t_data *data, t_command *cmd);
 
-void		ft_exit(t_data *data, t_command *cmd, int p);
+void		ft_exit(t_data *data, t_command *cmd);
 
 void		compare_var(char **str1, char **str2);
 int			assign_value(t_env_var *tmp_var, char **tab, int i);
