@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 16:28:12 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/28 12:06:14 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/31 15:55:45 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,12 @@ int	cd_check_chdir(t_command *cmd, char *cd_path)
 	{
 		g_exit_status = 1;
 		if (access(cd_path, F_OK) == 0)
-			ft_printf("%scd: %s: %s\n", ERROR, cmd->args[1], NO_DIR);
+		{
+			if (access(cd_path, X_OK) != 0)
+				ft_printf("%scd: %s: %s\n", ERROR, cmd->args[1], NO_PERM);
+			else
+				ft_printf("%scd: %s: %s\n", ERROR, cmd->args[1], NO_DIR);
+		}
 		else
 			ft_printf("%scd: %s: %s\n", ERROR, cmd->args[1], NO_FILE_DIR);
 		free(cd_path);

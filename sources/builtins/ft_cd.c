@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:31:02 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/28 12:38:57 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/31 15:57:28 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static void	cd_1(t_data *data, t_env_var *tmp_env, char *cd_path);
 
 // join 2 str avec un / entre les 2
 static int	cd_3(t_env_var *tmp_env_pwd, char *tab_i)
@@ -103,7 +105,7 @@ static void	cd_1(t_data *data, t_env_var *tmp_env, char *cd_path)
 			return (cd_switch_pwd(data, tmp_env), free(pwd));
 		if (cd_2(tmp_env, ft_split(cd_path, '/')) == 0)
 			return (free(pwd));
-		cd_utils_4(data, tmp_env, pwd);
+		cd_4(data, tmp_env, pwd);
 	}
 	else
 	{

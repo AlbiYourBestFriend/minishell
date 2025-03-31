@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:33:13 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/19 10:45:14 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/03/31 15:22:31 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	search_and_unset(t_env_var *env_var, char *name)
+static void	search_and_unset(t_data *data, t_env_var *env_var, char *name)
 {
 	t_env_var	*tmp;
 
@@ -20,7 +20,7 @@ static void	search_and_unset(t_env_var *env_var, char *name)
 		&& ft_strlen(env_var->name) == ft_strlen(name))
 	{
 		tmp = env_var;
-		env_var = env_var->next;
+		data->env_variables = env_var->next;
 		free_env_var(tmp);
 	}
 	else
@@ -54,7 +54,7 @@ void	ft_unset(t_data *data, t_command *cmd)
 		env_var = data->env_variables;
 		if (exist_var(data, name) == 0 || env_var == NULL)
 			return (free(name));
-		search_and_unset(env_var, name);
+		search_and_unset(data, env_var, name);
 		free(name);
 		i++;
 	}
