@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:31:02 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/31 15:57:28 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/04/01 10:56:25 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ static int	cd_2(t_env_var *tmp_env_pwd, char **tab)
 	return (free_tab(tab), 1);
 }
 
+// si on a un souci avec PWD dans l'env
 void	cd_5(t_data *data, t_env_var *tmp_env, char *cd_path)
 {
 	if (cd_path[0] == '-' && cd_path[1] == '\0')
