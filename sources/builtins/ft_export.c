@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:08:23 by mleproux          #+#    #+#             */
-/*   Updated: 2025/03/28 12:34:57 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/04/02 10:47:10 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,11 +104,11 @@ void	ft_export(t_data *data, t_command *cmd)
 	else
 	{
 		i = 1;
+		g_exit_status = 0;
 		while (cmd->args[i] != NULL)
 		{
 			ft_export_2(data, cmd, i);
 			i++;
 		}
-		g_exit_status = 0;
 	}
 }
