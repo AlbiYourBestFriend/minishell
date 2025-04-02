@@ -6,7 +6,7 @@
 /*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:11:46 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/28 11:51:03 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/04/02 10:45:38 by tprovost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	handle_signal_exec(int sig)
 	}
 	else if (sig == SIGQUIT)
 	{
-		perror("quit (core dumped)\n");
+		ft_printf("Quit (core dumped)\n");
 		g_exit_status = sig + 128;
 	}
 }
@@ -47,6 +47,11 @@ static void	handle_signal_here_doc(int sig)
 	{
 		ft_printf("\n");
 		rl_on_new_line();
+		g_exit_status = sig + 128;
+	}
+	if (sig == SIGQUIT)
+	{
+		ft_printf("\b\b  \b\b");
 		g_exit_status = sig + 128;
 	}
 }
