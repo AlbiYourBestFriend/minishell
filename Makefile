@@ -59,6 +59,8 @@ SOURCES	=	ft_cd_utils_2.c \
 			tab_len.c \
 			unlink_tmp.c \
 			ft_close.c \
+			ft_isquote.c \
+			ft_isdir.c \
 			main.c \
 
 VPATH = sources:sources/list_handler:sources/utils:sources/parsing:sources/execute:sources/builtins
