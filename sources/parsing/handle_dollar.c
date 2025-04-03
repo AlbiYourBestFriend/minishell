@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:26:00 by tprovost          #+#    #+#             */
-/*   Updated: 2025/04/02 16:05:13 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/04/03 10:47:20 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static int	put_char_to_str(t_data *data, char *cmd, char *str, int *i_n)
 		{
 			copy_and_inc(str, &i_n[1], cmd, &i_n[0]);
 		}
-
 	}
 	str[i_n[1]] = '\0';
 	return (n);
