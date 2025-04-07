@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 11:55:36 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/28 12:51:01 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/04/02 17:17:19 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ void	wait_for_all(t_data *data)
 	while (temp != NULL)
 	{
 		waitpid(temp->pid, &status, 0);
-		g_exit_status = WEXITSTATUS(status);
+		if (WIFSIGNALED(status))
+			g_exit_status = 128 + WTERMSIG(status);
+		else
+			g_exit_status = WEXITSTATUS(status);
 		temp = temp->next;
 	}
 }
@@ -53,13 +56,15 @@ static void	command_executor_3(t_data *data, t_command *cmd)
 		free_tab(tab);
 	}
 	else
-		ft_printf("%s%s: %s\n", ERROR, cmd->args[0], NO_PERM);
+		noperm_error(NO_PERM, cmd->args[0]);
 }
 
 char	*command_executor_2(t_data *data, t_command *cmd)
 {
 	t_env_var	*tmp;
 
+	if (cmd->args[0][0] == '/' && ft_isdir(cmd->args[0]) == 1)
+		free_all_exit(data, g_exit_status);
 	if (cmd->args[0][0] == '/'
 		&& try_execute(cmd->args[0], data->env_variables, cmd->args) == 1)
 	{

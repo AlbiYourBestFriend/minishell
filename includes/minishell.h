@@ -6,7 +6,7 @@
 /*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:50:18 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/31 16:27:14 by mleproux         ###   ########.fr       */
+/*   Updated: 2025/04/02 18:01:51 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,11 +178,15 @@ int			arglen(t_data *data, char *arg);
 
 void		blankify(char *str, int start, int len);
 
+int			ft_isquote(char c);
+
 int			check_token(char *cmd_line, int i);
 
 char		*clean_cmd(char *cmd);
 
 void		copy_and_inc(char *str1, int *i, char *str2, int *j);
+
+void		noperm_error(char *err, char *filename);
 
 char		**copy_tab(char **tab);
 
@@ -194,6 +198,8 @@ void		free_env_var(t_env_var *env_var);
 void		free_tab(char **tab);
 
 void		ft_close(t_command *cmd, int x);
+
+int			ft_isdir(char *path);
 
 int			ft_is_atol(char *str);
 

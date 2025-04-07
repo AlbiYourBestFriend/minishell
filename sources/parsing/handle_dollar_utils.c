@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   handle_dollar_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 16:28:16 by tprovost          #+#    #+#             */
 /*   Updated: 2025/04/07 13:57:10 by tprovost         ###   ########.fr       */
@@ -98,7 +98,7 @@ void	put_simple_quote(char *cmd, char *str, int *i_n)
 		copy_and_inc(str, &i_n[1], cmd, &i_n[0]);
 	}
 	str[i_n[1]] = cmd[i_n[0]];
-	if (cmd[i_n[0]] == '\"')
+	if (cmd[i_n[0]] == '\'')
 	{
 		copy_and_inc(NULL, &i_n[1], NULL, &i_n[0]);
 	}

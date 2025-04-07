@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_executable.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprovost <tprovost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleproux <mleproux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 13:55:23 by tprovost          #+#    #+#             */
-/*   Updated: 2025/03/28 12:51:01 by tprovost         ###   ########.fr       */
+/*   Updated: 2025/04/02 17:02:27 by mleproux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	exec_executable_2(t_data *data, t_command *cmd, t_env_var *tmp)
 	if (access(path, F_OK) == 0)
 	{
 		if (access(path, X_OK) == -1)
-			return (free(path), nofile_error(NO_PERM, cmd->args[0]), \
+			return (free(path), noperm_error(NO_PERM, cmd->args[0]), \
 				free_all_exit(data, 126));
 		tab = lst_to_tab(data->env_variables);
 		if (tab == NULL)
@@ -58,6 +58,7 @@ void	exec_executable(t_data *data, t_command *cmd)
 {
 	t_env_var	*tmp;
 
+	write(1, "g", 1);
 	if (try_execute(&cmd->args[0][1], \
 	data->env_variables, cmd->args) == 0)
 	{
